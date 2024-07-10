@@ -6,7 +6,7 @@ import HomeView from "@/views/HomeView.vue";
 </script >
 
 <template >
-  <div class="bg-[#E9F0F5]" >
+  <div class="bg-custom-gradient" >
     <Navbar />
     <router-view />
       <div class="bg-white font-[AnonymousPro] " >

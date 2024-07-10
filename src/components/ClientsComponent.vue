@@ -26,10 +26,10 @@ defineProps(
     <img
         :alt="alt" :src="image"
         :title="name"
-        class="w-40 h-40 rounded-3xl " >
+        class="w-12 h-12 lg:w-20 lg:h-20 xl:w-40 xl:h-40 rounded-3xl " >
     <div class="p-4 text-center" >
-      <p class="mt-1 text-xl text-neutral-900 flex justify-center text-start" >{{ name }}</p >
-      <p class="text-base mt-1 text-neutral-700 flex justify-center text-start" >{{ role }}</p >
+      <p class="mt-1 md:text-md font-bold xl:text-xl text-neutral-900 flex justify-center text-start" >{{ name }}</p >
+      <p class="md:text-sm xl:text-base mt-1 text-neutral-700 flex justify-center text-start" >{{ role }}</p >
     </div >
   </div >
 </template >

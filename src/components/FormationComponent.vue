@@ -1,6 +1,6 @@
 <template >
   <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-    <span class="text-base sm:text-xl underline my-2 flex justify-center" >Formation</span >
+    <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Formation</span >
     <ol class="items-center sm:flex m-3" >
       <li class="relative mb-6 sm:mb-0" >
         <div class="flex items-center" >

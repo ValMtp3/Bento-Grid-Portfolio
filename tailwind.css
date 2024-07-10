@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .bg-custom-gradient {
+        background: hsla(205, 38%, 94%, 1);
+        background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        background: -webkit-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
+    }
+}

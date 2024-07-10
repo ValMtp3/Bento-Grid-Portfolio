@@ -6,8 +6,7 @@ import FormationComponent from "@/components/FormationComponent.vue";
 import MaitriseComponent from "@/components/MaitriseComponent.vue";
 import ProjetsComponent from "@/components/ProjetsComponent.vue";
 import ClientsComponent from "@/components/ClientsComponent.vue";
-import ContactFormsComponent from "@/components/ContactFormsComponent.vue";
-import { projets } from '@/data/projets.js';
+import {projets} from '@/data/projets.js';
 
 const languages = [
   {alt: "Logo HTML5", image: "/assets/HTML-removebg.webp", title: "HTML"},
@@ -42,28 +41,28 @@ function toggleProjetsAffichage() {
 }
 </script >
 
-<template >
-  <div class="pt-4 px-4 pb-2" >
-    <div class="flex justify-arround space-x-4" >
-      <PresentationComponent />
-      <ContactComponent />
-    </div >
-  </div >
+<template>
+  <div class="pt-4 px-4 pb-2">
+    <div class="flex flex-col xl:flex-row xl:justify-around xl:space-x-4 space-y-4 md:mb-4 xl:mb-0">
+      <PresentationComponent class="min-h-full" />
+      <ContactComponent class="min-h-full" />
+    </div>
+  </div>
   <div class="px-4 py-2" >
     <FormationComponent />
   </div >
   <div class="px-4 py-2" >
-    <div class="flex justify-arround space-x-4" >
+    <div class="flex flex-col xl:flex-row xl:justify-around space-y-4 xl:space-x-4" >
       <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-        <span class="text-base sm:text-xl underline my-2 flex justify-center" >Maitrise</span >
+        <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Maitrise</span >
         <div class="grid grid-cols-4 gap-12 m-2 justify-items-center items-center h-full" >
           <MaitriseComponent v-for="lang in languages" :key="lang.name" v-bind="lang" />
           <span > À venir ...</span >
         </div >
       </div >
       <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-        <span class="text-base sm:text-xl underline my-2 flex justify-center" >Projets</span >
-        <div class="grid grid-cols-2 space-x-12 m-2 justify-items-center items-center h-full" >
+        <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Projets</span >
+        <div class="grid grid-cols-2 mr-12 m-2 justify-items-center items-center h-full" >
           <ProjetsComponent v-for="pro in projets.slice(0, projetsAffiches)" :key="pro.name" v-bind="pro" />
           <button class="text-3xl font-bold m-20 col-span-2 cursor-pointer" @click="toggleProjetsAffichage" >
             {{ projetsAffiches < projets.length ? 'Voir +' : 'Voir -' }}
@@ -74,15 +73,16 @@ function toggleProjetsAffichage() {
   </div >
   <div class="px-4 pt-2 pb-4" >
     <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-      <span class="text-base sm:text-xl underline my-2 flex justify-center" >Entreprise avec lesquels j’ai travaillé</span >
-      <div class="flex justify-around">
+      <span
+          class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Entreprise avec lesquels j’ai travaillé</span >
+      <div class="flex justify-around" >
         <ClientsComponent v-for="cl in clients" :key="cl.name" v-bind="cl" />
       </div >
     </div >
   </div >
-<!--  <div class="px-4 py-2 " >-->
-<!--    <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >-->
-<!--    <ContactFormsComponent />-->
-<!--    </div >-->
-<!--  </div>-->
+  <!--  <div class="px-4 py-2 " >-->
+  <!--    <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >-->
+  <!--    <ContactFormsComponent />-->
+  <!--    </div >-->
+  <!--  </div>-->
 </template >

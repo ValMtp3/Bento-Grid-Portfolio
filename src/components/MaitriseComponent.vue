@@ -15,14 +15,11 @@ defineProps({
 })
 </script >
 
-<template >
-  <div >
-    <img
-        :alt="alt" :src="image"
-        :title="title"
-        class="w-32 h-32" >
-    <div class="p-4 text-center" >
-      <p class="mt-1 text-xl text-neutral-900 flex justify-center text-start" >{{ title }}</p >
-    </div >
-  </div >
-</template >
+<template>
+  <div class="flex flex-col xl:flex-col items-center justify-center">
+    <img :alt="alt" :src="image" :title="title" class="w-10 h-10 lg:w-16 lg:h-16 xl:w-32 xl:h-32">
+    <div class="p-4 text-center">
+      <p class="mt-1 text-xl text-neutral-900">{{ title }}</p>
+    </div>
+  </div>
+</template>

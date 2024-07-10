@@ -1,7 +1,7 @@
 
 <template >
   <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-    <div class="m-10  flex justify-between" >
+    <div class="flex flex-col items-center xl:flex-row xlm:justify-between m-10">
       <div class=" mb-6 sm:mb-0" >
         <img
             alt="photo Valentin Fiess"
