@@ -64,7 +64,7 @@ function toggleProjetsAffichage() {
         <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Projets</span >
         <div class="grid grid-cols-2 mr-12 m-2 justify-items-center items-center h-full" >
           <ProjetsComponent v-for="pro in projets.slice(0, projetsAffiches)" :key="pro.name" v-bind="pro" />
-          <button class="text-3xl font-bold m-20 col-span-2 cursor-pointer" @click="toggleProjetsAffichage" >
+          <button class="text-3xl font-bold m-20 col-span-2 cursor-pointer  " @click="toggleProjetsAffichage" >
             {{ projetsAffiches < projets.length ? 'Voir +' : 'Voir -' }}
           </button >
         </div >

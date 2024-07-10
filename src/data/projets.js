@@ -45,7 +45,7 @@ export const projets  = [
         date: "Novembre 2022",
         team: "Groupe de classe",
         description: "Refonte d'un site web d'hotel avec base de données intégrée, développé en HTML, CSS, JavaScript, PHP et MySQL",
-        descriptionlongue: "Refonte d'un site web d'hotel avec gestion de base de données MySQL, développé en HTML, CSS, JavaScript et PHP .",
+        descriptionlongue: "Refonte d'un site web d'hotel avec gestion de base de données MySQL, développé en HTML, CSS, JavaScript et PHP.",
         src: "https://github.com/HotelNeptune/Application/tree/dev",
         name: "Neptune",
     },
