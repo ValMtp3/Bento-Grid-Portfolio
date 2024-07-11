@@ -111,7 +111,6 @@ Les contributions sont les bienvenues ! Si tu souhaites ajouter des fonctionnali
 - **Valentin Fiess** - *Développeur principal* - [ValMtp3](https://github.com/ValMtp3)
 - Voila mon portfolio [Portfolio](https://valentin-fiess.fr)
 
----
+##
 
 Merci d'avoir jeté un œil à mon portfolio ! J'espère qu'il te plaira autant que j'ai pris plaisir à le créer.
-```
