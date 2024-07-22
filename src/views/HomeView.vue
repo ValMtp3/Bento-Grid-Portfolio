@@ -6,6 +6,7 @@ import FormationComponent from "@/components/FormationComponent.vue";
 import MaitriseComponent from "@/components/MaitriseComponent.vue";
 import ProjetsComponent from "@/components/ProjetsComponent.vue";
 import ClientsComponent from "@/components/ClientsComponent.vue";
+import ContactFormsComponent from "@/components/ContactFormsComponent.vue";
 import {projets} from '@/data/projets.js';
 
 const languages = [
@@ -80,9 +81,9 @@ function toggleProjetsAffichage() {
       </div >
     </div >
   </div >
-  <!--  <div class="px-4 py-2 " >-->
-  <!--    <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >-->
-  <!--    <ContactFormsComponent />-->
-  <!--    </div >-->
-  <!--  </div>-->
+    <div class="px-4 py-2 " >
+      <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
+      <ContactFormsComponent />
+      </div >
+    </div>
 </template >

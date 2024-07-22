@@ -1,31 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr" >
-<head >
-    <meta charset="UTF-8" >
-    <link href="/assets/val.ico" rel="icon" >
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" >
-    <title >Valentin Fiess</title >
-    <link href="/assets/output.css" rel="stylesheet" >
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="/assets/assets_index/val.ico" rel="icon">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Valentin Fiess</title>
+
+    <!-- CSS -->
+    <link href="/assets/assets_index/output.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script defer src="public/assets/JS/javascript.js"></script>
+
+    <!-- Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init('9bBLpgzvqPBPEovHR');
+        })();
+    </script>
+
     <!-- Font -->
-    <style >
+    <style>
         @font-face {
             font-family: "AnonymousPro";
             src: url(/assets/Font/Anonymous_Pro/AnonymousPro-Bold.ttf);
             font-weight: 700;
             font-display: swap;
         }
-    </style >
-    <style >
+    </style>
+    <style>
         @font-face {
             font-family: "AnonymousPro";
             src: url(/assets/Font/Anonymous_Pro/AnonymousPro-Regular.ttf);
             font-weight: 400;
             font-display: swap;
         }
-    </style >
-</head >
-<body >
-<div id="app" ></div >
-<script src="/src/main.js" type="module" ></script >
-</body >
-</html >
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="/src/main.js" type="module"></script>
+</body>
+
+</html>

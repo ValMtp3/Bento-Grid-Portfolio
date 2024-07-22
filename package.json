@@ -10,6 +10,8 @@
     "tailwind": "tailwindcss -i ./tailwind.css -o public/assets/output.css --watch"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "js-cookie": "^3.0.5",
     "vue": "^3.4.21",
     "vue-router": "^4.4.0"
   },
