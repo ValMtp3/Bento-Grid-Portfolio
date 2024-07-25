@@ -2,28 +2,56 @@
 <html lang="fr">
 
 <head>
+    <!-- Important info + SEO -->
+    <title>Valentin Fiess | Portfolio | Développeur web</title>
+    <meta name="title" content="Valentin Fiess | Portfolio développeur web">
     <meta charset="UTF-8">
-    <link href="/assets/assets_index/val.ico" rel="icon">
+    <meta name="description" content="Je suis un développeur web passionné par la création de sites web. Découvrez mon portfolio
+        pour en savoir plus sur mes compétences et mes projets en cours...">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Valentin Fiess</title>
+    <meta content="Valentin Fiess" name="author">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link href="/assets/assets_index/val.ico" rel="icon" type="image/ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/assets_index/Profile2.jpeg">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Valentin Fiess | Portfolio">
+    <meta property="og:description" content="Je suis un développeur web passionné par la création de sites web. Découvrez mon portfolio
+        pour en savoir plus sur mes compétences et mes projets en cours...">
+    <meta property="og:image" content="https://www.valentin-fiess.fr/assets/assets_index/Profile.webp">
+    <meta property="og:url" content="https://www.valentin-fiess.fr/">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://www.valentin-fiess.fr/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Valentin Fiess | Portfolio">
+    <meta property="og:description" content="Je suis un développeur web passionné par la création de sites web. Découvrez mon portfolio
+            pour en savoir plus sur mes compétences et mes projets en cours...">
+    <meta property="og:image" content="https://www.valentin-fiess.fr/assets/assets_index/Profile.webp">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="valentin-fiess.fr">
+    <meta property="twitter:url" content="https://www.valentin-fiess.fr/">
+    <meta name="twitter:site" content="@WyqBzm">
+    <meta name="twitter:title" content="Valentin Fiess | Portfolio">
+    <meta name="twitter:description" content="Je suis un développeur web passionné par la création de sites web. Découvrez mon portfolio
+            pour en savoir plus sur mes compétences et mes projets en cours...">
+    <meta name="twitter:image" content="https://www.valentin-fiess.fr/assets/assets_index/Profile.webp">
 
     <!-- CSS -->
-    <link href="/assets/assets_index/output.css" rel="stylesheet">
+    <link href="/assets/css/output.css" rel="stylesheet">
 
     <!-- JS -->
-    <script defer src="public/assets/JS/javascript.js"></script>
-
-    <!-- Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="public/assets/JS/javascript.js" type="module"></script>
 
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
     </script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init('9bBLpgzvqPBPEovHR');
-        })();
-    </script>
+    <script type="module" src="public/assets/JS/initEmailJS.js"></script>
 
     <!-- Font -->
     <style>

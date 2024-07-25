@@ -6,7 +6,7 @@
         <img
             alt="photo Valentin Fiess"
             class="rounded-3xl object-cover shadow-xl shadow-black/40 h-72 w-72"
-            src="/public/assets/Profile.webp" />
+            src="/assets/assets_index/Profile.webp" />
       </div >
       <div class="text-center">
         <h1 class="text-xl sm:text-3xl font-regular mx-20

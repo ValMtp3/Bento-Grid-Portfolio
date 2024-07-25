@@ -1,7 +1,7 @@
-export const projets  = [
+export const projets = [
     {
         alt: "Logo VueJS",
-        image: "/assets/VueJS.webp",
+        image: "/assets/assets_index/VueJS.webp",
         date: "Décembre 2023",
         team: "Valentin Fiess",
         description: "Découverte de VueJS avec routage, connexion a un webhook et affichage d'une API",
@@ -11,7 +11,7 @@ export const projets  = [
     },
     {
         alt: "Logo HarmoniSound",
-        image: "/assets/HarmoniSound.webp",
+        image: "/assets/assets_index/HarmoniSound.webp",
         date: "Novembre 2023",
         team: "Valentin Fiess",
         description: "Découverte de PHP Symfony à travers la création d'une bibliothèque musicale intégrant des fonctionnalités CRUD et une base de données",
@@ -21,7 +21,7 @@ export const projets  = [
     },
     {
         alt: "Logo ProSwipe",
-        image: "/assets/ProSwipe.webp",
+        image: "/assets/assets_index/ProSwipe.webp",
         date: "Septembre 2023",
         team: "Groupe de classe",
         description: "Projet de création d'entreprise fictive de mise en relation entre étudiant et professionnel avec fonctionnalité de swipe en PHP, HTML et CSS ",
@@ -31,7 +31,7 @@ export const projets  = [
     },
     {
         alt: "Logo Pizza O'Plomo",
-        image: "/assets/pizzaoplomo.webp",
+        image: "/assets/assets_index/pizzaoplomo.webp",
         date: "Février 2022",
         team: "Groupe de classe",
         description: " Création d'un projet complet avec site web, MCD, SEO, Emailing et SMO développé en HTML, CSS, JavaScript et PHP",
@@ -41,7 +41,7 @@ export const projets  = [
     },
     {
         alt: "Logo Hotel Neptune",
-        image: "/assets/HotelNeptune.webp",
+        image: "/assets/assets_index/HotelNeptune.webp",
         date: "Novembre 2022",
         team: "Groupe de classe",
         description: "Refonte d'un site web d'hotel avec base de données intégrée, développé en HTML, CSS, JavaScript, PHP et MySQL",
@@ -51,7 +51,7 @@ export const projets  = [
     },
     {
         alt: "Damso",
-        image: "/assets/Ipseite1.webp",
+        image: "/assets/assets_index/Ipseite1.webp",
         date: "Septembre 2022",
         team: "Valentin Fiess",
         description: "Premier projet html/css sur la page web d'un artiste ici Damso",
