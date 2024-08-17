@@ -1,7 +1,6 @@
-<script setup >
-import {onMounted, ref, watch} from 'vue';
+<script setup>
+import { onMounted, ref, watch } from 'vue';
 import emailjs from '@emailjs/browser';
-import Cookies from 'js-cookie';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -67,66 +66,66 @@ const onSubmit = (r) => {
 
 const sendFeedback = (serviceId, templateId, variables) => {
   emailjs
-      .send(serviceId, templateId, variables, apikey)
-      .then((res) => {
-        console.log('Email successfully sent!');
-      })
-      .catch((err) => {
-        console.error('Il y a une erreur', err);
-      });
+    .send(serviceId, templateId, variables, apikey)
+    .then((res) => {
+      console.log('Email successfully sent!');
+    })
+    .catch((err) => {
+      console.error('Il y a une erreur', err);
+    });
 };
 const sanitizeInput = (input) => {
   input = input.trim();
   return input;
 };
-</script >
+</script>
 
-<template >
-  <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit" >
-    <div class=" mb-5 p-2" >
-      <label class="mb-3 block text-base font-medium text-black" for="name" >
+<template>
+  <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
+    <div class=" mb-5 p-2">
+      <label class="mb-3 block text-base font-medium text-black" for="name">
         Prénom Nom
-      </label >
+      </label>
       <input id="name" v-model="name" :required="name === ''"
-             class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
-             name="name" placeholder="Prénom Nom" type="text" />
-      <span v-if="errors.name" class="text-red-500" >{{ errors.name }}</span >
-    </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="email" >
+        class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
+        name="name" placeholder="Prénom Nom" type="text" />
+      <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
+    </div>
+    <div class="mb-5">
+      <label class="mb-3 block text-base font-medium text-black" for="email">
         Adresse Mail
-      </label >
+      </label>
       <input id="email" v-model="email" :required="email === ''"
-             class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
-             name="email" placeholder="example@domain.com" type="email" />
-      <span v-if="errors.email" class="text-red-500" >{{ errors.email }}</span >
-    </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="subject" >
+        class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
+        name="email" placeholder="example@domain.com" type="email" />
+      <span v-if="errors.email" class="text-red-500">{{ errors.email }}</span>
+    </div>
+    <div class="mb-5">
+      <label class="mb-3 block text-base font-medium text-black" for="subject">
         Sujet
-      </label >
+      </label>
       <input id="subject" v-model="subject" :required="subject === ''"
-             class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
-             name="subject" placeholder="Entrer votre sujet" type="text" />
-      <span v-if="errors.subject" class="text-red-500" >{{ errors.subject }}</span >
-    </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="message" >
+        class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
+        name="subject" placeholder="Entrer votre sujet" type="text" />
+      <span v-if="errors.subject" class="text-red-500">{{ errors.subject }}</span>
+    </div>
+    <div class="mb-5">
+      <label class="mb-3 block text-base font-medium text-black" for="message">
         Message
-      </label >
+      </label>
       <textarea id="message" v-model="message" :required="message === ''"
-                class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
-                name="message" placeholder="Entrer votre message" rows="4" ></textarea >
-      <span v-if="errors.message" class="text-red-500" >{{ errors.message }}</span >
-    </div >
-    <div class="flex justify-center" >
+        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
+        name="message" placeholder="Entrer votre message" rows="4"></textarea>
+      <span v-if="errors.message" class="text-red-500">{{ errors.message }}</span>
+    </div>
+    <div class="flex justify-center">
       <button class="hover:shadow-form rounded-md bg-blue-400 py-3 px-8 text-base font-semibold text-white outline-none"
-              type="submit" >
+        type="submit">
         Envoyer
-      </button >
-    </div >
-  </form >
-  <div v-else >
-    <p class="text-center text-lime-500 p-8 text-xl">Votre message a été envoyé avec succès !</p >
-  </div >
-</template >
+      </button>
+    </div>
+  </form>
+  <div v-else>
+    <p class="text-center text-lime-500 p-8 text-xl">Votre message a été envoyé avec succès !</p>
+  </div>
+</template>

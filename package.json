@@ -4,15 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm-run-all --parallel vite tailwind",
+    "vite": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tailwind": "tailwindcss -i ./tailwind.css -o public/assets/assets_index/output.css --watch"
+    "tailwind": "tailwindcss -i ./tailwind.css -o public/assets/css/output.css --watch"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "js-cookie": "^3.0.5",
-    "vue": "^3.4.21",
+    "npm-run-all": "^4.1.5",
+    "vue": "^3.4.38",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
