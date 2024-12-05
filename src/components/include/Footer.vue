@@ -10,7 +10,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <div class="col-span-1">
             <h1 class="text-3xl text-neutral-900 font-bold">Liens utiles</h1>
-            <ul class="mt-5 grid grid-cols-2 gap-4">
+            <ul class="mt-5 grid grid-cols-3 gap-4">
               <li class="text-lg text-neutral-900 font-light">
                 <router-link to="/" class="hover:underline" @click.native="scrollToTop">Acceuil</router-link>
               </li>
@@ -23,6 +23,10 @@
               <li class="text-lg text-neutral-900 font-light">
                 <router-link to="/legal" class="hover:underline" @click.native="scrollToTop">Mention
                   légales</router-link>
+              </li>
+              <li class="text-lg text-neutral-900 font-light">
+                <router-link to="/policy" class="hover:underline " @click.native="scrollToTop">Politique
+                  confidentialité</router-link>
               </li>
             </ul>
           </div>
