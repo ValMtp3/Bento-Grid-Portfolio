@@ -1,5 +1,15 @@
 export const projets = [
     {
+        alt: "Logo Chiffremento",
+        image: "/assets/assets_index/Chiffremento.webp",
+        date: "Novembre 2024",
+        team: "Valentin Fiess",
+        description: "Projet perso d'application de chiffrement et de dechiffrement de fichier",
+        descriptionlongue: "Projet perso d'application cli de chiffrement et de dechiffrement de fichier en python et en utilisant la biblioteque cryptography",
+        src: "https://github.com/ValMtp3/Chiffremento",
+        name: "Chiffremento",
+    },
+    {
         alt: "Logo VueJS",
         image: "/assets/assets_index/VueJS.webp",
         date: "Décembre 2023",
