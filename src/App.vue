@@ -1,17 +1,13 @@
-<script setup>
-import { RouterView } from 'vue-router'
-import Navbar from './components/include/Navbar.vue'
+<script setup >
+import {RouterView} from 'vue-router'
 import Footer from './components/include/Footer.vue'
-import CookieBanner from './components/include/CookieBanner.vue';
-</script>
+</script >
 
-<template>
-  <div class="bg-custom-gradient">
-    <Navbar />
+<template >
+  <div class="bg-custom-gradient" >
     <router-view />
-    <div class="bg-white font-[AnonymousPro] ">
-      <CookieBanner />
+    <div class="bg-white font-[AnonymousPro] " >
       <Footer />
-    </div>
-  </div>
-</template>
+    </div >
+  </div >
+</template >
