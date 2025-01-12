@@ -10,7 +10,7 @@
       <div class="text-center" >
         <h1 class="text-xl sm:text-3xl font-regular mx-20
 mb-6 font-bold " >Valentin Fiess</h1 >
-        <h2 class=" text-base sm:text-lg underline mx-20 mb-6" >Développeur Web / IA</h2 >
+        <h2 class=" text-base sm:text-lg underline mx-20 mb-6 " >Développeur Web/IA</h2 >
         <h3 class="max-w-md  px-10" >
           J'ai 22 ans et je suis un développeur débutant à Montpellier et etudiant a l’EPSI, je m'intéresse aux
           nouvelles technologies, notamment celle du web et de l’IA.
