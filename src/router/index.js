@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import LegalView from '@/views/LegalView.vue';
 import StackView from '@/views/StackView.vue';

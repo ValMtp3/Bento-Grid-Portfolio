@@ -5,7 +5,7 @@
         Ce site utilise des cookies pour améliorer votre expérience utilisateur et collecter des statistiques
         anonymes. Pour en savoir plus, consultez notre <a class="text-blue-400 underline"
                                                           href="/policy" >Politique de
-                                                                                           Confidentialité</a >.
+                                                                          Confidentialité</a >.
       </p >
       <div class="flex" >
         <button id="accept-cookies"
