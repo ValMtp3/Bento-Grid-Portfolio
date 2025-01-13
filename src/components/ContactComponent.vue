@@ -1,6 +1,6 @@
 <template >
   <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-    <div class="grid grid-cols-2 gap-12 m-2 justify-items-center items-center h-full">
+    <div class="grid grid-cols-2 gap-12 m-2 justify-items-center items-center h-full" >
       <a href="/assets/assets_index/CV.pdf" target="_blank" title="CV" >
         <img
             alt="CV"
