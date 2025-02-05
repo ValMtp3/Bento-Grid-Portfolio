@@ -88,7 +88,7 @@ function toggleProjetsAffichage() {
     </div >
   </div >
   <div class="px-4 py-2 " >
-    <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
+    <div class="bg-white font-[AnonymousPro] p-4 rounded-3xl w-full max-w-none" >
       <ContactFormsComponent />
     </div >
   </div >

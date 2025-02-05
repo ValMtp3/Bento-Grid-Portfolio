@@ -83,17 +83,17 @@ const sanitizeInput = (input) => {
 
 <template >
   <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit" >
-    <div class=" mb-5 p-2" >
-      <label class="mb-3 block text-base font-medium text-black" for="name" >
-        Prénom Nom
+    <div class=" mb-3" >
+      <label class="mb-1 block text-base font-medium text-black" for="name" >
+        Prénom Nom :
       </label >
       <input id="name" v-model="name" :required="name === ''"
              class="w-full rounded-xl m-2 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-blue-900 focus:shadow-md"
              name="name" placeholder="Prénom Nom" type="text" />
       <span v-if="errors.name" class="text-red-500" >{{ errors.name }}</span >
     </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="email" >
+    <div class="mb-3" >
+      <label class="mb-1 block text-base font-medium text-black" for="email" >
         Adresse Mail
       </label >
       <input id="email" v-model="email" :required="email === ''"
@@ -101,8 +101,8 @@ const sanitizeInput = (input) => {
              name="email" placeholder="example@domain.com" type="email" />
       <span v-if="errors.email" class="text-red-500" >{{ errors.email }}</span >
     </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="subject" >
+    <div class="mb-3" >
+      <label class="mb-1 block text-base font-medium text-black" for="subject" >
         Sujet
       </label >
       <input id="subject" v-model="subject" :required="subject === ''"
@@ -110,8 +110,8 @@ const sanitizeInput = (input) => {
              name="subject" placeholder="Entrer votre sujet" type="text" />
       <span v-if="errors.subject" class="text-red-500" >{{ errors.subject }}</span >
     </div >
-    <div class="mb-5" >
-      <label class="mb-3 block text-base font-medium text-black" for="message" >
+    <div class="mb-3" >
+      <label class="mb-1 block text-base font-medium text-black" for="message" >
         Message
       </label >
       <textarea id="message" v-model="message" :required="message === ''"
