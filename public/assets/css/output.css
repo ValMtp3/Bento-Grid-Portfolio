@@ -912,6 +912,11 @@ video {
     margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.divide-black > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-opacity: 1;
+    border-color: rgb(0 0 0 / var(--tw-divide-opacity, 1));
+}
+
 .overflow-hidden {
     overflow: hidden;
 }
@@ -1223,6 +1228,11 @@ video {
 .text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-sky-400 {
+    --tw-text-opacity: 1;
+    color: rgb(56 189 248 / var(--tw-text-opacity, 1));
 }
 
 .underline {

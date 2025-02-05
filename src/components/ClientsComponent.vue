@@ -1,8 +1,8 @@
 <script setup >
 import {Swiper, SwiperSlide} from 'swiper/vue';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import {Pagination} from 'swiper/modules';
+import 'swiper/css/navigation';
+import {Navigation} from 'swiper/modules';
 
 defineProps({
   clients: {
@@ -21,14 +21,11 @@ defineProps({
         1025: { slidesPerView: 3, spaceBetween: 30 }
       }"
         :loop="true"
-        :modules="[Pagination]"
-        :pagination="{ clickable: true }"
+        :modules="[Navigation]"
+        :navigation="{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }"
         class="mySwiper"
     >
-      <SwiperSlide
-          v-for="(client, idx) in clients"
-          :key="idx"
-      >
+      <SwiperSlide v-for="(client, idx) in clients" :key="idx" >
         <div class="flex flex-col items-center" >
           <img
               :alt="client.alt"
@@ -42,6 +39,15 @@ defineProps({
           </div >
         </div >
       </SwiperSlide >
+      <div class="swiper-button-next " ></div >
+      <div class="swiper-button-prev " ></div >
     </Swiper >
   </div >
 </template >
+
+<style >
+.swiper-button-next,
+.swiper-button-prev {
+  color: #50A2FF;
+}
+</style >
