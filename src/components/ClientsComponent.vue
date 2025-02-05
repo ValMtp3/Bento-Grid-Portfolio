@@ -1,35 +1,47 @@
 <script setup >
-defineProps(
-    {
-      alt: {
-        type: String,
-        required: true
-      },
-      image: {
-        type: String,
-        required: true
-      },
-      name: {
-        type: String,
-        required: true
-      },
-      role: {
-        type: String,
-        required: true
-      },
-    }
-)
+import {Swiper, SwiperSlide} from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import {Pagination} from 'swiper/modules';
+
+defineProps({
+  clients: {
+    type: Array,
+    required: true
+  }
+});
 </script >
 
 <template >
-  <div class="flex flex-col items-center" >
-    <img
-        :alt="alt" :src="image"
-        :title="name"
-        class="w-12 h-12 lg:w-20 lg:h-20 xl:w-40 xl:h-40 rounded-3xl " >
-    <div class="p-4 text-center" >
-      <p class="mt-1 md:text-md font-bold xl:text-xl text-neutral-900 flex justify-center text-start" >{{ name }}</p >
-      <p class="md:text-sm xl:text-base mt-1 text-neutral-700 flex justify-center text-start" >{{ role }}</p >
-    </div >
+  <div class="w-full max-w-screen-lg mx-auto overflow-hidden" >
+    <Swiper
+        :breakpoints="{
+        320: { slidesPerView: 1, spaceBetween: 10 },
+        641: { slidesPerView: 2, spaceBetween: 20 },
+        1025: { slidesPerView: 3, spaceBetween: 30 }
+      }"
+        :loop="true"
+        :modules="[Pagination]"
+        :pagination="{ clickable: true }"
+        class="mySwiper"
+    >
+      <SwiperSlide
+          v-for="(client, idx) in clients"
+          :key="idx"
+      >
+        <div class="flex flex-col items-center" >
+          <img
+              :alt="client.alt"
+              :src="client.image"
+              :title="client.name"
+              class="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-3xl"
+          />
+          <div class="p-4 text-center" >
+            <p class="mt-1 text-md font-bold text-neutral-900" >{{ client.name }}</p >
+            <h2 class="text-sm text-neutral-700 mt-1" >{{ client.role }}</h2 >
+          </div >
+        </div >
+      </SwiperSlide >
+    </Swiper >
   </div >
 </template >
