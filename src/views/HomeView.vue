@@ -83,7 +83,7 @@ function toggleProjetsAffichage() {
       <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Entreprise avec lesquelles j’ai
         travaillé</span >
       <div class="flex justify-around" >
-        <ClientsComponent v-for="cl in clients" :key="cl.name" v-bind="cl" />
+        <ClientsComponent :clients="clients" />
       </div >
     </div >
   </div >
