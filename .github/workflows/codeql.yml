@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze JavaScript/TypeScript
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [javascript-typescript]  # Assurez-vous que c'est bien 'javascript-typescript'
+        language: [javascript-typescript]  # Analyse uniquement JavaScript/TypeScript
 
     steps:
     - name: Checkout repository
