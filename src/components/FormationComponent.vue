@@ -102,20 +102,17 @@
                   d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
             </svg >
           </div >
-          <span class="mx-2 text-sm text-nowrap" >2022-2024</span >
+          <span class="mx-2 text-sm text-nowrap" >2022-2025</span >
           <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700" ></div >
         </div >
         <div class="mt-3 sm:pe-8" >
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight" >Service Informatique aux
-                                                                                         Organisations
-
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight" >Licence Informatique (3ème année)
 
           </h3 >
           <time class="block text-md font-normal leading-none text-gray-700 dark:text-gray-500" >EPSI Montpellier
 
           </time >
-          <p class="text-base font-normal text-gray-400 dark:text-gray-400" >2ème année de BTS S.I.O
-
+          <p class="text-base font-normal text-gray-400 dark:text-gray-400" >En cours de Licence à l'EPSI (3ème année)
 
           </p >
         </div >
