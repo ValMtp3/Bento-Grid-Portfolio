@@ -1,32 +1,41 @@
-<script setup >
-import {ref} from 'vue';
-import {projets} from '@/data/projets.js';
+<script setup>
+import { ref } from 'vue';
+import { projets } from '@/data/projets.js';
 
 const projetsAffiches = ref(projets);
-</script >
+</script>
 
-<template >
-  <div class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24" >
-    <div v-for="proj in projetsAffiches" :key="proj.name" class="p-4" >
+<template>
+  <div
+    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24 dark:bg-dark-bg"
+  >
+    <div
+      v-for="proj in projetsAffiches"
+      :key="proj.name"
+      class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md"
+    >
       <img
-          :alt="proj.alt" :src="proj.image"
-          class="mx-auto mb-4 md:mb-6 lg:mb-10 rounded-xl w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"
-          loading="lazy"
-      >
-      <p class="text-primary-500 text-xs md:text-sm font-light text-center" >
+        :alt="proj.alt"
+        :src="proj.image"
+        class="mx-auto mb-4 md:mb-6 lg:mb-10 rounded-xl w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"
+        loading="lazy"
+      />
+      <p class="text-primary-500 text-xs md:text-sm font-light text-center dark:text-blue-300">
         {{ proj.team }} •
-        <time >{{ proj.date }}</time >
-      </p >
-      <div class="p-4 text-center px-6 md:px-8 lg:px-10" >
-        <p class="mt-1 text-base md:text-lg lg:text-xl text-neutral-900" >{{ proj.descriptionlongue }}</p >
-        <a :href="proj.src" target="_blank" >
+        <time>{{ proj.date }}</time>
+      </p>
+      <div class="p-4 text-center px-6 md:px-8 lg:px-10">
+        <p class="mt-1 text-base md:text-lg lg:text-xl text-neutral-900 dark:text-white">
+          {{ proj.descriptionlongue }}
+        </p>
+        <a :href="proj.src" target="_blank">
           <button
-              class="ml-auto transform hover:scale-110 motion-reduce:transform-none
-              font-light rounded-xl p-2 m-2 md:m-4 lg:m-5 underline" >
+            class="ml-auto transform hover:scale-110 motion-reduce:transform-none font-light rounded-xl p-2 m-2 md:m-4 lg:m-5 underline text-primary-500 dark:text-blue-300"
+          >
             {{ proj.name }}
-          </button >
-        </a >
-      </div >
-    </div >
-  </div >
-</template >
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,7 +1,7 @@
-<script setup >
+<script setup></script>
 
-</script >
-
-<template >
-
-</template >
+<template>
+  <nav>
+    <!-- Navbar vide pour l'instant -->
+  </nav>
+</template>
