@@ -1,5 +1,40 @@
 export const projets = [
   {
+    alt: 'Logo WildLens',
+    image: '/assets/assets_index/WildLens.webp',
+    date: 'Décembre 2024',
+    team: 'Cedric Sanchez, Valentin Fiess, Jason Tchaga, Louis Gardet',
+    description:
+      'Application de reconnaissance de traces de pas d’animaux avec pipeline ETL et entraînement d’un modèle.',
+    descriptionlongue:
+      'Application complète de reconnaissance de traces de pas d’animaux. Pipeline ETL pour le traitement des images, génération de métadonnées enrichies avec comparaison entre Mistral et Gemini, puis entraînement d’un modèle de classification basé sur MobileNetV3Small.',
+    src: 'https://github.com/CedricSanchezGithub/ETL',
+    name: 'WildLens',
+  },
+  {
+    alt: 'Logo Fakenews Detection',
+    image: '/assets/assets_index/FakeNewsDetection.webp',
+    date: 'Juin 2025',
+    team: 'Valentin Fiess',
+    description: 'Pipeline de détection de fake news avec classification de texte en Python.',
+    descriptionlongue:
+      'Pipeline complet de détection de fake news utilisant le machine learning pour la classification de texte. Projet réalisé en Jupyter Notebook avec Python et des bibliothèques de data science.',
+    src: 'https://github.com/ValMtp3/Fakenews-detection',
+    name: 'Fakenews Detection',
+  },
+  {
+    alt: 'Logo Allociné',
+    image: '/assets/assets_index/Allociné.webp',
+    date: 'Juin 2025',
+    team: 'Valentin Fiess',
+    description:
+      'Analyse de sentiment sur le dataset IMDB/Allociné avec des modèles de machine learning.',
+    descriptionlongue:
+      "Projet d'analyse de sentiment sur le dataset IMDB/Allociné. Utilisation de modèles de machine learning et de transformers pour classifier les avis. Réalisé en Jupyter Notebook avec Python.",
+    src: 'https://github.com/ValMtp3/sentiment-analysis-allocine',
+    name: 'Sentiment Analysis Allociné',
+  },
+  {
     alt: 'Logo Chiffremento',
     image: '/assets/assets_index/Chiffremento.webp',
     date: 'Novembre 2024',

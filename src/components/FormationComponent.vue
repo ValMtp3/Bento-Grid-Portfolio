@@ -10,7 +10,7 @@
       <li class="relative mb-6 sm:mb-0">
         <div class="flex items-center">
           <div
-            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-gray-800 overflow-hidden"
+            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-dark-secondary overflow-hidden shrink-0 aspect-square"
           >
             <svg
               aria-hidden="true"
@@ -24,23 +24,30 @@
               />
             </svg>
           </div>
-          <span class="mx-2 text-sm text-nowrap dark:text-gray-300">2018-2020</span>
-          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-400"></div>
+          <span class="mx-2 text-sm text-nowrap text-gray-600 dark:text-dark-primary"
+            >2018-2020</span
+          >
+          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-dark-secondary"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-pretty leading-tight">
+          <h3
+            class="text-lg font-semibold text-gray-900 dark:text-dark-primary text-pretty leading-tight"
+          >
             Science et Technologie de l'Industrie et du Développement Durable
           </h3>
-          <time class="block text-md font-normal leading-none text-gray-700 dark:text-gray-400"
+          <time
+            class="block text-md font-normal leading-none text-gray-700 dark:text-dark-primary/80"
             >Lycée Émile Peytavin, Mende
           </time>
-          <p class="text-base font-normal text-gray-500 dark:text-gray-400">Baccalauréat STI2D</p>
+          <p class="text-base font-normal text-gray-500 dark:text-dark-primary/60">
+            Baccalauréat STI2D
+          </p>
         </div>
       </li>
       <li class="relative mb-6 sm:mb-0">
         <div class="flex items-center">
           <div
-            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-gray-800 overflow-hidden"
+            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-dark-secondary overflow-hidden shrink-0 aspect-square"
           >
             <svg
               aria-hidden="true"
@@ -54,15 +61,20 @@
               />
             </svg>
           </div>
-          <span class="mx-2 text-sm text-nowrap dark:text-gray-300">2020-2020</span>
-          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-400"></div>
+          <span class="mx-2 text-sm text-nowrap text-gray-600 dark:text-dark-primary"
+            >2020-2020</span
+          >
+          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-dark-secondary"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Certification TOSA</h3>
-          <time class="block text-md font-normal leading-none text-gray-700 dark:text-gray-400"
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-dark-primary">
+            Certification TOSA
+          </h3>
+          <time
+            class="block text-md font-normal leading-none text-gray-700 dark:text-dark-primary/80"
             >Gréta, Clermont l'Hérault
           </time>
-          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          <p class="text-base font-normal text-gray-500 dark:text-dark-primary/60">
             Word - 688/1000 Excel - 815/1000 PowerPoint - 715/1000
           </p>
         </div>
@@ -70,7 +82,7 @@
       <li class="relative mb-6 sm:mb-0">
         <div class="flex items-center">
           <div
-            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-gray-800 overflow-hidden"
+            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-dark-secondary overflow-hidden shrink-0 aspect-square"
           >
             <svg
               aria-hidden="true"
@@ -84,32 +96,35 @@
               />
             </svg>
           </div>
-          <span class="mx-2 text-sm text-nowrap dark:text-gray-300">2021-2022</span>
-          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-400"></div>
+          <span class="mx-2 text-sm text-nowrap text-gray-600 dark:text-dark-primary"
+            >2021-2022</span
+          >
+          <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-dark-secondary"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-dark-primary leading-tight">
             Management Economique de la Construction
           </h3>
-          <time class="block text-md font-normal leading-none text-gray-700 dark:text-gray-400"
+          <time
+            class="block text-md font-normal leading-none text-gray-700 dark:text-dark-primary/80"
             >Lycée Aime Césaire, Clisson
           </time>
-          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          <p class="text-base font-normal text-gray-500 dark:text-dark-primary/60">
             1ère année de BTS M.E.C
           </p>
         </div>
       </li>
       <!-- Formation la plus récente avec mise en évidence -->
       <li
-        class="relative mb-6 sm:mb-0 transform scale-105 border-l-4 border-blue-500 dark:border-blue-400 pl-2 rounded shadow-md dark:shadow-blue-900/30 bg-white/50 dark:bg-dark-card/90"
+        class="relative mb-6 sm:mb-0 transform scale-105 border-l-4 border-blue-500 dark:border-blue-400 pl-2 rounded shadow-md dark:shadow-blue-900/30 bg-white/50 dark:bg-dark-secondary/50"
       >
         <div class="flex items-center">
           <div
-            class="z-10 flex items-center justify-center w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/50 shadow-sm overflow-hidden"
+            class="z-10 flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/70 shadow-sm overflow-hidden shrink-0 aspect-square"
           >
             <svg
               aria-hidden="true"
-              class="w-3.5 h-3.5 text-blue-600 dark:text-blue-300"
+              class="w-3 h-3 text-blue-600 dark:text-blue-200"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -119,19 +134,20 @@
               />
             </svg>
           </div>
-          <span class="mx-2 text-sm font-semibold text-nowrap text-blue-700 dark:text-blue-300"
+          <span class="mx-2 text-sm font-semibold text-nowrap text-blue-700 dark:text-blue-200"
             >2022-2025</span
           >
-          <div class="hidden sm:flex w-full bg-blue-200 h-1 dark:bg-blue-500"></div>
+          <div class="hidden sm:flex w-full bg-blue-200 h-1 dark:bg-blue-700/60"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-dark-primary leading-tight">
             Licence Informatique (3ème année)
           </h3>
-          <time class="block text-md font-normal leading-none text-gray-700 dark:text-gray-400"
+          <time
+            class="block text-md font-normal leading-none text-gray-700 dark:text-dark-primary/80"
             >EPSI Montpellier
           </time>
-          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          <p class="text-base font-normal text-gray-500 dark:text-dark-primary/60">
             En cours de Licence à l'EPSI (3ème année)
           </p>
         </div>

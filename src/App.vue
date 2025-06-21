@@ -2,7 +2,6 @@
 import { RouterView } from 'vue-router';
 import { useMeta } from 'vue-meta';
 import { useThemeStore } from './stores/theme.js';
-import { storeToRefs } from 'pinia';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
 import ThemeToggle from './components/include/ThemeToggle.vue';
@@ -29,16 +28,18 @@ useMeta({
   ],
 });
 
-// Récupérer l'état du mode sombre
+// Récupérer l'état du mode sombre et initialiser le thème
 const themeStore = useThemeStore();
-const { isDark } = storeToRefs(themeStore);
+themeStore.init();
 </script>
 
 <template>
   <div
     class="bg-custom-gradient dark:bg-gradient-to-br dark:from-dark-start dark:to-dark-end transition-colors duration-500"
   >
-    <ThemeToggle />
+    <div class="fixed top-4 right-4 z-50">
+      <ThemeToggle />
+    </div>
     <router-view />
     <div class="bg-white dark:bg-dark-secondary font-[AnonymousPro] transition-colors duration-300">
       <Footer />
