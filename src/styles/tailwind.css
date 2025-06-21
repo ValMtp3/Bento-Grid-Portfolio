@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .bg-custom-gradient {
+        background: hsla(205, 38%, 94%, 1);
+        background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        background: -webkit-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
+    }
+}
+
+/* Dark mode improvements */
+.dark .contact-form label,
+.dark .contact-form input,
+.dark .contact-form textarea {
+    color: #e1e1e1;
+    background-color: #1f1f1f;
+    border-color: #444;
+}
+
+.dark .contact-form input::placeholder,
+.dark .contact-form textarea::placeholder {
+    color: #999;
+}
+
+.dark input,
+.dark textarea {
+  background-color: #2d3748; /* bg-gray-700 approx */
+  color: #f7fafc; /* text-gray-100 approx */
+  border-color: #4a5568; /* border-gray-600 approx */
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #a0aec0; /* text-gray-400 approx */
+}
+
+/* Labels - Ensure high specificity for background and color */
+.dark label,
+.dark .label,
+.dark form label, /* Target labels specifically within forms */
+.dark [for],
+.dark .form-label {
+  color: #f7fafc !important; /* text-gray-100 or white */
+  background-color: transparent !important; /* Crucial for labels on dark backgrounds */
+}
+
+.dark .section-bg {
+    background-color: #121212;
+}
+
+.dark p,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark span,
+.dark li {
+    color: #e1e1e1;
+}
+
+.dark .card,
+.dark .bento-item {
+    background-color: #1f1f1f;
+    color: #e1e1e1;
+}
+
+.dark .card,
+.dark .section-bg {
+  background-color: #1a202c !important; /* bg-gray-800 or 900 approx */
+}
+
+/* Fix pour les textes qui pourraient devenir illisibles */
+.dark a:not(.btn) {
+    color: #85c0ff;
+}
+
+/* Assurer que tous les fonds sont sombres en mode dark */
+.dark section,
+.dark div.container,
+.dark div.row,
+.dark footer {
+    background-color: #121212;
+}
+
+/* Pour les inputs et zones de formulaire spécifiques */
+.dark select,
+.dark option {
+    background-color: #1f1f1f;
+    color: #e1e1e1;
+}
+
+/* Suppression du rond blanc autour du logo de calendrier */
+.calendar-icon,
+.calendar-icon img,
+.calendar-logo,
+.calendar-logo img {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Amélioration de la taille et du centrage des logos de calendrier */
+.calendar-icon,
+.calendar-logo {
+    width: 48px !important; /* Augmentation de la taille */
+    height: 48px !important; /* Augmentation de la taille */
+    margin: 0 auto !important; /* Centrage horizontal */
+    display: flex !important;
+    justify-content: center !important; /* Centrage horizontal du contenu */
+    align-items: center !important; /* Centrage vertical du contenu */
+}
+
+.calendar-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Mise en évidence de l'événement le plus récent */
+.event-card.most-recent {
+    border-left: 4px solid #007bff !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transform: scale(1.03) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dark .event-card.most-recent {
+    border-left: 4px solid #85c0ff !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Style du conteneur d'événement pour meilleur alignement */
+.event-card {
+    display: flex !important;
+    align-items: center !important;
+    padding: 15px !important;
+    margin-bottom: 15px !important;
+    border-radius: 8px !important;
+    background-color: #f9f9f9 !important;
+    transition: all 0.2s ease !important;
+}
+
+.dark .event-card {
+    background-color: #1f1f1f !important;
+}
+
+/* Espacement amélioré entre l'icône et les détails */
+.calendar-icon {
+    margin-right: 20px !important;
+}
+
+/* Style des détails d'événement */
+.event-details {
+    flex: 1 !important;
+}
+
+/* Amélioration du contraste du texte en mode sombre */
+.dark .calendar-text,
+.dark .event-details,
+.dark .event-date,
+.dark .event-time,
+.dark .event-location {
+    color: #e1e1e1 !important;
+}
+
+/* Assurer que les icônes en SVG s'adaptent au mode sombre */
+.dark svg path,
+.dark svg rect,
+.dark svg circle {
+    fill: #e1e1e1;
+}
+
+/* Exception pour les icônes qui doivent garder leur couleur */
+.dark svg.color-preserve path,
+.dark svg.color-preserve rect,
+.dark svg.color-preserve circle {
+    fill: currentColor;
+}
+
+/* Adaptations spécifiques pour la page formation en mode sombre */
+.dark .formation-card,
+.dark .formation-item,
+.dark .course-card {
+    background-color: #1f1f1f;
+    border-color: #444;
+    color: #e1e1e1;
+}
+
+.dark .formation-title,
+.dark .course-title,
+.dark .formation-date,
+.dark .formation-institution,
+.dark .formation-description {
+    color: #e1e1e1;
+}
+
+/* Suppression des contours blancs des logos en mode sombre */
+.dark .logo-formation,
+.dark .institution-logo,
+.dark .course-logo {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    filter: brightness(1.2) contrast(1.2); /* Améliore la visibilité des logos en mode sombre */
+}
+
+/* Amélioration des badges et boutons en mode sombre */
+.dark .badge,
+.dark .skill-badge {
+    background-color: #333;
+    color: #e1e1e1;
+    border-color: #555;
+}
+
+/* Adaptations pour les sections de timeline ou chronologie */
+.dark .timeline-item,
+.dark .timeline-connector {
+    border-color: #444;
+}
+
+.dark .timeline-dot {
+    background-color: #444;
+}
+
+/* Adaptations pour les tableaux dans la page formation */
+.dark table,
+.dark th,
+.dark td {
+    border-color: #444;
+    color: #e1e1e1;
+}
+
+.dark th {
+    background-color: #252525;
+}
+
+.dark tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+
+.dark tr:nth-child(odd) {
+    background-color: #222;
+}
+
+/* Adaptations pour les liens dans la section formation */
+.dark .formation-link,
+.dark .certificate-link {
+    color: #85c0ff;
+    text-decoration: underline;
+}
+
+/* Adaptations pour les icônes et pictogrammes */
+.dark .formation-icon svg,
+.dark .certificate-icon svg,
+.dark .degree-icon svg {
+    fill: #e1e1e1;
+}

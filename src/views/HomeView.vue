@@ -77,7 +77,7 @@ function toggleProjetsAffichage() {
 
 <template>
   <div class="pt-4 px-4 pb-2">
-    <div class="flex flex-col xl:flex-row xl:justify-around xl:space-x-4 space-y-4 md:mb-4 xl:mb-0">
+    <div class="flex flex-col xl:flex-row xl:justify-around xl:space-x-4 md:mb-4 xl:mb-0">
       <PresentationComponent class="min-h-full" />
       <ContactComponent class="min-h-full" />
     </div>

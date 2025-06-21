@@ -43,7 +43,7 @@ defineProps({
     />
     <div class="p-4 text-center">
       <p
-        class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-neutral-900 dark:text-dark-primary"
+        class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl text-neutral-900 dark:text-dark-primary"
       >
         {{ description }}
       </p>
