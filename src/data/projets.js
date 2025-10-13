@@ -11,6 +11,17 @@ export const projets = [
     name: 'Cyber-Hopital',
   },
   {
+    alt: 'Image Valentin Fiess',
+    image: '/assets/assets_index/ValentinFiess.webp',
+    date: 'Juin 2025',
+    team: 'Valentin Fiess',
+    description: 'Creation de chatbot CV sur moi-meme',
+    descriptionlongue:
+      'Creation de chatbot CV sur moi-meme avec un RAG de mistral-small et des data stocké en JSON',
+    src: 'https://huggingface.co/spaces/ValMtp3/Chatbot_IA_CV',
+    name: 'Chatbot IA CV',
+  },
+  {
     alt: 'Logo WildLens',
     image: '/assets/assets_index/WildLens.webp',
     date: 'Décembre 2024',
