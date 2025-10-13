@@ -38,7 +38,7 @@ defineProps({
     <img
       :alt="alt"
       :src="image"
-      class="text-center mx-auto mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 rounded-xl w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 dark:filter dark:brightness-90 transition-all"
+      class="text-center mx-auto mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 rounded-xl w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 dark:filter dark:brightness-90 transition-all"
       loading="lazy"
     />
     <div class="p-4 text-center">

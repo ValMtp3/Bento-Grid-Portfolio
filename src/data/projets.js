@@ -1,5 +1,16 @@
 export const projets = [
   {
+    alt: 'Logo Cyber-Hopital',
+    image: '/assets/assets_index/CyberHopital.webp',
+    date: 'Septembre 2025',
+    team: 'Dunvael Le Roux, Robin Peyraud, Quentin Richard, Gaëtan Faucher',
+    description: 'Escape-game educatif en ligne simulant une cyber-attaque dans un Hopital',
+    descriptionlongue:
+      'Escape-game educatif en ligne simulant une cyber-attaque dans un Hopital avec la resolution de plusieurs salles, projet html/tailwind, vue-js',
+    src: 'https://github.com/Workshop-M1-CyberHopital/Escape-game-numerique',
+    name: 'Cyber-Hopital',
+  },
+  {
     alt: 'Logo WildLens',
     image: '/assets/assets_index/WildLens.webp',
     date: 'Décembre 2024',
