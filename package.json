@@ -4,11 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all --parallel vite tailwind",
+    "dev": "vite",
     "vite": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tailwind": "tailwindcss -i ./tailwind.css -o public/assets/css/output.css --watch",
     "lint": "eslint --ext .js,.vue src",
     "format": "prettier --write \"src/**/*.{js,vue,css,md}\"",
     "test": "vitest"
@@ -25,6 +24,7 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.37.0",

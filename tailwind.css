@@ -1,13 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'AnonymousPro';
+  src:
+    url('/assets/Font/Anonymous_Pro/AnonymousPro-Regular.woff2') format('woff2'),
+    url('/assets/Font/Anonymous_Pro/AnonymousPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AnonymousPro';
+  src:
+    url('/assets/Font/Anonymous_Pro/AnonymousPro-Bold.woff2') format('woff2'),
+    url('/assets/Font/Anonymous_Pro/AnonymousPro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 @layer utilities {
-    .bg-custom-gradient {
-        background: hsla(205, 38%, 94%, 1);
-        background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        background: -webkit-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
-    }
+  .bg-custom-gradient {
+    background: hsla(205, 38%, 94%, 1);
+    background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+    background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
+    background: -webkit-linear-gradient(
+      45deg,
+      hsla(205, 38%, 94%, 1) 0%,
+      hsla(176, 57%, 89%, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
+  }
 }
