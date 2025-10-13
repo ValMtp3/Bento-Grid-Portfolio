@@ -40,10 +40,9 @@ const languages = [
     image: '/assets/assets_index/Tailwind-removebg.webp',
     title: 'Tailwind CSS',
   },
-  { alt: 'Logo Symfony', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
-  { alt: 'Logo Python', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
   { alt: 'Logo VueJS', image: '/assets/assets_index/VueJS.webp', title: 'VueJS' },
   { alt: 'Logo MySQL', image: '/assets/assets_index/MySQL-removebg.webp', title: 'MySQL' },
+  { alt: 'Logo Python', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
   {
     alt: 'Logo Pandas',
     image: '/assets/assets_index/pandas.webp',
@@ -69,6 +68,7 @@ const languages = [
     image: '/assets/assets_index/transformers.webp',
     title: 'Transformers',
   },
+  { alt: 'Logo Symfony', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
 ];
 
 const showMoreLanguages = ref(false);
@@ -136,39 +136,54 @@ const prevModalSlide = () => {
   <div class="px-2 py-2 sm:px-6 sm:py-4 md:px-8">
     <div class="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-6">
       <div
-        class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300">
+        class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300"
+      >
         <span
-          class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary">Maitrise</span>
+          class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary"
+          >Maitrise</span
+        >
         <div>
           <div
-            class="grid items-center grid-cols-2 gap-3 mb-3 sm:gap-4 sm:mb-4 sm:grid-cols-3 md:grid-cols-4 md:gap-6 justify-items-center">
+            class="grid items-center grid-cols-2 gap-3 mb-3 sm:gap-4 sm:mb-4 sm:grid-cols-3 md:grid-cols-4 md:gap-6 justify-items-center"
+          >
             <MaitriseComponent v-for="lang in firstLanguages" :key="lang.title" v-bind="lang" />
           </div>
           <div v-if="moreLanguages.length" class="flex justify-center">
             <button
               class="px-4 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base font-semibold transition-all duration-150 bg-blue-100 border shadow-sm rounded-xl dark:bg-blue-900/70 text-neutral-900 dark:text-dark-primary border-neutral-200 dark:border-dark-secondary hover:bg-teal-100 dark:hover:bg-teal-800/70"
-              @click="openModal">
+              @click="openModal"
+            >
               Voir plus
             </button>
           </div>
         </div>
 
         <transition name="fade">
-          <div v-if="showMoreLanguages" class="fixed inset-0 z-50 flex items-center justify-center"
-            @click.self="closeModal">
+          <div
+            v-if="showMoreLanguages"
+            class="fixed inset-0 z-50 flex items-center justify-center"
+            @click.self="closeModal"
+          >
             <div class="absolute inset-0 bg-black/70 backdrop-blur-[8px]"></div>
             <div
               class="relative flex flex-col items-center w-full max-w-xl p-4 border shadow-2xl sm:p-6 md:p-8 bg-white/90 dark:bg-dark-card/90 rounded-3xl border-neutral-200 dark:border-dark-secondary"
-              style="backdrop-filter: blur(18px)">
+              style="backdrop-filter: blur(18px)"
+            >
               <button
                 class="absolute flex items-center justify-center w-10 h-10 text-3xl font-bold transition border rounded-full shadow-lg top-4 right-4 text-neutral-500 hover:text-neutral-900 dark:hover:text-dark-primary bg-white/70 dark:bg-dark-card/70 border-neutral-200 dark:border-dark-secondary"
-                aria-label="Fermer" @click="closeModal">
+                aria-label="Fermer"
+                @click="closeModal"
+              >
                 ×
               </button>
-              <div class="mb-4 text-xl font-bold tracking-wide text-center text-neutral-900 dark:text-dark-primary">
+              <div
+                class="mb-4 text-xl font-bold tracking-wide text-center text-neutral-900 dark:text-dark-primary"
+              >
                 Autres compétences
               </div>
-              <div class="grid items-center grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-8 justify-items-center">
+              <div
+                class="grid items-center grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 md:gap-8 justify-items-center"
+              >
                 <MaitriseComponent v-for="lang in moreLanguages" :key="lang.title" v-bind="lang" />
               </div>
             </div>
@@ -177,46 +192,77 @@ const prevModalSlide = () => {
       </div>
 
       <div
-        class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300">
+        class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300"
+      >
         <span
-          class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary">Projets</span>
+          class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary"
+          >Projets</span
+        >
         <div>
           <div
-            class="grid items-center grid-cols-1 gap-3 mb-3 sm:gap-4 sm:mb-4 sm:grid-cols-2 md:gap-6 justify-items-center">
+            class="grid items-center grid-cols-1 gap-3 mb-3 sm:gap-4 sm:mb-4 sm:grid-cols-2 md:gap-6 justify-items-center"
+          >
             <ProjetsComponent v-for="pro in firstProjets" :key="pro.name" v-bind="pro" />
           </div>
           <div v-if="moreProjets.length" class="flex justify-center">
             <button
               class="px-4 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base font-semibold transition-all duration-150 bg-blue-100 border shadow-sm rounded-xl dark:bg-blue-900/70 text-neutral-900 dark:text-dark-primary border-neutral-200 dark:border-dark-secondary hover:bg-teal-100 dark:hover:bg-teal-800/70"
-              @click="showMoreProjets = !showMoreProjets">
+              @click="showMoreProjets = !showMoreProjets"
+            >
               Voir plus
             </button>
           </div>
         </div>
 
         <transition name="fade">
-          <div v-if="showMoreProjets" class="fixed inset-0 z-50 flex items-center justify-center"
-            @click.self="showMoreProjets = false">
+          <div
+            v-if="showMoreProjets"
+            class="fixed inset-0 z-50 flex items-center justify-center"
+            @click.self="showMoreProjets = false"
+          >
             <div class="absolute inset-0 bg-black/70 backdrop-blur-[8px]"></div>
             <div
               class="relative flex flex-col items-center w-full max-w-3xl p-4 border shadow-2xl sm:p-6 md:p-8 bg-white/90 dark:bg-dark-card/90 rounded-3xl border-neutral-200 dark:border-dark-secondary"
-              style="backdrop-filter: blur(18px)">
+              style="backdrop-filter: blur(18px)"
+            >
               <button
                 class="absolute flex items-center justify-center w-10 h-10 text-3xl font-bold transition border rounded-full shadow-lg top-4 right-4 text-neutral-500 hover:text-neutral-900 dark:hover:text-dark-primary bg-white/70 dark:bg-dark-card/70 border-neutral-200 dark:border-dark-secondary"
-                aria-label="Fermer" @click="showMoreProjets = false">×</button>
-              <div class="mb-4 text-xl font-bold tracking-wide text-center text-neutral-900 dark:text-dark-primary">
-                Autres projets</div>
-              <div class="flex items-center justify-center w-full gap-4 mb-4">
-                <button class="p-2 text-2xl bg-gray-200 rounded-full dark:bg-dark-secondary disabled:opacity-40"
-                  :disabled="sliderModalIndex === 0" @click="prevModalSlide">&#8592;</button>
-                <div class="flex justify-center w-full">
-                  <ProjetsComponent v-for="pro in currentModalProjet" :key="pro.name" v-bind="pro" />
-                </div>
-                <button class="p-2 text-2xl bg-gray-200 rounded-full dark:bg-dark-secondary disabled:opacity-40"
-                  :disabled="sliderModalIndex >= totalSlidesModal - 1" @click="nextModalSlide">&#8594;</button>
+                aria-label="Fermer"
+                @click="showMoreProjets = false"
+              >
+                ×
+              </button>
+              <div
+                class="mb-4 text-xl font-bold tracking-wide text-center text-neutral-900 dark:text-dark-primary"
+              >
+                Autres projets
               </div>
-              <div class="mb-2 text-sm text-neutral-700 dark:text-neutral-300">{{ sliderModalIndex + 1 }} / {{
-                totalSlidesModal }}</div>
+              <div class="flex items-center justify-center w-full gap-4 mb-4">
+                <button
+                  class="p-2 text-2xl bg-gray-200 rounded-full dark:bg-dark-secondary disabled:opacity-40"
+                  :disabled="sliderModalIndex === 0"
+                  @click="prevModalSlide"
+                >
+                  &#8592;
+                </button>
+                <div class="flex justify-center w-full">
+                  <ProjetsComponent
+                    v-for="pro in currentModalProjet"
+                    :key="pro.name"
+                    v-bind="pro"
+                  />
+                </div>
+                <button
+                  class="p-2 text-2xl bg-gray-200 rounded-full dark:bg-dark-secondary disabled:opacity-40"
+                  :disabled="sliderModalIndex >= totalSlidesModal - 1"
+                  @click="nextModalSlide"
+                >
+                  &#8594;
+                </button>
+              </div>
+              <div class="mb-2 text-sm text-neutral-700 dark:text-neutral-300">
+                {{ sliderModalIndex + 1 }} / {{ totalSlidesModal }}
+              </div>
             </div>
           </div>
         </transition>
@@ -225,10 +271,12 @@ const prevModalSlide = () => {
   </div>
   <div class="px-2 py-2 sm:px-6 sm:py-4 md:px-8">
     <div
-      class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300">
+      class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300"
+    >
       <span
-        class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary">Entreprises
-        avec lesquelles j'ai travaillé</span>
+        class="flex justify-center mb-3 text-base text-center underline sm:mb-4 sm:text-xl text-neutral-900 dark:text-dark-primary"
+        >Entreprises avec lesquelles j'ai travaillé</span
+      >
       <div class="flex items-center justify-around">
         <ClientsComponent :clients="clients" />
       </div>
@@ -236,7 +284,8 @@ const prevModalSlide = () => {
   </div>
   <div class="px-2 py-2 sm:px-6 sm:py-4 md:px-8">
     <div
-      class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300">
+      class="bg-white dark:bg-dark-card font-[AnonymousPro] p-3 sm:p-4 rounded-3xl w-full max-w-none transition-colors duration-300"
+    >
       <ContactFormsComponent />
     </div>
   </div>

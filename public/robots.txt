@@ -1,7 +1,20 @@
-User-agent: *
-Allow: /
-Disallow: /legal
-Disallow: /policy
+# Bloque les robots indésirables ou non pertinents
+User-agent: baiduspider
+Disallow: /
 
-# Sitemap
+User-agent: Mail.RU
+Disallow: /
+
+User-agent: MegaIndex.ru
+Disallow: /
+
+User-agent: Barkrowler
+Disallow: /
+
+# Autorise tous les autres robots, sauf pour /cgi-bin/
+User-agent: *
+Disallow: /cgi-bin/
+Allow: /
+
+# Emplacement du sitemap
 Sitemap: https://www.valentin-fiess.fr/sitemap.xml
