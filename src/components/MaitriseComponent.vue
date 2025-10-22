@@ -1,4 +1,6 @@
 <script setup>
+import ResponsiveImage from './ResponsiveImage.vue';
+
 defineProps({
   image: {
     type: String,
@@ -17,7 +19,7 @@ defineProps({
 
 <template>
   <div class="flex flex-col xl:flex-col items-center justify-center">
-    <img
+    <ResponsiveImage
       :alt="alt"
       :src="image"
       :title="title"

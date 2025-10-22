@@ -1,4 +1,6 @@
 <script setup>
+import ResponsiveImage from './ResponsiveImage.vue';
+
 defineProps({
   image: {
     type: String,
@@ -35,7 +37,7 @@ defineProps({
   <div
     class="mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl overflow-hidden rounded-xl bg-transparent transition-colors duration-300"
   >
-    <img
+    <ResponsiveImage
       :alt="alt"
       :src="image"
       class="text-center mx-auto mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 rounded-xl w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 dark:filter dark:brightness-90 transition-all"
