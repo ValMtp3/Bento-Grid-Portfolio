@@ -27,7 +27,7 @@ defineProps({
       loading="lazy"
     />
     <div class="p-4 text-center">
-      <p class="mt-1 text-xl text-neutral-900 dark:text-dark-primary">{{ title }}</p>
+      <p class="mt-1 text-xl text-neutral-900 dark:text-white">{{ title }}</p>
     </div>
   </div>
 </template>

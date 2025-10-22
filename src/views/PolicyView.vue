@@ -9,7 +9,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">1. Introduction</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Bienvenue sur mon site portfolio. Cette politique de confidentialité a pour objectif de
             vous informer sur la manière dont vos données personnelles sont collectées, utilisées,
@@ -21,7 +21,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">2. Données Collectées</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Lorsque vous utilisez le formulaire de contact, je collecte les informations suivantes :
           </p>
@@ -40,7 +40,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">3. Finalité des Données</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Les données collectées via le formulaire de contact sont uniquement utilisées pour :
           </p>
@@ -57,7 +57,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">4. Destinataires des Données</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Vos données personnelles sont directement envoyées à ma boîte mail personnelle et ne
             sont partagées avec aucun tiers.
@@ -69,7 +69,7 @@
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">
           5. Durée de Conservation des Données
         </h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Les données collectées via le formulaire de contact, notamment votre prénom, nom,
             adresse email, sujet et message, sont susceptibles d'être stockées dans ma boîte mail
@@ -86,7 +86,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">6. Sécurité des Données</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Je mets en œuvre des mesures de sécurité standard pour protéger vos données
             personnelles. Cependant, étant donné qu'elles sont stockées sur ma boîte mail, elles
@@ -97,7 +97,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">7. Cookies et Traceurs</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Mon site utilise des cookies pour améliorer votre expérience utilisateur et pour
             collecter des statistiques anonymes via des outils comme
@@ -119,7 +119,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">8. Droits des Utilisateurs</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>Vous disposez des droits suivants concernant vos données personnelles :</p>
           <ul class="list-disc pl-5">
             <li>Droit d'accès</li>
@@ -140,7 +140,7 @@
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">
           9. Modification de la Politique de Confidentialité
         </h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Je me réserve le droit de modifier cette politique de confidentialité à tout moment.
             Toute modification sera publiée sur cette page sans notification individuelle.
@@ -150,7 +150,7 @@
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">10. Loi Applicable</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Cette politique de confidentialité est régie par le Règlement Général sur la Protection
             des Données (RGPD) de l'Union Européenne.

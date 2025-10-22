@@ -45,12 +45,12 @@ const projetsAffiches = ref(projets);
 
 <template>
   <div
-    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24 dark:bg-dark-bg"
+    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24 dark:bg-gray-900"
   >
     <div
       v-for="proj in projetsAffiches"
       :key="proj.name"
-      class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md"
+      class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md"
     >
       <ResponsiveImage
         :alt="proj.alt"

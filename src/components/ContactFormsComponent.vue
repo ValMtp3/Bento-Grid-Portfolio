@@ -83,14 +83,14 @@ const sanitizeInput = (input) => {
 <template>
   <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
     <div class="mb-3">
-      <label class="mb-1 block text-base font-medium text-black dark:text-dark-primary" for="name">
+      <label class="mb-1 block text-base font-medium text-black dark:text-white" for="name">
         Prénom Nom :
       </label>
       <input
         id="name"
         v-model="name"
         :required="name === ''"
-        class="w-full rounded-xl m-2 border border-[#e0e0e0] dark:border-dark-border bg-white dark:bg-dark-secondary py-3 px-6 text-base font-medium text-[#6B7280] dark:text-dark-primary outline-none focus:border-blue-900 dark:focus:border-dark-accent focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
+        class="w-full rounded-xl m-2 border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-900 py-3 px-6 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
         name="name"
         placeholder="Prénom Nom"
         type="text"
@@ -98,14 +98,14 @@ const sanitizeInput = (input) => {
       <span v-if="errors.name" class="text-red-500">{{ errors.name }}</span>
     </div>
     <div class="mb-3">
-      <label class="mb-1 block text-base font-medium text-black dark:text-dark-primary" for="email">
+      <label class="mb-1 block text-base font-medium text-black dark:text-white" for="email">
         Adresse Mail
       </label>
       <input
         id="email"
         v-model="email"
         :required="email === ''"
-        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-dark-border bg-white dark:bg-dark-secondary py-3 px-6 text-base font-medium text-[#6B7280] dark:text-dark-primary outline-none focus:border-blue-900 dark:focus:border-dark-accent focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
+        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-900 py-3 px-6 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
         name="email"
         placeholder="example@domain.com"
         type="email"
@@ -114,7 +114,7 @@ const sanitizeInput = (input) => {
     </div>
     <div class="mb-3">
       <label
-        class="mb-1 block text-base font-medium text-black dark:text-dark-primary"
+        class="mb-1 block text-base font-medium text-black dark:text-white"
         for="subject"
       >
         Sujet
@@ -123,7 +123,7 @@ const sanitizeInput = (input) => {
         id="subject"
         v-model="subject"
         :required="subject === ''"
-        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-dark-border bg-white dark:bg-dark-secondary py-3 px-6 text-base font-medium text-[#6B7280] dark:text-dark-primary outline-none focus:border-blue-900 dark:focus:border-dark-accent focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
+        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-900 py-3 px-6 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
         name="subject"
         placeholder="Entrer votre sujet"
         type="text"
@@ -132,7 +132,7 @@ const sanitizeInput = (input) => {
     </div>
     <div class="mb-3">
       <label
-        class="mb-1 block text-base font-medium text-black dark:text-dark-primary"
+        class="mb-1 block text-base font-medium text-black dark:text-white"
         for="message"
       >
         Message
@@ -141,7 +141,7 @@ const sanitizeInput = (input) => {
         id="message"
         v-model="message"
         :required="message === ''"
-        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-dark-border bg-white dark:bg-dark-secondary py-3 px-6 text-base font-medium text-[#6B7280] dark:text-dark-primary outline-none focus:border-blue-900 dark:focus:border-dark-accent focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
+        class="w-full resize-none rounded-xl m-2 border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-900 py-3 px-6 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-colors duration-300"
         name="message"
         placeholder="Entrer votre message"
         rows="4"

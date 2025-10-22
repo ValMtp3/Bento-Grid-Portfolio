@@ -1,10 +1,10 @@
 <template>
   <div
-    class="bg-white dark:bg-dark-card font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none shadow-md dark:shadow-dark-md transition-all duration-300"
+    class="bg-white dark:bg-gray-800 font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none shadow-md dark:shadow-gray-900 transition-all duration-300"
   >
     <div class="grid grid-cols-2 gap-12 m-2 justify-items-center items-center h-full">
       <a
-        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-secondary"
+        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         href="/assets/assets_index/CV.pdf"
         target="_blank"
         title="CV"
@@ -16,7 +16,7 @@
         />
       </a>
       <a
-        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-secondary"
+        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         href="https://www.linkedin.com/in/valentin-fiess/"
         target="_blank"
         title="Linkedin"
@@ -28,7 +28,7 @@
         />
       </a>
       <a
-        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-secondary"
+        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         href="https://www.github.com/ValMtp3"
         target="_blank"
         title="GitHub"
@@ -40,7 +40,7 @@
         />
       </a>
       <a
-        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-secondary"
+        class="hover:opacity-80 hover:scale-105 transition-all duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         href="mailto:fetes01pseudo@icloud.com"
         target="_blank"
         title="Mail"

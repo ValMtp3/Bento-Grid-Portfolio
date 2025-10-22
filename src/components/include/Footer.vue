@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-[#FBFDFF] dark:bg-dark-secondary transition-colors duration-300">
+  <div class="bg-[#FBFDFF] dark:bg-gray-900 transition-colors duration-300">
     <footer
-      class="bg-[#FBFDFF] dark:bg-dark-secondary font-[AnonymousPro] transition-colors duration-300"
+      class="bg-[#FBFDFF] dark:bg-gray-900 font-[AnonymousPro] transition-colors duration-300"
     >
       <button
         id="back-to-top-btn"
@@ -21,29 +21,34 @@
       <div class="container mx-auto p-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <div class="col-span-1">
-            <p class="text-3xl text-neutral-900 dark:text-dark-primary font-bold">Liens utiles</p>
+            <p class="text-3xl text-neutral-900 dark:text-white font-bold">Liens utiles</p>
             <ul class="mt-5 grid grid-cols-3 gap-4">
-              <li class="text-lg text-neutral-900 dark:text-dark-primary font-light">
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/" @click="scrollToTop"
                   >Acceuil
                 </router-link>
               </li>
-              <li class="text-lg text-neutral-900 dark:text-dark-primary font-light">
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/stack" @click="scrollToTop"
                   >Stack
                 </router-link>
               </li>
-              <li class="text-lg text-neutral-900 dark:text-dark-primary font-light">
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/projets" @click="scrollToTop"
                   >Projets
                 </router-link>
               </li>
-              <li class="text-lg text-neutral-900 dark:text-dark-primary font-light">
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
+                <router-link class="hover:underline" to="/chatbot" @click="scrollToTop"
+                  >Chatbot IA
+                </router-link>
+              </li>
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/legal" @click="scrollToTop"
                   >Mention légales
                 </router-link>
               </li>
-              <li class="text-lg text-neutral-900 dark:text-dark-primary font-light">
+              <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/policy" @click="scrollToTop"
                   >Politique confidentialité
                 </router-link>
@@ -52,11 +57,11 @@
           </div>
         </div>
       </div>
+      <p class="text-md text-center text-neutral-900 dark:text-white font-light text-2xl m-3 pb-6">
+        Développé en VueJS par Valentin Fiess ❤️
+      </p>
     </footer>
   </div>
-  <p class="text-md text-center text-neutral-900 dark:text-dark-primary font-light text-2xl m-3">
-    Développé en VueJS par Valentin Fiess ❤️
-  </p>
 </template>
 <script setup>
 const scrollToTop = () => {
