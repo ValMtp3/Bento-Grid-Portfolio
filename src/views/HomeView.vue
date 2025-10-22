@@ -17,19 +17,32 @@ useMeta({
     {
       name: 'description',
       content:
-        'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier. Découvrez mes projets, compétences et expériences professionn,elles.',
+        'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier. Découvrez mes projets, compétences et expériences professionnelles en développement web et intelligence artificielle.',
     },
     {
       name: 'keywords',
       content:
-        'développeur web, développeur IA, portfolio, Valentin Fiess, Montpellier, EPSI, Vue,JS, PHP, Python',
+        'développeur web, développeur IA, portfolio, Valentin Fiess, Montpellier, EPSI, Vue.js, PHP, Python, JavaScript, machine learning',
     },
     { property: 'og:title', content: 'Valentin Fiess | Portfolio Développeur Web & IA' },
     {
       property: 'og:description',
       content:
-        'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier. Découvrez mes projets, compétences et expér,iences, pro,fessionnelles.',
+        'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier. Découvrez mes projets, compétences et expériences professionnelles en développement web et intelligence artificielle.',
     },
+    { property: 'og:image', content: '/assets/assets_index/Profile.webp' },
+    { property: 'og:url', content: 'https://www.valentin-fiess.fr' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Valentin Fiess | Portfolio Développeur Web & IA' },
+    {
+      name: 'twitter:description',
+      content: 'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier.',
+    },
+    { name: 'twitter:image', content: '/assets/assets_index/Profile.webp' },
+    { name: 'author', content: 'Valentin Fiess' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'language', content: 'fr-FR' },
   ],
 });
 

@@ -1,0 +1,17 @@
+# Security.txt pour Valentin Fiess
+# https://www.valentin-fiess.fr/.well-known/security.txt
+
+# Point de contact pour les rapports de sécurité
+Contact: mailto:sobre.05.statue@icloud.com
+
+# Date d'expiration du fichier (à renouveler annuellement)
+Expires: 2025-12-31T23:59:59.000Z
+
+# Langues préférées pour les communications
+Preferred-Languages: fr, en
+
+# Politique de divulgation
+# Disclosure: https://www.valentin-fiess.fr/security-policy
+
+# Reconnaissance (optionnel)
+# Acknowledgement: https://www.valentin-fiess.fr/hall-of-fame

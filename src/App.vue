@@ -37,13 +37,29 @@ themeStore.init();
   <div
     class="bg-custom-gradient dark:bg-gradient-to-br dark:from-dark-start dark:to-dark-end transition-colors duration-500"
   >
+    <!-- Lien d'évitement pour l'accessibilité -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-blue-600 text-white px-4 py-2 rounded z-50"
+    >
+      Aller au contenu principal
+    </a>
+
     <div class="fixed top-4 right-4 z-50">
       <ThemeToggle />
     </div>
-    <router-view />
-    <div class="bg-white dark:bg-dark-secondary font-[AnonymousPro] transition-colors duration-300">
+
+    <main id="main-content" role="main" class="min-h-screen">
+      <router-view />
+    </main>
+
+    <footer
+      class="bg-white dark:bg-dark-secondary font-[AnonymousPro] transition-colors duration-300"
+      role="contentinfo"
+    >
       <Footer />
-    </div>
+    </footer>
+
     <CookieBanner />
   </div>
 </template>
