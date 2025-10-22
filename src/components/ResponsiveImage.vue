@@ -28,15 +28,15 @@ const props = defineProps({
     type: String,
     default: 'auto',
   },
-})
+});
 
 const getResponsiveSrc = (src, size) => {
-  const path = src.substring(0, src.lastIndexOf('/'))
-  const filename = src.substring(src.lastIndexOf('/') + 1)
-  return `${path}/${size}/${filename}`
-}
+  const path = src.substring(0, src.lastIndexOf('/'));
+  const filename = src.substring(src.lastIndexOf('/') + 1);
+  return `${path}/${size}/${filename}`;
+};
 
-const srcset = `${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w`
+const srcset = `${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w`;
 </script>
 
 <template>
