@@ -1,4 +1,42 @@
-<script setup></script>
+<script setup>
+import { useMeta } from 'vue-meta';
+
+// Meta tags pour la page Stack
+useMeta({
+  title: 'Stack Technique | Valentin Fiess - Outils & Technologies',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Découvrez ma stack technique complète : IDE, frameworks, outils de développement et technologies utilisées par Valentin Fiess, développeur web et IA.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'stack technique, outils développement, IDE, WebStorm, PyCharm, Vue.js, Tailwind CSS, Valentin Fiess, technologies développeur',
+    },
+    { property: 'og:title', content: 'Stack Technique | Valentin Fiess - Outils & Technologies' },
+    {
+      property: 'og:description',
+      content:
+        'Découvrez ma stack technique complète : IDE, frameworks et outils de développement.',
+    },
+    { property: 'og:image', content: '/assets/assets_index/VueJS.webp' },
+    { property: 'og:url', content: 'https://www.valentin-fiess.fr/stack' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Stack Technique | Valentin Fiess - Outils & Technologies' },
+    {
+      name: 'twitter:description',
+      content: 'Découvrez ma stack technique complète et mes outils de développement.',
+    },
+    { name: 'twitter:image', content: '/assets/assets_index/VueJS.webp' },
+    { name: 'author', content: 'Valentin Fiess' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'language', content: 'fr-FR' },
+  ],
+});
+</script>
 
 <template>
   <div class="text-gray-800 dark:text-gray-200">

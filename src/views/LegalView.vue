@@ -1,4 +1,33 @@
-<script setup></script>
+<script setup>
+import { useMeta } from 'vue-meta';
+
+// Meta tags pour la page Mentions Légales
+useMeta({
+  title: 'Mentions Légales | Valentin Fiess - Portfolio Développeur',
+  meta: [
+    {
+      name: 'description',
+      content:
+        "Mentions légales du portfolio de Valentin Fiess. Informations juridiques, responsabilité, propriété intellectuelle et conditions d'utilisation du site.",
+    },
+    {
+      name: 'keywords',
+      content:
+        'mentions légales, CGU, conditions générales, Valentin Fiess, droit français, propriété intellectuelle',
+    },
+    { property: 'og:title', content: 'Mentions Légales | Valentin Fiess - Portfolio Développeur' },
+    {
+      property: 'og:description',
+      content:
+        "Consultez les mentions légales et conditions générales d'utilisation du portfolio de Valentin Fiess.",
+    },
+    { property: 'og:url', content: 'https://www.valentin-fiess.fr/legal' },
+    { property: 'og:type', content: 'website' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'language', content: 'fr-FR' },
+  ],
+});
+</script>
 
 <template>
   <div class="text-gray-800 dark:text-gray-200">

@@ -2,6 +2,43 @@
 import { ref } from 'vue';
 import { projets } from '@/data/projets.js';
 import ResponsiveImage from '@/components/ResponsiveImage.vue';
+import { useMeta } from 'vue-meta';
+
+// Meta tags pour la page Projets
+useMeta({
+  title: 'Projets | Valentin Fiess - Développeur Web & IA',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Découvrez tous mes projets en développement web, intelligence artificielle et data science. Portfolio complet de Valentin Fiess, développeur à Montpellier.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'projets développement web, projets IA, portfolio projets, Valentin Fiess, Vue.js, Python, machine learning, projets étudiants',
+    },
+    { property: 'og:title', content: 'Projets | Valentin Fiess - Développeur Web & IA' },
+    {
+      property: 'og:description',
+      content:
+        'Découvrez tous mes projets en développement web, intelligence artificielle et data science.',
+    },
+    { property: 'og:image', content: '/assets/assets_index/WildLens.webp' },
+    { property: 'og:url', content: 'https://www.valentin-fiess.fr/projets' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Projets | Valentin Fiess - Développeur Web & IA' },
+    {
+      name: 'twitter:description',
+      content: 'Découvrez tous mes projets en développement web et IA.',
+    },
+    { name: 'twitter:image', content: '/assets/assets_index/WildLens.webp' },
+    { name: 'author', content: 'Valentin Fiess' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'language', content: 'fr-FR' },
+  ],
+});
 
 const projetsAffiches = ref(projets);
 </script>

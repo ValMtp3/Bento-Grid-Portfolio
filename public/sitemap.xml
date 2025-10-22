@@ -26,7 +26,7 @@
 
   <!-- Page Mentions Légales -->
   <url>
-    <loc>https://www.valentin-fiess.fr/mentions-legales</loc>
+    <loc>https://www.valentin-fiess.fr/legal</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
@@ -34,7 +34,7 @@
 
   <!-- Page Politique de Confidentialité -->
   <url>
-    <loc>https://www.valentin-fiess.fr/politique-confidentialite</loc>
+    <loc>https://www.valentin-fiess.fr/policy</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
