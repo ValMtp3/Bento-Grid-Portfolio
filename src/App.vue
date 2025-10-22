@@ -5,6 +5,7 @@ import { useThemeStore } from './stores/theme.js';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
 import ThemeToggle from './components/include/ThemeToggle.vue';
+import ChatbotWidget from './components/ChatbotWidget.vue';
 
 // Meta tags globaux
 useMeta({
@@ -35,7 +36,7 @@ themeStore.init();
 
 <template>
   <div
-    class="bg-custom-gradient dark:bg-gradient-to-br dark:from-dark-start dark:to-dark-end transition-colors duration-500"
+    class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
   >
     <!-- Lien d'évitement pour l'accessibilité -->
     <a
@@ -54,12 +55,14 @@ themeStore.init();
     </main>
 
     <footer
-      class="bg-white dark:bg-dark-secondary font-[AnonymousPro] transition-colors duration-300"
+      class="bg-white dark:bg-gray-900 font-[AnonymousPro] transition-colors duration-300"
       role="contentinfo"
     >
       <Footer />
     </footer>
 
     <CookieBanner />
+
+    <ChatbotWidget />
   </div>
 </template>

@@ -38,7 +38,7 @@ useMeta({
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">
           Identité du propriétaire du site
         </h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p><strong>Nom :</strong> Valentin Fiess</p>
           <p><strong>Adresse :</strong> 34470 Pérols</p>
           <p>
@@ -54,14 +54,14 @@ useMeta({
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">
           Responsable de la publication
         </h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p><strong>Responsable :</strong> Valentin Fiess</p>
         </div>
       </section>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Hébergeur du site</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p><strong>Nom :</strong> PIVATEHEBERG via ANCELADE</p>
           <p><strong>Adresse :</strong> 128 rue de la Boétie, 75008 Paris</p>
           <p>
@@ -79,7 +79,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Objet des CGU</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Le site a pour objectif de présenter le portfolio, le profil, les projets et les
             connaissances de Valentin Fiess, ainsi que de fournir un moyen de le contacter.
@@ -89,14 +89,14 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Accès au site</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>L'accès au site est libre.</p>
         </div>
       </section>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Propriété intellectuelle</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Toutes les images non libres de droit, les marques d'entreprises et les langages
             utilisés sur le site sont protégés par des droits d'auteur.
@@ -106,7 +106,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Modifications des CGU</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             Valentin Fiess se réserve le droit de modifier les CGU sans informer les utilisateurs
             individuellement.
@@ -118,7 +118,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Litiges et droit applicable</h2>
-        <div class="bg-white dark:bg-dark-card p-4 shadow rounded-lg">
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
           <p>
             En cas de litige, le droit applicable sera le droit français, et les tribunaux
             compétents seront ceux de la cour d'appel de Paris.

@@ -47,6 +47,8 @@ const themeStore = useThemeStore();
 const { theme } = storeToRefs(themeStore);
 const isDark = computed(() => theme.value === 'dark');
 const toggleDarkMode = () => {
+  console.log('Toggle clicked, current theme:', themeStore.theme);
   themeStore.setTheme(themeStore.theme === 'dark' ? 'light' : 'dark');
+  console.log('New theme:', themeStore.theme);
 };
 </script>

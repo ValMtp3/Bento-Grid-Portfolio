@@ -35,10 +35,10 @@ defineProps({
             class="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-3xl dark:filter dark:brightness-90 transition-all"
           />
           <div class="p-4 text-center">
-            <p class="mt-1 text-md font-bold text-neutral-900 dark:text-dark-primary">
+            <p class="mt-1 text-md font-bold text-neutral-900 dark:text-white">
               {{ client.name }}
             </p>
-            <h2 class="text-sm text-neutral-700 dark:text-dark-secondary mt-1">
+            <h2 class="text-sm text-neutral-700 dark:text-gray-300 mt-1">
               {{ client.role }}
             </h2>
           </div>
