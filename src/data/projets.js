@@ -46,7 +46,7 @@ export const projets = [
   },
   {
     alt: 'Logo Allociné',
-    image: '/assets/assets_index/Allociné.webp',
+    image: '/assets/assets_index/Allocine.webp',
     date: 'Juin 2025',
     team: 'Valentin Fiess',
     description:

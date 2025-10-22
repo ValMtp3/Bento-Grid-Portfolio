@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { projets } from '@/data/projets.js';
+import ResponsiveImage from '@/components/ResponsiveImage.vue';
 
 const projetsAffiches = ref(projets);
 </script>
@@ -14,7 +15,7 @@ const projetsAffiches = ref(projets);
       :key="proj.name"
       class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md"
     >
-      <img
+      <ResponsiveImage
         :alt="proj.alt"
         :src="proj.image"
         class="mx-auto mb-4 md:mb-6 lg:mb-10 rounded-xl w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"

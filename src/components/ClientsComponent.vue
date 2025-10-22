@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
+import ResponsiveImage from './ResponsiveImage.vue';
 
 defineProps({
   clients: {
@@ -27,7 +28,7 @@ defineProps({
     >
       <SwiperSlide v-for="(client, idx) in clients" :key="idx">
         <div class="flex flex-col items-center">
-          <img
+          <ResponsiveImage
             :alt="client.alt"
             :src="client.image"
             :title="client.name"

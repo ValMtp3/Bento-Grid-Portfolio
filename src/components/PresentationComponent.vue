@@ -1,13 +1,19 @@
+<script setup>
+import ResponsiveImage from './ResponsiveImage.vue';
+</script>
+
 <template>
   <div
     class="bg-white dark:bg-dark-card font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none shadow-md dark:shadow-dark-md transition-all duration-300"
   >
     <div class="flex flex-col items-center xl:flex-row xlm:justify-between m-10">
       <div class="mb-6 sm:mb-0">
-        <img
+        <ResponsiveImage
           alt="photo Valentin Fiess"
           class="rounded-3xl object-cover shadow-xl shadow-black/40 dark:shadow-black/70 h-72 w-72 dark:border dark:border-dark-border"
           src="/assets/assets_index/Profile.webp"
+          loading="eager"
+          fetchpriority="high"
         />
       </div>
       <div class="text-center">
