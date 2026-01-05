@@ -5,6 +5,7 @@ import { useThemeStore } from './stores/theme.js';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
 import ThemeToggle from './components/include/ThemeToggle.vue';
+import HomeButton from './components/include/HomeButton.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
 
 // Meta tags globaux
@@ -49,6 +50,8 @@ themeStore.init();
     <div class="fixed top-4 right-4 z-50">
       <ThemeToggle />
     </div>
+
+    <HomeButton />
 
     <main id="main-content" role="main" class="min-h-screen">
       <router-view />

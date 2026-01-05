@@ -1,44 +1,32 @@
 # Sécurité et performances pour le portfolio Valentin Fiess
 # https://www.valentin-fiess.fr
 
-# Activer la réécriture d'URL
+# 1. Activer la réécriture d'URL
 RewriteEngine On
 
-# Redirections HTTPS (si nécessaire)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Protection contre les attaques XSS
+# 2. Protection contre les attaques XSS et Headers de sécurité
 <IfModule mod_headers.c>
-    # Content Security Policy
+    # Content Security Policy (Attention : très strict, assure-toi que tes scripts Google fonctionnent)
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none';"
 
     # Protection XSS
     Header always set X-XSS-Protection "1; mode=block"
-
     # Prévention du clickjacking
     Header always set X-Frame-Options "SAMEORIGIN"
-
     # Prévention du MIME sniffing
     Header always set X-Content-Type-Options "nosniff"
-
-    # HSTS (HTTP Strict Transport Security) - À activer après avoir HTTPS
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-
     # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
-
     # Permissions Policy
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-
-    # Supprimer le header serveur
-    Header always unset Server
-    Header always unset X-Powered-By
+    
+    # Supprimer la signature du serveur (Peut provoquer une erreur 500 chez certains hébergeurs, à tester)
+    # Header always unset Server
+    # Header always unset X-Powered-By
 </IfModule>
 
-# Compression GZIP/Brotli
+# 3. Compression GZIP/Brotli
 <IfModule mod_deflate.c>
-    # Compresser les fichiers texte
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
@@ -50,19 +38,15 @@ RewriteEngine On
     AddOutputFilterByType DEFLATE application/x-javascript
     AddOutputFilterByType DEFLATE application/json
     AddOutputFilterByType DEFLATE application/ld+json
-
-    # Compression des polices
     AddOutputFilterByType DEFLATE font/woff
     AddOutputFilterByType DEFLATE font/woff2
     AddOutputFilterByType DEFLATE application/font-woff
     AddOutputFilterByType DEFLATE application/font-woff2
 </IfModule>
 
-# Cache des ressources statiques
+# 4. Cache des ressources statiques
 <IfModule mod_expires.c>
     ExpiresActive On
-
-    # Cache des images (1 mois)
     ExpiresByType image/jpg "access plus 1 month"
     ExpiresByType image/jpeg "access plus 1 month"
     ExpiresByType image/gif "access plus 1 month"
@@ -70,68 +54,42 @@ RewriteEngine On
     ExpiresByType image/webp "access plus 1 month"
     ExpiresByType image/svg+xml "access plus 1 month"
     ExpiresByType image/x-icon "access plus 1 month"
-
-    # Cache des polices (1 mois)
     ExpiresByType font/woff "access plus 1 month"
     ExpiresByType font/woff2 "access plus 1 month"
     ExpiresByType application/font-woff "access plus 1 month"
     ExpiresByType application/font-woff2 "access plus 1 month"
-
-    # Cache des CSS et JS (1 semaine)
     ExpiresByType text/css "access plus 1 week"
     ExpiresByType application/javascript "access plus 1 week"
     ExpiresByType application/x-javascript "access plus 1 week"
-
-    # Cache des fichiers HTML (1 heure)
     ExpiresByType text/html "access plus 1 hour"
-
-    # Pas de cache pour les fichiers dynamiques
     ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
 
-# Protection des fichiers sensibles
+# 5. Protection des fichiers sensibles (Syntaxe Apache 2.4)
 <FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql|conf)$">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
-# Protection des dossiers sensibles
-<DirectoryMatch "/\.(git|svn|hg)/">
-    Order Allow,Deny
-    Deny from all
-</DirectoryMatch>
+# NOTE : Le bloc DirectoryMatch a été supprimé car il est INTERDIT dans un .htaccess
+# Si tu veux protéger le dossier .git, il faut le faire via une règle Rewrite :
+RewriteRule ^\.git - [F,L]
 
-# Limitation des méthodes HTTP
+# 6. Limitation des méthodes HTTP (Syntaxe Apache 2.4)
 <LimitExcept GET POST HEAD OPTIONS>
-    Deny from all
+    Require all denied
 </LimitExcept>
 
-# Protection contre les hotlinks (vol d'images)
+# 7. Protection contre le hotlinking
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?valentin-fiess\.fr [NC]
 RewriteCond %{REQUEST_FILENAME} \.(gif|jpe?g|png|webp|svg)$ [NC]
 RewriteRule . - [F,L]
 
-# Redirections pour les URLs sans www
-# RewriteCond %{HTTP_HOST} ^valentin-fiess\.fr$ [NC]
-# RewriteRule ^(.*)$ https://www.valentin-fiess.fr/$1 [R=301,L]
-
-# Gestion des erreurs personnalisées
+# 8. Gestion des erreurs
 ErrorDocument 404 /index.html
 ErrorDocument 500 /index.html
 
-# Optimisation des performances
+# 9. Optimisation SetEnvIf
 <IfModule mod_setenvif.c>
-    # Ne pas compresser les fichiers déjà compressés
     SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|ico|zip|gz|bz2)$ no-gzip dont-vary
 </IfModule>
-
-# Rate limiting basique (si mod_evasive disponible)
-# <IfModule mod_evasive24.c>
-#     DOSHashTableSize 100
-#     DOSPageCount 5
-#     DOSPageInterval 1
-#     DOSSiteCount 50
-#     DOSSiteInterval 1
-#     DOSBlockingPeriod 600
-# </IfModule>
