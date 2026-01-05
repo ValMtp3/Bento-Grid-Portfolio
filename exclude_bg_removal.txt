@@ -21,3 +21,5 @@ transformers
 ValentinFiess
 VueJS
 WildLens
+Brave
+ValentinFiess2

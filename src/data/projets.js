@@ -1,5 +1,42 @@
 export const projets = [
   {
+    alt: 'Logo Chiffremento App',
+    image: '/assets/assets_index/Chiffremento.webp',
+    date: 'Novembre 2025',
+    team: 'Valentin Fiess',
+    description: 'Application de chiffrement de fichiers avec fonctionnalités avancées',
+    descriptionlongue:
+      'Application de chiffrement de fichiers sécurisée développée en TypeScript, offrant des fonctionnalités avancées telles que le chiffrement AES-256, un mode paranoïaque pour une sécurité maximale, de la stéganographie pour cacher des données, un déni plausible et un chiffrement temporisé.',
+    src: 'https://chiffremento-app.vercel.app/',
+    nom: 'chiffremento-app',
+    technos: ['TypeScript'],
+  },
+  {
+    alt: 'Logo Raisonnement IA',
+    image: '/assets/assets_index/RaisonnementIA.webp',
+    date: 'Novembre 2025',
+    team: 'Valentin Fiess',
+    description: "Implémentation d'une couche de raisonnement autour d'un LLM Mistral.",
+    descriptionlongue:
+      "Implémentation d'une couche de raisonnement autour d'un LLM Mistral pour résoudre des problèmes complexes en plusieurs étapes (ReAct, CoT, RAG)",
+    src: 'https://github.com/ValMtp3/Raisonnement_IA',
+    nom: 'Raisonnement_IA',
+    technos: ['Jupyter Notebook', 'Python', 'Mistral LLM', 'ReAct', 'CoT', 'RAG'],
+  },
+  {
+    alt: 'Logo Brave',
+    image: '/assets/assets_index/Brave.webp',
+    date: 'Novembre 2025',
+    team: 'Valentin Fiess',
+    description:
+      "Projet RAG utilisant l'API de Brave Search pour connecter un LLM léger à internet",
+    descriptionlongue:
+      "Intégration de l'API Brave Search pour permettre à un modèle de langage léger (Mistral-small) d'accéder à des informations en temps réel sur internet. Utilisation de techniques de RAG (Retrieval-Augmented Generation) pour améliorer la pertinence des réponses fournies par le chatbot.",
+    src: 'https://huggingface.co/spaces/ValMtp3/Brave_RAG',
+    name: 'Brave RAG',
+    technos: ['Python', 'Brave Search API'],
+  },
+  {
     alt: 'Logo to-do-go',
     image: '/assets/assets_index/to-do-go.webp',
     date: 'Octobre 2025',
@@ -83,6 +120,18 @@ export const projets = [
     src: 'https://github.com/ValMtp3/Chiffremento',
     name: 'Chiffremento cli',
     technos: ['Python', 'cryptography'],
+  },
+  {
+    alt: 'Image Valentin Fiess',
+    image: '/assets/assets_index/ValentinFiess2.webp',
+    date: 'Mai 2024',
+    team: 'Valentin Fiess',
+    description: 'Portfolio personnel avec un style moderne',
+    descriptionlongue:
+      "Création de mon portfolio moderne avec un syle Bento Grid. Intégration d'animations fluides, design responsive pour une expérience optimale sur tous les appareils.",
+    src: 'www.valentin-fiess.fr',
+    name: 'Portfolio Bento-Grids',
+    technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
   },
   {
     alt: 'Logo Vue.js',
