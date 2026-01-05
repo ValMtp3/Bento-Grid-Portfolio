@@ -1,5 +1,17 @@
 export const projets = [
   {
+    alt: 'Logo to-do-go',
+    image: '/assets/assets_index/to-do-go.webp',
+    date: 'Octobre 2025',
+    team: 'Valentin Fiess',
+    description: 'Application de gestion de tâches cli en go',
+    descriptionlongue:
+      "Application de gestion de tâches simple avec fonctionnalités d'ajout, suppression et marquage comme terminée. Premier projet GO.",
+    src: 'https://github.com/ValMtp3/todo-go',
+    name: 'To-do-go',
+    technos: ['Go'],
+  },
+  {
     alt: 'Logo Cyber-Hôpital',
     image: '/assets/assets_index/CyberHopital.webp',
     date: 'Septembre 2025',
@@ -9,17 +21,19 @@ export const projets = [
       'Escape-game éducatif en ligne simulant une cyber-attaque dans un hôpital avec la résolution de plusieurs salles. Projet réalisé avec HTML/Tailwind CSS et Vue.js.',
     src: 'https://github.com/Workshop-M1-CyberHopital/Escape-game-numerique',
     name: 'Cyber-Hopital',
+    technos: ['Html', 'Tailwind', 'VueJS'],
   },
   {
     alt: 'Image Valentin Fiess',
     image: '/assets/assets_index/ValentinFiess.webp',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
-    description: "Création d'un chatbot CV intelligent sur moi-même",
+    description: "RAG d'un chatbot IA connecté au CV destiné aux recruteurs",
     descriptionlongue:
-      "Création d'un chatbot CV intelligent utilisant RAG avec Mistral-small et des données stockées en JSON pour des réponses personnalisées.",
+      "Création d'un chatbot CV intelligent utilisant un RAG avec Mistral-small et des données stockées en JSON pour des réponses personnalisées.",
     src: 'https://huggingface.co/spaces/ValMtp3/Chatbot_IA_CV',
     name: 'Chatbot IA CV',
+    technos: ['Jupyter Notebook', 'Python', 'Mistral'],
   },
   {
     alt: 'Logo WildLens',
@@ -32,6 +46,7 @@ export const projets = [
       "Application complète de reconnaissance de traces d'animaux sauvages. Pipeline ETL pour le traitement d'images, génération de métadonnées enrichies avec IA (Mistral et Gemini), puis entraînement d'un modèle de classification basé sur MobileNetV3Small.",
     src: 'https://github.com/CedricSanchezGithub/ETL',
     name: 'WildLens',
+    technos: ['Python', 'MobileNetV3Small', 'Mistral', 'Gemini', 'ETL'],
   },
   {
     alt: 'Logo Fake News Detection',
@@ -43,6 +58,7 @@ export const projets = [
       'Pipeline complet de détection de fake news utilisant le machine learning pour classifier automatiquement les textes. Projet réalisé en Jupyter Notebook avec Python, scikit-learn et autres bibliothèques de data science.',
     src: 'https://github.com/ValMtp3/Fakenews-detection',
     name: 'Fakenews Detection',
+    technos: ['Jupyter Notebook', 'Python', 'scikit-learn', 'NLP', 'Machine Learning'],
   },
   {
     alt: 'Logo Allociné',
@@ -54,6 +70,7 @@ export const projets = [
       'Analyse de sentiment automatisée sur les critiques de films du dataset IMDB/Allociné. Utilisation de modèles de machine learning et transformers pour classifier positivement ou négativement les avis des spectateurs. Réalisé en Jupyter Notebook avec Python.',
     src: 'https://github.com/ValMtp3/sentiment-analysis-allocine',
     name: 'Sentiment Analysis Allociné',
+    technos: ['Python', 'NLP', 'Gradio', 'Scikit-learn'],
   },
   {
     alt: 'Logo Chiffremento',
@@ -64,7 +81,8 @@ export const projets = [
     descriptionlongue:
       'Application en ligne de commande pour chiffrer et déchiffrer des fichiers de manière sécurisée. Développé en Python avec la bibliothèque cryptography pour garantir la protection des données sensibles.',
     src: 'https://github.com/ValMtp3/Chiffremento',
-    name: 'Chiffremento',
+    name: 'Chiffremento cli',
+    technos: ['Python', 'cryptography'],
   },
   {
     alt: 'Logo Vue.js',
@@ -76,6 +94,19 @@ export const projets = [
       "Premier projet avec Vue.js : implémentation du routage pour la navigation, connexion à des webhooks pour les interactions temps réel, et consommation d'APIs REST pour afficher des données dynamiques.",
     src: 'https://github.com/ValMtp3/TD-Site',
     name: 'TD Site',
+    technos: ['VueJS', 'JavaScript', 'HTML', 'CSS'],
+  },
+  {
+    alt: 'Logo InvestManagment',
+    image: '/assets/assets_index/InvestManagment.webp',
+    date: 'Décembre 2023',
+    team: 'Valentin Fiess',
+    description: "Application de gestion de portefeuille d'investissements",
+    descriptionlongue:
+      "Application web de gestion de portefeuille d'investissements développée avec Python. Fonctionnalités : ajout/suppression d'investissements, suivi des performances, interface utilisateur interactive et responsive.",
+    src: 'https://github.com/ValMtp3/InvestManagment/tree/main',
+    name: 'InvestManagment',
+    technos: ['Python', 'Tkinter', 'MySQL'],
   },
   {
     alt: 'Logo HarmoniSound',
@@ -87,6 +118,7 @@ export const projets = [
       "Application web de gestion de bibliothèque musicale développée avec PHP Symfony. Fonctionnalités complètes : CRUD pour les albums/morceaux, système d'authentification, API REST, tests unitaires automatisés et base de données MySQL.",
     src: 'https://github.com/ValMtp3/HarmoniSound',
     name: 'HarmoniSound',
+    technos: ['PHP', 'Symfony', 'MySQL', 'API REST'],
   },
   {
     alt: 'Logo ProSwipe',
@@ -98,6 +130,7 @@ export const projets = [
       "Développement d'une plateforme web fictive de mise en relation entre étudiants et professionnels, inspirée de Tinder avec un système de swipe. Technologies : PHP, HTML, CSS. Méthodologie : gestion de projet Kanban avec Trello.",
     src: 'https://github.com/ProSwipe/Application',
     name: 'ProSwipe',
+    technos: ['PHP', 'HTML', 'CSS'],
   },
   {
     alt: "Logo Pizza O'Plomo",
@@ -109,6 +142,7 @@ export const projets = [
       'Projet complet de création de site web pour pizzeria à plusieurs développeurs. Inclut : site responsive, conception MCD, optimisation SEO, campagne emailing et stratégie SMO. Technologies : HTML, CSS, JavaScript, PHP.',
     src: 'https://www.pizzaoplomo.gaetandev.fr',
     name: "Pizza O'Plomo",
+    technos: ['HTML', 'CSS', 'JavaScript', 'PHP'],
   },
   {
     alt: 'Logo Hôtel Neptune',
@@ -120,6 +154,7 @@ export const projets = [
       "Refonte totale du site web d'un hôtel avec système de réservation en ligne. Intégration d'une base de données MySQL pour la gestion des chambres et réservations. Technologies : HTML, CSS, JavaScript, PHP et MySQL.",
     src: 'https://github.com/HotelNeptune/Application/tree/dev',
     name: 'Neptune',
+    technos: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
   },
   {
     alt: 'Page artiste Damso',
@@ -131,5 +166,6 @@ export const projets = [
       "Premier projet web personnel : création d'une page de présentation pour l'artiste Damso. Technologies de base : HTML et CSS pour la mise en page et le style.",
     src: 'https://github.com/ValMtp3/Damso',
     name: 'Damso',
+    technos: ['HTML', 'CSS'],
   },
 ];

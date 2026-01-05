@@ -56,15 +56,11 @@ const languages = [
   { alt: 'Logo VueJS', image: '/assets/assets_index/VueJS.webp', title: 'VueJS' },
   { alt: 'Logo MySQL', image: '/assets/assets_index/MySQL-removebg.webp', title: 'MySQL' },
   { alt: 'Logo Python', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
+  { alt: 'Logo n8n', image: '/assets/assets_index/n8n.webp', title: 'n8n' },
   {
-    alt: 'Logo Pandas',
-    image: '/assets/assets_index/pandas.webp',
-    title: 'Pandas',
-  },
-  {
-    alt: 'Logo Scikit-learn',
-    image: '/assets/assets_index/scikitlearn.webp',
-    title: 'Scikit-learn',
+    alt: 'Logo PyTorch',
+    image: '/assets/assets_index/pytorch.webp',
+    title: 'PyTorch',
   },
   {
     alt: 'Logo TensorFlow',
@@ -72,15 +68,21 @@ const languages = [
     title: 'TensorFlow',
   },
   {
-    alt: 'Logo PyTorch',
-    image: '/assets/assets_index/pytorch.webp',
-    title: 'PyTorch',
+    alt: 'Logo Pandas',
+    image: '/assets/assets_index/pandas.webp',
+    title: 'Pandas',
   },
   {
     alt: 'Logo Transformers',
     image: '/assets/assets_index/transformers.webp',
     title: 'Transformers',
   },
+  {
+    alt: 'Logo Scikit-learn',
+    image: '/assets/assets_index/scikitlearn.webp',
+    title: 'Scikit-learn',
+  },
+  { alt: 'Logo Go', image: '/assets/assets_index/Go.webp', title: 'Go' },
   { alt: 'Logo Symfony', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
 ];
 
