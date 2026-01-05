@@ -113,10 +113,7 @@ const sanitizeInput = (input) => {
       <span v-if="errors.email" class="text-red-500">{{ errors.email }}</span>
     </div>
     <div class="mb-3">
-      <label
-        class="mb-1 block text-base font-medium text-black dark:text-white"
-        for="subject"
-      >
+      <label class="mb-1 block text-base font-medium text-black dark:text-white" for="subject">
         Sujet
       </label>
       <input
@@ -131,10 +128,7 @@ const sanitizeInput = (input) => {
       <span v-if="errors.subject" class="text-red-500">{{ errors.subject }}</span>
     </div>
     <div class="mb-3">
-      <label
-        class="mb-1 block text-base font-medium text-black dark:text-white"
-        for="message"
-      >
+      <label class="mb-1 block text-base font-medium text-black dark:text-white" for="message">
         Message
       </label>
       <textarea

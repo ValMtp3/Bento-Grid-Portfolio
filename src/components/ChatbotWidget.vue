@@ -176,9 +176,11 @@ export default {
       this.isLoading = true;
 
       try {
+        console.log('Sending message:', message);
         const result = await this.client.predict('/chat', {
           message: message,
         });
+        console.log('Result received:', result);
 
         let botResponse = '';
         if (result && result.data && result.data.length > 0) {
@@ -186,6 +188,7 @@ export default {
         } else {
           botResponse = "Désolé, je n'ai pas pu générer une réponse.";
         }
+        console.log('Bot response:', botResponse);
 
         this.messages.push({
           role: 'assistant',
@@ -202,6 +205,7 @@ export default {
           content: "Erreur lors de l'envoi du message. Veuillez réessayer.",
         });
       } finally {
+        console.log('Loading finished');
         this.isLoading = false;
       }
     },
