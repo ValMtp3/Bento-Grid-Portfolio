@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@gradio/client": "^2.0.1",
     "js-cookie": "^3.0.5",
+    "marked": "^17.0.1",
     "npm-run-all": "^4.1.5",
     "pinia": "^3.0.4",
     "swiper": "^12.0.3",

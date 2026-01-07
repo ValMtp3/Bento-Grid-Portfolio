@@ -40,21 +40,21 @@
         </button>
       </div>
 
-      <div class="flex-1 flex items-center justify-center p-4">
-        <button
-          @click="openChatbotPopup"
-          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-colors"
-        >
-          Ouvrir le Chatbot IA
-        </button>
+      <div class="flex-1 overflow-hidden relative">
+        <ChatInterface />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ChatInterface from './ChatInterface.vue';
+
 export default {
   name: 'ChatbotWidget',
+  components: {
+    ChatInterface,
+  },
   data() {
     return {
       isOpen: false,
@@ -63,14 +63,6 @@ export default {
   methods: {
     openChatbot() {
       this.isOpen = true;
-    },
-
-    openChatbotPopup() {
-      window.open(
-        'https://valmtp3-chatbot-ia-cv.hf.space',
-        '_blank',
-        'width=800,height=600,scrollbars=yes,resizable=yes'
-      );
     },
 
     closeChatbot() {
