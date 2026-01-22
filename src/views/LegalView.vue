@@ -1,5 +1,6 @@
 <script setup>
 import { useMeta } from 'vue-meta';
+import EmailProtection from '../components/include/EmailProtection.vue';
 
 // Meta tags pour la page Mentions Légales
 useMeta({
@@ -43,9 +44,11 @@ useMeta({
           <p><strong>Adresse :</strong> 34470 Pérols</p>
           <p>
             <strong>Email :</strong>
-            <a class="text-blue-600 dark:text-blue-300" href="mailto:sobre.05.statue@icloud.com"
-              >sobre.05.statue@icloud.com</a
-            >
+            <EmailProtection
+              user="sobre.05.statue"
+              domain="icloud.com"
+              class="text-blue-600 dark:text-blue-300"
+            />
           </p>
         </div>
       </section>
@@ -66,9 +69,11 @@ useMeta({
           <p><strong>Adresse :</strong> 128 rue de la Boétie, 75008 Paris</p>
           <p>
             <strong>Email :</strong>
-            <a class="text-blue-600 dark:text-blue-300" href="mailto:contact@ancelade.com"
-              >contact@ancelade.com</a
-            >
+            <EmailProtection
+              user="contact"
+              domain="ancelade.com"
+              class="text-blue-600 dark:text-blue-300"
+            />
           </p>
         </div>
       </section>

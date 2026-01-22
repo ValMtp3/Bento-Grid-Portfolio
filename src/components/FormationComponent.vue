@@ -126,13 +126,13 @@
         </div>
         <div class="mt-3 sm:pe-8">
           <h3 class="text-lg font-semibold leading-tight text-gray-900 dark:text-white">
-            Licence Informatique (3ème année)
+            Licence Informatique Développement Data/IA
           </h3>
           <time class="block font-normal leading-none text-gray-700 text-md dark:text-white/80"
             >EPSI Montpellier
           </time>
           <p class="text-base font-normal text-gray-500 dark:text-white/60">
-            En cours de Licence à l'EPSI (3ème année)
+            Licence Développement Data/IA RNCP Niveau 6
           </p>
         </div>
       </li>
