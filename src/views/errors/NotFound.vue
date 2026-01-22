@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
 import { useMeta } from 'vue-meta';
 
 // Meta tags pour la page 404
@@ -28,7 +29,20 @@ useMeta({
       name: 'description',
       content: "Oups ! La page que vous cherchez n'existe pas ou a été déplacée.",
     },
-    { name: 'robots', content: 'noindex, follow' },
   ],
+});
+
+onMounted(() => {
+  const meta = document.createElement('meta');
+  meta.name = 'robots';
+  meta.content = 'noindex';
+  document.head.appendChild(meta);
+});
+
+onUnmounted(() => {
+  const meta = document.querySelector('meta[name="robots"]');
+  if (meta) {
+    document.head.removeChild(meta);
+  }
 });
 </script>

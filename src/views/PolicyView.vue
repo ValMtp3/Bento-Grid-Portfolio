@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import EmailProtection from '../components/include/EmailProtection.vue';
+</script>
 
 <template>
   <div class="text-gray-800 dark:text-gray-200">
@@ -77,9 +79,11 @@
             de conserver une trace des échanges afin de faciliter le suivi des conversations et
             répondre aux demandes futures. Vous avez toutefois le droit de demander la suppression
             de vos données à tout moment en me contactant à l'adresse suivante :
-            <a class="text-blue-600 dark:text-blue-300" href="mailto:sobre.05.statue@icloud.com"
-              >sobre.05.statue@icloud.com</a
-            >.
+            <EmailProtection
+              user="sobre.05.statue"
+              domain="icloud.com"
+              class="text-blue-600 dark:text-blue-300"
+            />.
           </p>
         </div>
       </section>
@@ -129,9 +133,11 @@
           </ul>
           <p>
             Pour exercer ces droits, vous pouvez me contacter par email à l'adresse suivante :
-            <a class="text-blue-600 dark:text-blue-300" href="mailto:sobre.05.statue@icloud.com"
-              >sobre.05.statue@icloud.com</a
-            >.
+            <EmailProtection
+              user="sobre.05.statue"
+              domain="icloud.com"
+              class="text-blue-600 dark:text-blue-300"
+            />.
           </p>
         </div>
       </section>
