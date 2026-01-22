@@ -8,7 +8,7 @@ export const projets = [
     descriptionlongue:
       'Application de chiffrement de fichiers sécurisée développée en TypeScript, offrant des fonctionnalités avancées telles que le chiffrement AES-256, un mode paranoïaque pour une sécurité maximale, de la stéganographie pour cacher des données, un déni plausible et un chiffrement temporisé.',
     src: 'https://chiffremento-app.vercel.app/',
-    nom: 'chiffremento-app',
+    name: 'chiffremento-app',
     technos: ['TypeScript'],
   },
   {
@@ -20,7 +20,7 @@ export const projets = [
     descriptionlongue:
       "Implémentation d'une couche de raisonnement autour d'un LLM Mistral pour résoudre des problèmes complexes en plusieurs étapes (ReAct, CoT, RAG)",
     src: 'https://github.com/ValMtp3/Raisonnement_IA',
-    nom: 'Raisonnement_IA',
+    name: 'Raisonnement_IA',
     technos: ['Jupyter Notebook', 'Python', 'Mistral LLM', 'ReAct', 'CoT', 'RAG'],
   },
   {

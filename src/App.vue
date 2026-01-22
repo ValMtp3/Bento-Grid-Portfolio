@@ -12,7 +12,7 @@ import ChatbotWidget from './components/ChatbotWidget.vue';
 const route = useRoute();
 const canonicalUrl = computed(() => `https://www.valentin-fiess.fr${route.path}`);
 
-// Meta tags globaux
+// Meta tags globaux via vue-meta (Titre/Description)
 useMeta({
   title: 'Valentin Fiess | Portfolio Développeur',
   htmlAttrs: {
@@ -32,47 +32,61 @@ useMeta({
     { property: 'og:type', content: 'website' },
     { name: 'robots', content: 'index, follow' },
   ],
-  link: [
-    {
-      rel: 'canonical',
-      href: canonicalUrl,
-    },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      json: {
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'WebSite',
-            'name': 'Valentin Fiess Portfolio',
-            'url': 'https://www.valentin-fiess.fr/',
-            'potentialAction': {
-              '@type': 'SearchAction',
-              'target': 'https://www.valentin-fiess.fr/?q={search_term_string}',
-              'query-input': 'required name=search_term_string',
-            },
+});
+
+// Injection Manuelle (Secours si vue-meta ne rend pas)
+import { onMounted, watchEffect } from 'vue';
+
+onMounted(() => {
+  // 1. Injection du JSON-LD
+  const scriptId = 'schema-json-ld';
+  if (!document.getElementById(scriptId)) {
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          'name': 'Valentin Fiess Portfolio',
+          'url': 'https://www.valentin-fiess.fr/',
+          'potentialAction': {
+            '@type': 'SearchAction',
+            'target': 'https://www.valentin-fiess.fr/?q={search_term_string}',
+            'query-input': 'required name=search_term_string',
           },
-          {
-            '@type': 'Person',
-            'name': 'Valentin Fiess',
-            'url': 'https://www.valentin-fiess.fr',
-            'sameAs': [
-              'https://www.linkedin.com/in/valentin-fiess/',
-              'https://www.github.com/ValMtp3',
-            ],
-            'jobTitle': 'Développeur Web',
-            'knowsAbout': ['VueJS', 'Tailwind CSS', 'Python', 'PHP', 'Symfony'],
-            'worksFor': {
-              '@type': 'Organization',
-              'name': 'Freelance',
-            },
+        },
+        {
+          '@type': 'Person',
+          'name': 'Valentin Fiess',
+          'url': 'https://www.valentin-fiess.fr',
+          'sameAs': [
+            'https://www.linkedin.com/in/valentin-fiess/',
+            'https://www.github.com/ValMtp3',
+          ],
+          'jobTitle': 'Développeur Web',
+          'knowsAbout': ['VueJS', 'Tailwind CSS', 'Python', 'PHP', 'Symfony'],
+          'worksFor': {
+            '@type': 'Organization',
+            'name': 'Freelance',
           },
-        ],
-      },
-    },
-  ],
+        },
+      ],
+    });
+    document.head.appendChild(script);
+  }
+});
+
+// 2. Gestion dynamique du Canonical
+watchEffect(() => {
+  let link = document.querySelector("link[rel='canonical']");
+  if (!link) {
+    link = document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    document.head.appendChild(link);
+  }
+  link.setAttribute('href', `https://www.valentin-fiess.fr${route.path}`);
 });
 
 // Récupérer l'état du mode sombre et initialiser le thème
