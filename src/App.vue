@@ -1,5 +1,6 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import { computed } from 'vue';
+import { RouterView, useRoute } from 'vue-router';
 import { useMeta } from 'vue-meta';
 import { useThemeStore } from './stores/theme.js';
 import Footer from './components/include/Footer.vue';
@@ -7,6 +8,9 @@ import CookieBanner from './components/include/CookieBanner.vue';
 import ThemeToggle from './components/include/ThemeToggle.vue';
 import HomeButton from './components/include/HomeButton.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
+
+const route = useRoute();
+const canonicalUrl = computed(() => `https://www.valentin-fiess.fr${route.path}`);
 
 // Meta tags globaux
 useMeta({
@@ -27,6 +31,47 @@ useMeta({
     },
     { property: 'og:type', content: 'website' },
     { name: 'robots', content: 'index, follow' },
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: canonicalUrl,
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      json: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            'name': 'Valentin Fiess Portfolio',
+            'url': 'https://www.valentin-fiess.fr/',
+            'potentialAction': {
+              '@type': 'SearchAction',
+              'target': 'https://www.valentin-fiess.fr/?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          },
+          {
+            '@type': 'Person',
+            'name': 'Valentin Fiess',
+            'url': 'https://www.valentin-fiess.fr',
+            'sameAs': [
+              'https://www.linkedin.com/in/valentin-fiess/',
+              'https://www.github.com/ValMtp3',
+            ],
+            'jobTitle': 'Développeur Web',
+            'knowsAbout': ['VueJS', 'Tailwind CSS', 'Python', 'PHP', 'Symfony'],
+            'worksFor': {
+              '@type': 'Organization',
+              'name': 'Freelance',
+            },
+          },
+        ],
+      },
+    },
   ],
 });
 
