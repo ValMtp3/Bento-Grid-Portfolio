@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-const HomeView = () => import('@/views/HomeView.vue');
+import HomeView from '@/views/HomeView.vue';
 const LegalView = () => import('@/views/LegalView.vue');
 const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');

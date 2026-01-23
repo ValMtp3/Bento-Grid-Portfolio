@@ -13,6 +13,7 @@
           alt="CV"
           class="w-16 h-16 xl:w-32 xl:h-32 dark:filter dark:invert dark:brightness-90 transition-all"
           src="/assets/assets_index/CV.svg"
+          loading="lazy"
         />
       </a>
       <a
@@ -25,6 +26,7 @@
           alt="Linkedin"
           class="w-16 h-16 xl:w-32 xl:h-32 dark:filter dark:brightness-90 transition-all"
           src="/assets/assets_index/Linkedin.svg"
+          loading="lazy"
         />
       </a>
       <a
@@ -37,6 +39,7 @@
           alt="GitHub"
           class="w-16 h-16 xl:w-32 xl:h-32 dark:filter dark:invert dark:brightness-90 transition-all"
           src="/assets/assets_index/Github.svg"
+          loading="lazy"
         />
       </a>
       <a
@@ -49,6 +52,7 @@
           alt="Mail"
           class="w-16 h-16 xl:w-32 xl:h-32 dark:filter dark:invert dark:brightness-90 transition-all"
           src="/assets/assets_index/mail.svg"
+          loading="lazy"
         />
       </a>
     </div>

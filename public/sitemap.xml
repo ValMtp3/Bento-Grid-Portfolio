@@ -1,50 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Page d'accueil -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/</loc>
-    <lastmod>2025-09-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- Page Stack (technologies) -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/stack</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Page Projets -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/projets</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Page Mentions Légales -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/legal</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-
-  <!-- Page Politique de Confidentialité -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/policy</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-
-  <!-- Lien direct vers le CV (optionnel) -->
-  <url>
-    <loc>https://www.valentin-fiess.fr/assets/assets_index/CV.pdf</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+    <!--  Page d'accueil  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/</loc>
+        <lastmod>2025-09-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <!--  Page Stack (technologies)  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/stack</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <!--  Page Projets  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/projets</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <!--  Page Chatbot  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/chatbot</loc>
+        <lastmod>2026-01-22</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!--  Page Mentions Légales  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/legal</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.2</priority>
+    </url>
+    <!--  Page Politique de Confidentialité  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/policy</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.2</priority>
+    </url>
+    <!--  Lien direct vers le CV  -->
+    <url>
+        <loc>https://www.valentin-fiess.fr/assets/assets_index/CV.pdf</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>

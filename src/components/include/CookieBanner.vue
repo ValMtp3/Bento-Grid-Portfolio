@@ -37,14 +37,14 @@ function declineCookies() {
       <div class="flex">
         <button
           id="accept-cookies"
-          class="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 transition-colors duration-300"
+          class="bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 transition-colors duration-300"
           @click="acceptCookies"
         >
           Accepter
         </button>
         <button
           id="decline-cookies"
-          class="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
+          class="bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
           @click="declineCookies"
         >
           Refuser
