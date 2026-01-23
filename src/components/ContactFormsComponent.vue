@@ -144,7 +144,7 @@ const sanitizeInput = (input) => {
     </div>
     <div class="flex justify-center">
       <button
-        class="hover:shadow-form dark:hover:shadow-dark-md rounded-md bg-blue-400 hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 py-3 px-8 text-base font-semibold text-white outline-none"
+        class="hover:shadow-form dark:hover:shadow-dark-md rounded-md bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 py-3 px-8 text-base font-semibold text-white outline-none"
         type="submit"
       >
         Envoyer
