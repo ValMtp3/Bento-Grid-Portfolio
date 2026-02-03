@@ -22,7 +22,7 @@ except ImportError:
     print("   Installez avec: pip install tqdm")
 
 SOURCE_DIR = "public/assets/assets_index"
-SIZES = [400, 800, 1200]
+SIZES = [360, 400, 640, 800, 1200, 1400]
 DEFAULT_MODEL = "u2net"
 EXCLUDE_FILE = "exclude_bg_removal.txt"
 
@@ -173,12 +173,16 @@ def get_optimal_webp_quality(width):
     """
     Retourne la qualité optimale WebP basée sur la largeur de l'image.
     """
-    if width <= 400:
+    if width <= 360:
+        return 70  # Très forte compression pour très petites images
+    elif width <= 400:
         return 75  # Forte compression pour petites images
     elif width <= 800:
         return 80  # Compression équilibrée pour moyennes images
-    else:
+    elif width <= 1200:
         return 85  # Qualité élevée pour grandes images
+    else:
+        return 90  # Qualité très élevée pour très grandes images
 
 
 def main():
