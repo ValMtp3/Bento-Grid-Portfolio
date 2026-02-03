@@ -14,7 +14,8 @@ const props = defineProps({
   },
   sizes: {
     type: String,
-    default: '(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px',
+    default:
+      '(max-width: 360px) 360px, (max-width: 480px) 400px, (max-width: 768px) 640px, (max-width: 1024px) 800px, (max-width: 1400px) 1200px, 1400px',
   },
   loading: {
     type: String,
@@ -36,12 +37,12 @@ const getResponsiveSrc = (src, size) => {
   return `${path}/${size}/${filename}`;
 };
 
-const srcset = `${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w`;
+const srcset = `${getResponsiveSrc(props.src, 360)} 360w, ${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 640)} 640w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w, ${getResponsiveSrc(props.src, 1400)} 1400w`;
 </script>
 
 <template>
   <img
-    :src="getResponsiveSrc(src, 800)"
+    :src="getResponsiveSrc(src, 640)"
     :srcset="srcset"
     :sizes="sizes"
     :alt="alt"
