@@ -146,7 +146,7 @@ const scrollToBottom = async () => {
 const renderMarkdown = (text) => {
   try {
     return marked.parse(text);
-  } catch (e) {
+  } catch {
     return text;
   }
 };

@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import vueParser from 'vue-eslint-parser';
 import vue from 'eslint-plugin-vue';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
@@ -13,19 +14,8 @@ export default [
         sourceType: 'module',
       },
       globals: {
-        console: 'readonly',
-        process: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
-        navigator: 'readonly',
-        fetch: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
-        localStorage: 'readonly',
-        sessionStorage: 'readonly',
-        alert: 'readonly',
+        ...globals.browser,
+        ...globals.node,
       },
     },
     plugins: {
@@ -43,18 +33,8 @@ export default [
       ecmaVersion: 2021,
       sourceType: 'module',
       globals: {
-        console: 'readonly',
-        process: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
-        navigator: 'readonly',
-        fetch: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
-        localStorage: 'readonly',
-        sessionStorage: 'readonly',
+        ...globals.browser,
+        ...globals.node,
       },
     },
     rules: {

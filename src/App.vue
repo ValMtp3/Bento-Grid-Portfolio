@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { onMounted, watchEffect } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import { useMeta } from 'vue-meta';
 import { useThemeStore } from './stores/theme.js';
@@ -10,7 +10,6 @@ import HomeButton from './components/include/HomeButton.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
 
 const route = useRoute();
-const canonicalUrl = computed(() => `https://www.valentin-fiess.fr${route.path}`);
 
 // Meta tags globaux via vue-meta (Titre/Description)
 useMeta({
@@ -34,8 +33,8 @@ useMeta({
   ],
 });
 
-// Injection Manuelle (Secours si vue-meta ne rend pas)
-import { onMounted, watchEffect } from 'vue';
+
+// 1. Injection du JSON-LD
 
 onMounted(() => {
   // 1. Injection du JSON-LD
@@ -80,13 +79,15 @@ onMounted(() => {
 
 // 2. Gestion dynamique du Canonical
 watchEffect(() => {
-  let link = document.querySelector("link[rel='canonical']");
-  if (!link) {
-    link = document.createElement('link');
-    link.setAttribute('rel', 'canonical');
-    document.head.appendChild(link);
+  if (route.path) {
+    let link = document.querySelector("link[rel='canonical']");
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', `https://www.valentin-fiess.fr${route.path}`);
   }
-  link.setAttribute('href', `https://www.valentin-fiess.fr${route.path}`);
 });
 
 // Récupérer l'état du mode sombre et initialiser le thème
