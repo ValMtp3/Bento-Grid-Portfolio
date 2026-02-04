@@ -6,7 +6,7 @@
       <button
         id="back-to-top-btn"
         :class="{ hidden: !isScrollVisible }"
-        class="fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-blue-400 hover:bg-blue-500 text-white text-lg font-semibold transition-all duration-300"
+        class="fixed z-50 bottom-24 right-4 p-4 rounded-full shadow-lg hover:shadow-xl bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white transition-all duration-300 hover:scale-110 active:scale-95"
         title="Retour en haut"
         @click="scrollToTop"
       >
