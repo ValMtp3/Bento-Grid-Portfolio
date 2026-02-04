@@ -5,7 +5,8 @@
     >
       <button
         id="back-to-top-btn"
-        class="hidden fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-blue-400 hover:bg-blue-500 text-white text-lg font-semibold transition-colors duration-300"
+        :class="{ hidden: !isScrollVisible }"
+        class="fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-blue-400 hover:bg-blue-500 text-white text-lg font-semibold transition-all duration-300"
         title="Retour en haut"
         @click="scrollToTop"
       >
@@ -63,8 +64,25 @@
     </footer>
   </div>
 </template>
+
 <script setup>
+import { onMounted, onUnmounted, ref } from 'vue';
+
+const isScrollVisible = ref(false);
+
+const handleScroll = () => {
+  isScrollVisible.value = window.scrollY > 200;
+};
+
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>

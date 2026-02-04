@@ -42,4 +42,7 @@ window.addEventListener('unhandledrejection', (event) => {
   // Exemple: Sentry.captureException(event.reason);
 });
 
-app.mount('#app');
+// Attendre que le routeur soit prêt avant de monter l'application
+router.isReady().then(() => {
+  app.mount('#app');
+});

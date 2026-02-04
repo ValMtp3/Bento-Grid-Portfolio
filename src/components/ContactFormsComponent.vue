@@ -26,7 +26,15 @@ const validateForm = () => {
 };
 
 const saveToCookie = (key, value) => {
-  Cookies.set(key, value);
+  // Expire après 2 heures (2/24 de journée)
+  Cookies.set(key, value, { expires: 1 / 12 });
+};
+
+const clearFormCookies = () => {
+  Cookies.remove('form_name');
+  Cookies.remove('form_email');
+  Cookies.remove('form_subject');
+  Cookies.remove('form_message');
 };
 
 const loadFromCookie = (key, defaultValue) => {
@@ -69,6 +77,7 @@ const sendFeedback = (serviceId, templateId, variables) => {
     .send(serviceId, templateId, variables, apikey)
     .then(() => {
       // Email successfully sent
+      clearFormCookies();
     })
     .catch((err) => {
       console.error('Il y a une erreur', err);
