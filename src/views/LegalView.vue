@@ -2,6 +2,7 @@
 import { useMeta } from 'vue-meta';
 import EmailProtection from '../components/include/EmailProtection.vue';
 
+
 // Meta tags pour la page Mentions Légales
 useMeta({
   title: 'Mentions Légales | Valentin Fiess - Portfolio Développeur',

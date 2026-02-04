@@ -13,10 +13,11 @@ const props = defineProps({
 });
 
 const email = computed(() => `${props.user}@${props.domain}`);
+const href = computed(() => `mailto:${email.value}`);
 </script>
 
 <template>
-  <a :href="'mailto:' + email">
-    {{ email }}
+  <a :href="href" class="hover:underline transition-colors" v-bind="$attrs">
+    <slot>{{ email }}</slot>
   </a>
 </template>
