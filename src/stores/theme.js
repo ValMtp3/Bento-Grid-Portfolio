@@ -7,7 +7,6 @@ export const useThemeStore = defineStore('theme', {
   }),
   actions: {
     setTheme(newTheme) {
-
       this.theme = newTheme;
       this.userPreference = newTheme;
       localStorage.setItem('theme', newTheme);
@@ -16,39 +15,33 @@ export const useThemeStore = defineStore('theme', {
     applyTheme(newTheme) {
       if (newTheme === 'dark') {
         document.documentElement.classList.add('dark');
-
       } else {
         document.documentElement.classList.remove('dark');
-
       }
-
     },
     init() {
-
       const storedTheme = localStorage.getItem('theme');
 
-
       if (storedTheme) {
-
         this.setTheme(storedTheme);
       } else {
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
           ? 'dark'
           : 'light';
 
-        this.theme = systemTheme;
-        this.applyTheme(systemTheme);
+        this.setTheme(systemTheme);
       }
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-
         if (!localStorage.getItem('theme')) {
           const newTheme = e.matches ? 'dark' : 'light';
-
-          this.theme = newTheme;
-          this.applyTheme(newTheme);
+          this.setTheme(newTheme);
         }
       });
+    },
+    toggleTheme() {
+      const newTheme = this.theme === 'dark' ? 'light' : 'dark';
+      this.setTheme(newTheme);
     },
   },
 });

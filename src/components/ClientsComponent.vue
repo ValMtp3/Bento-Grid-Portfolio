@@ -21,7 +21,7 @@ defineProps({
         641: { slidesPerView: 2, spaceBetween: 20 },
         1025: { slidesPerView: 3, spaceBetween: 30 },
       }"
-      :loop="true"
+      :loop="false"
       :modules="[Pagination]"
       :pagination="{ clickable: true }"
       class="mySwiper"
