@@ -97,7 +97,7 @@ themeStore.init();
 
 <template>
   <div
-    class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
+    class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
   >
     <!-- Lien d'évitement pour l'accessibilité -->
     <a

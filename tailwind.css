@@ -1,5 +1,22 @@
 @import 'tailwindcss';
 
+/* Force class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Global Dark Mode Reset */
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+
+  .dark body {
+    background-color: #111827;
+    /* gray-900 */
+    color: #f3f4f6;
+    /* gray-100 */
+  }
+}
+
 @font-face {
   font-family: 'AnonymousPro';
   src: url('/assets/Font/Anonymous_Pro/AnonymousPro-Regular.woff2') format('woff2');
@@ -21,11 +38,9 @@
     background: hsla(205, 38%, 94%, 1);
     background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
     background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-    background: -webkit-linear-gradient(
-      45deg,
-      hsla(205, 38%, 94%, 1) 0%,
-      hsla(176, 57%, 89%, 1) 100%
-    );
+    background: -webkit-linear-gradient(45deg,
+        hsla(205, 38%, 94%, 1) 0%,
+        hsla(176, 57%, 89%, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
   }
 }
