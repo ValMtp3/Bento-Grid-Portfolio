@@ -34,7 +34,7 @@ const props = defineProps({
 const getResponsiveSrc = (src, size) => {
   const path = src.substring(0, src.lastIndexOf('/'));
   const filename = src.substring(src.lastIndexOf('/') + 1);
-  return `${path}/${size}/${filename}`;
+  return `${path}/${size}/${encodeURIComponent(filename)}`;
 };
 
 const srcset = `${getResponsiveSrc(props.src, 360)} 360w, ${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 640)} 640w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w, ${getResponsiveSrc(props.src, 1400)} 1400w`;
