@@ -78,6 +78,11 @@ const sendFeedback = (serviceId, templateId, variables) => {
     .then(() => {
       // Email successfully sent
       clearFormCookies();
+
+      // Tracking Matomo : Événement de contact réussi
+      if (window._paq) {
+        window._paq.push(['trackEvent', 'Contact', 'Email Sent']);
+      }
     })
     .catch((err) => {
       console.error('Il y a une erreur', err);

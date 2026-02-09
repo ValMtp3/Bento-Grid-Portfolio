@@ -115,9 +115,9 @@ useMeta({
           <p>
             Ce site utilise Matomo, une solution d'analyse web open-source et respectueuse de la vie
             privée, pour collecter des statistiques anonymes sur l'utilisation du site. Matomo est
-            hébergé sur l'instance Cloud de Matomo, ce qui garantit que vos données restent sous
-            notre contrôle et ne sont pas partagées avec des tiers. L'utilisation de Matomo est
-            soumise à votre consentement via notre bannière de cookies.
+            hébergé sur nos propres serveurs, ce qui garantit que vos données restent sous notre
+            contrôle et ne sont pas partagées avec des tiers. L'utilisation de Matomo est soumise à
+            votre consentement via notre bannière de cookies.
           </p>
         </div>
       </section>

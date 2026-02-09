@@ -112,11 +112,11 @@ import EmailProtection from '../components/include/EmailProtection.vue';
           <p>
             <strong>Matomo</strong> est une solution d'analyse web respectueuse de la vie privée que
             j'utilise pour collecter des statistiques anonymes sur l'utilisation du site.
-            Contrairement à d'autres outils d'analyse, Matomo est hébergé sur l'instance Cloud de
-            Matomo, ce qui signifie que vos données restent sous mon contrôle et ne sont pas
-            partagées avec des tiers. Les données collectées par Matomo incluent des informations
-            telles que les pages visitées, la durée des visites, les appareils utilisés, et les pays
-            d'origine. Toutes ces données sont anonymisées et ne permettent pas de vous identifier
+            Contrairement à d'autres outils d'analyse, Matomo est hébergé sur mes propres serveurs,
+            ce qui signifie que vos données restent sous mon contrôle et ne sont pas partagées avec
+            des tiers. Les données collectées par Matomo incluent des informations telles que les
+            pages visitées, la durée des visites, les appareils utilisés, et les pays d'origine.
+            Toutes ces données sont anonymisées et ne permettent pas de vous identifier
             personnellement.
           </p>
           <p>
