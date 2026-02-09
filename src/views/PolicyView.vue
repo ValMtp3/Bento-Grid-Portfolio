@@ -105,13 +105,25 @@ import EmailProtection from '../components/include/EmailProtection.vue';
           <p>
             Mon site utilise des cookies pour améliorer votre expérience utilisateur et pour
             collecter des statistiques anonymes via des outils comme
-            <strong>Cloudflare Browser Insights</strong>. Ces cookies permettent de surveiller les
-            performances du site, de détecter d'éventuels problèmes techniques, et d'assurer une
-            qualité de service optimale. Les données collectées par Cloudflare Browser Insights
-            incluent des informations telles que les temps de chargement des pages, les performances
-            des ressources, et d'autres mesures techniques relatives à votre navigation sur le site.
-            Ces données sont utilisées exclusivement à des fins statistiques et d'amélioration du
-            service.
+            <strong>Cloudflare Browser Insights</strong> et <strong>Matomo</strong>. Ces cookies
+            permettent de surveiller les performances du site, de détecter d'éventuels problèmes
+            techniques, et d'assurer une qualité de service optimale.
+          </p>
+          <p>
+            <strong>Matomo</strong> est une solution d'analyse web respectueuse de la vie privée que
+            j'utilise pour collecter des statistiques anonymes sur l'utilisation du site.
+            Contrairement à d'autres outils d'analyse, Matomo est hébergé sur l'instance Cloud de
+            Matomo, ce qui signifie que vos données restent sous mon contrôle et ne sont pas
+            partagées avec des tiers. Les données collectées par Matomo incluent des informations
+            telles que les pages visitées, la durée des visites, les appareils utilisés, et les pays
+            d'origine. Toutes ces données sont anonymisées et ne permettent pas de vous identifier
+            personnellement.
+          </p>
+          <p>
+            Les données collectées par Cloudflare Browser Insights incluent des informations telles
+            que les temps de chargement des pages, les performances des ressources, et d'autres
+            mesures techniques relatives à votre navigation sur le site. Ces données sont utilisées
+            exclusivement à des fins statistiques et d'amélioration du service.
           </p>
           <p>
             Une bannière d'acceptation vous permet de gérer vos préférences en matière de cookies.

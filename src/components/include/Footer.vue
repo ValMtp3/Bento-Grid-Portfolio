@@ -26,7 +26,7 @@
             <ul class="mt-5 grid grid-cols-3 gap-4">
               <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/" @click="scrollToTop"
-                  >Acceuil
+                  >Accueil
                 </router-link>
               </li>
               <li class="text-lg text-neutral-900 dark:text-white font-light">
@@ -46,7 +46,7 @@
               </li>
               <li class="text-lg text-neutral-900 dark:text-white font-light">
                 <router-link class="hover:underline" to="/legal" @click="scrollToTop"
-                  >Mention légales
+                  >Mentions légales
                 </router-link>
               </li>
               <li class="text-lg text-neutral-900 dark:text-white font-light">

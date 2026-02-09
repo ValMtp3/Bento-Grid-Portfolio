@@ -2,7 +2,6 @@
 import { useMeta } from 'vue-meta';
 import EmailProtection from '../components/include/EmailProtection.vue';
 
-
 // Meta tags pour la page Mentions Légales
 useMeta({
   title: 'Mentions Légales | Valentin Fiess - Portfolio Développeur',
@@ -106,6 +105,19 @@ useMeta({
           <p>
             Toutes les images non libres de droit, les marques d'entreprises et les langages
             utilisés sur le site sont protégés par des droits d'auteur.
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Utilisation de Matomo</h2>
+        <div class="bg-white dark:bg-gray-800 p-4 shadow rounded-lg">
+          <p>
+            Ce site utilise Matomo, une solution d'analyse web open-source et respectueuse de la vie
+            privée, pour collecter des statistiques anonymes sur l'utilisation du site. Matomo est
+            hébergé sur l'instance Cloud de Matomo, ce qui garantit que vos données restent sous
+            notre contrôle et ne sont pas partagées avec des tiers. L'utilisation de Matomo est
+            soumise à votre consentement via notre bannière de cookies.
           </p>
         </div>
       </section>
