@@ -37,6 +37,15 @@ onMounted(() => {
   meta.name = 'robots';
   meta.content = 'noindex';
   document.head.appendChild(meta);
+
+  // Tracking Matomo : Catégoriser comme erreur 404
+  if (window._paq) {
+    window._paq.push([
+      'setDocumentTitle',
+      '404/URL = ' + encodeURIComponent(window.location.pathname + window.location.search),
+    ]);
+    window._paq.push(['trackPageView']);
+  }
 });
 
 onUnmounted(() => {

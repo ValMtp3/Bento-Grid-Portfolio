@@ -15,13 +15,17 @@ app.use(createMetaManager());
 
 // Configuration de Matomo
 app.use(VueMatomo, {
-  host: 'https://valentin-fiess.matomo.cloud/',
+  host: 'https://www.valentin-fiess.fr/matomo',
   siteId: 1,
   router: router,
   enableLinkTracking: true,
   requireConsent: true,
   trackInitialValue: false,
 });
+
+// Activer le HeartBeatTimer pour une mesure précise du temps passé
+window._paq = window._paq || [];
+window._paq.push(['enableHeartBeatTimer']);
 
 // Monitoring des erreurs JavaScript pour le SEO
 window.addEventListener('error', (event) => {
