@@ -6,16 +6,33 @@ const showBanner = ref(false);
 onMounted(() => {
   const consent = localStorage.getItem('cookiesAccepted');
   showBanner.value = consent === null;
+
+  // Si le consentement a déjà été donné, appliquer à Matomo
+  if (consent === 'true' && window._paq) {
+    window._paq.push(['setConsentGiven']);
+    window._paq.push(['trackPageView']);
+  }
 });
 
 function acceptCookies() {
   localStorage.setItem('cookiesAccepted', 'true');
   showBanner.value = false;
+
+  // Activer Matomo si le consentement est donné
+  if (window._paq) {
+    window._paq.push(['setConsentGiven']);
+    window._paq.push(['trackPageView']);
+  }
 }
 
 function declineCookies() {
   localStorage.setItem('cookiesAccepted', 'false');
   showBanner.value = false;
+
+  // Désactiver Matomo si le consentement est refusé
+  if (window._paq) {
+    window._paq.push(['forgetConsentGiven']);
+  }
 }
 </script>
 
@@ -30,8 +47,8 @@ function declineCookies() {
   >
     <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
       <p class="mb-4 md:mb-0">
-        Ce site utilise des cookies pour améliorer votre expérience utilisateur et collecter des
-        statistiques anonymes. Pour en savoir plus, consultez notre
+        Ce site utilise des cookies et Matomo pour améliorer votre expérience utilisateur et
+        collecter des statistiques anonymes. Pour en savoir plus, consultez notre
         <a class="text-blue-400 underline" href="/policy">Politique de Confidentialité</a>.
       </p>
       <div class="flex">

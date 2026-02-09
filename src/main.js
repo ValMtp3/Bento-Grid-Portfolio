@@ -4,6 +4,7 @@ import { createPinia } from 'pinia';
 import { createMetaManager } from 'vue-meta';
 import App from './App.vue';
 import router from './router';
+import VueMatomo from 'vue-matomo';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -11,6 +12,16 @@ const pinia = createPinia();
 app.use(router);
 app.use(pinia);
 app.use(createMetaManager());
+
+// Configuration de Matomo
+app.use(VueMatomo, {
+  host: 'https://valentin-fiess.matomo.cloud/',
+  siteId: 1,
+  router: router,
+  enableLinkTracking: true,
+  requireConsent: true,
+  trackInitialValue: false,
+});
 
 // Monitoring des erreurs JavaScript pour le SEO
 window.addEventListener('error', (event) => {

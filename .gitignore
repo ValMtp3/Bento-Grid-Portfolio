@@ -32,3 +32,5 @@ coverage
 
 .eslintrc.cjs
 .prettierrc
+
+public/matomo
