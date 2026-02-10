@@ -14,15 +14,23 @@ RewriteRule ^ index.html [QSA,L]
 
 # 2. Protection contre les attaques XSS et Headers de sécurité
 <IfModule mod_headers.c>
-    # --- CSP AJUSTÉE ---
+    # --- Exclure Matomo des headers de sécurité restrictifs ---
+    # Matomo a besoin de ses propres règles CSP/frame pour fonctionner correctement.
+    <If "%{REQUEST_URI} =~ m#^/matomo/#">
+        Header unset Content-Security-Policy
+        Header unset X-Frame-Options
+    </If>
+
+    # --- CSP AJUSTÉE (appliquée uniquement hors /matomo/) ---
     # Réintégration de 'unsafe-inline' pour supporter la protection anti-bot dynamique de Cloudflare.
     # Suppression du hash statique qui ne fonctionnait pas.
-    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://gradio.s3-us-west-2.amazonaws.com https://static.cloudflareinsights.com https://valmtp3-chatbot-ia-cv.hf.space; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://gradio.s3-us-west-2.amazonaws.com https://valmtp3-chatbot-ia-cv.hf.space; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://valmtp3-chatbot-ia-cv.hf.space wss://valmtp3-chatbot-ia-cv.hf.space https://gradio.s3-us-west-2.amazonaws.com https://huggingface.co https://api.emailjs.com; frame-src 'self' https://valmtp3-chatbot-ia-cv.hf.space; frame-ancestors 'none';"
+    <If "%{REQUEST_URI} !~ m#^/matomo/#">
+        Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com https://gradio.s3-us-west-2.amazonaws.com https://static.cloudflareinsights.com https://valmtp3-chatbot-ia-cv.hf.space; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://gradio.s3-us-west-2.amazonaws.com https://valmtp3-chatbot-ia-cv.hf.space; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://valmtp3-chatbot-ia-cv.hf.space wss://valmtp3-chatbot-ia-cv.hf.space https://gradio.s3-us-west-2.amazonaws.com https://huggingface.co https://api.emailjs.com; frame-src 'self' https://valmtp3-chatbot-ia-cv.hf.space; frame-ancestors 'none';"
+        Header always set X-Frame-Options "SAMEORIGIN"
+    </If>
 
     # Protection XSS
     Header always set X-XSS-Protection "1; mode=block"
-    # Prévention du clickjacking
-    Header always set X-Frame-Options "SAMEORIGIN"
     # Prévention du MIME sniffing
     Header always set X-Content-Type-Options "nosniff"
     # Referrer Policy
