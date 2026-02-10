@@ -7,9 +7,12 @@ onMounted(() => {
   const consent = localStorage.getItem('cookiesAccepted');
   showBanner.value = consent === null;
 
-  // Si le consentement a déjà été donné, appliquer à Matomo
+  // Si le consentement a déjà été donné, réactiver Matomo via son API native
   if (consent === 'true' && window._paq) {
-    window._paq.push(['setConsentGiven']);
+    // rememberConsentGiven persiste le consentement côté Matomo (cookie matomo)
+    // Durée de 8760 heures = 365 jours
+    window._paq.push(['rememberConsentGiven', 8760]);
+    window._paq.push(['setDocumentTitle', document.title]);
     window._paq.push(['trackPageView']);
   }
 });
@@ -18,9 +21,10 @@ function acceptCookies() {
   localStorage.setItem('cookiesAccepted', 'true');
   showBanner.value = false;
 
-  // Activer Matomo si le consentement est donné
+  // Activer Matomo avec persistance native du consentement
   if (window._paq) {
-    window._paq.push(['setConsentGiven']);
+    window._paq.push(['rememberConsentGiven', 8760]);
+    window._paq.push(['setDocumentTitle', document.title]);
     window._paq.push(['trackPageView']);
   }
 }
@@ -29,7 +33,7 @@ function declineCookies() {
   localStorage.setItem('cookiesAccepted', 'false');
   showBanner.value = false;
 
-  // Désactiver Matomo si le consentement est refusé
+  // Désactiver Matomo et supprimer le consentement persisté
   if (window._paq) {
     window._paq.push(['forgetConsentGiven']);
   }
