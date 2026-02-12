@@ -18,7 +18,7 @@
 
     <div
       v-if="isOpen"
-      class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-[600px] flex flex-col"
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
     >
       <div
         class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700"

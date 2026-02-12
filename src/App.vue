@@ -33,7 +33,6 @@ useMeta({
   ],
 });
 
-
 // 1. Injection du JSON-LD
 
 onMounted(() => {
@@ -48,28 +47,53 @@ onMounted(() => {
       '@graph': [
         {
           '@type': 'WebSite',
-          'name': 'Valentin Fiess Portfolio',
-          'url': 'https://www.valentin-fiess.fr/',
-          'potentialAction': {
-            '@type': 'SearchAction',
-            'target': 'https://www.valentin-fiess.fr/?q={search_term_string}',
-            'query-input': 'required name=search_term_string',
-          },
+          '@id': 'https://www.valentin-fiess.fr/#website',
+          name: 'Valentin Fiess Portfolio',
+          url: 'https://www.valentin-fiess.fr/',
+          inLanguage: 'fr',
         },
         {
           '@type': 'Person',
-          'name': 'Valentin Fiess',
-          'url': 'https://www.valentin-fiess.fr',
-          'sameAs': [
-            'https://www.linkedin.com/in/valentin-fiess/',
-            'https://www.github.com/ValMtp3',
+          '@id': 'https://www.valentin-fiess.fr/#person',
+          name: 'Valentin Fiess',
+          url: 'https://www.valentin-fiess.fr/',
+          sameAs: ['https://www.linkedin.com/in/valentin-fiess/', 'https://github.com/ValMtp3'],
+          jobTitle: 'Développeur Fullstack / Ingénieur Data/IA',
+          description:
+            "Développeur Fullstack et Ingénieur Data/IA en recherche d'opportunités professionnelles.",
+          knowsAbout: [
+            'Machine Learning',
+            'Intelligence artificielle',
+            'Data',
+            'Python',
+            'Go',
+            'VueJS',
+            'Tailwind CSS',
           ],
-          'jobTitle': 'Développeur Web',
-          'knowsAbout': ['VueJS', 'Tailwind CSS', 'Python', 'PHP', 'Symfony'],
-          'worksFor': {
-            '@type': 'Organization',
-            'name': 'Freelance',
+        },
+        {
+          '@type': 'CollectionPage',
+          '@id': 'https://www.valentin-fiess.fr/#projet',
+          name: 'Projets',
+          description:
+            'Découvrez mes projets de développement web et IA, mes compétences et mon parcours professionnel.',
+          url: 'https://www.valentin-fiess.fr/projets',
+          inLanguage: 'fr',
+          isPartOf: {
+            '@id': 'https://www.valentin-fiess.fr/#website',
           },
+          author: { '@id': 'https://www.valentin-fiess.fr/#person' },
+        },
+        {
+          '@type': 'CollectionPage',
+          '@id': 'https://www.valentin-fiess.fr/#chatbot',
+          name: 'Chatbot IA Personnelle',
+          description:
+            'En savoir plus sur moi, mes compétences et mes passions en développement IA et Data.',
+          url: 'https://www.valentin-fiess.fr/chatbot',
+          inLanguage: 'fr',
+          isPartOf: { '@id': 'https://www.valentin-fiess.fr/#website' },
+          author: { '@id': 'https://www.valentin-fiess.fr/#person' },
         },
       ],
     });
@@ -97,7 +121,7 @@ themeStore.init();
 
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
+    class="min-h-screen bg-linear-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
   >
     <!-- Lien d'évitement pour l'accessibilité -->
     <a

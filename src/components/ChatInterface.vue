@@ -1,4 +1,3 @@
-```Bento Grid Portfolio/src/components/ChatInterface.vue
 <template>
   <div class="flex flex-col h-full bg-white dark:bg-gray-800 transition-colors duration-300">
     <!-- Zone de messages -->
@@ -53,18 +52,21 @@
 
     <!-- Zone de saisie -->
     <div class="p-4 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
+      <!-- Widget Turnstile -->
+      <div ref="turnstileContainer" class="mb-2 flex justify-center" v-show="!turnstileToken"></div>
+
       <form @submit.prevent="sendMessage" class="relative flex items-center">
         <input
           v-model="userInput"
           type="text"
           placeholder="Posez votre question..."
-          :disabled="isLoading"
+          :disabled="isLoading || !turnstileToken"
           class="w-full rounded-xl border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-800 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
         />
 
         <button
           type="submit"
-          :disabled="!userInput.trim() || isLoading"
+          :disabled="!userInput.trim() || isLoading || !turnstileToken"
           class="absolute right-2 p-2 rounded-lg bg-blue-400 hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
           aria-label="Envoyer"
         >
@@ -81,6 +83,9 @@
         </button>
       </form>
       <div class="text-center mt-2">
+        <p v-if="!turnstileToken" class="text-[10px] text-amber-500 dark:text-amber-400">
+          Veuillez compléter la vérification ci-dessus pour envoyer un message.
+        </p>
         <p class="text-[10px] text-gray-400 dark:text-gray-500">
           L'IA peut faire des erreurs. Vérifiez les informations importantes.
         </p>
@@ -106,14 +111,40 @@ const messages = ref([{ role: 'bot', content: props.initialMessage }]);
 const userInput = ref('');
 const isLoading = ref(false);
 const messagesContainer = ref(null);
+const turnstileToken = ref(null);
+const turnstileContainer = ref(null);
 let client = null;
 
 const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY';
 
-// Connexion initiale (lazy)
 onMounted(async () => {
   scrollToBottom();
+  initTurnstile();
 });
+
+const initTurnstile = () => {
+  const renderWidget = () => {
+    if (window.turnstile && turnstileContainer.value) {
+      window.turnstile.render(turnstileContainer.value, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'auto',
+        callback: (token) => {
+          turnstileToken.value = token;
+        },
+        'expired-callback': () => {
+          turnstileToken.value = null;
+        },
+        'error-callback': () => {
+          turnstileToken.value = null;
+        },
+      });
+    } else {
+      setTimeout(renderWidget, 200);
+    }
+  };
+  renderWidget();
+};
 
 // Construction de l'historique pour l'API
 // Format: [[user_msg1, bot_msg1], [user_msg2, bot_msg2], ...]
@@ -121,8 +152,6 @@ const history = computed(() => {
   const h = [];
   let currentPair = [];
 
-  // On ignore le tout premier message de bienvenue s'il n'y a pas d'échange précédent
-  // Mais pour simplifier, on reconstruit les paires user/bot existantes
   messages.value.forEach((msg) => {
     if (msg.role === 'user') {
       currentPair = [msg.content, null];
@@ -155,11 +184,17 @@ const sendMessage = async () => {
   const text = userInput.value.trim();
   if (!text || isLoading.value) return;
 
-  // Sauvegarde de l'historique AVANT l'ajout du message actuel
-  // car l'API attend (message, history) où history est le passé.
+  if (!turnstileToken.value) {
+    messages.value.push({
+      role: 'bot',
+      content: "Veuillez compléter la vérification de sécurité avant d'envoyer un message.",
+    });
+    await scrollToBottom();
+    return;
+  }
+
   const currentHistory = history.value;
 
-  // Ajout immédiat message utilisateur
   messages.value.push({ role: 'user', content: text });
   userInput.value = '';
   isLoading.value = true;
@@ -170,8 +205,6 @@ const sendMessage = async () => {
       client = await Client.connect(SPACE_URL);
     }
 
-    // Appel API
-    // Signature: app.predict("/chat", [message, history])
     const result = await client.predict('/chat', [text, currentHistory]);
 
     if (result.data && result.data.length > 0) {

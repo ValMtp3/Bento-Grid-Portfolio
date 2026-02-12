@@ -179,7 +179,7 @@ const prevModalSlide = () => {
             class="fixed inset-0 z-50 flex items-center justify-center"
             @click.self="closeModal"
           >
-            <div class="absolute inset-0 bg-black/70 backdrop-blur-[8px]"></div>
+            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
             <div
               class="relative flex flex-col items-center w-full max-w-xl p-4 border shadow-2xl sm:p-6 md:p-8 bg-white/90 dark:bg-gray-800/90 rounded-3xl border-neutral-200 dark:border-gray-600"
               style="backdrop-filter: blur(18px)"
@@ -235,7 +235,7 @@ const prevModalSlide = () => {
             class="fixed inset-0 z-50 flex items-center justify-center"
             @click.self="showMoreProjets = false"
           >
-            <div class="absolute inset-0 bg-black/70 backdrop-blur-[8px]"></div>
+            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
             <div
               class="relative flex flex-col items-center w-full max-w-3xl p-4 border shadow-2xl sm:p-6 md:p-8 bg-white/90 dark:bg-gray-800/90 rounded-3xl border-neutral-200 dark:border-gray-600"
               style="backdrop-filter: blur(18px)"
