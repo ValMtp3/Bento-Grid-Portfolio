@@ -6,7 +6,7 @@
         <p class="text-gray-600 dark:text-gray-400">Discutez avec mon assistant IA intelligent</p>
       </div>
 
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden h-[800px]">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden h-200">
         <ChatInterface />
       </div>
     </div>

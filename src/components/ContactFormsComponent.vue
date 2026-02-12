@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const apikey = import.meta.env.VITE_EMAILJS_API;
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY';
 
 const formSubmitted = ref(false);
 
@@ -14,6 +15,8 @@ const email = ref('');
 const subject = ref('');
 const message = ref('');
 const errors = ref({});
+const turnstileToken = ref(null);
+const turnstileContainer = ref(null);
 
 const validateForm = () => {
   errors.value = {};
@@ -56,9 +59,37 @@ onMounted(() => {
   subject.value = loadFromCookie('form_subject', '');
   message.value = loadFromCookie('form_message', '');
   setupFormPersistence();
+  initTurnstile();
 });
 
+const initTurnstile = () => {
+  const renderWidget = () => {
+    if (window.turnstile && turnstileContainer.value) {
+      window.turnstile.render(turnstileContainer.value, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'auto',
+        callback: (token) => {
+          turnstileToken.value = token;
+        },
+        'expired-callback': () => {
+          turnstileToken.value = null;
+        },
+        'error-callback': () => {
+          turnstileToken.value = null;
+        },
+      });
+    } else {
+      setTimeout(renderWidget, 200);
+    }
+  };
+  renderWidget();
+};
+
 const onSubmit = () => {
+  if (!turnstileToken.value) {
+    alert('Veuillez compléter la vérification de sécurité.');
+    return;
+  }
   if (!validateForm()) {
     alert('Veuillez corriger les erreurs dans le formulaire.');
     return;
@@ -156,9 +187,17 @@ const sanitizeInput = (input) => {
       ></textarea>
       <span v-if="errors.message" class="text-red-500">{{ errors.message }}</span>
     </div>
+    <div ref="turnstileContainer" class="flex justify-center mb-3" v-show="!turnstileToken"></div>
+    <p
+      v-if="!turnstileToken"
+      class="text-center text-[10px] text-amber-500 dark:text-amber-400 mb-3"
+    >
+      Veuillez compléter la vérification ci-dessus pour envoyer un message.
+    </p>
     <div class="flex justify-center">
       <button
-        class="hover:shadow-form dark:hover:shadow-dark-md rounded-md bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 py-3 px-8 text-base font-semibold text-white outline-none"
+        :disabled="!turnstileToken"
+        class="hover:shadow-form dark:hover:shadow-dark-md rounded-md bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 py-3 px-8 text-base font-semibold text-white outline-none disabled:opacity-50 disabled:cursor-not-allowed"
         type="submit"
       >
         Envoyer
