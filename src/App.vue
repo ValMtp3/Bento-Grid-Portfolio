@@ -57,10 +57,20 @@ onMounted(() => {
           '@id': 'https://www.valentin-fiess.fr/#person',
           name: 'Valentin Fiess',
           url: 'https://www.valentin-fiess.fr/',
+          image: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp',
           sameAs: ['https://www.linkedin.com/in/valentin-fiess/', 'https://github.com/ValMtp3'],
-          jobTitle: 'Développeur Fullstack / Ingénieur Data/IA',
+          jobTitle: 'Développeur Data / IA',
           description:
-            "Développeur Fullstack et Ingénieur Data/IA en recherche d'opportunités professionnelles.",
+            "Développeur Data et IA diplômé de l'EPSI Montpellier, à la recherche d'un emploi dans la Data ou l'Intelligence Artificielle.",
+          alumniOf: {
+            '@type': 'EducationalOrganization',
+            name: 'EPSI Montpellier',
+          },
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Montpellier',
+            addressCountry: 'FR',
+          },
           knowsAbout: [
             'Machine Learning',
             'Intelligence artificielle',

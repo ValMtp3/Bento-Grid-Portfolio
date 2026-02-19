@@ -126,13 +126,13 @@
         </div>
         <div class="mt-3 xl:pe-8">
           <h3 class="text-lg font-bold leading-tight text-gray-900 dark:text-white">
-            Licence Info Data/IA
+            Licence Développeur Data/IA
           </h3>
           <time class="block font-medium leading-none text-blue-700 dark:text-blue-300"
             >EPSI Montpellier
           </time>
           <p class="text-sm font-normal text-gray-600 dark:text-gray-300 mt-1">
-            Développement & Big Data (RNCP Niv. 6)
+            Diplômé — Développement & Big Data (RNCP Niv. 6)
           </p>
         </div>
       </li>

@@ -9,7 +9,7 @@ import ResponsiveImage from './ResponsiveImage.vue';
     <div class="flex flex-col items-center xl:flex-row xlm:justify-between m-10">
       <div class="mb-6 sm:mb-0">
         <ResponsiveImage
-          alt="photo Valentin Fiess"
+          alt="Photo de Valentin Fiess, développeur Data et IA à Montpellier"
           class="rounded-3xl object-cover shadow-xl shadow-black/40 dark:shadow-black/70 h-72 w-72 dark:border dark:border-gray-600"
           src="/assets/assets_index/Profile.webp"
           loading="eager"
@@ -23,12 +23,12 @@ import ResponsiveImage from './ResponsiveImage.vue';
           Valentin Fiess
         </h1>
         <h2 class="text-base sm:text-lg underline mx-20 mb-6 text-black dark:text-blue-400">
-          Développeur Web/IA
+          Développeur Data & IA à Montpellier
         </h2>
-        <h3 class="max-w-md px-10 text-black dark:text-gray-300">
-          J'ai 23 ans et je suis un développeur débutant à Montpellier et etudiant a l'EPSI, je
-          m'intéresse aux nouvelles technologies, notamment celle du web et de l'IA.
-        </h3>
+        <p class="max-w-md px-10 text-black dark:text-gray-300">
+          J'ai 23 ans, diplômé d'une Licence Développeur Data/IA à l'EPSI Montpellier. Je suis
+          actuellement à la recherche d'un emploi dans la Data ou l'Intelligence Artificielle.
+        </p>
       </div>
     </div>
   </div>
