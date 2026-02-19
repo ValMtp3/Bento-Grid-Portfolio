@@ -10,7 +10,7 @@
         title="CV"
       >
         <img
-          alt="CV"
+          alt="Télécharger le CV de Valentin Fiess, développeur web et IA à Montpellier"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 dark:filter dark:invert dark:brightness-90 transition-all object-contain"
           src="/assets/assets_index/CV.svg"
           loading="lazy"
@@ -23,7 +23,7 @@
         title="Linkedin"
       >
         <img
-          alt="Linkedin"
+          alt="Profil LinkedIn de Valentin Fiess"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 dark:filter dark:brightness-90 transition-all object-contain"
           src="/assets/assets_index/Linkedin.svg"
           loading="lazy"
@@ -36,7 +36,7 @@
         title="GitHub"
       >
         <img
-          alt="GitHub"
+          alt="Profil GitHub de Valentin Fiess - Projets open source"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 dark:filter dark:invert dark:brightness-90 transition-all object-contain"
           src="/assets/assets_index/Github.svg"
           loading="lazy"
@@ -49,7 +49,7 @@
         title="Mail"
       >
         <img
-          alt="Mail"
+          alt="Contacter Valentin Fiess par email"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 dark:filter dark:invert dark:brightness-90 transition-all object-contain"
           src="/assets/assets_index/mail.svg"
           loading="lazy"
