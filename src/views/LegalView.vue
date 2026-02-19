@@ -78,9 +78,9 @@ useMeta({
         </div>
       </section>
 
-      <h1 class="text-3xl font-bold mb-6 text-center dark:text-white">
+      <h2 class="text-3xl font-bold mb-6 text-center dark:text-white">
         Conditions Générales d'Utilisation (CGU)
-      </h1>
+      </h2>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Objet des CGU</h2>
@@ -132,7 +132,7 @@ useMeta({
         </div>
       </section>
 
-      <h1 class="text-3xl font-bold mb-6 text-center dark:text-white">Autres informations</h1>
+      <h2 class="text-3xl font-bold mb-6 text-center dark:text-white">Autres informations</h2>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-gray-200">Litiges et droit applicable</h2>

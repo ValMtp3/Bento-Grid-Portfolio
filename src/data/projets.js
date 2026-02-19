@@ -1,6 +1,6 @@
 export const projets = [
   {
-    alt: 'Logo Chiffremento App',
+    alt: 'Chiffremento App - Application de chiffrement de fichiers en TypeScript',
     image: '/assets/assets_index/Chiffremento.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
@@ -12,7 +12,7 @@ export const projets = [
     technos: ['TypeScript'],
   },
   {
-    alt: 'Logo Raisonnement IA',
+    alt: 'Raisonnement IA - Implémentation d\'une couche de raisonnement autour d\'un LLM Mistral',
     image: '/assets/assets_index/RaisonnementIA.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
@@ -24,7 +24,7 @@ export const projets = [
     technos: ['Jupyter Notebook', 'Python', 'Mistral LLM', 'ReAct', 'CoT', 'RAG'],
   },
   {
-    alt: 'Logo Brave',
+    alt: 'Brave RAG - Projet connectant un LLM à internet via l\'API Brave Search',
     image: '/assets/assets_index/Brave.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
@@ -37,7 +37,7 @@ export const projets = [
     technos: ['Python', 'Brave Search API'],
   },
   {
-    alt: 'Logo to-do-go',
+    alt: 'To-do-go - Application CLI de gestion de tâches développée en Go',
     image: '/assets/assets_index/to-do-go.webp',
     date: 'Octobre 2025',
     team: 'Valentin Fiess',
@@ -49,7 +49,7 @@ export const projets = [
     technos: ['Go'],
   },
   {
-    alt: 'Logo Cyber-Hôpital',
+    alt: 'Cyber-Hôpital - Escape-game éducatif simulant une cyber-attaque en milieu hospitalier',
     image: '/assets/assets_index/CyberHopital.webp',
     date: 'Septembre 2025',
     team: 'Dunvael Le Roux, Robin Peyraud, Quentin Richard, Gaëtan Faucher',
@@ -61,7 +61,7 @@ export const projets = [
     technos: ['Html', 'Tailwind', 'VueJS'],
   },
   {
-    alt: 'Image Valentin Fiess',
+    alt: 'Chatbot IA CV - RAG chatbot connecté au CV de Valentin Fiess pour les recruteurs',
     image: '/assets/assets_index/ValentinFiess.webp',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
@@ -73,7 +73,7 @@ export const projets = [
     technos: ['Jupyter Notebook', 'Python', 'Mistral'],
   },
   {
-    alt: 'Logo WildLens',
+    alt: 'WildLens - Application de reconnaissance de traces d\'animaux avec intelligence artificielle',
     image: '/assets/assets_index/WildLens.webp',
     date: 'Décembre 2024',
     team: 'Cedric Sanchez, Valentin Fiess, Jason Tchaga, Louis Gardet',
@@ -86,7 +86,7 @@ export const projets = [
     technos: ['Python', 'MobileNetV3Small', 'Mistral', 'Gemini', 'ETL'],
   },
   {
-    alt: 'Logo Fake News Detection',
+    alt: 'Fake News Detection - Pipeline de détection de fausses informations par machine learning',
     image: '/assets/assets_index/FakeNewsDetection.webp',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
@@ -98,7 +98,7 @@ export const projets = [
     technos: ['Jupyter Notebook', 'Python', 'scikit-learn', 'NLP', 'Machine Learning'],
   },
   {
-    alt: 'Logo Allociné',
+    alt: 'Sentiment Analysis Allociné - Analyse de sentiment des critiques cinéma avec NLP',
     image: '/assets/assets_index/Allocine.webp',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
@@ -110,7 +110,7 @@ export const projets = [
     technos: ['Python', 'NLP', 'Gradio', 'Scikit-learn'],
   },
   {
-    alt: 'Logo Chiffremento',
+    alt: 'Chiffremento CLI - Application en ligne de commande pour chiffrer des fichiers en Python',
     image: '/assets/assets_index/Chiffremento.webp',
     date: 'Novembre 2024',
     team: 'Valentin Fiess',
@@ -122,7 +122,7 @@ export const projets = [
     technos: ['Python', 'cryptography'],
   },
   {
-    alt: 'Image Valentin Fiess',
+    alt: 'Portfolio Bento-Grids - Site portfolio personnel de Valentin Fiess en Vue.js',
     image: '/assets/assets_index/ValentinFiess2.webp',
     date: 'Mai 2024',
     team: 'Valentin Fiess',
@@ -134,7 +134,7 @@ export const projets = [
     technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
   },
   {
-    alt: 'Logo Vue.js',
+    alt: 'TD Site - Premier projet Vue.js avec routage et consommation d\'API',
     image: '/assets/assets_index/VueJS.webp',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
@@ -146,7 +146,7 @@ export const projets = [
     technos: ['VueJS', 'JavaScript', 'HTML', 'CSS'],
   },
   {
-    alt: 'Logo InvestManagment',
+    alt: 'InvestManagment - Application de gestion de portefeuille d\'investissements en Python',
     image: '/assets/assets_index/InvestManagment.webp',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
@@ -158,7 +158,7 @@ export const projets = [
     technos: ['Python', 'Tkinter', 'MySQL'],
   },
   {
-    alt: 'Logo HarmoniSound',
+    alt: 'HarmoniSound - Bibliothèque musicale avec Symfony, CRUD et API REST',
     image: '/assets/assets_index/HarmoniSound.webp',
     date: 'Novembre 2023',
     team: 'Valentin Fiess',
@@ -170,7 +170,7 @@ export const projets = [
     technos: ['PHP', 'Symfony', 'MySQL', 'API REST'],
   },
   {
-    alt: 'Logo ProSwipe',
+    alt: 'ProSwipe - Plateforme de mise en relation étudiants-professionnels avec système de swipe',
     image: '/assets/assets_index/ProSwipe.webp',
     date: 'Septembre 2023',
     team: 'Groupe de classe',
@@ -182,7 +182,7 @@ export const projets = [
     technos: ['PHP', 'HTML', 'CSS'],
   },
   {
-    alt: "Logo Pizza O'Plomo",
+    alt: "Pizza O'Plomo - Site web complet pour pizzeria avec stratégie digitale intégrée",
     image: '/assets/assets_index/pizzaoplomo.webp',
     date: 'Février 2022',
     team: 'Groupe de classe',
@@ -194,7 +194,7 @@ export const projets = [
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP'],
   },
   {
-    alt: 'Logo Hôtel Neptune',
+    alt: 'Hôtel Neptune - Refonte du site web d\'un hôtel avec système de réservation en ligne',
     image: '/assets/assets_index/HotelNeptune.webp',
     date: 'Novembre 2022',
     team: 'Groupe de classe',
@@ -206,7 +206,7 @@ export const projets = [
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
   },
   {
-    alt: 'Page artiste Damso',
+    alt: 'Damso - Première page web de présentation d\'artiste en HTML et CSS',
     image: '/assets/assets_index/Ipseite1.webp',
     date: 'Septembre 2022',
     team: 'Valentin Fiess',

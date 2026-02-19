@@ -30,7 +30,7 @@ useMeta({
       content:
         'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier. Découvrez mes projets, compétences et expériences professionnelles en développement web et intelligence artificielle.',
     },
-    { property: 'og:image', content: '/assets/assets_index/Profile.webp' },
+    { property: 'og:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp' },
     { property: 'og:url', content: 'https://www.valentin-fiess.fr' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -39,7 +39,7 @@ useMeta({
       name: 'twitter:description',
       content: 'Portfolio de Valentin Fiess, développeur web et IA basé à Montpellier.',
     },
-    { name: 'twitter:image', content: '/assets/assets_index/Profile.webp' },
+    { name: 'twitter:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp' },
     { name: 'author', content: 'Valentin Fiess' },
     { name: 'robots', content: 'index, follow' },
     { name: 'language', content: 'fr-FR' },
@@ -47,43 +47,43 @@ useMeta({
 });
 
 const languages = [
-  { alt: 'Logo HTML5', image: '/assets/assets_index/HTML-removebg.webp', title: 'HTML' },
+  { alt: 'HTML5 - Langage de balisage pour la structure des pages web', image: '/assets/assets_index/HTML-removebg.webp', title: 'HTML' },
   {
-    alt: 'Logo Tailwind',
+    alt: 'Tailwind CSS - Framework CSS utilitaire pour le design responsive',
     image: '/assets/assets_index/Tailwind-removebg.webp',
     title: 'Tailwind CSS',
   },
-  { alt: 'Logo VueJS', image: '/assets/assets_index/VueJS.webp', title: 'VueJS' },
-  { alt: 'Logo MySQL', image: '/assets/assets_index/MySQL-removebg.webp', title: 'MySQL' },
-  { alt: 'Logo Python', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
-  { alt: 'Logo n8n', image: '/assets/assets_index/n8n.webp', title: 'n8n' },
+  { alt: 'Vue.js - Framework JavaScript progressif pour interfaces web', image: '/assets/assets_index/VueJS.webp', title: 'VueJS' },
+  { alt: 'MySQL - Système de gestion de bases de données relationnelles', image: '/assets/assets_index/MySQL-removebg.webp', title: 'MySQL' },
+  { alt: 'Python - Langage de programmation pour le Data et l\'IA', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
+  { alt: 'n8n - Plateforme d\'automatisation de workflows', image: '/assets/assets_index/n8n.webp', title: 'n8n' },
   {
-    alt: 'Logo PyTorch',
+    alt: 'PyTorch - Framework de deep learning par Meta AI',
     image: '/assets/assets_index/pytorch.webp',
     title: 'PyTorch',
   },
   {
-    alt: 'Logo TensorFlow',
+    alt: 'TensorFlow - Bibliothèque de machine learning par Google',
     image: '/assets/assets_index/tensorflow.webp',
     title: 'TensorFlow',
   },
   {
-    alt: 'Logo Pandas',
+    alt: 'Pandas - Bibliothèque Python pour l\'analyse de données',
     image: '/assets/assets_index/pandas.webp',
     title: 'Pandas',
   },
   {
-    alt: 'Logo Transformers',
+    alt: 'Transformers - Bibliothèque Hugging Face pour le NLP et l\'IA',
     image: '/assets/assets_index/transformers.webp',
     title: 'Transformers',
   },
   {
-    alt: 'Logo Scikit-learn',
+    alt: 'Scikit-learn - Bibliothèque Python de machine learning',
     image: '/assets/assets_index/scikitlearn.webp',
     title: 'Scikit-learn',
   },
-  { alt: 'Logo Go', image: '/assets/assets_index/Go.webp', title: 'Go' },
-  { alt: 'Logo Symfony', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
+  { alt: 'Go - Langage de programmation compilé par Google', image: '/assets/assets_index/Go.webp', title: 'Go' },
+  { alt: 'PHP Symfony - Framework PHP pour le développement web', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
 ];
 
 const showMoreLanguages = ref(false);
@@ -99,19 +99,19 @@ const closeModal = () => {
 
 const clients = [
   {
-    alt: 'Logo Sport&Green',
+    alt: 'Sport&Green - Client pour lequel Valentin Fiess a travaillé en développement web et SEO',
     image: '/assets/assets_index/sportandgreen.webp',
     name: 'Sport&Green',
     role: 'Développeur web / Consultant SEO',
   },
   {
-    alt: 'Logo from scratch',
+    alt: 'From Scratch - Client pour lequel Valentin Fiess a travaillé en développement web',
     image: '/assets/assets_index/from_scratch.webp',
     name: 'From_Scratch',
     role: 'Développeur web',
   },
   {
-    alt: 'Logo R2D automation',
+    alt: 'R2D Automation - Client pour lequel Valentin Fiess a travaillé en développement IA',
     image: '/assets/assets_index/R2D automation.webp',
     name: 'R2D Automation',
     role: 'Développeur IA',

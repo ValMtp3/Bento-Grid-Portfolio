@@ -1,4 +1,53 @@
 #!/usr/bin/env python3
+# =============================================================================
+# Image Processor - Outil de traitement d'images pour le portfolio
+# =============================================================================
+#
+# DESCRIPTION:
+#   Ce script traite les images du dossier public/assets/assets_index/ en les
+#   redimensionnant en plusieurs tailles (responsive) et en supprimant
+#   optionnellement l'arrière-plan via rembg (IA). Les images sont converties
+#   en WebP avec une qualité optimale selon la taille.
+#
+# UTILISATION:
+#   uv run image_processor.py [OPTIONS]
+#
+# PARAMÈTRES DISPONIBLES:
+#   --resize-only      Redimensionner uniquement, sans supprimer l'arrière-plan.
+#                      Utile pour les images qui doivent garder leur fond.
+#
+#   --force            Forcer le retraitement de TOUTES les images, même si les
+#                      fichiers de sortie existent déjà. Sans ce flag, le script
+#                      ne traite que les images nouvelles ou modifiées.
+#
+#   --model MODEL      Choisir le modèle rembg pour la suppression d'arrière-plan.
+#                      Valeurs possibles : u2net (défaut), u2netp (plus rapide),
+#                      u2net_human_seg (optimisé pour les humains).
+#
+#   --no-parallel      Désactiver le traitement parallèle (multiprocessing).
+#                      Plus lent mais plus stable en cas de problème mémoire.
+#
+#   --quiet            Mode silencieux, affiche uniquement le résultat final.
+#
+#   --verbose          Affichage détaillé de chaque image traitée.
+#
+#   --skip-install     Ne pas installer automatiquement rembg si absent.
+#
+# EXEMPLES:
+#   uv run image_processor.py                     # Traiter les nouvelles images
+#   uv run image_processor.py --force             # Retraiter TOUTES les images
+#   uv run image_processor.py --resize-only       # Redimensionner sans suppr. fond
+#   uv run image_processor.py --force --resize-only  # Tout retraiter, sans fond
+#   uv run image_processor.py --model u2netp      # Modèle plus rapide
+#
+# FICHIERS:
+#   - Source : public/assets/assets_index/ (images originales)
+#   - Sortie : public/assets/assets_index/{360,400,640,800,1200,1400}/
+#   - Exclusions : exclude_bg_removal.txt (images à ne pas détacher du fond)
+#
+# TAILLES GÉNÉRÉES: 360px, 400px, 640px, 800px, 1200px, 1400px
+# FORMAT DE SORTIE: WebP (qualité adaptative selon la taille)
+# =============================================================================
 
 import argparse
 import multiprocessing as mp
@@ -316,6 +365,13 @@ def main():
     if not args.quiet:
         processed_count = sum(len(imgs) for imgs in images_to_process.values())
         action = "redimensionner" if resize_only else "traiter"
+        if processed_count == 0:
+            print(
+                f"✅ Toutes les {len(image_files)} images sont déjà à jour ({len(SIZES)} tailles chacune).\n"
+            )
+            print("💡 Utilisez --force pour forcer le retraitement de toutes les images.")
+            print(f"   Exemple : uv run image_processor.py --force")
+            return
         print(
             f"📦 {processed_count} images à {action} (sur {len(image_files) * len(SIZES)} total)\n"
         )

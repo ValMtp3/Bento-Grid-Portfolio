@@ -21,7 +21,7 @@ useMeta({
       content:
         'Découvrez ma stack technique complète : IDE, frameworks et outils de développement.',
     },
-    { property: 'og:image', content: '/assets/assets_index/VueJS.webp' },
+    { property: 'og:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/VueJS.webp' },
     { property: 'og:url', content: 'https://www.valentin-fiess.fr/stack' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -30,7 +30,7 @@ useMeta({
       name: 'twitter:description',
       content: 'Découvrez ma stack technique complète et mes outils de développement.',
     },
-    { name: 'twitter:image', content: '/assets/assets_index/VueJS.webp' },
+    { name: 'twitter:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/VueJS.webp' },
     { name: 'author', content: 'Valentin Fiess' },
     { name: 'robots', content: 'index, follow' },
     { name: 'language', content: 'fr-FR' },
