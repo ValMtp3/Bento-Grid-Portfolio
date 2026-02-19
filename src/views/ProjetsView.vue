@@ -24,7 +24,7 @@ useMeta({
       content:
         'Découvrez tous mes projets en développement web, intelligence artificielle et data science.',
     },
-    { property: 'og:image', content: '/assets/assets_index/WildLens.webp' },
+    { property: 'og:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/WildLens.webp' },
     { property: 'og:url', content: 'https://www.valentin-fiess.fr/projets' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -33,7 +33,7 @@ useMeta({
       name: 'twitter:description',
       content: 'Découvrez tous mes projets en développement web et IA.',
     },
-    { name: 'twitter:image', content: '/assets/assets_index/WildLens.webp' },
+    { name: 'twitter:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/WildLens.webp' },
     { name: 'author', content: 'Valentin Fiess' },
     { name: 'robots', content: 'index, follow' },
     { name: 'language', content: 'fr-FR' },

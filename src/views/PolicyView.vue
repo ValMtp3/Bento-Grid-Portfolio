@@ -1,5 +1,26 @@
 <script setup>
 import EmailProtection from '../components/include/EmailProtection.vue';
+import { useMeta } from 'vue-meta';
+
+useMeta({
+  title: 'Politique de Confidentialité | Valentin Fiess',
+  meta: [
+    {
+      name: 'description',
+      content:
+        "Politique de confidentialité du portfolio de Valentin Fiess. Informations sur la collecte, l'utilisation et la protection de vos données personnelles.",
+    },
+    { property: 'og:title', content: 'Politique de Confidentialité | Valentin Fiess' },
+    {
+      property: 'og:description',
+      content: "Consultez la politique de confidentialité du portfolio de Valentin Fiess.",
+    },
+    { property: 'og:url', content: 'https://www.valentin-fiess.fr/policy' },
+    { property: 'og:type', content: 'website' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'language', content: 'fr-FR' },
+  ],
+});
 </script>
 
 <template>
