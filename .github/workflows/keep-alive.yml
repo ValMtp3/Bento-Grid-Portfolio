@@ -6,6 +6,8 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch: # Permet de déclencher manuellement
 
+permissions: {}
+
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
