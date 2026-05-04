@@ -19,7 +19,7 @@
     "marked": "^17.0.2",
     "npm-run-all": "^4.1.5",
     "pinia": "^3.0.4",
-    "swiper": "^12.1.0",
+    "swiper": "^12.1.2",
     "vue": "^3.5.28",
     "vue-eslint-parser": "^10.2.0",
     "vue-matomo": "^4.2.0",
