@@ -205,7 +205,9 @@ const sendMessage = async () => {
       client = await Client.connect(SPACE_URL);
     }
 
-    const result = await client.predict('/chat', [text, currentHistory]);
+    const result = await client.predict('/generate_response', {
+  message: text,
+});
 
     if (result.data && result.data.length > 0) {
       messages.value.push({ role: 'bot', content: result.data[0] });
