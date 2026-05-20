@@ -34,3 +34,4 @@ coverage
 .prettierrc
 
 public/matomo
+audit_report.md

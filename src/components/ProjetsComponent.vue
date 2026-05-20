@@ -30,6 +30,10 @@ defineProps({
     type: String,
     required: true,
   },
+  linkLabel: {
+    type: String,
+    default: '',
+  },
 });
 </script>
 
@@ -53,7 +57,7 @@ defineProps({
         <button
           class="ml-auto transform hover:scale-110 motion-reduce:transform-none font-light rounded-xl p-2 m-2 sm:m-3 md:m-4 lg:m-5 xl:m-6 underline text-neutral-900 dark:text-white hover:opacity-80 transition-all"
         >
-          {{ name }}
+          {{ linkLabel || name }}
         </button>
       </a>
     </div>
