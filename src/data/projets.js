@@ -1,5 +1,18 @@
 export const projets = [
   {
+    alt: 'Raguia - SaaS B2B de RAG IA pour les entreprises',
+    image: '/assets/assets_index/raguia.webp',
+    date: 'Mars 2026',
+    team: 'Valentin Fiess',
+    description: 'SaaS B2B de RAG IA conçu pour connecter les entreprises à leurs connaissances.',
+    descriptionlongue:
+      "Raguia est mon premier SaaS B2B, construit autour du RAG IA pour aider les entreprises à exploiter leurs propres données et documents. Le projet vise à transformer une base de connaissances interne en assistant intelligent capable de retrouver les bonnes informations, contextualiser les réponses et simplifier l'accès au savoir métier.",
+    src: 'https://raguia.valentin-fiess.fr',
+    name: 'Raguia',
+    linkLabel: 'Accéder au SaaS',
+    technos: ['SaaS B2B', 'RAG', 'IA', 'Base de connaissances', 'Assistant IA'],
+  },
+  {
     alt: 'Chiffremento App - Application de chiffrement de fichiers en TypeScript',
     image: '/assets/assets_index/Chiffremento.webp',
     date: 'Novembre 2025',
@@ -12,7 +25,7 @@ export const projets = [
     technos: ['TypeScript'],
   },
   {
-    alt: 'Raisonnement IA - Implémentation d\'une couche de raisonnement autour d\'un LLM Mistral',
+    alt: "Raisonnement IA - Implémentation d'une couche de raisonnement autour d'un LLM Mistral",
     image: '/assets/assets_index/RaisonnementIA.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
@@ -24,7 +37,7 @@ export const projets = [
     technos: ['Jupyter Notebook', 'Python', 'Mistral LLM', 'ReAct', 'CoT', 'RAG'],
   },
   {
-    alt: 'Brave RAG - Projet connectant un LLM à internet via l\'API Brave Search',
+    alt: "Brave RAG - Projet connectant un LLM à internet via l'API Brave Search",
     image: '/assets/assets_index/Brave.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
@@ -73,7 +86,7 @@ export const projets = [
     technos: ['Jupyter Notebook', 'Python', 'Mistral'],
   },
   {
-    alt: 'WildLens - Application de reconnaissance de traces d\'animaux avec intelligence artificielle',
+    alt: "WildLens - Application de reconnaissance de traces d'animaux avec intelligence artificielle",
     image: '/assets/assets_index/WildLens.webp',
     date: 'Décembre 2024',
     team: 'Cedric Sanchez, Valentin Fiess, Jason Tchaga, Louis Gardet',
@@ -134,7 +147,7 @@ export const projets = [
     technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
   },
   {
-    alt: 'TD Site - Premier projet Vue.js avec routage et consommation d\'API',
+    alt: "TD Site - Premier projet Vue.js avec routage et consommation d'API",
     image: '/assets/assets_index/VueJS.webp',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
@@ -146,7 +159,7 @@ export const projets = [
     technos: ['VueJS', 'JavaScript', 'HTML', 'CSS'],
   },
   {
-    alt: 'InvestManagment - Application de gestion de portefeuille d\'investissements en Python',
+    alt: "InvestManagment - Application de gestion de portefeuille d'investissements en Python",
     image: '/assets/assets_index/InvestManagment.webp',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
@@ -194,7 +207,7 @@ export const projets = [
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP'],
   },
   {
-    alt: 'Hôtel Neptune - Refonte du site web d\'un hôtel avec système de réservation en ligne',
+    alt: "Hôtel Neptune - Refonte du site web d'un hôtel avec système de réservation en ligne",
     image: '/assets/assets_index/HotelNeptune.webp',
     date: 'Novembre 2022',
     team: 'Groupe de classe',
@@ -206,7 +219,7 @@ export const projets = [
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
   },
   {
-    alt: 'Damso - Première page web de présentation d\'artiste en HTML et CSS',
+    alt: "Damso - Première page web de présentation d'artiste en HTML et CSS",
     image: '/assets/assets_index/Ipseite1.webp',
     date: 'Septembre 2022',
     team: 'Valentin Fiess',
