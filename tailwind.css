@@ -1,13 +1,83 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer utilities {
-    .bg-custom-gradient {
-        background: hsla(205, 38%, 94%, 1);
-        background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        background: -webkit-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
-    }
+@theme {
+  /* Custom colors */
+  --color-spicy-paprika-50: #fceee8;
+  --color-spicy-paprika-100: #fadcd1;
+  --color-spicy-paprika-200: #f4b9a4;
+  --color-spicy-paprika-300: #ef9676;
+  --color-spicy-paprika-400: #ea7348;
+  --color-spicy-paprika-500: #e4501b;
+  --color-spicy-paprika-600: #b74015;
+  --color-spicy-paprika-700: #893010;
+  --color-spicy-paprika-800: #5b200b;
+  --color-spicy-paprika-900: #2e1005;
+  --color-spicy-paprika-950: #200b04;
+
+  --color-regal-navy-50: #e9f0fc;
+  --color-regal-navy-100: #d2e1f9;
+  --color-regal-navy-200: #a6c3f2;
+  --color-regal-navy-300: #79a5ec;
+  --color-regal-navy-400: #4c87e6;
+  --color-regal-navy-500: #2069df;
+  --color-regal-navy-600: #1954b3;
+  --color-regal-navy-700: #133f86;
+  --color-regal-navy-800: #0d2a59;
+  --color-regal-navy-900: #06152d;
+  --color-regal-navy-950: #040f1f;
+
+  --color-coffee-bean-50: #fcede8;
+  --color-coffee-bean-100: #f5c8b8;
+  --color-coffee-bean-200: #ea9a7a;
+  --color-coffee-bean-300: #db6b3e;
+  --color-coffee-bean-400: #b54722;
+  --color-coffee-bean-500: #8a3116;
+  --color-coffee-bean-600: #631f0d;
+  --color-coffee-bean-700: #421207;
+  --color-coffee-bean-800: #2a0903;
+  --color-coffee-bean-900: #190401;
+  --color-coffee-bean-950: #120602;
+
+  --color-soft-blush-50: #fff6f3;
+  --color-soft-blush-100: #fbe3db;
+  --color-soft-blush-200: #f7cbbe;
+  --color-soft-blush-300: #f0a790;
+  --color-soft-blush-400: #e88062;
+  --color-soft-blush-500: #dd5a36;
+  --color-soft-blush-600: #b74425;
+  --color-soft-blush-700: #912f18;
+  --color-soft-blush-800: #6b1d0d;
+  --color-soft-blush-900: #450f05;
+  --color-soft-blush-950: #2d0802;
+
+  /* Custom fonts */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Intel One Mono', monospace;
+  --font-code: '0xProto', monospace;
+}
+
+@layer base {
+  h1,
+  h2 {
+    @apply font-heading font-bold;
+  }
+  p,
+  li,
+  span,
+  a,
+  label,
+  time {
+    @apply font-body;
+  }
+  pre,
+  code {
+    @apply font-code;
+  }
+}
+
+@utility bg-custom-gradient {
+  background: #fef8f5;
+  background: linear-gradient(135deg, #fef8f5 0%, #f0f5ff 40%, #fff0eb 70%, #e9f0fc 100%);
+  background: -moz-linear-gradient(135deg, #fef8f5 0%, #f0f5ff 40%, #fff0eb 70%, #e9f0fc 100%);
+  background: -webkit-linear-gradient(135deg, #fef8f5 0%, #f0f5ff 40%, #fff0eb 70%, #e9f0fc 100%);
 }
