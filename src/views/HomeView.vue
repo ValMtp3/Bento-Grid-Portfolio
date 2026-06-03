@@ -1,95 +1,125 @@
-<script setup >
-import {ref} from 'vue';
-import PresentationComponent from "@/components/PresentationComponent.vue";
-import ContactComponent from "@/components/ContactComponent.vue";
-import FormationComponent from "@/components/FormationComponent.vue";
-import MaitriseComponent from "@/components/MaitriseComponent.vue";
-import ProjetsComponent from "@/components/ProjetsComponent.vue";
-import ClientsComponent from "@/components/ClientsComponent.vue";
-import ContactFormsComponent from "@/components/ContactFormsComponent.vue";
-import {projets} from '@/data/projets.js';
+<script setup>
+import { ref } from 'vue';
+import PresentationComponent from '@/components/PresentationComponent.vue';
+import ContactComponent from '@/components/ContactComponent.vue';
+import FormationComponent from '@/components/FormationComponent.vue';
+import MaitriseComponent from '@/components/MaitriseComponent.vue';
+import ProjetsComponent from '@/components/ProjetsComponent.vue';
+import ClientsComponent from '@/components/ClientsComponent.vue';
+import ContactFormsComponent from '@/components/ContactFormsComponent.vue';
+import { projets } from '@/data/projets.js';
 
 const languages = [
-  {alt: "Logo HTML5", image: "/assets/assets_index/HTML-removebg.webp", title: "HTML"},
-  {alt: "Logo Tailwind", image: "/assets/assets_index/Tailwind-removebg.webp", title: "Tailwind CSS"},
-  {alt: "Logo Symfony", image: "/assets/assets_index/Symfony.webp", title: "PHP Symfony"},
-  {alt: "Logo Python", image: "/assets/assets_index/Python-removebg.webp", title: "Python"},
-  {alt: "Logo VueJS", image: "/assets/assets_index/VueJS.webp", title: "VueJS"},
-  {alt: "Logo MySQL", image: "/assets/assets_index/MySQL-removebg.webp", title: "MySQL"},
-  {alt: "Logo Solidity", image: "/assets/assets_index/Solidity.webp", title: "Solidity"},
+  { alt: 'Logo HTML5', image: '/assets/assets_index/HTML-removebg.webp', title: 'HTML' },
+  {
+    alt: 'Logo Tailwind',
+    image: '/assets/assets_index/Tailwind-removebg.webp',
+    title: 'Tailwind CSS',
+  },
+  { alt: 'Logo Symfony', image: '/assets/assets_index/Symfony.webp', title: 'PHP Symfony' },
+  { alt: 'Logo Python', image: '/assets/assets_index/Python-removebg.webp', title: 'Python' },
+  { alt: 'Logo VueJS', image: '/assets/assets_index/VueJS.webp', title: 'VueJS' },
+  { alt: 'Logo MySQL', image: '/assets/assets_index/MySQL-removebg.webp', title: 'MySQL' },
+  { alt: 'Logo Solidity', image: '/assets/assets_index/Solidity.webp', title: 'Solidity' },
 ];
-
 
 const clients = [
   {
-    alt: "Logo Sport&Green",
-    image: "/assets/assets_index/sportandgreen.webp",
-    name: "Sport&Green",
-    role: "Développeur web / Consultant SEO",
+    alt: 'Logo Sport&Green',
+    image: '/assets/assets_index/sportandgreen.webp',
+    name: 'Sport&Green',
+    role: 'Développeur web / Consultant SEO',
   },
   {
-    alt: "Logo from scratch",
-    image: "/assets/assets_index/from_scratch.webp",
-    name: "From_Scratch",
-    role: "Développeur web",
+    alt: 'Logo from scratch',
+    image: '/assets/assets_index/from_scratch.webp',
+    name: 'From_Scratch',
+    role: 'Développeur web',
   },
   {
-    alt: "Logo R2D automation",
-    image: "/assets/assets_index/R2D automation.webp",
-    name: "R2D Automation",
-    role: "Développeur IA",
-  }
-]
+    alt: 'Logo R2D automation',
+    image: '/assets/assets_index/R2D automation.webp',
+    name: 'R2D Automation',
+    role: 'Développeur IA',
+  },
+];
 
 const projetsAffiches = ref(2);
 
 function toggleProjetsAffichage() {
   projetsAffiches.value = projetsAffiches.value === 2 ? projets.length : 2;
 }
-</script >
+</script>
 
-<template >
-  <div class="pt-4 px-4 pb-2" >
-    <div class="flex flex-col xl:flex-row xl:justify-around xl:space-x-4 space-y-4 md:mb-4 xl:mb-0" >
+<template>
+  <div class="pt-4 px-4 pb-2">
+    <div class="flex flex-col xl:flex-row xl:justify-around xl:space-x-4 space-y-4 md:mb-4 xl:mb-0">
       <PresentationComponent class="min-h-full" />
       <ContactComponent class="min-h-full" />
-    </div >
-  </div >
-  <div class="px-4 py-2" >
+    </div>
+  </div>
+  <div class="px-4 py-2">
     <FormationComponent />
-  </div >
-  <div class="px-4 py-2" >
-    <div class="flex flex-col xl:flex-row xl:justify-around space-y-4 xl:space-x-4" >
-      <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-        <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Maitrise</span >
-        <div class="grid grid-cols-4 gap-12 m-2 justify-items-center items-center h-full" >
+  </div>
+  <div class="px-4 py-2">
+    <div class="flex flex-col xl:flex-row xl:justify-around space-y-4 xl:space-x-4">
+      <div
+        class="bg-soft-blush-50 font-body p-1 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
+      >
+        <span
+          class="text-base sm:text-xl my-2 flex justify-center text-center font-heading text-regal-navy-700 font-bold"
+          >Maitrise</span
+        >
+        <div class="grid grid-cols-4 gap-12 m-2 justify-items-center items-center h-full">
           <MaitriseComponent v-for="lang in languages" :key="lang.name" v-bind="lang" />
-          <span > À venir ...</span >
-        </div >
-      </div >
-      <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-        <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Projets</span >
-        <div class="grid grid-cols-2 mr-12 m-2 justify-items-center items-center h-full" >
-          <ProjetsComponent v-for="pro in projets.slice(0, projetsAffiches)" :key="pro.name" v-bind="pro" />
-          <button class="text-3xl font-bold m-20 col-span-2 cursor-pointer  " @click="toggleProjetsAffichage" >
+          <span> À venir ...</span>
+        </div>
+      </div>
+      <div
+        class="bg-soft-blush-50 font-body p-1 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
+      >
+        <span
+          class="text-base sm:text-xl my-2 flex justify-center text-center font-heading text-spicy-paprika-600 font-bold"
+          >Projets</span
+        >
+        <div class="grid grid-cols-2 mr-12 m-2 justify-items-center items-center h-full">
+          <ProjetsComponent
+            v-for="pro in projets.slice(0, projetsAffiches)"
+            :key="pro.name"
+            v-bind="pro"
+          />
+          <button
+            class="text-xl font-bold m-10 col-span-2 cursor-pointer font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 rounded-full px-8 py-3 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300"
+            @click="toggleProjetsAffichage"
+          >
             {{ projetsAffiches < projets.length ? 'Voir +' : 'Voir -' }}
-          </button >
-        </div >
-      </div >
-    </div >
-  </div >
-  <div class="px-4 pt-2 pb-4" >
-    <div class="bg-white font-[AnonymousPro] p-1 rounded-3xl w-full max-w-none" >
-      <span class="text-base sm:text-xl underline my-2 flex justify-center text-center" >Entreprise avec lesquelles j’ai
-        travaillé</span >
-      <div class="flex justify-around" >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="px-4 pt-2 pb-4">
+    <div
+      class="bg-soft-blush-50 font-body p-1 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
+    >
+      <span
+        class="text-base sm:text-xl my-2 flex justify-center text-center font-heading text-regal-navy-700 font-bold"
+        >Entreprise avec lesquelles j'ai travaillé</span
+      >
+      <div class="flex justify-around">
         <ClientsComponent :clients="clients" />
-      </div >
-    </div >
-  </div >
-  <div class="px-4 py-2 " >
-    <div class="bg-white font-[AnonymousPro] p-4 rounded-3xl w-full max-w-none" >
+      </div>
+    </div>
+  </div>
+  <div class="px-4 py-2">
+    <div
+      class="bg-soft-blush-50 font-body p-4 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
+    >
+      <span
+        class="text-base sm:text-xl my-2 flex justify-center text-center font-heading text-spicy-paprika-600 font-bold"
+        >Me contacter</span
+      >
       <ContactFormsComponent />
-    </div >
-  </div >
-</template >
+    </div>
+  </div>
+</template>
