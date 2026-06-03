@@ -7,7 +7,7 @@
         <img
           alt="photo Valentin Fiess"
           class="rounded-3xl object-cover shadow-xl shadow-coffee-bean-950/40 h-72 w-72"
-          src="/assets/assets_index/Profile.webp"
+          src="/assets/assets_index/Profile.png"
         />
       </div>
       <div class="text-center">
