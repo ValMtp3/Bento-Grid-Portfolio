@@ -5,7 +5,7 @@
     <div class="grid grid-cols-2 grid-rows-2 gap-4 m-2 h-full w-full">
       <a
         class="flex items-center justify-center w-full h-full hover:opacity-80 hover:scale-105 transition-all duration-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-        href="/assets/assets_index/CV.pdf"
+        href="/assets/assets_index/CV_Valentin_Fiess.pdf"
         target="_blank"
         title="CV"
       >
