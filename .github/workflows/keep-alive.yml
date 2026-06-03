@@ -1,0 +1,22 @@
+name: Keep Chatbot Alive
+
+on:
+  schedule:
+    # Ping toutes les 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Permet de déclencher manuellement
+
+permissions: {}
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Chatbot Space
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" https://valmtp3-chatbot-ia-cv.hf.space/
+
+      - name: Log ping result
+        run: |
+          echo "Chatbot pinged at $(date)"

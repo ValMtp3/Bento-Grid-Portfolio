@@ -14,6 +14,8 @@ const email = ref('');
 const subject = ref('');
 const message = ref('');
 const errors = ref({});
+const turnstileToken = ref(null);
+const turnstileContainer = ref(null);
 
 const validateForm = () => {
   errors.value = {};
@@ -26,7 +28,15 @@ const validateForm = () => {
 };
 
 const saveToCookie = (key, value) => {
-  Cookies.set(key, value);
+  // Expire après 2 heures (2/24 de journée)
+  Cookies.set(key, value, { expires: 1 / 12 });
+};
+
+const clearFormCookies = () => {
+  Cookies.remove('form_name');
+  Cookies.remove('form_email');
+  Cookies.remove('form_subject');
+  Cookies.remove('form_message');
 };
 
 const loadFromCookie = (key, defaultValue) => {
@@ -35,7 +45,6 @@ const loadFromCookie = (key, defaultValue) => {
 
 const setupFormPersistence = () => {
   watch(name, (newValue) => {
-    console.log('Saving name to cookie:', newValue);
     saveToCookie('form_name', newValue);
   });
   watch(email, (newValue) => saveToCookie('form_email', newValue));
@@ -48,11 +57,38 @@ onMounted(() => {
   email.value = loadFromCookie('form_email', '');
   subject.value = loadFromCookie('form_subject', '');
   message.value = loadFromCookie('form_message', '');
-  console.log('Loaded data from cookies');
   setupFormPersistence();
+  initTurnstile();
 });
 
-const onSubmit = (r) => {
+const initTurnstile = () => {
+  const renderWidget = () => {
+    if (window.turnstile && turnstileContainer.value) {
+      window.turnstile.render(turnstileContainer.value, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'auto',
+        callback: (token) => {
+          turnstileToken.value = token;
+        },
+        'expired-callback': () => {
+          turnstileToken.value = null;
+        },
+        'error-callback': () => {
+          turnstileToken.value = null;
+        },
+      });
+    } else {
+      setTimeout(renderWidget, 200);
+    }
+  };
+  renderWidget();
+};
+
+const onSubmit = () => {
+  if (!turnstileToken.value) {
+    alert('Veuillez compléter la vérification de sécurité.');
+    return;
+  }
   if (!validateForm()) {
     alert('Veuillez corriger les erreurs dans le formulaire.');
     return;

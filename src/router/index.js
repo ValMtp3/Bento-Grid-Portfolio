@@ -1,38 +1,51 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+
 import HomeView from '@/views/HomeView.vue';
-import LegalView from '@/views/LegalView.vue';
-import StackView from '@/views/StackView.vue';
-import ProjetsView from '@/views/ProjetsView.vue';
-import PolicyView from '@/views/PolicyView.vue';
+const LegalView = () => import('@/views/LegalView.vue');
+const StackView = () => import('@/views/StackView.vue');
+const ProjetsView = () => import('@/views/ProjetsView.vue');
+const PolicyView = () => import('@/views/PolicyView.vue');
+const ChatbotView = () => import('@/views/ChatbotView.vue');
+const NotFound = () => import('@/views/errors/NotFound.vue');
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: HomeView
-        },
-        {
-            path: '/legal',
-            name: 'legal',
-            component: LegalView
-        },
-        {
-            path: '/stack',
-            name: 'stack',
-            component: StackView
-        },
-        {
-            path: '/projets',
-            name: 'projets',
-            component: ProjetsView
-        },
-        {
-            path: '/policy',
-            name: 'policy',
-            component: PolicyView
-        }
-    ]
-})
-export default router
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/legal',
+      name: 'legal',
+      component: LegalView,
+    },
+    {
+      path: '/stack',
+      name: 'stack',
+      component: StackView,
+    },
+    {
+      path: '/projets',
+      name: 'projets',
+      component: ProjetsView,
+    },
+    {
+      path: '/policy',
+      name: 'policy',
+      component: PolicyView,
+    },
+    {
+      path: '/chatbot',
+      name: 'chatbot',
+      component: ChatbotView,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFound,
+    },
+  ],
+});
+export default router;
