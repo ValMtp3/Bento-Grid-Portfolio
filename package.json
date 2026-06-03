@@ -10,9 +10,14 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@gradio/client": "^2.2.1",
     "js-cookie": "^3.0.5",
+    "marked": "^18.0.4",
+    "pinia": "^3.0.4",
     "swiper": "^11.2.1",
     "vue": "^3.4.38",
+    "vue-matomo": "^4.2.0",
+    "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
