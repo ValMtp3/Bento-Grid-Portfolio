@@ -1,0 +1,7 @@
+allowBuilds:
+  bufferutil: true
+  esbuild: true
+  msw: true
+ignoredBuiltDependencies:
+  - esbuild
+  - vue-demi

@@ -44,7 +44,9 @@ const clients = [
   },
 ];
 
-const projetsAffiches = ref(2);
+const showMoreProjets = ref(false);
+const firstProjets = projets.slice(0, 2);
+const moreProjets = projets.slice(2);
 
 function toggleProjetsAffichage() {
   projetsAffiches.value = projetsAffiches.value === 2 ? projets.length : 2;
