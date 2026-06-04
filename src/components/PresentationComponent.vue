@@ -1,27 +1,66 @@
+<script setup>
+import ResponsiveImage from './ResponsiveImage.vue';
+</script>
+
 <template>
-  <div
-    class="bg-soft-blush-50 font-body p-1 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
-  >
-    <div class="flex flex-col items-center xl:flex-row xlm:justify-between m-10">
-      <div class="mb-6 sm:mb-0">
-        <img
-          alt="photo Valentin Fiess"
-          class="rounded-3xl object-cover shadow-xl shadow-coffee-bean-950/40 h-72 w-72"
-          src="/assets/assets_index/Profile.png"
-        />
-      </div>
-      <div class="text-center">
-        <h1 class="text-xl sm:text-3xl mx-20 mb-6 font-bold font-heading text-coffee-bean-950">
-          Valentin Fiess
-        </h1>
-        <h2 class="text-base sm:text-lg mx-20 mb-6 font-heading text-regal-navy-600 font-semibold">
-          Développeur Web/IA
-        </h2>
-        <h3 class="max-w-md px-10">
-          J'ai 22 ans et je suis un développeur débutant à Montpellier et etudiant a l’EPSI, je
-          m'intéresse aux nouvelles technologies, notamment celle du web et de l’IA.
-        </h3>
+  <!-- Profile Cell -->
+  <div class="md:col-span-2 lg:row-span-2 bento-cell p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
+        <div class="relative shrink-0 select-none">
+          <ResponsiveImage
+            alt="Photo de Valentin Fiess"
+            class="object-cover shadow-lg h-40 w-40 sm:h-48 sm:w-48 rounded-xl"
+            src="/assets/assets_index/Profile.png"
+            fetchpriority="high"
+            loading="eager"
+            decoding="sync"
+          />
+          <div
+            class="absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 border-2 border-spicy-paprika-500 rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-lg transform rotate-12 hover:rotate-0 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            title="Salut, je suis Homard ! 🦞"
+          >
+            🦞
+          </div>
+        </div>
+        <div class="text-center sm:text-left">
+          <h1
+            class="text-2xl sm:text-3xl font-bold font-heading text-coffee-bean-950 dark:text-soft-blush-50 mb-2"
+          >
+            Valentin Fiess
+          </h1>
+          <h2
+            class="text-lg sm:text-xl font-heading text-regal-navy-600 dark:text-regal-navy-400 font-semibold mb-3"
+          >
+            Développeur Web & IA
+          </h2>
+          <p class="text-coffee-bean-700 dark:text-soft-blush-200 max-w-md">
+            J'ai 24 ans, diplômé d'une Licence Développeur Data/IA à l'EPSI Montpellier. Je suis
+            actuellement à la recherche d'un emploi dans la Data ou l'Intelligence Artificielle.
+          </p>
+        </div>
       </div>
     </div>
+    <a
+      href="/assets/assets_index/CV_Valentin_Fiess.pdf"
+      download="CV_Valentin_Fiess.pdf"
+      class="inline-flex items-center gap-2 bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-6 py-2.5 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 font-code self-center sm:self-start"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3"
+        />
+      </svg>
+      Télécharger mon CV
+    </a>
   </div>
 </template>

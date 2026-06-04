@@ -1,43 +1,40 @@
+<script setup>
+const links = [
+  {
+    name: 'CV',
+    href: '/assets/assets_index/CV_Valentin_Fiess.pdf',
+    icon: '/assets/assets_index/CV.svg',
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/valentin-fiess/',
+    icon: '/assets/assets_index/Linkedin.svg',
+  },
+  {
+    name: 'GitHub',
+    href: 'https://www.github.com/ValMtp3',
+    icon: '/assets/assets_index/Github.svg',
+  },
+  { name: 'Mail', href: 'mailto:fetes01pseudo@icloud.com', icon: '/assets/assets_index/mail.svg' },
+];
+</script>
+
 <template>
-  <div
-    class="bg-soft-blush-50 font-body p-1 rounded-3xl w-full max-w-none shadow-lg shadow-coffee-bean-950/10"
-  >
-    <div class="grid grid-cols-2 gap-12 m-2 justify-items-center items-center h-full">
+  <!-- Links Cell -->
+  <div class="bento-cell p-6">
+    <div class="flex items-center justify-around">
       <a
-        href="/assets/assets_index/CV.pdf"
+        v-for="link in links"
+        :key="link.name"
+        :href="link.href"
+        :title="link.name"
         target="_blank"
-        title="CV"
-        class="hover:ring-4 hover:ring-spicy-paprika-400 rounded-full transition-all duration-300 p-2"
+        class="flex flex-col items-center gap-2 hover:scale-110 transition-all duration-300 p-2"
       >
-        <img alt="CV" class="w-16 h-16 xl:w-32 xl:h-32" src="/assets/assets_index/CV.svg" />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/valentin-fiess/"
-        target="_blank"
-        title="Linkedin"
-        class="hover:ring-4 hover:ring-regal-navy-400 rounded-full transition-all duration-300 p-2"
-      >
-        <img
-          alt="Linkedin"
-          class="w-16 h-16 xl:w-32 xl:h-32"
-          src="/assets/assets_index/Linkedin.svg"
-        />
-      </a>
-      <a
-        href="https://www.github.com/ValMtp3"
-        target="_blank"
-        title="GitHub"
-        class="hover:ring-4 hover:ring-coffee-bean-400 rounded-full transition-all duration-300 p-2"
-      >
-        <img alt="GitHub" class="w-16 h-16 xl:w-32 xl:h-32" src="/assets/assets_index/Github.svg" />
-      </a>
-      <a
-        href="mailto:fetes01pseudo@icloud.com"
-        target="_blank"
-        title="Mail"
-        class="hover:ring-4 hover:ring-spicy-paprika-400 rounded-full transition-all duration-300 p-2"
-      >
-        <img alt="Mail" class="w-16 h-16 xl:w-32 xl:h-32" src="/assets/assets_index/mail.svg" />
+        <img :alt="link.name" class="w-12 h-12 sm:w-14 sm:h-14" :src="link.icon" />
+        <span class="text-xs font-code text-coffee-bean-700 dark:text-soft-blush-300">{{
+          link.name
+        }}</span>
       </a>
     </div>
   </div>
