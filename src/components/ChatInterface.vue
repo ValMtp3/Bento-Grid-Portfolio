@@ -5,48 +5,65 @@
       <div
         v-for="(message, index) in messages"
         :key="index"
-        class="flex flex-col"
-        :class="message.role === 'user' ? 'items-end' : 'items-start'"
+        class="flex items-start gap-3 max-w-[85%]"
+        :class="message.role === 'user' ? 'ml-auto flex-row-reverse space-x-reverse' : 'mr-auto'"
       >
+        <!-- Avatar/Mascot if bot -->
         <div
-          class="max-w-[85%] rounded-2xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
-          :class="[
-            message.role === 'user'
-              ? 'bg-blue-500 text-white rounded-br-none dark:bg-blue-600'
-              : 'bg-gray-100 text-gray-800 rounded-bl-none dark:bg-gray-700 dark:text-gray-100',
-          ]"
+          v-if="message.role === 'bot'"
+          class="flex-shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
         >
-          <!-- Contenu du message -->
-          <div
-            v-if="message.role === 'bot'"
-            class="markdown-content"
-            v-html="renderMarkdown(message.content)"
-          ></div>
-          <div v-else>{{ message.content }}</div>
+          🦞
         </div>
 
-        <!-- Label auteur (optionnel, pour plus de clarté) -->
-        <span class="text-xs text-gray-400 mt-1 px-1">
-          {{ message.role === 'user' ? 'Vous' : 'IA' }}
-        </span>
+        <div class="flex flex-col" :class="message.role === 'user' ? 'items-end' : 'items-start'">
+          <div
+            class="rounded-2xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
+            :class="[
+              message.role === 'user'
+                ? 'bg-regal-navy-500 text-white rounded-br-none dark:bg-regal-navy-600'
+                : 'bg-gray-100 text-gray-800 rounded-bl-none dark:bg-gray-700 dark:text-gray-100',
+            ]"
+          >
+            <!-- Contenu du message -->
+            <div
+              v-if="message.role === 'bot'"
+              class="markdown-content"
+              v-html="renderMarkdown(message.content)"
+            ></div>
+            <div v-else>{{ message.content }}</div>
+          </div>
+
+          <!-- Label auteur -->
+          <span class="text-[10px] text-gray-400 dark:text-gray-500 mt-1 px-1">
+            {{ message.role === 'user' ? 'Vous' : 'Homard GPT 🦞' }}
+          </span>
+        </div>
       </div>
 
       <!-- Indicateur de chargement -->
-      <div v-if="isLoading" class="flex flex-col items-start animate-pulse">
+      <div v-if="isLoading" class="flex items-start gap-3 max-w-[85%] mr-auto">
         <div
-          class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
+          class="flex-shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
         >
-          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-          <div
-            class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-            style="animation-delay: 0.2s"
-          ></div>
-          <div
-            class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-            style="animation-delay: 0.4s"
-          ></div>
+          🦞
         </div>
-        <span class="text-xs text-gray-400 mt-1 px-1">IA réfléchit...</span>
+        <div class="flex flex-col items-start animate-pulse">
+          <div
+            class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
+          >
+            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+            <div
+              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              style="animation-delay: 0.2s"
+            ></div>
+            <div
+              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              style="animation-delay: 0.4s"
+            ></div>
+          </div>
+          <span class="text-xs text-gray-400 mt-1 px-1">Homard GPT réfléchit...</span>
+        </div>
       </div>
     </div>
 
@@ -61,13 +78,13 @@
           type="text"
           placeholder="Posez votre question..."
           :disabled="isLoading || !turnstileToken"
-          class="w-full rounded-xl border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-800 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-blue-900 dark:focus:border-blue-500 focus:shadow-md dark:focus:shadow-dark-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+          class="w-full rounded-xl border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-800 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-500 focus:shadow-md dark:focus:shadow-dark-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
         />
 
         <button
           type="submit"
           :disabled="!userInput.trim() || isLoading || !turnstileToken"
-          class="absolute right-2 p-2 rounded-lg bg-blue-400 hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+          class="absolute right-2 p-2 rounded-lg bg-regal-navy-500 hover:bg-regal-navy-600 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
           aria-label="Envoyer"
         >
           <svg
@@ -98,12 +115,13 @@
 import { ref, onMounted, nextTick, computed } from 'vue';
 import { Client } from '@gradio/client';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 const props = defineProps({
   initialMessage: {
     type: String,
     default:
-      "Bonjour ! Je suis l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?",
+      "Bonjour ! Je suis Homard GPT 🦞, l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?",
   },
 });
 
@@ -116,7 +134,14 @@ const turnstileContainer = ref(null);
 let client = null;
 
 const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
-const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY';
+const isLocal = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || 
+   window.location.hostname === '127.0.0.1' || 
+   window.location.hostname.startsWith('192.168.'));
+
+const TURNSTILE_SITE_KEY = isLocal 
+  ? '1x00000000000000000000AA' 
+  : (import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY');
 
 onMounted(async () => {
   scrollToBottom();
@@ -124,6 +149,9 @@ onMounted(async () => {
 });
 
 const initTurnstile = () => {
+  let attempts = 0;
+  const MAX_ATTEMPTS = 20;
+
   const renderWidget = () => {
     if (window.turnstile && turnstileContainer.value) {
       window.turnstile.render(turnstileContainer.value, {
@@ -139,8 +167,11 @@ const initTurnstile = () => {
           turnstileToken.value = null;
         },
       });
-    } else {
+    } else if (attempts < MAX_ATTEMPTS) {
+      attempts++;
       setTimeout(renderWidget, 200);
+    } else {
+      console.warn('Turnstile: échec après 20 tentatives');
     }
   };
   renderWidget();
@@ -174,9 +205,9 @@ const scrollToBottom = async () => {
 
 const renderMarkdown = (text) => {
   try {
-    return marked.parse(text);
+    return DOMPurify.sanitize(marked.parse(text));
   } catch {
-    return text;
+    return DOMPurify.sanitize(text);
   }
 };
 
@@ -286,5 +317,15 @@ const sendMessage = async () => {
 }
 .dark ::-webkit-scrollbar-thumb {
   background-color: rgba(75, 85, 99, 0.5);
+}
+
+@keyframes wiggleSlow {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.animate-lobster {
+  animation: wiggleSlow 2.5s ease-in-out infinite;
 }
 </style>

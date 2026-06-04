@@ -32,12 +32,22 @@ const props = defineProps({
 });
 
 const getResponsiveSrc = (src, size) => {
+  if (!src) return '';
+  if (src.endsWith('.svg') || src.startsWith('data:') || !src.includes('assets_index')) {
+    return src;
+  }
   const path = src.substring(0, src.lastIndexOf('/'));
-  const filename = src.substring(src.lastIndexOf('/') + 1);
+  let filename = src.substring(src.lastIndexOf('/') + 1);
+  const lastDot = filename.lastIndexOf('.');
+  if (lastDot !== -1) {
+    filename = filename.substring(0, lastDot) + '.webp';
+  }
   return `${path}/${size}/${encodeURIComponent(filename)}`;
 };
 
-const srcset = `${getResponsiveSrc(props.src, 360)} 360w, ${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 640)} 640w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w, ${getResponsiveSrc(props.src, 1400)} 1400w`;
+const srcset = (props.src.endsWith('.svg') || props.src.startsWith('data:') || !props.src.includes('assets_index'))
+  ? undefined
+  : `${getResponsiveSrc(props.src, 360)} 360w, ${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 640)} 640w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w, ${getResponsiveSrc(props.src, 1400)} 1400w`;
 </script>
 
 <template>

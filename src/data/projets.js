@@ -26,7 +26,7 @@ export const projets = [
   },
   {
     alt: "Raisonnement IA - Implémentation d'une couche de raisonnement autour d'un LLM Mistral",
-    image: '/assets/assets_index/RaisonnementIA.webp',
+    image: '/assets/assets_index/RaisonnementIA.png',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
     description: "Implémentation d'une couche de raisonnement autour d'un LLM Mistral.",
@@ -38,7 +38,7 @@ export const projets = [
   },
   {
     alt: "Brave RAG - Projet connectant un LLM à internet via l'API Brave Search",
-    image: '/assets/assets_index/Brave.webp',
+    image: '/assets/assets_index/Brave.png',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
     description:
@@ -51,7 +51,7 @@ export const projets = [
   },
   {
     alt: 'To-do-go - Application CLI de gestion de tâches développée en Go',
-    image: '/assets/assets_index/to-do-go.webp',
+    image: '/assets/assets_index/to-do-go.png',
     date: 'Octobre 2025',
     team: 'Valentin Fiess',
     description: 'Application de gestion de tâches cli en go',
@@ -136,7 +136,7 @@ export const projets = [
   },
   {
     alt: 'Portfolio Bento-Grids - Site portfolio personnel de Valentin Fiess en Vue.js',
-    image: '/assets/assets_index/ValentinFiess2.webp',
+    image: '/assets/assets_index/ValentinFiess2.jpg',
     date: 'Mai 2024',
     team: 'Valentin Fiess',
     description: 'Portfolio personnel avec un style moderne',
@@ -160,7 +160,7 @@ export const projets = [
   },
   {
     alt: "InvestManagment - Application de gestion de portefeuille d'investissements en Python",
-    image: '/assets/assets_index/InvestManagment.webp',
+    image: '/assets/assets_index/InvestManagment.png',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
     description: "Application de gestion de portefeuille d'investissements",

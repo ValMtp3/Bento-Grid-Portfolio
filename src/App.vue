@@ -2,17 +2,12 @@
 import { onMounted, watchEffect } from 'vue';
 import { useRoute, RouterView } from 'vue-router';
 import { useMeta } from 'vue-meta';
-import { useThemeStore } from './stores/theme';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
-import ThemeToggle from './components/include/ThemeToggle.vue';
-import HomeButton from './components/include/HomeButton.vue';
+import Navbar from './components/include/Navbar.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
 
 const route = useRoute();
-const themeStore = useThemeStore();
-
-themeStore.init();
 
 useMeta({
   title: 'Valentin Fiess - Développeur Web & IA',
@@ -83,17 +78,12 @@ watchEffect(() => {
     Aller au contenu principal
   </a>
 
-  <div
-    class="min-h-screen bg-custom-gradient dark:bg-coffee-bean-950 transition-colors duration-500"
-  >
-    <HomeButton />
-    <ThemeToggle />
+  <div class="min-h-screen bg-custom-gradient transition-colors duration-500">
+    <Navbar />
 
     <router-view id="main-content" />
 
-    <div class="bg-soft-blush-50 dark:bg-coffee-bean-900 font-body transition-colors duration-300">
-      <Footer />
-    </div>
+    <Footer />
 
     <CookieBanner />
     <ChatbotWidget />
