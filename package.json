@@ -18,7 +18,7 @@
     "js-cookie": "^3.0.5",
     "marked": "^18.0.4",
     "pinia": "^3.0.4",
-    "swiper": "^11.2.1",
+    "swiper": "^12.1.2",
     "vue": "^3.4.38",
     "vue-matomo": "^4.2.0",
     "vue-meta": "^3.0.0-alpha.10",
