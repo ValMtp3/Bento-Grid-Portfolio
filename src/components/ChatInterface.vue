@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full bg-white dark:bg-gray-800 transition-colors duration-300">
+  <div class="flex flex-col h-full bg-white dark:bg-coffee-bean-950 transition-colors duration-300">
     <!-- Zone de messages -->
     <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth">
       <div
@@ -21,8 +21,8 @@
             class="rounded-2xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
             :class="[
               message.role === 'user'
-                ? 'bg-regal-navy-500 text-white rounded-br-none dark:bg-regal-navy-600'
-                : 'bg-gray-100 text-gray-800 rounded-bl-none dark:bg-gray-700 dark:text-gray-100',
+                ? 'bg-regal-navy-500 text-white rounded-br-none dark:bg-regal-navy-700'
+                : 'bg-gray-100 text-gray-800 rounded-bl-none dark:bg-coffee-bean-800 dark:text-soft-blush-100',
             ]"
           >
             <!-- Contenu du message -->
@@ -35,7 +35,7 @@
           </div>
 
           <!-- Label auteur -->
-          <span class="text-[10px] text-gray-400 dark:text-gray-500 mt-1 px-1">
+          <span class="text-[10px] text-gray-400 dark:text-soft-blush-400 mt-1 px-1">
             {{ message.role === 'user' ? 'Vous' : 'Homard GPT 🦞' }}
           </span>
         </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="flex flex-col items-start animate-pulse">
           <div
-            class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
+            class="bg-gray-100 dark:bg-coffee-bean-800 rounded-2xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
           >
             <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
             <div
@@ -68,7 +68,7 @@
     </div>
 
     <!-- Zone de saisie -->
-    <div class="p-4 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700">
+    <div class="p-4 bg-white dark:bg-coffee-bean-950 border-t border-gray-100 dark:border-coffee-bean-800/60">
       <!-- Widget Turnstile -->
       <div ref="turnstileContainer" class="mb-2 flex justify-center" v-show="!turnstileToken"></div>
 
@@ -78,7 +78,7 @@
           type="text"
           placeholder="Posez votre question..."
           :disabled="isLoading || !turnstileToken"
-          class="w-full rounded-xl border border-[#e0e0e0] dark:border-gray-600 bg-white dark:bg-gray-800 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-white outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-500 focus:shadow-md dark:focus:shadow-dark-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+          class="w-full rounded-xl border border-[#e0e0e0] dark:border-coffee-bean-700 bg-white dark:bg-coffee-bean-900/60 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-soft-blush-100 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
         />
 
         <button
@@ -101,9 +101,9 @@
       </form>
       <div class="text-center mt-2">
         <p v-if="!turnstileToken" class="text-[10px] text-amber-500 dark:text-amber-400">
-          Veuillez compléter la vérification ci-dessus pour envoyer un message.
+          Veuillez compléter la vérification de sécurité pour envoyer un message.
         </p>
-        <p class="text-[10px] text-gray-400 dark:text-gray-500">
+        <p class="text-[10px] text-gray-400 dark:text-soft-blush-400">
           L'IA peut faire des erreurs. Vérifiez les informations importantes.
         </p>
       </div>
@@ -316,7 +316,7 @@ const sendMessage = async () => {
   border-radius: 20px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(75, 85, 99, 0.5);
+  background-color: rgba(156, 163, 175, 0.3);
 }
 
 @keyframes wiggleSlow {

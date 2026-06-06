@@ -7,12 +7,12 @@ const projetsAffiches = ref(projets);
 
 <template>
   <div
-    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24"
+    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24 dark:text-soft-blush-200"
   >
     <div
       v-for="proj in projetsAffiches"
       :key="proj.name"
-      class="p-4 bg-soft-blush-50 rounded-xl shadow-lg shadow-coffee-bean-950/10"
+      class="p-4 bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 rounded-xl shadow-lg shadow-coffee-bean-950/10 dark:shadow-black/20"
     >
       <img
         :alt="proj.alt"
@@ -22,28 +22,28 @@ const projetsAffiches = ref(projets);
       />
       <p class="flex justify-center gap-2 mb-2">
         <span
-          class="bg-spicy-paprika-100 text-spicy-paprika-700 text-xs md:text-sm font-code px-2 py-1 rounded-full"
+          class="bg-spicy-paprika-100 dark:bg-spicy-paprika-900/40 text-spicy-paprika-700 dark:text-spicy-paprika-300 text-xs md:text-sm font-code px-2 py-1 rounded-full"
           >{{ proj.team }}</span
         >
         <time
-          class="bg-regal-navy-100 text-regal-navy-700 text-xs md:text-sm font-code px-2 py-1 rounded-full"
+          class="bg-regal-navy-100 dark:bg-regal-navy-900/50 text-regal-navy-700 dark:text-regal-navy-300 text-xs md:text-sm font-code px-2 py-1 rounded-full"
           >{{ proj.date }}</time
         >
       </p>
       <div class="p-4 text-center px-6 md:px-8 lg:px-10">
         <h2
-          class="mb-3 text-xl md:text-2xl font-semibold text-coffee-bean-950"
+          class="mb-3 text-xl md:text-2xl font-semibold text-coffee-bean-950 dark:text-soft-blush-50"
         >
           {{ proj.name }}
         </h2>
-        <p class="mt-1 text-base md:text-lg lg:text-xl text-coffee-bean-950">
+        <p class="mt-1 text-base md:text-lg lg:text-xl text-coffee-bean-950 dark:text-soft-blush-200">
           {{ proj.descriptionlongue }}
         </p>
         <div v-if="proj.technos?.length" class="mt-5 flex flex-wrap justify-center gap-2">
           <span
             v-for="techno in proj.technos"
             :key="`${proj.name}-${techno}`"
-            class="rounded-full bg-regal-navy-100 px-3 py-1 text-xs md:text-sm text-regal-navy-700 font-code"
+            class="rounded-full bg-regal-navy-100 dark:bg-regal-navy-900/50 px-3 py-1 text-xs md:text-sm text-regal-navy-700 dark:text-regal-navy-300 font-code"
           >
             {{ techno }}
           </span>

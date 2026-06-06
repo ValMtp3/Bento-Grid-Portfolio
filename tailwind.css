@@ -90,9 +90,16 @@
   background: -webkit-linear-gradient(135deg, #fcede8 0%, #e9f0fc 50%, #fadbd1 100%);
 }
 
+@utility bg-custom-gradient-dark {
+  background: #120602;
+  background: linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
+  background: -moz-linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
+  background: -webkit-linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
+}
+
 @layer components {
   .bento-cell {
-    @apply bg-soft-blush-50 shadow-lg shadow-coffee-bean-950/10 border border-coffee-bean-100 transition-all duration-300;
+    @apply bg-soft-blush-50 shadow-lg shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-white/[0.07] dark:border-white/[0.12] dark:shadow-black/30 backdrop-blur-[2px] transition-all duration-300;
   }
   .bento-cell:hover {
     @apply shadow-xl;

@@ -147,7 +147,7 @@ const sanitizeInput = (input) => {
     <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
       <div class="mb-3">
         <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 font-semibold"
+          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
           for="name"
         >
           Prénom Nom :
@@ -156,7 +156,7 @@ const sanitizeInput = (input) => {
           id="name"
           v-model="name"
           :required="name === ''"
-          class="w-full rounded-xl mt-2 border border-coffee-bean-200 bg-soft-blush-50 py-3 px-6 text-base font-medium text-coffee-bean-600 outline-none focus:border-regal-navy-700 focus:shadow-md"
+          class="w-full rounded-xl mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
           name="name"
           placeholder="Prénom Nom"
           type="text"
@@ -165,7 +165,7 @@ const sanitizeInput = (input) => {
       </div>
       <div class="mb-3">
         <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 font-semibold"
+          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
           for="email"
         >
           Adresse Mail
@@ -174,7 +174,7 @@ const sanitizeInput = (input) => {
           id="email"
           v-model="email"
           :required="email === ''"
-          class="w-full rounded-xl mt-2 border border-coffee-bean-200 bg-soft-blush-50 py-3 px-6 text-base font-medium text-coffee-bean-600 outline-none focus:border-regal-navy-700 focus:shadow-md"
+          class="w-full rounded-xl mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
           name="email"
           placeholder="example@domain.com"
           type="email"
@@ -183,7 +183,7 @@ const sanitizeInput = (input) => {
       </div>
       <div class="mb-3">
         <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 font-semibold"
+          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
           for="subject"
         >
           Sujet
@@ -192,7 +192,7 @@ const sanitizeInput = (input) => {
           id="subject"
           v-model="subject"
           :required="subject === ''"
-          class="w-full rounded-xl mt-2 border border-coffee-bean-200 bg-soft-blush-50 py-3 px-6 text-base font-medium text-coffee-bean-600 outline-none focus:border-regal-navy-700 focus:shadow-md"
+          class="w-full rounded-xl mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
           name="subject"
           placeholder="Entrer votre sujet"
           type="text"
@@ -201,7 +201,7 @@ const sanitizeInput = (input) => {
       </div>
       <div class="mb-3">
         <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 font-semibold"
+          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
           for="message"
         >
           Message
@@ -210,7 +210,7 @@ const sanitizeInput = (input) => {
           id="message"
           v-model="message"
           :required="message === ''"
-          class="w-full resize-none rounded-xl mt-2 border border-coffee-bean-200 bg-soft-blush-50 py-3 px-6 text-base font-medium text-coffee-bean-600 outline-none focus:border-regal-navy-700 focus:shadow-md"
+          class="w-full resize-none rounded-xl mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
           name="message"
           placeholder="Entrer votre message"
           rows="4"
@@ -240,7 +240,7 @@ const sanitizeInput = (input) => {
       <p class="text-center text-spicy-paprika-600 dark:text-spicy-paprika-400 text-xl font-bold">
         Votre message a été envoyé avec succès !
       </p>
-      <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">
+      <p class="text-center text-xs text-gray-500 dark:text-soft-blush-300 mt-2 font-medium">
         Le Homard Mascotte a validé l'envoi de votre message.
       </p>
     </div>

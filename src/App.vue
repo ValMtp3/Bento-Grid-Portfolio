@@ -78,7 +78,7 @@ watchEffect(() => {
     Aller au contenu principal
   </a>
 
-  <div class="min-h-screen bg-custom-gradient transition-colors duration-500">
+  <div class="min-h-screen bg-custom-gradient dark:bg-custom-gradient-dark transition-colors duration-500">
     <Navbar />
 
     <router-view id="main-content" />
