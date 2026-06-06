@@ -5,7 +5,19 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
 
-const clients = [
+const entreprise = [
+  {
+    alt: 'Logo Capgemini',
+    image: '/assets/assets_index/capgemini.webp',
+    name: 'Capgemini',
+    role: 'Ambassadeur',
+  },
+  {
+    alt: 'Logo R2D automation',
+    image: '/assets/assets_index/R2D automation.webp',
+    name: 'R2D Automation',
+    role: 'Développeur IA/Client RAGUIA',
+  },
   {
     alt: 'Logo Sport&Green',
     image: '/assets/assets_index/sportandgreen.webp',
@@ -18,22 +30,16 @@ const clients = [
     name: 'From_Scratch',
     role: 'Développeur web',
   },
-  {
-    alt: 'Logo R2D automation',
-    image: '/assets/assets_index/R2D automation.webp',
-    name: 'R2D Automation',
-    role: 'Développeur IA',
-  },
 ];
 </script>
 
 <template>
-  <!-- ═══ Clients Section ═══ -->
+  <!-- ═══ entreprise Section ═══ -->
   <section>
     <h2
       class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-4 text-center"
     >
-      Clients
+      Entreprises
     </h2>
     <Swiper
       :modules="[Pagination]"
@@ -42,18 +48,12 @@ const clients = [
       :slides-per-view="1.2"
       :breakpoints="{
         640: { slidesPerView: 2.2, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 24 }
+        1024: { slidesPerView: 3, spaceBetween: 24 },
       }"
       class="pb-12"
     >
-      <SwiperSlide
-        v-for="client in clients"
-        :key="client.name"
-        class="h-auto py-2"
-      >
-        <div
-          class="bento-cell p-6 flex flex-col items-center text-center h-full justify-between"
-        >
+      <SwiperSlide v-for="client in entreprise" :key="client.name" class="h-auto py-2">
+        <div class="bento-cell p-6 flex flex-col items-center text-center h-full justify-between">
           <div class="flex flex-col items-center">
             <ResponsiveImage
               :alt="client.alt"

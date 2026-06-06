@@ -64,7 +64,7 @@ const featuredProjets = projets.slice(0, 6);
                 {{ techno }}
               </span>
             </div>
-            <p class="text-xs font-code text-coffee-bean-500 dark:text-coffee-bean-400 mt-2">
+            <p class="text-xs font-code text-coffee-bean-500 dark:text-soft-blush-400 mt-2">
               {{ project.date }}
             </p>
           </div>

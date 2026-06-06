@@ -27,3 +27,5 @@ sql
 no-sql
 vue-js
 api
+capgemini
+Brave

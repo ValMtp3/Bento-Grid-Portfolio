@@ -177,8 +177,11 @@ def process_image_task(
         pass
 
     # Gérer les modes d'image - WebP supporte la transparence
-    if img.mode == "P":  # Palette -> convertir en RGB
-        img = img.convert("RGB")
+    if img.mode == "P":
+        if "transparency" in img.info:
+            img = img.convert("RGBA")
+        else:
+            img = img.convert("RGB")
     elif img.mode == "LA":  # Luminance + Alpha -> convertir en RGBA
         img = img.convert("RGBA")
     # Garder RGBA tel quel - WebP gère la transparence parfaitement
@@ -369,7 +372,9 @@ def main():
             print(
                 f"✅ Toutes les {len(image_files)} images sont déjà à jour ({len(SIZES)} tailles chacune).\n"
             )
-            print("💡 Utilisez --force pour forcer le retraitement de toutes les images.")
+            print(
+                "💡 Utilisez --force pour forcer le retraitement de toutes les images."
+            )
             print(f"   Exemple : uv run image_processor.py --force")
             return
         print(

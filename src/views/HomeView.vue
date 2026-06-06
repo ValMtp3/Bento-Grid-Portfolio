@@ -4,7 +4,7 @@ import PresentationComponent from '@/components/PresentationComponent.vue';
 import ContactComponent from '@/components/ContactComponent.vue';
 import ExperienceComponent from '@/components/ExperienceComponent.vue';
 import FormationComponent from '@/components/FormationComponent.vue';
-import ClientsComponent from '@/components/ClientsComponent.vue';
+import EntrepriseComponent from '@/components/EntrepriseComponent.vue';
 import MaitriseComponent from '@/components/MaitriseComponent.vue';
 import ProjetsComponent from '@/components/ProjetsComponent.vue';
 import StatusComponent from '@/components/StatusComponent.vue';
@@ -20,10 +20,10 @@ import StatsComponent from '@/components/StatsComponent.vue';
       <StatsComponent />
     </section>
     <ExperienceComponent />
+    <EntrepriseComponent />
     <FormationComponent />
     <MaitriseComponent />
     <ProjetsComponent />
-    <ClientsComponent />
     <ContactFormsComponent />
   </div>
 </template>

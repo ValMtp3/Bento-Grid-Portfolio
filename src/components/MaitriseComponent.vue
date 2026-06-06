@@ -52,7 +52,7 @@ const devopsSkills = [
             <div
               v-for="skill in aiSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-gray-800/30 border border-coffee-bean-100/10 dark:border-gray-700/20 hover:bg-white dark:hover:bg-gray-800 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
@@ -79,7 +79,7 @@ const devopsSkills = [
             <div
               v-for="skill in webSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-gray-800/30 border border-coffee-bean-100/10 dark:border-gray-700/20 hover:bg-white dark:hover:bg-gray-800 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
@@ -106,7 +106,7 @@ const devopsSkills = [
             <div
               v-for="skill in devopsSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-gray-800/30 border border-coffee-bean-100/10 dark:border-gray-700/20 hover:bg-white dark:hover:bg-gray-800 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"

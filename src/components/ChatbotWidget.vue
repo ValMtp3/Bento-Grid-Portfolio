@@ -11,17 +11,17 @@
 
     <div
       v-if="isOpen"
-      class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
+      class="bg-white dark:bg-coffee-bean-950 rounded-lg shadow-2xl border border-gray-200 dark:border-coffee-bean-800/60 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
     >
       <div
-        class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700"
+        class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-coffee-bean-800/60"
       >
-        <h3 class="font-semibold text-gray-900 dark:text-white flex items-center gap-2 select-none">
+        <h3 class="font-semibold text-gray-900 dark:text-soft-blush-50 flex items-center gap-2 select-none">
           <span>Homard GPT</span>
         </h3>
         <button
           @click="closeChatbot"
-          class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          class="text-gray-400 hover:text-gray-600 dark:text-soft-blush-400 dark:hover:text-soft-blush-200"
           aria-label="Fermer le chatbot"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

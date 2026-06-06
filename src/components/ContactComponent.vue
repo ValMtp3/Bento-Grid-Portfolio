@@ -31,7 +31,7 @@ const links = [
         target="_blank"
         class="flex flex-col items-center gap-2 hover:scale-110 transition-all duration-300 p-2"
       >
-        <img :alt="link.name" class="w-12 h-12 sm:w-14 sm:h-14" :src="link.icon" />
+        <img :alt="link.name" class="w-12 h-12 sm:w-14 sm:h-14 dark:brightness-0 dark:invert" :src="link.icon" />
         <span class="text-xs font-code text-coffee-bean-700 dark:text-soft-blush-300">{{
           link.name
         }}</span>
