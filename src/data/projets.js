@@ -75,7 +75,7 @@ export const projets = [
   },
   {
     alt: 'Chatbot IA CV - RAG chatbot connecté au CV de Valentin Fiess pour les recruteurs',
-    image: '/assets/assets_index/ValentinFiess.webp',
+    image: '/assets/assets_index/CV.svg',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
     description: "RAG d'un chatbot IA connecté au CV destiné aux recruteurs",
@@ -136,7 +136,7 @@ export const projets = [
   },
   {
     alt: 'Portfolio Bento-Grids - Site portfolio personnel de Valentin Fiess en Vue.js',
-    image: '/assets/assets_index/ValentinFiess2.jpg',
+    image: '/assets/assets_index/Valentin_Fiess.webp',
     date: 'Mai 2024',
     team: 'Valentin Fiess',
     description: 'Portfolio personnel avec un style moderne',
