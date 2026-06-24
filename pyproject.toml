@@ -6,9 +6,5 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "pillow>=12.2.0",
-    "tdqm>=0.0.1",
     "rembg[cpu]>=2.0.72",
-    "pymatting>=1.1.14",
-    "numba>=0.53.1",
-    "llvmlite>=0.46.0",
 ]

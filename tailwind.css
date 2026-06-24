@@ -1,46 +1,117 @@
 @import 'tailwindcss';
 
-/* Force class-based dark mode for Tailwind v4 */
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  /* Custom colors */
+  --color-spicy-paprika-50: #fff1ea;
+  --color-spicy-paprika-100: #fbd8c8;
+  --color-spicy-paprika-200: #f7b08f;
+  --color-spicy-paprika-300: #f1885b;
+  --color-spicy-paprika-400: #ec703e;
+  --color-spicy-paprika-500: #e65a28;
+  --color-spicy-paprika-600: #c8461b;
+  --color-spicy-paprika-700: #9e3213;
+  --color-spicy-paprika-800: #6d210d;
+  --color-spicy-paprika-900: #3e1308;
+  --color-spicy-paprika-950: #2a130d;
 
-/* Global Dark Mode Reset */
+  --color-regal-navy-50: #eef4ff;
+  --color-regal-navy-100: #d8e7ff;
+  --color-regal-navy-200: #abc9f7;
+  --color-regal-navy-300: #7aa7ef;
+  --color-regal-navy-400: #4c82df;
+  --color-regal-navy-500: #2b5fad;
+  --color-regal-navy-600: #1c4d96;
+  --color-regal-navy-700: #123b7d;
+  --color-regal-navy-800: #0d2c60;
+  --color-regal-navy-900: #091f46;
+  --color-regal-navy-950: #06142f;
+
+  --color-coffee-bean-50: #fff1ea;
+  --color-coffee-bean-100: #f4d7cb;
+  --color-coffee-bean-200: #e6b49f;
+  --color-coffee-bean-300: #cf8769;
+  --color-coffee-bean-400: #a95a3d;
+  --color-coffee-bean-500: #7a3522;
+  --color-coffee-bean-600: #532015;
+  --color-coffee-bean-700: #35130c;
+  --color-coffee-bean-800: #210a05;
+  --color-coffee-bean-900: #160703;
+  --color-coffee-bean-950: #120602;
+
+  --color-soft-blush-50: #fff1ea;
+  --color-soft-blush-100: #fde5da;
+  --color-soft-blush-200: #f9cdbd;
+  --color-soft-blush-300: #f2a98e;
+  --color-soft-blush-400: #ea805d;
+  --color-soft-blush-500: #e65a28;
+  --color-soft-blush-600: #be4319;
+  --color-soft-blush-700: #8d2c10;
+  --color-soft-blush-800: #5b1a0a;
+  --color-soft-blush-900: #2a130d;
+  --color-soft-blush-950: #120602;
+
+  /* Custom fonts */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-code: 'Intel One Mono', monospace;
+}
+
 @layer base {
+  html,
   body {
-    @apply transition-colors duration-300;
+    @apply bg-custom-gradient;
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
-
-  .dark body {
-    background-color: #111827;
-    /* gray-900 */
-    color: #f3f4f6;
-    /* gray-100 */
+  h1,
+  h2 {
+    @apply font-heading font-bold;
+  }
+  p,
+  li,
+  a,
+  label {
+    @apply font-body;
+  }
+  span,
+  time {
+    font-family: inherit;
+  }
+  pre,
+  code {
+    @apply font-code;
   }
 }
 
-@font-face {
-  font-family: 'AnonymousPro';
-  src: url('/assets/Font/Anonymous_Pro/AnonymousPro-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@utility bg-custom-gradient {
+  background: #fff1ea;
+  background: linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
+  background: -moz-linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
+  background: -webkit-linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
 }
 
-@font-face {
-  font-family: 'AnonymousPro';
-  src: url('/assets/Font/Anonymous_Pro/AnonymousPro-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
+@utility bg-custom-gradient-dark {
+  background: #120602;
+  background: linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
+  background: -moz-linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
+  background: -webkit-linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
 }
 
-@layer utilities {
-  .bg-custom-gradient {
-    background: hsla(205, 38%, 94%, 1);
-    background: linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-    background: -moz-linear-gradient(45deg, hsla(205, 38%, 94%, 1) 0%, hsla(176, 57%, 89%, 1) 100%);
-    background: -webkit-linear-gradient(45deg,
-        hsla(205, 38%, 94%, 1) 0%,
-        hsla(176, 57%, 89%, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#E9F0F5", endColorstr="#D3F3F1", GradientType=1);
+@layer components {
+  .bento-cell {
+    @apply bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20 backdrop-blur-[2px] transition-all duration-300;
   }
+  .bento-cell:hover {
+    @apply shadow-md;
+  }
+  .mono-logo {
+    filter: grayscale(1) sepia(1) saturate(5) brightness(0.3);
+    transition: filter 0.3s;
+  }
+  .mono-logo:hover {
+    filter: grayscale(1) sepia(1) saturate(5) brightness(0.45);
+  }
+
 }

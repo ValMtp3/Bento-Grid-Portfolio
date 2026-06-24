@@ -107,6 +107,26 @@ portfolio-vue-bento-tailwind
 - **`App.vue`** : Composant racine.
 - **`main.js`** : Point d'entrée de l'application.
 
+## 🖼️ Traitement des images
+
+Les images du portfolio sont générées automatiquement en plusieurs tailles responsive au format WebP.
+
+Utilisation du processeur en Go :
+
+```sh
+go run image_processor.go
+```
+
+Options principales :
+
+```sh
+go run image_processor.go --force        # Retraiter toutes les images
+go run image_processor.go --resize-only  # Redimensionner sans supprimer l'arrière-plan
+go run image_processor.go --model u2netp # Utiliser un modèle rembg plus rapide
+```
+
+La suppression d'arrière-plan repose sur `rembg`, appelé via le worker Python `image_processor_worker.py`.
+
 ## 🎨 Personnalisation
 
 Pour personnaliser les styles, modifie le fichier `tailwind.config.js` et ajoute tes propres classes utilitaires. Tu peux également ajuster les composants et les vues pour répondre à tes besoins spécifiques.

@@ -1,55 +1,81 @@
 <!doctype html>
 <html lang="fr">
+  <head>
+    <!-- Important info + SEO -->
+    <title>Valentin Fiess | Portfolio | Développeur web</title>
+    <meta content="Valentin Fiess | Portfolio développeur" name="title" />
+    <meta charset="UTF-8" />
+    <meta
+      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio
+        pour en savoir + sur mes compétences et mes projets "
+      name="description"
+    />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Valentin Fiess" name="author" />
+    <meta content="index, follow" name="robots" />
 
-<head>
-  <title>Valentin Fiess | Portfolio Développeur Web & IA à Montpellier</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Portfolio de Valentin Fiess, développeur web fullstack et ingénieur Data/IA à Montpellier. Découvrez mes projets en Vue.js, Python, Machine Learning et IA. Disponible pour alternance et missions freelance." />
-  <link rel="preload" as="font" href="/assets/Font/Anonymous_Pro/AnonymousPro-Regular.woff2" type="font/woff2"
-    crossorigin />
-  <link rel="preload" as="font" href="/assets/Font/Anonymous_Pro/AnonymousPro-Bold.woff2" type="font/woff2"
-    crossorigin />
-  <link rel="icon" type="image/x-icon" href="/assets/assets_index/val.ico" />
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script src="/src/main.js" type="module"></script>
-</head>
+    <!-- Favicon -->
+    <link href="/assets/assets_index/val.ico" rel="icon" type="image/ico" />
+    <link href="/assets/assets_index/Profile2.jpeg" rel="apple-touch-icon" sizes="180x180" />
 
-<body>
-  <div id="app"></div>
-  <noscript>
-    <div style="max-width:800px;margin:0 auto;padding:40px 20px;font-family:sans-serif">
-      <h1>Valentin Fiess — Développeur Data & IA à Montpellier</h1>
-      <p>Portfolio de Valentin Fiess, développeur Data et IA basé à Montpellier.
-        Diplômé d'une Licence Développeur Data/IA à l'EPSI Montpellier, je suis à la recherche
-        d'un emploi dans la Data ou l'Intelligence Artificielle.</p>
-      <h2>Compétences techniques</h2>
-      <p>HTML, Tailwind CSS, Vue.js, MySQL, Python, PyTorch, TensorFlow, Pandas, Scikit-learn,
-        Go, PHP Symfony, n8n, Transformers.</p>
-      <h2>Projets</h2>
-      <ul>
-        <li>Chiffremento App — Application de chiffrement de fichiers (TypeScript)</li>
-        <li>Raisonnement IA — Couche de raisonnement autour d'un LLM Mistral</li>
-        <li>Brave RAG — Connexion d'un LLM à internet via Brave Search</li>
-        <li>WildLens — Reconnaissance de traces d'animaux avec IA</li>
-        <li>Fake News Detection — Pipeline de détection avec machine learning</li>
-        <li>Chatbot IA CV — RAG chatbot connecté au CV</li>
-      </ul>
-      <h2>Expériences professionnelles</h2>
-      <ul>
-        <li>Sport&amp;Green — Développeur web / Consultant SEO</li>
-        <li>From_Scratch — Développeur web</li>
-        <li>R2D Automation — Développeur IA</li>
-      </ul>
-      <h2>Contact</h2>
-      <p>
-        <a href="https://www.linkedin.com/in/valentin-fiess/">LinkedIn</a> |
-        <a href="https://www.github.com/ValMtp3">GitHub</a> |
-        <a href="mailto:fetes01pseudo@icloud.com">Email</a>
-      </p>
-    </div>
-  </noscript>
-</body>
+    <!-- Open Graph -->
+    <meta content="Valentin Fiess | Portfolio" property="og:title" />
+    <meta
+      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
+      property="og:description"
+    />
+    <meta
+      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
+      property="og:image"
+    />
+    <meta content="https://www.valentin-fiess.fr/" property="og:url" />
 
+    <!-- Facebook Meta Tags -->
+    <meta content="https://www.valentin-fiess.fr/" property="og:url" />
+    <meta content="website" property="og:type" />
+    <meta content="Valentin Fiess | Portfolio" property="og:title" />
+    <meta
+      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
+      property="og:description"
+    />
+    <meta
+      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
+      property="og:image"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="valentin-fiess.fr" property="twitter:domain" />
+    <meta content="https://www.valentin-fiess.fr/" property="twitter:url" />
+    <meta content="@WyqBzm" name="twitter:site" />
+    <meta content="Valentin Fiess | Portfolio" name="twitter:title" />
+    <meta
+      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
+      name="twitter:description"
+    />
+    <meta
+      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
+      name="twitter:image"
+    />
+
+
+
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+    <style>
+      @font-face {
+        font-family: '0xProto';
+        src: url('/assets/Font/0xProto-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/src/main.js" type="module"></script>
+  </body>
 </html>

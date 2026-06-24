@@ -1,65 +1,100 @@
 <script setup>
+import { projets } from '@/data/projets.js';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
 
-defineProps({
-  image: {
-    type: String,
-    required: true,
-  },
-  alt: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
-  team: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  src: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  linkLabel: {
-    type: String,
-    default: '',
-  },
-});
+const featuredProjets = projets.slice(0, 6);
 </script>
 
 <template>
-  <div
-    class="mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl overflow-hidden rounded-xl bg-transparent transition-colors duration-300"
-  >
-    <ResponsiveImage
-      :alt="alt"
-      :src="image"
-      class="text-center mx-auto mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 rounded-xl w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 dark:filter dark:brightness-90 transition-all"
-      loading="lazy"
-    />
-    <div class="p-4 text-center">
-      <p
-        class="mt-1 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl text-neutral-900 dark:text-white"
+  <!-- ═══ Projects Section ═══ -->
+  <section>
+    <h2
+      class="text-xl sm:text-2xl font-heading font-bold text-spicy-paprika-600 dark:text-spicy-paprika-400 mb-4 text-center"
+    >
+      Projets
+    </h2>
+    <Swiper
+      :modules="[Pagination]"
+      :pagination="{ clickable: true }"
+      :space-between="16"
+      :slides-per-view="1.1"
+      :breakpoints="{
+        640: { slidesPerView: 2.2, spaceBetween: 20 },
+        1024: { slidesPerView: 3, spaceBetween: 24 }
+      }"
+      class="pb-12"
+    >
+      <SwiperSlide
+        v-for="project in featuredProjets"
+        :key="project.name"
+        class="h-auto py-2"
       >
-        {{ description }}
-      </p>
-      <a :href="src" target="_blank">
-        <button
-          class="ml-auto transform hover:scale-110 motion-reduce:transform-none font-light rounded-xl p-2 m-2 sm:m-3 md:m-4 lg:m-5 xl:m-6 underline text-neutral-900 dark:text-white hover:opacity-80 transition-all"
+        <a
+          :href="project.src"
+          target="_blank"
+          class="group bento-cell p-4 flex flex-col hover:scale-[1.02] hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-600 h-full justify-between"
         >
-          {{ linkLabel || name }}
-        </button>
-      </a>
+          <div>
+            <ResponsiveImage
+              :alt="project.alt"
+              :src="project.image"
+              class="w-full h-40 object-contain bg-white mb-3"
+              loading="lazy"
+            />
+            <h3
+              class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50 mb-1 group-hover:text-spicy-paprika-500 dark:group-hover:text-spicy-paprika-400 transition-colors"
+            >
+              {{ project.name }}
+            </h3>
+            <p class="text-sm text-coffee-bean-600 dark:text-soft-blush-300 mb-2 line-clamp-2">
+              {{ project.description }}
+            </p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-1.5 mt-auto">
+              <span
+                v-for="techno in project.technos.slice(0, 3)"
+                :key="techno"
+                class="font-code text-xs px-2 py-0.5 bg-regal-navy-100 dark:bg-regal-navy-800 text-regal-navy-700 dark:text-regal-navy-200"
+              >
+                {{ techno }}
+              </span>
+            </div>
+            <p class="text-xs font-code text-coffee-bean-500 dark:text-soft-blush-400 mt-2">
+              {{ project.date }}
+            </p>
+          </div>
+        </a>
+      </SwiperSlide>
+    </Swiper>
+    <div class="flex justify-center mt-2">
+      <router-link
+        to="/projets"
+        class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-6 py-2.5 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300"
+      >
+        Voir tous les projets
+      </router-link>
     </div>
-  </div>
+  </section>
 </template>
+
+<style scoped>
+:deep(.swiper-slide) {
+  height: auto;
+}
+:deep(.swiper-pagination-bullet) {
+  background-color: var(--color-coffee-bean-300, #db6b3e);
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+:deep(.swiper-pagination-bullet-active) {
+  background-color: var(--color-spicy-paprika-500, #e4501b) !important;
+  opacity: 1;
+  width: 20px;
+  border-radius: 4px;
+}
+</style>
