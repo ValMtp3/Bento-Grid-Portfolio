@@ -21,7 +21,7 @@
     "marked": "^18.0.5",
     "pinia": "^3.0.4",
     "swiper": "^12.1.2",
-    "vue": "^3.4.38",
+    "vue": "^3.5.38",
     "vue-matomo": "^4.2.0",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.4.0"
