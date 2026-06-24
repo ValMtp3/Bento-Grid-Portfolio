@@ -31,8 +31,11 @@
       <img
         src="https://ghchart.rshah.org/E65A28/ValMtp3"
         alt="Historique global des contributions GitHub de Valentin Fiess"
-        loading="lazy"
+        width="720"
+        height="86"
+        loading="eager"
         decoding="async"
+        fetchpriority="high"
         class="h-[86px] w-full object-fill opacity-90"
       />
     </a>
