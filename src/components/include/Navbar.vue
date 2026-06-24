@@ -14,6 +14,7 @@ const closeMenu = () => {
 };
 
 const navLinks = [
+  { name: 'Entreprises', to: '/#entreprises' },
   { name: 'Expérience', to: '/#experience' },
   { name: 'Formation', to: '/#formation' },
   { name: 'Maitrise', to: '/#competences' },

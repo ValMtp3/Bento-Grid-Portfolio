@@ -148,7 +148,8 @@ export const projets = [
   },
   {
     alt: "TD Site - Premier projet Vue.js avec routage et consommation d'API",
-    image: '/assets/assets_index/VueJS.webp',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1280px-Vue.js_Logo_2.svg.png',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
     description: "Découverte de Vue.js : routage, webhooks et consommation d'API",
