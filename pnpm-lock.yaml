@@ -36,8 +36,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       swiper:
-        specifier: ^12.1.2
-        version: 12.1.2
+        specifier: ^12.2.0
+        version: 12.2.0
       vue:
         specifier: ^3.5.38
         version: 3.5.38(typescript@5.9.3)
@@ -566,8 +566,8 @@ packages:
     resolution: {integrity: sha512-H+ue8Zo4vJmV2nRjpx86P35lzwDT3nItnIsocgumgr0hHMQ+ZGq5vrERg9kJBo5AWGmxZDhzDo+WVIJqkB0cGA==}
     engines: {node: '>=16'}
 
-  swiper@12.1.2:
-    resolution: {integrity: sha512-4gILrI3vXZqoZh71I1PALqukCFgk+gpOwe1tOvz5uE9kHtl2gTDzmYflYCwWvR4LOvCrJi6UEEU+gnuW5BtkgQ==}
+  swiper@12.2.0:
+    resolution: {integrity: sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==}
     engines: {node: '>= 4.7.0'}
 
   tailwindcss@4.3.0:
@@ -1090,7 +1090,7 @@ snapshots:
     dependencies:
       copy-anything: 4.0.5
 
-  swiper@12.1.2: {}
+  swiper@12.2.0: {}
 
   tailwindcss@4.3.0: {}
 
