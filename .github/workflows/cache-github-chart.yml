@@ -1,0 +1,38 @@
+name: Cache GitHub chart
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  cache-github-chart:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Refresh cached chart
+        run: node scripts/cache-github-chart.mjs
+
+      - name: Commit updated chart
+        run: |
+          if git diff --quiet -- public/assets/assets_index/github-contributions.svg; then
+            echo "GitHub chart cache is already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/assets_index/github-contributions.svg
+          git commit -m "chore: refresh github chart cache"
+          git push
