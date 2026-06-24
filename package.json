@@ -16,7 +16,7 @@
     "@fontsource/space-grotesk": "^5.2.10",
     "@gradio/client": "^2.2.1",
     "@iconify/vue": "^5.0.1",
-    "dompurify": "^3.4.7",
+    "dompurify": "^3.4.11",
     "js-cookie": "^3.0.5",
     "marked": "^18.0.4",
     "pinia": "^3.0.4",
