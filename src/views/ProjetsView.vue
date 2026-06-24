@@ -50,7 +50,7 @@ const projetsAffiches = ref(projets);
         </div>
         <a :href="proj.src" target="_blank" rel="noopener noreferrer">
           <button
-            class="ml-auto transform hover:scale-110 motion-reduce:transform-none font-code font-medium rounded-xl px-4 py-2 m-2 md:m-4 lg:m-5 bg-regal-navy-500 hover:bg-regal-navy-600 text-soft-blush-50 shadow-md shadow-regal-navy-500/30 transition-all duration-300"
+            class="ml-auto hover:scale-110 motion-reduce:transform-none font-code font-medium rounded-xl px-4 py-2 m-2 md:m-4 lg:m-5 bg-regal-navy-500 hover:bg-regal-navy-600 text-soft-blush-50 shadow-md shadow-regal-navy-500/30 transition-all duration-300"
           >
             {{ proj.linkLabel || proj.name }}
           </button>
