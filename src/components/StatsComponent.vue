@@ -29,7 +29,7 @@
       class="block rounded-md border border-coffee-bean-100 dark:border-soft-blush-50/10 bg-soft-blush-100/60 dark:bg-coffee-bean-950/40 p-2.5 hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-500 transition-colors"
     >
       <img
-        src="https://cdn.jsdelivr.net/gh/ValMtp3/Bento-Grid-Portfolio@main/public/assets/assets_index/github-contributions.svg"
+        src="https://raw.githubusercontent.com/ValMtp3/Bento-Grid-Portfolio/main/public/assets/assets_index/github-contributions.svg"
         alt="Historique global des contributions GitHub de Valentin Fiess"
         width="720"
         height="86"
