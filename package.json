@@ -18,7 +18,7 @@
     "@iconify/vue": "^5.0.1",
     "dompurify": "^3.4.11",
     "js-cookie": "^3.0.5",
-    "marked": "^18.0.4",
+    "marked": "^18.0.5",
     "pinia": "^3.0.4",
     "swiper": "^12.2.0",
     "vue": "^3.4.38",
