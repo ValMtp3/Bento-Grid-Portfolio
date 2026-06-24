@@ -30,7 +30,7 @@ const turnstileContainer = ref(null);
 const validateForm = () => {
   errors.value = {};
   if (!name.value) errors.value.name = 'Le nom est requis.';
-  if (!email.value || !/\S+@\S+\.\S+/.test(email.value))
+  if (!email.value || !/\S[^\s@]*@\S+\.\S+/.test(email.value))
     errors.value.email = 'Un email valide est requis.';
   if (!subject.value) errors.value.subject = 'Le sujet est requis.';
   if (!message.value) errors.value.message = 'Le message est requis.';
