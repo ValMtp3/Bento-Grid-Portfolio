@@ -36,6 +36,7 @@ const featuredProjets = projets.slice(0, 6);
         <a
           :href="project.src"
           target="_blank"
+          rel="noopener noreferrer"
           class="group bento-cell p-4 flex flex-col hover:scale-[1.02] hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-600 h-full justify-between"
         >
           <div>
