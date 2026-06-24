@@ -26,7 +26,7 @@ export const projets = [
   },
   {
     alt: "Raisonnement IA - Implémentation d'une couche de raisonnement autour d'un LLM Mistral",
-    image: '/assets/assets_index/RaisonnementIA.webp',
+    image: '/assets/assets_index/RaisonnementIA.png',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
     description: "Implémentation d'une couche de raisonnement autour d'un LLM Mistral.",
@@ -38,7 +38,7 @@ export const projets = [
   },
   {
     alt: "Brave RAG - Projet connectant un LLM à internet via l'API Brave Search",
-    image: '/assets/assets_index/Brave.webp',
+    image: '/assets/assets_index/Brave.png',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
     description:
@@ -51,7 +51,7 @@ export const projets = [
   },
   {
     alt: 'To-do-go - Application CLI de gestion de tâches développée en Go',
-    image: '/assets/assets_index/to-do-go.webp',
+    image: '/assets/assets_index/to-do-go.png',
     date: 'Octobre 2025',
     team: 'Valentin Fiess',
     description: 'Application de gestion de tâches cli en go',
@@ -75,7 +75,7 @@ export const projets = [
   },
   {
     alt: 'Chatbot IA CV - RAG chatbot connecté au CV de Valentin Fiess pour les recruteurs',
-    image: '/assets/assets_index/ValentinFiess.webp',
+    image: '/assets/assets_index/CV.svg',
     date: 'Juin 2024',
     team: 'Valentin Fiess',
     description: "RAG d'un chatbot IA connecté au CV destiné aux recruteurs",
@@ -136,7 +136,7 @@ export const projets = [
   },
   {
     alt: 'Portfolio Bento-Grids - Site portfolio personnel de Valentin Fiess en Vue.js',
-    image: '/assets/assets_index/ValentinFiess2.webp',
+    image: '/assets/assets_index/Valentin_Fiess.webp',
     date: 'Mai 2024',
     team: 'Valentin Fiess',
     description: 'Portfolio personnel avec un style moderne',
@@ -148,7 +148,8 @@ export const projets = [
   },
   {
     alt: "TD Site - Premier projet Vue.js avec routage et consommation d'API",
-    image: '/assets/assets_index/VueJS.webp',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1280px-Vue.js_Logo_2.svg.png',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
     description: "Découverte de Vue.js : routage, webhooks et consommation d'API",
@@ -160,7 +161,7 @@ export const projets = [
   },
   {
     alt: "InvestManagment - Application de gestion de portefeuille d'investissements en Python",
-    image: '/assets/assets_index/InvestManagment.webp',
+    image: '/assets/assets_index/InvestManagment.png',
     date: 'Décembre 2023',
     team: 'Valentin Fiess',
     description: "Application de gestion de portefeuille d'investissements",

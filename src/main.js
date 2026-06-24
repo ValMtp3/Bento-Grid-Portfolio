@@ -1,4 +1,10 @@
 import '../tailwind.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/intel-one-mono/400.css';
+import '@fontsource/intel-one-mono/500.css';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createMetaManager } from 'vue-meta';
@@ -26,36 +32,6 @@ app.use(VueMatomo, {
 // Activer le HeartBeatTimer pour une mesure précise du temps passé
 window._paq = window._paq || [];
 window._paq.push(['enableHeartBeatTimer']);
-
-// Monitoring des erreurs JavaScript pour le SEO
-window.addEventListener('error', (event) => {
-  // Log des erreurs JavaScript pour analyse SEO
-  console.error('JavaScript Error:', {
-    message: event.message,
-    filename: event.filename,
-    lineno: event.lineno,
-    colno: event.colno,
-    error: event.error,
-    timestamp: new Date().toISOString(),
-    url: window.location.href,
-    userAgent: navigator.userAgent,
-  });
-
-  // Ici vous pouvez envoyer à un service de monitoring comme Sentry, LogRocket, etc.
-  // Exemple: Sentry.captureException(event.error);
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-  // Log des promesses rejetées non gérées
-  console.error('Unhandled Promise Rejection:', {
-    reason: event.reason,
-    timestamp: new Date().toISOString(),
-    url: window.location.href,
-  });
-
-  // Ici vous pouvez envoyer à un service de monitoring
-  // Exemple: Sentry.captureException(event.reason);
-});
 
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {

@@ -13,6 +13,7 @@ dist
 dist-ssr
 coverage
 *.local
+.prettierrc
 
 /cypress/videos/
 /cypress/screenshots/
@@ -28,10 +29,21 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-*.env
 
-.eslintrc.cjs
-.prettierrc
+# Environment files
+.env
+.env.*
+.env.local
 
-public/matomo
-audit_report.md
+# Go build artifacts
+image_processor
+image_processor.exe
+
+# Go temp files
+public/assets/assets_index/.tmp_bg_removed/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+go-param

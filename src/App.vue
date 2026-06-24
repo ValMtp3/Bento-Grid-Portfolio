@@ -1,165 +1,91 @@
 <script setup>
 import { onMounted, watchEffect } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
+import { useRoute, RouterView } from 'vue-router';
 import { useMeta } from 'vue-meta';
-import { useThemeStore } from './stores/theme.js';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
-import ThemeToggle from './components/include/ThemeToggle.vue';
-import HomeButton from './components/include/HomeButton.vue';
+import Navbar from './components/include/Navbar.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
 
 const route = useRoute();
 
-// Meta tags globaux via vue-meta (Titre/Description)
 useMeta({
-  title: 'Valentin Fiess | Portfolio Développeur',
-  htmlAttrs: {
-    lang: 'fr',
-  },
+  title: 'Valentin Fiess - Développeur Web & IA',
   meta: [
     {
       name: 'description',
       content:
-        'Portfolio de Valentin Fiess, développeur web et IA à Montpellier. Découvrez mes projets, mes compétences et mon parcours.',
+        'Portfolio de Valentin Fiess, développeur web et intelligence artificielle. Découvrez mes projets, compétences et expériences.',
     },
     {
       name: 'keywords',
       content:
-        'développeur web, portfolio, Valentin Fiess, Montpellier, VueJS, Tailwind, Python, PHP Symfony',
+        'Valentin Fiess, développeur web, IA, intelligence artificielle, portfolio, React, Vue, Python, full-stack',
     },
-    { property: 'og:type', content: 'website' },
-    { name: 'robots', content: 'index, follow' },
+    {
+      property: 'og:title',
+      content: 'Valentin Fiess - Développeur Web & IA',
+    },
+    {
+      property: 'og:description',
+      content: 'Portfolio de Valentin Fiess, développeur web et intelligence artificielle.',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:url',
+      content: 'https://valentin-fiess.com',
+    },
   ],
 });
 
-// 1. Injection du JSON-LD
-
 onMounted(() => {
-  // 1. Injection du JSON-LD
-  const scriptId = 'schema-json-ld';
-  if (!document.getElementById(scriptId)) {
-    const script = document.createElement('script');
-    script.id = scriptId;
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'WebSite',
-          '@id': 'https://www.valentin-fiess.fr/#website',
-          name: 'Valentin Fiess Portfolio',
-          url: 'https://www.valentin-fiess.fr/',
-          inLanguage: 'fr',
-        },
-        {
-          '@type': 'Person',
-          '@id': 'https://www.valentin-fiess.fr/#person',
-          name: 'Valentin Fiess',
-          url: 'https://www.valentin-fiess.fr/',
-          image: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp',
-          sameAs: ['https://www.linkedin.com/in/valentin-fiess/', 'https://github.com/ValMtp3'],
-          jobTitle: 'Développeur Data / IA',
-          description:
-            "Développeur Data et IA diplômé de l'EPSI Montpellier, à la recherche d'un emploi dans la Data ou l'Intelligence Artificielle.",
-          alumniOf: {
-            '@type': 'EducationalOrganization',
-            name: 'EPSI Montpellier',
-          },
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Montpellier',
-            addressCountry: 'FR',
-          },
-          knowsAbout: [
-            'Machine Learning',
-            'Intelligence artificielle',
-            'Data',
-            'Python',
-            'Go',
-            'VueJS',
-            'Tailwind CSS',
-          ],
-        },
-        {
-          '@type': 'CollectionPage',
-          '@id': 'https://www.valentin-fiess.fr/#projet',
-          name: 'Projets',
-          description:
-            'Découvrez mes projets de développement web et IA, mes compétences et mon parcours professionnel.',
-          url: 'https://www.valentin-fiess.fr/projets',
-          inLanguage: 'fr',
-          isPartOf: {
-            '@id': 'https://www.valentin-fiess.fr/#website',
-          },
-          author: { '@id': 'https://www.valentin-fiess.fr/#person' },
-        },
-        {
-          '@type': 'CollectionPage',
-          '@id': 'https://www.valentin-fiess.fr/#chatbot',
-          name: 'Chatbot IA Personnelle',
-          description:
-            'En savoir plus sur moi, mes compétences et mes passions en développement IA et Data.',
-          url: 'https://www.valentin-fiess.fr/chatbot',
-          inLanguage: 'fr',
-          isPartOf: { '@id': 'https://www.valentin-fiess.fr/#website' },
-          author: { '@id': 'https://www.valentin-fiess.fr/#person' },
-        },
-      ],
-    });
-    document.head.appendChild(script);
-  }
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Valentin Fiess',
+    url: 'https://valentin-fiess.com',
+    jobTitle: 'Développeur Web & IA',
+    knowsAbout: ['Développement Web', 'Intelligence Artificielle', 'Full-Stack'],
+    sameAs: ['https://github.com/valentinfiess', 'https://linkedin.com/in/valentinfiess'],
+  };
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'json-ld-person';
+  script.textContent = JSON.stringify(jsonLd);
+  document.head.appendChild(script);
 });
 
-// 2. Gestion dynamique du Canonical
 watchEffect(() => {
-  if (route.path) {
-    let link = document.querySelector("link[rel='canonical']");
-    if (!link) {
-      link = document.createElement('link');
-      link.setAttribute('rel', 'canonical');
-      document.head.appendChild(link);
-    }
-    link.setAttribute('href', `https://www.valentin-fiess.fr${route.path}`);
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = 'canonical';
+    document.head.appendChild(link);
   }
+  link.href = `https://valentin-fiess.com${route.path}`;
 });
-
-// Récupérer l'état du mode sombre et initialiser le thème
-const themeStore = useThemeStore();
-themeStore.init();
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-linear-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-regal-navy-600 text-soft-blush-50 px-4 py-2 rounded z-50"
   >
-    <!-- Lien d'évitement pour l'accessibilité -->
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-blue-600 text-white px-4 py-2 rounded z-50"
-    >
-      Aller au contenu principal
-    </a>
+    Aller au contenu principal
+  </a>
 
-    <div class="fixed top-4 right-4 z-50">
-      <ThemeToggle />
-    </div>
+  <div class="min-h-screen bg-custom-gradient dark:bg-custom-gradient-dark transition-colors duration-500">
+    <Navbar />
 
-    <HomeButton />
+    <router-view id="main-content" />
 
-    <main id="main-content" role="main" class="min-h-screen">
-      <router-view />
-    </main>
-
-    <footer
-      class="bg-white dark:bg-gray-900 font-[AnonymousPro] transition-colors duration-300"
-      role="contentinfo"
-    >
-      <Footer />
-    </footer>
+    <Footer />
 
     <CookieBanner />
-
     <ChatbotWidget />
   </div>
 </template>
