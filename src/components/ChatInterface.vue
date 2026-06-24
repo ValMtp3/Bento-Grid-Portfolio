@@ -11,7 +11,7 @@
         <!-- Avatar/Mascot if bot -->
         <div
           v-if="message.role === 'bot'"
-          class="flex-shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
+          class="shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
         >
           🦞
         </div>
@@ -44,7 +44,7 @@
       <!-- Indicateur de chargement -->
       <div v-if="isLoading" class="flex items-start gap-3 max-w-[85%] mr-auto">
         <div
-          class="flex-shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
+          class="shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
         >
           🦞
         </div>
@@ -144,7 +144,7 @@ const TURNSTILE_SITE_KEY = isLocal
   : (import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY');
 
 onMounted(async () => {
-  scrollToBottom();
+  void scrollToBottom();
   initTurnstile();
 });
 
