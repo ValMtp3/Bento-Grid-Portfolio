@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "cache-github-chart": "node scripts/cache-github-chart.mjs",
     "process-images": "go run image_processor.go",
     "process-images:force": "go run image_processor.go --force"
   },
