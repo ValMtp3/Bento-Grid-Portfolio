@@ -98,7 +98,7 @@ const devopsSkills = [
       <div class="bento-cell p-6 flex flex-col justify-between">
         <div>
           <h3
-            class="font-heading font-bold text-lg text-emerald-600 dark:text-emerald-400 mb-4"
+            class="font-heading font-bold text-lg text-coffee-bean-600 dark:text-coffee-bean-400 mb-4"
           >
             MLOps & DevOps
           </h3>
@@ -110,7 +110,7 @@ const devopsSkills = [
             >
               <Icon
                 :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors duration-300"
+                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-coffee-bean-500 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
               />
               <span
                 class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"

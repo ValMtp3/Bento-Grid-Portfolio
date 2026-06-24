@@ -19,8 +19,8 @@ import StatsComponent from '@/components/StatsComponent.vue';
       <ContactComponent />
       <StatsComponent />
     </section>
-    <ExperienceComponent />
     <EntrepriseComponent />
+    <ExperienceComponent />
     <FormationComponent />
     <MaitriseComponent />
     <ProjetsComponent />

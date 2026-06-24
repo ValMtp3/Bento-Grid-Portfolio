@@ -30,12 +30,18 @@ const entreprise = [
     name: 'From_Scratch',
     role: 'Développeur web',
   },
+  {
+    alt: 'Logo EPSI Montpellier',
+    image: '/assets/assets_index/epsi.svg',
+    name: 'EPSI Montpellier',
+    role: 'Licence Développeur Data/IA',
+  },
 ];
 </script>
 
 <template>
   <!-- ═══ entreprise Section ═══ -->
-  <section>
+  <section id="entreprises">
     <h2
       class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-4 text-center"
     >
@@ -44,30 +50,30 @@ const entreprise = [
     <Swiper
       :modules="[Pagination]"
       :pagination="{ clickable: true }"
-      :space-between="16"
-      :slides-per-view="1.2"
+      :space-between="12"
+      :slides-per-view="1.35"
       :breakpoints="{
-        640: { slidesPerView: 2.2, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 24 },
+        640: { slidesPerView: 2.6, spaceBetween: 14 },
+        1024: { slidesPerView: 4, spaceBetween: 16 },
       }"
-      class="pb-12"
+      class="entreprise-swiper pb-2"
     >
       <SwiperSlide v-for="client in entreprise" :key="client.name" class="h-auto py-2">
-        <div class="bento-cell p-6 flex flex-col items-center text-center h-full justify-between">
+        <div class="bento-cell p-4 flex flex-col items-center text-center h-full justify-between">
           <div class="flex flex-col items-center">
             <ResponsiveImage
               :alt="client.alt"
               :src="client.image"
               :title="client.name"
-              class="w-24 h-24 md:w-32 md:h-32 object-contain mb-4"
+              class="w-20 h-16 md:w-24 md:h-20 object-contain mb-3"
               loading="lazy"
             />
-            <p class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50">
+            <p class="font-heading font-bold text-sm text-coffee-bean-950 dark:text-soft-blush-50">
               {{ client.name }}
             </p>
           </div>
           <span
-            class="inline-block mt-2 text-xs font-code text-soft-blush-50 bg-spicy-paprika-500 px-2 py-0.5"
+            class="inline-block mt-2 text-[11px] font-code text-soft-blush-50 bg-spicy-paprika-500 px-2 py-0.5"
           >
             {{ client.role }}
           </span>
@@ -80,6 +86,10 @@ const entreprise = [
 <style scoped>
 :deep(.swiper-slide) {
   height: auto;
+}
+:deep(.swiper-pagination) {
+  position: static;
+  margin-top: 10px;
 }
 :deep(.swiper-pagination-bullet) {
   background-color: var(--color-coffee-bean-300, #db6b3e);

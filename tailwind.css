@@ -2,58 +2,58 @@
 
 @theme {
   /* Custom colors */
-  --color-spicy-paprika-50: #fceee8;
-  --color-spicy-paprika-100: #fadcd1;
-  --color-spicy-paprika-200: #f4b9a4;
-  --color-spicy-paprika-300: #ef9676;
-  --color-spicy-paprika-400: #ea7348;
-  --color-spicy-paprika-500: #e4501b;
-  --color-spicy-paprika-600: #b74015;
-  --color-spicy-paprika-700: #893010;
-  --color-spicy-paprika-800: #5b200b;
-  --color-spicy-paprika-900: #2e1005;
-  --color-spicy-paprika-950: #200b04;
+  --color-spicy-paprika-50: #fff1ea;
+  --color-spicy-paprika-100: #fbd8c8;
+  --color-spicy-paprika-200: #f7b08f;
+  --color-spicy-paprika-300: #f1885b;
+  --color-spicy-paprika-400: #ec703e;
+  --color-spicy-paprika-500: #e65a28;
+  --color-spicy-paprika-600: #c8461b;
+  --color-spicy-paprika-700: #9e3213;
+  --color-spicy-paprika-800: #6d210d;
+  --color-spicy-paprika-900: #3e1308;
+  --color-spicy-paprika-950: #2a130d;
 
-  --color-regal-navy-50: #e9f0fc;
-  --color-regal-navy-100: #d2e1f9;
-  --color-regal-navy-200: #a6c3f2;
-  --color-regal-navy-300: #79a5ec;
-  --color-regal-navy-400: #4c87e6;
-  --color-regal-navy-500: #2069df;
-  --color-regal-navy-600: #1954b3;
-  --color-regal-navy-700: #133f86;
-  --color-regal-navy-800: #0d2a59;
-  --color-regal-navy-900: #06152d;
-  --color-regal-navy-950: #040f1f;
+  --color-regal-navy-50: #eef4ff;
+  --color-regal-navy-100: #d8e7ff;
+  --color-regal-navy-200: #abc9f7;
+  --color-regal-navy-300: #7aa7ef;
+  --color-regal-navy-400: #4c82df;
+  --color-regal-navy-500: #2b5fad;
+  --color-regal-navy-600: #1c4d96;
+  --color-regal-navy-700: #123b7d;
+  --color-regal-navy-800: #0d2c60;
+  --color-regal-navy-900: #091f46;
+  --color-regal-navy-950: #06142f;
 
-  --color-coffee-bean-50: #fcede8;
-  --color-coffee-bean-100: #f5c8b8;
-  --color-coffee-bean-200: #ea9a7a;
-  --color-coffee-bean-300: #db6b3e;
-  --color-coffee-bean-400: #b54722;
-  --color-coffee-bean-500: #8a3116;
-  --color-coffee-bean-600: #631f0d;
-  --color-coffee-bean-700: #421207;
-  --color-coffee-bean-800: #2a0903;
-  --color-coffee-bean-900: #190401;
+  --color-coffee-bean-50: #fff1ea;
+  --color-coffee-bean-100: #f4d7cb;
+  --color-coffee-bean-200: #e6b49f;
+  --color-coffee-bean-300: #cf8769;
+  --color-coffee-bean-400: #a95a3d;
+  --color-coffee-bean-500: #7a3522;
+  --color-coffee-bean-600: #532015;
+  --color-coffee-bean-700: #35130c;
+  --color-coffee-bean-800: #210a05;
+  --color-coffee-bean-900: #160703;
   --color-coffee-bean-950: #120602;
 
-  --color-soft-blush-50: #fff6f3;
-  --color-soft-blush-100: #fbe3db;
-  --color-soft-blush-200: #f7cbbe;
-  --color-soft-blush-300: #f0a790;
-  --color-soft-blush-400: #e88062;
-  --color-soft-blush-500: #dd5a36;
-  --color-soft-blush-600: #b74425;
-  --color-soft-blush-700: #912f18;
-  --color-soft-blush-800: #6b1d0d;
-  --color-soft-blush-900: #450f05;
-  --color-soft-blush-950: #2d0802;
+  --color-soft-blush-50: #fff1ea;
+  --color-soft-blush-100: #fde5da;
+  --color-soft-blush-200: #f9cdbd;
+  --color-soft-blush-300: #f2a98e;
+  --color-soft-blush-400: #ea805d;
+  --color-soft-blush-500: #e65a28;
+  --color-soft-blush-600: #be4319;
+  --color-soft-blush-700: #8d2c10;
+  --color-soft-blush-800: #5b1a0a;
+  --color-soft-blush-900: #2a130d;
+  --color-soft-blush-950: #120602;
 
   /* Custom fonts */
   --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Intel One Mono', monospace;
-  --font-code: '0xProto', monospace;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-code: 'Intel One Mono', monospace;
 }
 
 @layer base {
@@ -71,11 +71,13 @@
   }
   p,
   li,
-  span,
   a,
-  label,
-  time {
+  label {
     @apply font-body;
+  }
+  span,
+  time {
+    font-family: inherit;
   }
   pre,
   code {
@@ -84,25 +86,25 @@
 }
 
 @utility bg-custom-gradient {
-  background: #fcede8;
-  background: linear-gradient(135deg, #fcede8 0%, #e9f0fc 50%, #fadbd1 100%);
-  background: -moz-linear-gradient(135deg, #fcede8 0%, #e9f0fc 50%, #fadbd1 100%);
-  background: -webkit-linear-gradient(135deg, #fcede8 0%, #e9f0fc 50%, #fadbd1 100%);
+  background: #fff1ea;
+  background: linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
+  background: -moz-linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
+  background: -webkit-linear-gradient(135deg, #fff1ea 0%, #f9d8c9 52%, #eef4ff 100%);
 }
 
 @utility bg-custom-gradient-dark {
   background: #120602;
-  background: linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
-  background: -moz-linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
-  background: -webkit-linear-gradient(135deg, #120602 0%, #06152d 50%, #190401 100%);
+  background: linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
+  background: -moz-linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
+  background: -webkit-linear-gradient(135deg, #120602 0%, #2a130d 55%, #06142f 100%);
 }
 
 @layer components {
   .bento-cell {
-    @apply bg-soft-blush-50 shadow-lg shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-white/[0.07] dark:border-white/[0.12] dark:shadow-black/30 backdrop-blur-[2px] transition-all duration-300;
+    @apply bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20 backdrop-blur-[2px] transition-all duration-300;
   }
   .bento-cell:hover {
-    @apply shadow-xl;
+    @apply shadow-md;
   }
   .mono-logo {
     filter: grayscale(1) sepia(1) saturate(5) brightness(0.3);
@@ -111,4 +113,5 @@
   .mono-logo:hover {
     filter: grayscale(1) sepia(1) saturate(5) brightness(0.45);
   }
+
 }

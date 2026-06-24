@@ -4,9 +4,9 @@ import ResponsiveImage from './ResponsiveImage.vue';
 
 <template>
   <!-- Profile Cell -->
-  <div class="md:col-span-2 lg:row-span-2 bento-cell p-6 flex flex-col justify-between">
+  <div class="md:col-span-2 lg:row-span-2 bento-cell p-6 flex flex-col gap-6">
     <div>
-      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
         <div class="relative shrink-0 select-none">
           <ResponsiveImage
             alt="Photo de Valentin Fiess"
@@ -34,17 +34,41 @@ import ResponsiveImage from './ResponsiveImage.vue';
           >
             Développeur Web & IA
           </h2>
-          <p class="text-coffee-bean-700 dark:text-soft-blush-200 max-w-md">
+          <p
+            class="text-coffee-bean-700 dark:text-soft-blush-200 max-w-md text-base sm:text-lg leading-relaxed"
+          >
             J'ai 24 ans, diplômé d'une Licence Développeur Data/IA à l'EPSI Montpellier. Je suis
             actuellement à la recherche d'un emploi dans la Data ou l'Intelligence Artificielle.
           </p>
         </div>
       </div>
+      <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <span
+          class="font-code text-xs text-center px-2 py-2 border border-regal-navy-200 bg-regal-navy-50/80 text-regal-navy-700 dark:border-regal-navy-800 dark:bg-regal-navy-950/40 dark:text-regal-navy-200"
+        >
+          IA / MLOps
+        </span>
+        <span
+          class="font-code text-xs text-center px-2 py-2 border border-coffee-bean-100 bg-soft-blush-100/70 text-coffee-bean-700 dark:border-soft-blush-50/10 dark:bg-coffee-bean-950/30 dark:text-soft-blush-200"
+        >
+          Data
+        </span>
+        <span
+          class="font-code text-xs text-center px-2 py-2 border border-coffee-bean-100 bg-soft-blush-100/70 text-coffee-bean-700 dark:border-soft-blush-50/10 dark:bg-coffee-bean-950/30 dark:text-soft-blush-200"
+        >
+          Python
+        </span>
+        <span
+          class="font-code text-xs text-center px-2 py-2 border border-coffee-bean-100 bg-soft-blush-100/70 text-coffee-bean-700 dark:border-soft-blush-50/10 dark:bg-coffee-bean-950/30 dark:text-soft-blush-200"
+        >
+          RAG
+        </span>
+      </div>
     </div>
     <a
       href="/assets/assets_index/CV_Valentin_Fiess.pdf"
       download="CV_Valentin_Fiess.pdf"
-      class="inline-flex items-center gap-2 bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-6 py-2.5 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 font-code self-center sm:self-start"
+      class="inline-flex items-center gap-2 bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-6 py-2.5 shadow-sm shadow-spicy-paprika-500/25 transition-all duration-300 font-code self-center sm:self-start"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
