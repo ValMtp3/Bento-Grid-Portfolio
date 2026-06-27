@@ -15,7 +15,6 @@
     "@emailjs/browser": "^4.4.1",
     "@fontsource/intel-one-mono": "^5.2.2",
     "@fontsource/space-grotesk": "^5.2.10",
-    "@gradio/client": "^2.3.0",
     "@iconify/vue": "^5.0.1",
     "dompurify": "^3.4.11",
     "js-cookie": "^3.0.8",

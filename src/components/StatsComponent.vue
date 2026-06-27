@@ -1,3 +1,27 @@
+<script setup>
+import { nextTick, onMounted, ref } from 'vue';
+
+const githubChartContainer = ref(null);
+
+const scrollGithubChartToRecent = async () => {
+  await nextTick();
+
+  requestAnimationFrame(() => {
+    const container = githubChartContainer.value;
+
+    if (!container) return;
+
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    if (maxScroll > 0) {
+      container.scrollLeft = maxScroll;
+    }
+  });
+};
+
+onMounted(scrollGithubChartToRecent);
+</script>
+
 <template>
   <!-- GitHub activity cell -->
   <div class="md:col-span-2 bento-cell p-5 sm:p-6 flex flex-col justify-between overflow-hidden">
@@ -22,11 +46,12 @@
       </a>
     </div>
     <a
+      ref="githubChartContainer"
       href="https://github.com/ValMtp3"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Voir l'historique de contributions GitHub de Valentin Fiess"
-      class="block rounded-md border border-coffee-bean-100 dark:border-soft-blush-50/10 bg-soft-blush-100/60 dark:bg-coffee-bean-950/40 p-2.5 hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-500 transition-colors"
+      class="block overflow-x-auto rounded-md border border-coffee-bean-100 dark:border-soft-blush-50/10 bg-soft-blush-100/60 dark:bg-coffee-bean-950/40 p-2.5 hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-500 transition-colors"
     >
       <img
         src="https://raw.githubusercontent.com/ValMtp3/Bento-Grid-Portfolio/main/public/assets/assets_index/github-contributions.svg"
@@ -36,7 +61,8 @@
         loading="eager"
         decoding="async"
         fetchpriority="high"
-        class="h-[86px] w-full object-fill opacity-90"
+        @load="scrollGithubChartToRecent"
+        class="h-auto w-[720px] max-w-none opacity-90 sm:w-full"
       />
     </a>
     <div class="mt-3 flex flex-wrap gap-2">
