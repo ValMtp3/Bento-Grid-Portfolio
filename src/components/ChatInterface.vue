@@ -113,7 +113,6 @@
 
 <script setup>
 import { ref, onMounted, nextTick, computed } from 'vue';
-import { Client } from '@gradio/client';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
@@ -131,9 +130,10 @@ const isLoading = ref(false);
 const messagesContainer = ref(null);
 const turnstileToken = ref(null);
 const turnstileContainer = ref(null);
-let client = null;
 
 const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
+const CHATBOT_API_URL = `${SPACE_URL}/gradio_api/call/generate_response`;
+const CHATBOT_TIMEOUT_MS = 90000;
 const isLocal = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || 
    window.location.hostname === '127.0.0.1' || 
@@ -211,6 +211,88 @@ const renderMarkdown = (text) => {
   }
 };
 
+const parseGradioStream = (streamText) => {
+  const events = streamText
+    .split(/\n\n+/)
+    .map((event) => event.trim())
+    .filter(Boolean);
+
+  const errorEvent = events.find((event) => event.includes('event: error'));
+  if (errorEvent) {
+    throw new Error('Erreur retournée par le Space Hugging Face');
+  }
+
+  const completeEvent = events.find((event) => event.includes('event: complete'));
+  if (!completeEvent) {
+    throw new Error('Réponse incomplète du Space Hugging Face');
+  }
+
+  const dataLine = completeEvent
+    .split('\n')
+    .find((line) => line.startsWith('data: '));
+
+  if (!dataLine) {
+    throw new Error('Réponse vide');
+  }
+
+  const data = JSON.parse(dataLine.replace(/^data:\s*/, ''));
+  const response = Array.isArray(data) ? data[0] : data;
+
+  if (typeof response !== 'string' || !response.trim()) {
+    throw new Error('Réponse vide');
+  }
+
+  return response;
+};
+
+const fetchChatbotResponse = async (message, chatHistory) => {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), CHATBOT_TIMEOUT_MS);
+
+  try {
+    const submitResponse = await fetch(CHATBOT_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: [message, chatHistory],
+      }),
+      signal: controller.signal,
+    });
+
+    if (!submitResponse.ok) {
+      const error = new Error(`Erreur HTTP ${submitResponse.status}`);
+      error.status = submitResponse.status;
+      throw error;
+    }
+
+    const { event_id: eventId } = await submitResponse.json();
+    if (!eventId) {
+      throw new Error('Identifiant de réponse manquant');
+    }
+
+    const resultResponse = await fetch(`${CHATBOT_API_URL}/${eventId}`, {
+      signal: controller.signal,
+    });
+
+    if (!resultResponse.ok) {
+      const error = new Error(`Erreur HTTP ${resultResponse.status}`);
+      error.status = resultResponse.status;
+      throw error;
+    }
+
+    return parseGradioStream(await resultResponse.text());
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error('Le chatbot met trop longtemps à répondre.');
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+};
+
 const sendMessage = async () => {
   const text = userInput.value.trim();
   if (!text || isLoading.value) return;
@@ -232,25 +314,16 @@ const sendMessage = async () => {
   await scrollToBottom();
 
   try {
-    if (!client) {
-      client = await Client.connect(SPACE_URL);
-    }
-
-    const result = await client.predict('/generate_response', {
-  message: text,
-});
-
-    if (result.data && result.data.length > 0) {
-      messages.value.push({ role: 'bot', content: result.data[0] });
-    } else {
-      throw new Error('Réponse vide');
-    }
+    const response = await fetchChatbotResponse(text, currentHistory);
+    messages.value.push({ role: 'bot', content: response });
   } catch (error) {
     console.error('Erreur Chatbot:', error);
     let errorMsg = 'Désolé, une erreur est survenue lors de la connexion.';
 
     if (error.status === 503) {
       errorMsg = 'Le serveur démarre (Cold Boot). Veuillez réessayer dans quelques secondes.';
+    } else if (error.message === 'Le chatbot met trop longtemps à répondre.') {
+      errorMsg = 'Le chatbot met trop longtemps à répondre. Veuillez réessayer dans quelques instants.';
     }
 
     messages.value.push({
