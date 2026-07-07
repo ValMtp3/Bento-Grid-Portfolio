@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watchEffect } from 'vue';
+import { computed, onMounted, watchEffect } from 'vue';
 import { useRoute, RouterView } from 'vue-router';
 import { useMeta } from 'vue-meta';
 import Footer from './components/include/Footer.vue';
@@ -8,6 +8,8 @@ import Navbar from './components/include/Navbar.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
 
 const route = useRoute();
+
+const isBlankLayout = computed(() => route.meta.blankLayout === true);
 
 useMeta({
   title: 'Valentin Fiess - Développeur Web & IA',
@@ -71,21 +73,26 @@ watchEffect(() => {
 </script>
 
 <template>
-  <a
-    href="#main-content"
-    class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-regal-navy-600 text-soft-blush-50 px-4 py-2 rounded z-50"
-  >
-    Aller au contenu principal
-  </a>
-
-  <div class="min-h-screen bg-custom-gradient dark:bg-custom-gradient-dark transition-colors duration-500">
-    <Navbar />
-
+  <template v-if="isBlankLayout">
     <router-view id="main-content" />
+  </template>
+  <template v-else>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-regal-navy-600 text-soft-blush-50 px-4 py-2 rounded z-50"
+    >
+      Aller au contenu principal
+    </a>
 
-    <Footer />
+    <div class="min-h-screen bg-custom-gradient dark:bg-custom-gradient-dark transition-colors duration-500">
+      <Navbar />
 
-    <CookieBanner />
-    <ChatbotWidget />
-  </div>
+      <router-view id="main-content" />
+
+      <Footer />
+
+      <CookieBanner />
+      <ChatbotWidget />
+    </div>
+  </template>
 </template>
