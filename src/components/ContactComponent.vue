@@ -5,22 +5,22 @@ const links = [
   {
     name: 'CV',
     href: '/assets/assets_index/CV_Valentin_Fiess.pdf',
-    icon: 'tabler:file-cv',
+    icon: 'academicons:cv',
   },
   {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/valentin-fiess/',
-    icon: 'tabler:brand-linkedin',
+    icon: 'simple-icons:linkedin',
   },
   {
     name: 'GitHub',
     href: 'https://www.github.com/ValMtp3',
-    icon: 'tabler:brand-github',
+    icon: 'simple-icons:github',
   },
   {
     name: 'Mail',
     href: 'mailto:fetes01pseudo@icloud.com',
-    icon: 'tabler:mail',
+    icon: 'mdi:email-outline',
   },
 ];
 </script>
