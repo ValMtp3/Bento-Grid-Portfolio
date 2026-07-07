@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 
 const aiSkills = [
-  { name: 'Python', icon: 'tabler:brand-python' },
+  { name: 'Python', icon: 'simple-icons:python' },
   { name: 'PyTorch', icon: 'simple-icons:pytorch' },
   { name: 'TensorFlow', icon: 'simple-icons:tensorflow' },
   { name: 'Scikit-Learn', icon: 'simple-icons:scikitlearn' },
@@ -11,22 +11,22 @@ const aiSkills = [
 ];
 
 const webSkills = [
-  { name: 'HTML', icon: 'tabler:brand-html5' },
-  { name: 'Tailwind', icon: 'tabler:brand-tailwind' },
-  { name: 'VueJS', icon: 'tabler:brand-vue' },
-  { name: 'React', icon: 'tabler:brand-react' },
-  { name: 'Go', icon: 'tabler:brand-golang' },
-  { name: 'SQL', icon: 'tabler:database' },
-  { name: 'NoSQL', icon: 'tabler:database-share' },
-  { name: 'API', icon: 'tabler:api' },
+  { name: 'HTML', icon: 'simple-icons:html5' },
+  { name: 'Tailwind', icon: 'simple-icons:tailwindcss' },
+  { name: 'VueJS', icon: 'simple-icons:vuedotjs' },
+  { name: 'React', icon: 'simple-icons:react' },
+  { name: 'Go', icon: 'simple-icons:go' },
+  { name: 'PostgreSQL', icon: 'simple-icons:postgresql' },
+  { name: 'MongoDB', icon: 'simple-icons:mongodb' },
+  { name: 'API', icon: 'simple-icons:openapiinitiative' },
   { name: 'FastAPI', icon: 'simple-icons:fastapi' },
   { name: 'n8n', icon: 'simple-icons:n8n' },
 ];
 
 const devopsSkills = [
-  { name: 'Git', icon: 'tabler:brand-git' },
-  { name: 'Docker', icon: 'tabler:brand-docker' },
-  { name: 'Cloudflare', icon: 'tabler:brand-cloudflare' },
+  { name: 'Git', icon: 'simple-icons:git' },
+  { name: 'Docker', icon: 'simple-icons:docker' },
+  { name: 'Cloudflare', icon: 'simple-icons:cloudflare' },
   { name: 'OVH', icon: 'simple-icons:ovh' },
 ];
 </script>
