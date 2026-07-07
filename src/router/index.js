@@ -6,6 +6,7 @@ const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const ChatbotView = () => import('@/views/ChatbotView.vue');
+const JusticeView = () => import('@/views/JusticeView.vue');
 const NotFound = () => import('@/views/errors/NotFound.vue');
 
 const router = createRouter({
@@ -40,6 +41,12 @@ const router = createRouter({
       path: '/chatbot',
       name: 'chatbot',
       component: ChatbotView,
+    },
+    {
+      path: '/justice',
+      name: 'justice',
+      component: JusticeView,
+      meta: { blankLayout: true },
     },
     {
       path: '/:pathMatch(.*)*',
