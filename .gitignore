@@ -47,3 +47,4 @@ __pycache__/
 *.py[cod]
 *.pyo
 go-param
+public/matomo/
