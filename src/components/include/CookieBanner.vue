@@ -1,37 +1,35 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import {
+  forgetMatomoConsent,
+  MATOMO_CONSENT_KEY,
+  rememberMatomoConsent,
+  trackMatomoPageView,
+} from '@/matomo';
 
 const showBanner = ref(false);
 
 onMounted(() => {
-  const consent = localStorage.getItem('cookiesAccepted');
+  const consent = localStorage.getItem(MATOMO_CONSENT_KEY);
   showBanner.value = consent === null;
 
-  if (consent === 'true' && window._paq) {
-    window._paq.push(['rememberConsentGiven', 8760]);
-    window._paq.push(['setDocumentTitle', document.title]);
-    window._paq.push(['trackPageView']);
+  if (consent === 'true') {
+    rememberMatomoConsent();
+    trackMatomoPageView();
   }
 });
 
 function acceptCookies() {
-  localStorage.setItem('cookiesAccepted', 'true');
+  localStorage.setItem(MATOMO_CONSENT_KEY, 'true');
   showBanner.value = false;
-
-  if (window._paq) {
-    window._paq.push(['rememberConsentGiven', 8760]);
-    window._paq.push(['setDocumentTitle', document.title]);
-    window._paq.push(['trackPageView']);
-  }
+  rememberMatomoConsent();
+  trackMatomoPageView();
 }
 
 function declineCookies() {
-  localStorage.setItem('cookiesAccepted', 'false');
+  localStorage.setItem(MATOMO_CONSENT_KEY, 'false');
   showBanner.value = false;
-
-  if (window._paq) {
-    window._paq.push(['forgetConsentGiven']);
-  }
+  forgetMatomoConsent();
 }
 </script>
 
