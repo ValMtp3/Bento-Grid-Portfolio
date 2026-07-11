@@ -3,6 +3,7 @@ defineProps({
   index: { type: String, required: true },
   label: { type: String, required: true },
   title: { type: String, required: true },
+  level: { type: Number, default: 2, validator: (value) => [1, 2, 3].includes(value) },
 });
 </script>
 
@@ -13,10 +14,11 @@ defineProps({
     >
       {{ index }} / {{ label }}
     </p>
-    <h2
+    <component
+      :is="`h${level}`"
       class="font-heading text-xl font-bold text-regal-navy-700 dark:text-regal-navy-300 sm:text-2xl"
     >
       {{ title }}
-    </h2>
+    </component>
   </header>
 </template>

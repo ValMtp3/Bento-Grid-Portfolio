@@ -13,7 +13,7 @@ const getProjectLinkLabel = (project) => {
 
 <template>
   <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-    <SectionHeading index="05" label="Portfolio" title="Projets réalisés" />
+    <SectionHeading :level="1" index="05" label="Portfolio" title="Projets réalisés" />
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
       <article
         v-for="(proj, index) in projets"

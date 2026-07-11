@@ -71,6 +71,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
               :title="client.name"
               class="w-16 h-12 md:w-20 md:h-16 object-contain mb-2"
               loading="lazy"
+              sizes="(max-width: 767px) 64px, 80px"
             />
             <p class="font-heading font-bold text-sm text-coffee-bean-950 dark:text-soft-blush-50">
               {{ client.name }}

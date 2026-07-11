@@ -15,6 +15,7 @@ import ResponsiveImage from './ResponsiveImage.vue';
             fetchpriority="high"
             loading="eager"
             decoding="sync"
+            sizes="(max-width: 639px) 160px, 192px"
           />
           <div
             class="absolute -bottom-2 -right-2 bg-white dark:bg-coffee-bean-900 border-2 border-spicy-paprika-500 rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-lg rotate-12 hover:rotate-0 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"

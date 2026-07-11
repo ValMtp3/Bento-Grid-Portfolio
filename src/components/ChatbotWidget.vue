@@ -65,8 +65,9 @@
 </template>
 
 <script>
-import { nextTick } from 'vue';
-import ChatInterface from './ChatInterface.vue';
+import { defineAsyncComponent, nextTick } from 'vue';
+
+const ChatInterface = defineAsyncComponent(() => import('./ChatInterface.vue'));
 
 export default {
   name: 'ChatbotWidget',
