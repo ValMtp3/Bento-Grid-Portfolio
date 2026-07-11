@@ -9,6 +9,14 @@ const aiSkills = [
   { name: 'Scikit-Learn', icon: 'simple-icons:scikitlearn' },
   { name: 'Pandas', icon: 'simple-icons:pandas' },
   { name: 'Transformers', icon: 'simple-icons:huggingface' },
+  { name: 'OpenAI API', icon: 'simple-icons:openai' },
+  { name: 'RAG', icon: 'mdi:database-search' },
+  { name: 'Mistral', icon: 'simple-icons:mistralai' },
+  { name: 'n8n', icon: 'simple-icons:n8n' },
+  { name: 'NLP', icon: 'mdi:message-processing-outline' },
+  { name: 'Vision par ordinateur', icon: 'mdi:eye-outline' },
+  { name: 'Agents IA', icon: 'mdi:robot-outline' },
+
 ];
 
 const webSkills = [
@@ -21,7 +29,6 @@ const webSkills = [
   { name: 'MongoDB', icon: 'simple-icons:mongodb' },
   { name: 'API', icon: 'simple-icons:openapiinitiative' },
   { name: 'FastAPI', icon: 'simple-icons:fastapi' },
-  { name: 'n8n', icon: 'simple-icons:n8n' },
 ];
 
 const devopsSkills = [
@@ -29,6 +36,7 @@ const devopsSkills = [
   { name: 'Docker', icon: 'simple-icons:docker' },
   { name: 'Cloudflare', icon: 'simple-icons:cloudflare' },
   { name: 'OVH', icon: 'simple-icons:ovh' },
+  { name: 'Cryptographie', icon: 'mdi:shield-check' },
 ];
 </script>
 
