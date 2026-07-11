@@ -1,11 +1,9 @@
 <script setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const githubChartContainer = ref(null);
 
-const scrollGithubChartToRecent = async () => {
-  await nextTick();
-
+const scrollGithubChartToRecent = () => {
   requestAnimationFrame(() => {
     const container = githubChartContainer.value;
 
@@ -18,8 +16,6 @@ const scrollGithubChartToRecent = async () => {
     }
   });
 };
-
-onMounted(scrollGithubChartToRecent);
 </script>
 
 <template>
@@ -58,9 +54,9 @@ onMounted(scrollGithubChartToRecent);
         alt="Historique global des contributions GitHub de Valentin Fiess"
         width="720"
         height="86"
-        loading="eager"
+        loading="lazy"
         decoding="async"
-        fetchpriority="high"
+        fetchpriority="low"
         @load="scrollGithubChartToRecent"
         class="h-auto w-[720px] max-w-none opacity-90 sm:w-full"
       />

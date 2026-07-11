@@ -19,7 +19,7 @@ const getProjectLinkLabel = (project) => {
 
 <template>
   <!-- ═══ Projects Section ═══ -->
-  <section id="projets">
+  <section>
     <SectionHeading index="05" label="Portfolio" title="Projets" />
     <Swiper
       :modules="[Keyboard, Pagination]"
@@ -56,6 +56,7 @@ const getProjectLinkLabel = (project) => {
               :src="project.image"
               class="mb-3 h-40 w-full rounded-md border border-coffee-bean-100 bg-white object-contain dark:border-coffee-bean-800"
               loading="lazy"
+              sizes="(max-width: 639px) calc(91vw - 29px), (max-width: 1023px) calc(45vw - 22px), (max-width: 1279px) calc(33vw - 21px), 400px"
             />
             <h3
               class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50 mb-1 group-hover:text-spicy-paprika-500 dark:group-hover:text-spicy-paprika-400 transition-colors"

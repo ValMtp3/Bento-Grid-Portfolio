@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue';
 import emailjs from '@emailjs/browser';
 import Cookies from 'js-cookie';
+import { loadTurnstile } from '@/turnstile';
 import SectionHeading from './SectionHeading.vue';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -76,13 +77,11 @@ onMounted(() => {
   initTurnstile();
 });
 
-const initTurnstile = () => {
-  let attempts = 0;
-  const MAX_ATTEMPTS = 20;
-
-  const renderWidget = () => {
-    if (window.turnstile && turnstileContainer.value) {
-      window.turnstile.render(turnstileContainer.value, {
+const initTurnstile = async () => {
+  try {
+    const turnstile = await loadTurnstile();
+    if (turnstileContainer.value) {
+      turnstile.render(turnstileContainer.value, {
         sitekey: TURNSTILE_SITE_KEY,
         theme: 'auto',
         callback: (token) => {
@@ -95,14 +94,10 @@ const initTurnstile = () => {
           turnstileToken.value = null;
         },
       });
-    } else if (attempts < MAX_ATTEMPTS) {
-      attempts++;
-      setTimeout(renderWidget, 200);
-    } else {
-      console.warn('Turnstile: échec après 20 tentatives');
     }
-  };
-  renderWidget();
+  } catch (error) {
+    console.warn('Turnstile:', error.message);
+  }
 };
 
 const onSubmit = async () => {
@@ -142,7 +137,7 @@ const sanitizeInput = (input) => {
 </script>
 
 <template>
-  <section id="contact" class="bento-cell p-6">
+  <section class="bento-cell p-6">
     <SectionHeading index="06" label="Contact" title="Me contacter" />
     <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
       <div class="mb-3">

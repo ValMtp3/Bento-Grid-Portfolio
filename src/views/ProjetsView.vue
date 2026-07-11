@@ -31,6 +31,7 @@ const getProjectLinkLabel = (project) => {
           :src="proj.image"
           class="mb-5 h-48 w-full rounded-md border border-coffee-bean-100 bg-white object-contain sm:h-56 dark:border-coffee-bean-800"
           loading="lazy"
+          sizes="(max-width: 639px) calc(100vw - 72px), (max-width: 767px) calc(100vw - 96px), (max-width: 1279px) calc(50vw - 82px), 550px"
         />
         <div class="mb-3 flex flex-wrap gap-2">
           <span

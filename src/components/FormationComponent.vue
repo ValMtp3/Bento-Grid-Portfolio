@@ -32,7 +32,7 @@ const formations = [
 
 <template>
   <!-- ═══ Formation Section ═══ -->
-  <section id="formation">
+  <section>
     <SectionHeading index="03" label="Formation" title="Diplômes et certifications" />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div
