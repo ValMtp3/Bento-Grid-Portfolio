@@ -38,6 +38,7 @@
               class="markdown-content"
             >
               <MarkdownRender
+                v-if="index > 0"
                 mode="chat"
                 :content="formatMarkdownLayout(message.content)"
                 :final="message.final !== false"
@@ -45,6 +46,7 @@
                 html-policy="escape"
                 :fade="false"
               />
+              <span v-else>{{ message.content }}</span>
               <span
                 v-if="message.final === false"
                 class="streaming-cursor"
@@ -133,8 +135,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, nextTick, computed } from 'vue';
-import MarkdownRender from 'markstream-vue';
+import { ref, reactive, onMounted, nextTick, computed, defineAsyncComponent } from 'vue';
+import { loadTurnstile } from '@/turnstile';
+
+const MarkdownRender = defineAsyncComponent(() => import('markstream-vue'));
 
 const props = defineProps({
   initialMessage: {
@@ -169,13 +173,11 @@ onMounted(async () => {
   initTurnstile();
 });
 
-const initTurnstile = () => {
-  let attempts = 0;
-  const MAX_ATTEMPTS = 20;
-
-  const renderWidget = () => {
-    if (window.turnstile && turnstileContainer.value) {
-      window.turnstile.render(turnstileContainer.value, {
+const initTurnstile = async () => {
+  try {
+    const turnstile = await loadTurnstile();
+    if (turnstileContainer.value) {
+      turnstile.render(turnstileContainer.value, {
         sitekey: TURNSTILE_SITE_KEY,
         theme: 'auto',
         callback: (token) => {
@@ -188,14 +190,10 @@ const initTurnstile = () => {
           turnstileToken.value = null;
         },
       });
-    } else if (attempts < MAX_ATTEMPTS) {
-      attempts++;
-      setTimeout(renderWidget, 200);
-    } else {
-      console.warn('Turnstile: échec après 20 tentatives');
     }
-  };
-  renderWidget();
+  } catch (error) {
+    console.warn('Turnstile:', error.message);
+  }
 };
 
 // Format attendu par le Space : [[user_msg1, bot_msg1], ...]

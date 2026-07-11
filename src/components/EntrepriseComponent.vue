@@ -43,7 +43,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 <template>
   <!-- ═══ entreprise Section ═══ -->
-  <section id="entreprises">
+  <section>
     <SectionHeading index="01" label="Réseau" title="Entreprises" />
     <Swiper
       :modules="[Autoplay]"
