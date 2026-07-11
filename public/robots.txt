@@ -1,6 +1,6 @@
 # Préférences d'usage du contenu pour les moteurs et systèmes d'IA.
 User-agent: *
-Content-signal: search=yes, ai-input=yes, ai-train=yes, use=reference
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Disallow: /cgi-bin/
 

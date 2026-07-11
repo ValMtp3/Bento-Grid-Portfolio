@@ -13,20 +13,17 @@ export default defineConfig({
     },
   },
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (
-              id.includes('markstream') ||
-              id.includes('stream-markdown-parser') ||
-              id.includes('@chenglou/pretext') ||
-              id.includes('@floating-ui')
-            ) {
-              return 'vendor-chat';
-            }
             if (id.includes('vue')) return 'vendor-vue';
             if (id.includes('swiper')) return 'vendor-swiper';
+            if (id.includes('markstream') || id.includes('stream-markdown-parser')) {
+              return 'vendor-chat';
+            }
+            if (id.includes('@iconify')) return 'vendor-iconify';
             return 'vendor';
           }
         },

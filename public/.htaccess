@@ -7,13 +7,22 @@ AddDefaultCharset UTF-8
 # 1. Activer la réécriture d'URL
 RewriteEngine On
 
-# 1.5. Gestion du Routing (SPA - React/Vite)
-# Redirige tout vers index.html sauf si le fichier existe
+# 1.5. Négociation Markdown pour les agents, puis routing SPA.
+# Une requête explicite Accept: text/markdown sur l'accueil reçoit llms.txt.
+RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*text/markdown([;,]|$) [NC]
+RewriteRule ^$ llms.txt [END]
+
+# Redirige tout vers index.html sauf si le fichier existe.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
 RewriteRule ^index\.html$ https://www.valentin-fiess.fr/ [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]
+
+# llms.txt est aussi la représentation Markdown négociée de l'accueil.
+<Files "llms.txt">
+    ForceType text/markdown
+</Files>
 
 # 2. Protection contre les attaques XSS et Headers de sécurité
 <IfModule mod_headers.c>
@@ -42,9 +51,20 @@ RewriteRule ^ index.html [QSA,L]
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
     # Découverte de ressources par les agents et robots (RFC 8288).
-    <If "%{REQUEST_URI} == '/'">
+    <If "%{THE_REQUEST} =~ m#^[A-Z]+[[:space:]]+/([?][^[:space:]]*)?[[:space:]]+HTTP/#">
         Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\"; type=\"application/xml\""
+        Header always merge Vary "Accept"
     </If>
+
+    # Le type doit rester explicite après la réécriture interne de l'accueil.
+    <Files "llms.txt">
+        Header always set Content-Type "text/markdown; charset=UTF-8"
+    </Files>
+
+    # Les manifestes de découverte doivent être rafraîchis rapidement par les CDN.
+    <FilesMatch "^(robots\.txt|llms\.txt|sitemap\.xml)$">
+        Header always set Cache-Control "public, max-age=300, must-revalidate"
+    </FilesMatch>
 </IfModule>
 
 # 3. Compression GZIP/Brotli
