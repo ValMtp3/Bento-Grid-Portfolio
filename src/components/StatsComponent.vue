@@ -67,12 +67,12 @@ onMounted(scrollGithubChartToRecent);
     </a>
     <div class="mt-3 flex flex-wrap gap-2">
       <span
-        class="font-code text-[11px] px-2 py-1 border border-regal-navy-200 dark:border-regal-navy-800 text-regal-navy-700 dark:text-regal-navy-200 bg-regal-navy-50/80 dark:bg-regal-navy-950/40"
+        class="border-l-2 border-regal-navy-400 bg-regal-navy-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/40 dark:text-regal-navy-200"
       >
         commits publics
       </span>
       <span
-        class="font-code text-[11px] px-2 py-1 border border-coffee-bean-100 dark:border-soft-blush-50/10 text-coffee-bean-700 dark:text-soft-blush-200 bg-soft-blush-100/70 dark:bg-coffee-bean-950/30"
+        class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
       >
         projets data / IA / web
       </span>

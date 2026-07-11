@@ -32,7 +32,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">1. Introduction</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Bienvenue sur mon site portfolio. Cette politique de confidentialité a pour objectif de
             vous informer sur la manière dont vos données personnelles sont collectées, utilisées,
@@ -44,7 +44,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">2. Données Collectées</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Lorsque vous utilisez le formulaire de contact, je collecte les informations suivantes :
           </p>
@@ -63,7 +63,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">3. Finalité des Données</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Les données collectées via le formulaire de contact sont uniquement utilisées pour :
           </p>
@@ -80,7 +80,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">4. Destinataires des Données</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Vos données personnelles sont directement envoyées à ma boîte mail personnelle et ne
             sont partagées avec aucun tiers.
@@ -92,7 +92,7 @@ useMeta({
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">
           5. Durée de Conservation des Données
         </h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Les données collectées via le formulaire de contact, notamment votre prénom, nom,
             adresse email, sujet et message, sont susceptibles d'être stockées dans ma boîte mail
@@ -111,7 +111,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">6. Sécurité des Données</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Je mets en œuvre des mesures de sécurité standard pour protéger vos données
             personnelles. Cependant, étant donné qu'elles sont stockées sur ma boîte mail, elles
@@ -122,7 +122,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">7. Cookies et Traceurs</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Mon site utilise des cookies pour améliorer votre expérience utilisateur et pour
             collecter des statistiques anonymes via des outils comme
@@ -156,7 +156,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">8. Droits des Utilisateurs</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>Vous disposez des droits suivants concernant vos données personnelles :</p>
           <ul class="list-disc pl-5">
             <li>Droit d'accès</li>
@@ -179,7 +179,7 @@ useMeta({
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">
           9. Modification de la Politique de Confidentialité
         </h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Je me réserve le droit de modifier cette politique de confidentialité à tout moment.
             Toute modification sera publiée sur cette page sans notification individuelle.
@@ -189,7 +189,7 @@ useMeta({
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">10. Loi Applicable</h2>
-        <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-lg">
+      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
           <p>
             Cette politique de confidentialité est régie par le Règlement Général sur la Protection
             des Données (RGPD) de l'Union Européenne.

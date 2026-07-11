@@ -2,7 +2,7 @@
   <router-link
     v-if="$route.name !== 'home'"
     to="/"
-    class="fixed top-4 left-4 z-40 text-center text-white h-10 w-10 bg-neutral-900/50 hover:bg-neutral-900/90 dark:bg-neutral-100/10 dark:hover:bg-neutral-100/50 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105"
+    class="fixed top-4 left-4 z-40 text-center text-white h-10 w-10 bg-neutral-900/50 hover:bg-neutral-900/90 dark:bg-neutral-100/10 dark:hover:bg-neutral-100/50 rounded-none flex items-center justify-center transition-all duration-200 hover:scale-105"
     aria-label="Retour à l'accueil"
   >
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

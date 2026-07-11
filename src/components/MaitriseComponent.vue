@@ -1,5 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import SectionHeading from './SectionHeading.vue';
 
 const aiSkills = [
   { name: 'Python', icon: 'simple-icons:python' },
@@ -34,17 +35,13 @@ const devopsSkills = [
 <template>
   <!-- ═══ Skills Section ═══ -->
   <section id="competences">
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-6 text-center"
-    >
-      Compétences
-    </h2>
+    <SectionHeading index="04" label="Expertise" title="Compétences" />
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Data & IA -->
       <div class="bento-cell p-6 flex flex-col justify-between">
         <div>
           <h3
-            class="font-heading font-bold text-lg text-spicy-paprika-600 dark:text-spicy-paprika-400 mb-4"
+            class="font-heading font-bold text-lg text-emerald-700 dark:text-emerald-400 mb-4"
           >
             Data & IA
           </h3>
@@ -52,11 +49,11 @@ const devopsSkills = [
             <div
               v-for="skill in aiSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-md bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-spicy-paprika-500 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
+                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300"
               />
               <span
                 class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"
@@ -71,7 +68,7 @@ const devopsSkills = [
       <div class="bento-cell p-6 flex flex-col justify-between">
         <div>
           <h3
-            class="font-heading font-bold text-lg text-regal-navy-600 dark:text-regal-navy-400 mb-4"
+            class="font-heading font-bold text-lg text-spicy-paprika-700 dark:text-spicy-paprika-400 mb-4"
           >
             Web & Automation
           </h3>
@@ -79,11 +76,11 @@ const devopsSkills = [
             <div
               v-for="skill in webSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-md bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-regal-navy-500 dark:group-hover:text-regal-navy-400 transition-colors duration-300"
+                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-spicy-paprika-600 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
               />
               <span
                 class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"
@@ -98,7 +95,7 @@ const devopsSkills = [
       <div class="bento-cell p-6 flex flex-col justify-between">
         <div>
           <h3
-            class="font-heading font-bold text-lg text-coffee-bean-600 dark:text-coffee-bean-400 mb-4"
+            class="font-heading font-bold text-lg text-regal-navy-600 dark:text-regal-navy-400 mb-4"
           >
             MLOps & DevOps
           </h3>
@@ -106,11 +103,11 @@ const devopsSkills = [
             <div
               v-for="skill in devopsSkills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-md bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-coffee-bean-500 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
+                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-regal-navy-500 dark:group-hover:text-regal-navy-400 transition-colors duration-300"
               />
               <span
                 class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"

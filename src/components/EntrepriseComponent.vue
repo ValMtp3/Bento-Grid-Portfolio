@@ -1,9 +1,9 @@
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
+import SectionHeading from './SectionHeading.vue';
 
 const entreprise = [
   {
@@ -37,35 +37,39 @@ const entreprise = [
     role: 'Licence Développeur Data/IA',
   },
 ];
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 <template>
   <!-- ═══ entreprise Section ═══ -->
   <section id="entreprises">
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-4 text-center"
-    >
-      Entreprises
-    </h2>
+    <SectionHeading index="01" label="Réseau" title="Entreprises" />
     <Swiper
-      :modules="[Pagination]"
-      :pagination="{ clickable: true }"
+      :modules="[Autoplay]"
+      :loop="true"
+      :speed="5000"
+      :autoplay="prefersReducedMotion ? false : {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }"
       :space-between="12"
       :slides-per-view="1.35"
       :breakpoints="{
         640: { slidesPerView: 2.6, spaceBetween: 14 },
         1024: { slidesPerView: 4, spaceBetween: 16 },
       }"
-      class="entreprise-swiper pb-2"
+      class="entreprise-swiper"
     >
       <SwiperSlide v-for="client in entreprise" :key="client.name" class="h-auto py-2">
-        <div class="bento-cell p-4 flex flex-col items-center text-center h-full justify-between">
+        <div class="bento-cell p-3 flex flex-col items-center text-center h-full justify-between">
           <div class="flex flex-col items-center">
             <ResponsiveImage
               :alt="client.alt"
               :src="client.image"
               :title="client.name"
-              class="w-20 h-16 md:w-24 md:h-20 object-contain mb-3"
+              class="w-16 h-12 md:w-20 md:h-16 object-contain mb-2"
               loading="lazy"
             />
             <p class="font-heading font-bold text-sm text-coffee-bean-950 dark:text-soft-blush-50">
@@ -73,7 +77,7 @@ const entreprise = [
             </p>
           </div>
           <span
-            class="inline-block mt-2 text-[11px] font-code text-soft-blush-50 bg-spicy-paprika-500 px-2 py-0.5"
+            class="mt-1.5 inline-block border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-0.5 font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
           >
             {{ client.role }}
           </span>
@@ -87,19 +91,7 @@ const entreprise = [
 :deep(.swiper-slide) {
   height: auto;
 }
-:deep(.swiper-pagination) {
-  position: static;
-  margin-top: 10px;
-}
-:deep(.swiper-pagination-bullet) {
-  background-color: var(--color-coffee-bean-300, #db6b3e);
-  opacity: 0.4;
-  transition: all 0.3s ease;
-}
-:deep(.swiper-pagination-bullet-active) {
-  background-color: var(--color-spicy-paprika-500, #e4501b) !important;
-  opacity: 1;
-  width: 20px;
-  border-radius: 4px;
+:deep(.swiper-wrapper) {
+  transition-timing-function: linear;
 }
 </style>

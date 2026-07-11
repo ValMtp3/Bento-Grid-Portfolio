@@ -48,16 +48,19 @@ const router = createRouter({
     },
   ],
   scrollBehavior(to, from, savedPosition) {
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto'
+      : 'smooth';
     if (to.hash) {
       return {
         el: to.hash,
-        behavior: 'smooth',
+        behavior,
       };
     }
     if (savedPosition) {
       return savedPosition;
     }
-    return { top: 0, behavior: 'smooth' };
+    return { top: 0, behavior };
   },
 });
 export default router;
