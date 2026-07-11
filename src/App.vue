@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted, watchEffect } from 'vue';
+import { nextTick, watch } from 'vue';
 import { useRoute, RouterView } from 'vue-router';
-import { useMeta } from 'vue-meta';
 import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
 import Navbar from './components/include/Navbar.vue';
@@ -9,65 +8,42 @@ import ChatbotWidget from './components/ChatbotWidget.vue';
 
 const route = useRoute();
 
-useMeta({
-  title: 'Valentin Fiess - Développeur Data & IA',
-  meta: [
-    {
-      name: 'description',
-      content:
-        "Portfolio de Valentin Fiess, développeur Data et intelligence artificielle spécialisé en RAG, automatisation et solutions IA.",
-    },
-    {
-      name: 'keywords',
-      content:
-        'Valentin Fiess, développeur Data, IA, intelligence artificielle, RAG, automatisation, Python, MLOps, portfolio',
-    },
-    {
-      property: 'og:title',
-      content: 'Valentin Fiess - Développeur Data & IA',
-    },
-    {
-      property: 'og:description',
-      content: 'Portfolio de Valentin Fiess, développeur Data et intelligence artificielle.',
-    },
-    {
-      property: 'og:type',
-      content: 'website',
-    },
-    {
-      property: 'og:url',
-      content: 'https://valentin-fiess.com',
-    },
-  ],
-});
+watch(
+  () => route.fullPath,
+  async () => {
+    await nextTick();
+    let link = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
+    }
+    link.href = `https://www.valentin-fiess.fr${route.path === '/' ? '/' : route.path}`;
 
-onMounted(() => {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Valentin Fiess',
-    url: 'https://valentin-fiess.com',
-    jobTitle: 'Développeur Data & IA',
-    knowsAbout: ['Intelligence Artificielle', 'RAG', 'Data', 'Python', 'MLOps'],
-    sameAs: ['https://github.com/valentinfiess', 'https://linkedin.com/in/valentinfiess'],
-  };
+    document.title = route.meta.title;
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.content = route.meta.description;
 
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.id = 'json-ld-person';
-  script.textContent = JSON.stringify(jsonLd);
-  document.head.appendChild(script);
-});
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.content = route.meta.robots || 'index, follow';
 
-watchEffect(() => {
-  let link = document.querySelector('link[rel="canonical"]');
-  if (!link) {
-    link = document.createElement('link');
-    link.rel = 'canonical';
-    document.head.appendChild(link);
-  }
-  link.href = `https://valentin-fiess.com${route.path}`;
-});
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = link.href;
+
+    const socialMeta = [
+      ['meta[property="og:title"]', route.meta.title],
+      ['meta[property="og:description"]', route.meta.description],
+      ['meta[name="twitter:title"]', route.meta.title],
+      ['meta[name="twitter:description"]', route.meta.description],
+      ['meta[property="twitter:url"]', link.href],
+    ];
+    socialMeta.forEach(([selector, content]) => {
+      const meta = document.querySelector(selector);
+      if (meta) meta.content = content;
+    });
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

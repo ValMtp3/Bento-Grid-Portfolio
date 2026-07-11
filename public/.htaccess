@@ -1,6 +1,9 @@
 # Sécurité et performances pour le portfolio Valentin Fiess
 # https://www.valentin-fiess.fr
 
+# Encodage explicite pour les pages et ressources texte destinées aux crawlers.
+AddDefaultCharset UTF-8
+
 # 1. Activer la réécriture d'URL
 RewriteEngine On
 
@@ -37,6 +40,11 @@ RewriteRule ^ index.html [QSA,L]
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     # Permissions Policy
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # Découverte de ressources par les agents et robots (RFC 8288).
+    <If "%{REQUEST_URI} == '/'">
+        Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\"; type=\"application/xml\""
+    </If>
 </IfModule>
 
 # 3. Compression GZIP/Brotli

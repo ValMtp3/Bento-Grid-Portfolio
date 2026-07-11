@@ -40,9 +40,9 @@
         </div>
       </section>
 
-      <h1 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">
+      <h2 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">
         Conditions Générales d'Utilisation (CGU)
-      </h1>
+      </h2>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Objet des CGU</h2>
@@ -81,7 +81,7 @@
         </div>
       </section>
 
-      <h1 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">Autres informations</h1>
+      <h2 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">Autres informations</h2>
 
       <section class="mb-10">
         <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Litiges et droit applicable</h2>

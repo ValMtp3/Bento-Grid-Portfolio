@@ -17,8 +17,15 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (
+              id.includes('markstream') ||
+              id.includes('stream-markdown-parser') ||
+              id.includes('@chenglou/pretext') ||
+              id.includes('@floating-ui')
+            ) {
+              return 'vendor-chat';
+            }
             if (id.includes('vue')) return 'vendor-vue';
-            if (id.includes('marked') || id.includes('dompurify')) return 'vendor-chat';
             if (id.includes('swiper')) return 'vendor-swiper';
             return 'vendor';
           }
