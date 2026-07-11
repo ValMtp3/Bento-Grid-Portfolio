@@ -1,7 +1,14 @@
 <template>
   <div class="flex flex-col h-full bg-white dark:bg-coffee-bean-950 transition-colors duration-300">
     <!-- Zone de messages -->
-    <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth">
+    <div
+      ref="messagesContainer"
+      class="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth"
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+      :aria-busy="isLoading"
+    >
       <div
         v-for="(message, index) in messages"
         :key="index"
@@ -18,7 +25,7 @@
 
         <div class="flex flex-col" :class="message.role === 'user' ? 'items-end' : 'items-start'">
           <div
-            class="rounded-2xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
+            class="rounded-xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
             :class="[
               message.role === 'user'
                 ? 'bg-regal-navy-500 text-white rounded-br-none dark:bg-regal-navy-700'
@@ -36,7 +43,7 @@
 
           <!-- Label auteur -->
           <span class="text-[10px] text-gray-400 dark:text-soft-blush-400 mt-1 px-1">
-            {{ message.role === 'user' ? 'Vous' : 'Homard GPT 🦞' }}
+              {{ message.role === 'user' ? 'Vous' : 'Valentin Chatbot 🦞' }}
           </span>
         </div>
       </div>
@@ -50,7 +57,7 @@
         </div>
         <div class="flex flex-col items-start animate-pulse">
           <div
-            class="bg-gray-100 dark:bg-coffee-bean-800 rounded-2xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
+            class="bg-gray-100 dark:bg-coffee-bean-800 rounded-xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
           >
             <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
             <div
@@ -62,7 +69,7 @@
               style="animation-delay: 0.4s"
             ></div>
           </div>
-          <span class="text-xs text-gray-400 mt-1 px-1">Homard GPT réfléchit...</span>
+        <span class="text-xs text-gray-400 mt-1 px-1">Valentin Chatbot réfléchit...</span>
         </div>
       </div>
     </div>
@@ -75,16 +82,17 @@
       <form @submit.prevent="sendMessage" class="relative flex items-center">
         <input
           v-model="userInput"
+          aria-label="Votre message"
           type="text"
           placeholder="Posez votre question..."
           :disabled="isLoading || !turnstileToken"
-          class="w-full rounded-xl border border-[#e0e0e0] dark:border-coffee-bean-700 bg-white dark:bg-coffee-bean-900/60 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-soft-blush-100 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+          class="w-full rounded-md border border-[#e0e0e0] dark:border-coffee-bean-700 bg-white dark:bg-coffee-bean-900/60 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-soft-blush-100 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
         />
 
         <button
           type="submit"
           :disabled="!userInput.trim() || isLoading || !turnstileToken"
-          class="absolute right-2 p-2 rounded-lg bg-regal-navy-500 hover:bg-regal-navy-600 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+          class="absolute right-2 p-2 rounded-none bg-regal-navy-500 hover:bg-regal-navy-600 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
           aria-label="Envoyer"
         >
           <svg
@@ -120,7 +128,7 @@ const props = defineProps({
   initialMessage: {
     type: String,
     default:
-      "Bonjour ! Je suis Homard GPT 🦞, l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?",
+      "Bonjour ! Je suis Valentin Chatbot 🦞, l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?",
   },
 });
 
@@ -400,5 +408,11 @@ const sendMessage = async () => {
 
 .animate-lobster {
   animation: wiggleSlow 2.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lobster {
+    animation: none;
+  }
 }
 </style>

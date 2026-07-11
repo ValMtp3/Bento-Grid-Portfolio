@@ -2,26 +2,48 @@
   <div class="fixed bottom-4 right-4 z-50">
     <button
       v-if="!isOpen"
+      ref="triggerButton"
       @click="openChatbot"
-      class="bg-regal-navy-500 hover:bg-regal-navy-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center w-14 h-14"
+      class="chatbot-trigger group flex h-14 items-center gap-3 border border-coffee-bean-100 bg-soft-blush-50/95 px-3 shadow-sm shadow-coffee-bean-950/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-spicy-paprika-300 hover:shadow-md active:translate-y-0 dark:border-soft-blush-50/15 dark:bg-coffee-bean-900/95 dark:shadow-coffee-bean-950/30"
       aria-label="Ouvrir le chatbot"
     >
-      <span class="text-2xl transition-transform duration-300 lobster-icon">🦞</span>
+      <span
+        class="lobster-icon flex h-9 w-9 shrink-0 items-center justify-center border border-spicy-paprika-200 bg-spicy-paprika-50 text-xl transition-transform duration-300 dark:border-spicy-paprika-700 dark:bg-spicy-paprika-950"
+        aria-hidden="true"
+      >
+        🦞
+      </span>
+      <span class="hidden text-left sm:block">
+        <span class="block font-heading text-sm font-bold text-coffee-bean-950 dark:text-soft-blush-50">
+          Valentin Chatbot
+        </span>
+        <span class="block font-code text-[10px] text-coffee-bean-600 dark:text-soft-blush-300">
+          Posez-moi une question
+        </span>
+      </span>
+      <span class="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+        <span class="absolute inline-flex h-full w-full animate-ping bg-green-400 opacity-60"></span>
+        <span class="relative inline-flex h-2.5 w-2.5 bg-green-500"></span>
+      </span>
     </button>
 
     <div
       v-if="isOpen"
-      class="bg-white dark:bg-coffee-bean-950 rounded-lg shadow-2xl border border-gray-200 dark:border-coffee-bean-800/60 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chatbot-title"
+      class="bg-white dark:bg-coffee-bean-950 rounded-xl shadow-2xl border border-gray-200 dark:border-coffee-bean-800/60 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
     >
       <div
         class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-coffee-bean-800/60"
       >
-        <h3 class="font-semibold text-gray-900 dark:text-soft-blush-50 flex items-center gap-2 select-none">
-          <span>Homard GPT</span>
+        <h3 id="chatbot-title" class="font-semibold text-gray-900 dark:text-soft-blush-50 flex items-center gap-2 select-none">
+          <span>Valentin Chatbot</span>
         </h3>
         <button
+          ref="closeButton"
           @click="closeChatbot"
-          class="text-gray-400 hover:text-gray-600 dark:text-soft-blush-400 dark:hover:text-soft-blush-200"
+          class="flex min-h-11 min-w-11 items-center justify-center text-gray-500 hover:text-gray-700 dark:text-soft-blush-400 dark:hover:text-soft-blush-200"
           aria-label="Fermer le chatbot"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,6 +65,7 @@
 </template>
 
 <script>
+import { nextTick } from 'vue';
 import ChatInterface from './ChatInterface.vue';
 
 export default {
@@ -56,13 +79,27 @@ export default {
     };
   },
   methods: {
-    openChatbot() {
+    async openChatbot() {
       this.isOpen = true;
+      await nextTick();
+      this.$refs.closeButton?.focus();
     },
 
-    closeChatbot() {
+    async closeChatbot() {
       this.isOpen = false;
+      await nextTick();
+      this.$refs.triggerButton?.focus();
     },
+
+    handleKeydown(event) {
+      if (event.key === 'Escape' && this.isOpen) this.closeChatbot();
+    },
+  },
+  mounted() {
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
   },
 };
 </script>
@@ -76,20 +113,16 @@ export default {
   display: inline-block;
 }
 
-button:hover .lobster-icon {
-  animation: wiggle 0.5s ease-in-out infinite;
+.chatbot-trigger:hover .lobster-icon {
+  transform: rotate(-8deg);
 }
 
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-15deg) scale(1.1);
-  }
-  75% {
-    transform: rotate(15deg) scale(1.1);
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-trigger,
+  .lobster-icon,
+  .fixed > div:last-child {
+    transition: none;
+    animation: none;
   }
 }
 

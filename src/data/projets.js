@@ -1,6 +1,19 @@
 export const projets = [
   {
-    alt: 'Raguia - SaaS B2B de RAG IA pour les entreprises',
+    alt: "Juste Recrute Moi - Plateforme d'agregation d'offre d'emploi",
+    image: 'https://v2.tauri.app/_astro/logo_light.C7Zm2ZoX.svg',
+    date: 'Juin 2026',
+    team: 'Valentin Fiess',
+    description: "Agrégateur local-first d'offres d'emploi pour le marché français",
+    descriptionlongue:
+      "Fork de : Just Hire Me pour l'adapter au marché francais. JRM est un agrégateur d'offres d'emploi local-first dédié au marché français. L'outil centralise les offres, les nettoie, les déduplique et génère des dossiers de candidature sur mesure, le tout en gardant tes données 100% locales et privées par défaut.",
+    src: 'https://github.com/ValMtp3/Juste-Recrute-Moi',
+    name: 'Juste Recrute Moi',
+    linkLabel: 'Accéder au GitHub',
+    technos: ['Tauri', 'Rust', 'Python', 'React', 'API', 'IA Local', 'ETL'],
+  },
+  {
+    alt: 'Raguia -  SaaS B2B de RAG IA sécurisé et souverain pour les PME',
     image: '/assets/assets_index/raguia.webp',
     date: 'Mars 2026',
     team: 'Valentin Fiess',
@@ -142,7 +155,7 @@ export const projets = [
     description: 'Portfolio personnel avec un style moderne',
     descriptionlongue:
       "Création de mon portfolio moderne avec un syle Bento Grid. Intégration d'animations fluides, design responsive pour une expérience optimale sur tous les appareils.",
-    src: 'www.valentin-fiess.fr',
+    src: '',
     name: 'Portfolio Bento-Grids',
     technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
   },

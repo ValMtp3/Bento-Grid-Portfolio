@@ -1,61 +1,73 @@
 <script setup>
-import { ref } from 'vue';
 import { projets } from '@/data/projets.js';
+import ResponsiveImage from '@/components/ResponsiveImage.vue';
+import SectionHeading from '@/components/SectionHeading.vue';
 
-const projetsAffiches = ref(projets);
+const getProjectLinkLabel = (project) => {
+  if (project.linkLabel) return project.linkLabel;
+  if (project.src.includes('github.com')) return 'Voir le dépôt';
+  if (project.src.includes('huggingface.co')) return 'Tester la démo';
+  return 'Découvrir le projet';
+};
 </script>
 
 <template>
-  <div
-    class="mx-auto grid grid-cols-1 md:grid-cols-2 p-8 md:p-16 lg:p-24 gap-8 md:gap-16 lg:gap-24 dark:text-soft-blush-200"
-  >
-    <div
-      v-for="proj in projetsAffiches"
-      :key="proj.name"
-      class="p-4 bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 rounded-xl shadow-lg shadow-coffee-bean-950/10 dark:shadow-black/20"
-    >
-      <img
-        :alt="proj.alt"
-        :src="proj.image"
-        class="mx-auto mb-4 md:mb-6 lg:mb-10 rounded-xl w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"
-        loading="lazy"
-      />
-      <p class="flex justify-center gap-2 mb-2">
-        <span
-          class="bg-spicy-paprika-100 dark:bg-spicy-paprika-900/40 text-spicy-paprika-700 dark:text-spicy-paprika-300 text-xs md:text-sm font-code px-2 py-1 rounded-full"
-          >{{ proj.team }}</span
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <SectionHeading index="05" label="Portfolio" title="Projets réalisés" />
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <article
+        v-for="(proj, index) in projets"
+        :key="proj.name"
+        class="bento-cell flex h-full flex-col p-5 sm:p-6"
+      >
+        <p
+          v-if="proj.featured || index === 0"
+          class="mb-3 font-code text-[10px] font-semibold uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
         >
-        <time
-          class="bg-regal-navy-100 dark:bg-regal-navy-900/50 text-regal-navy-700 dark:text-regal-navy-300 text-xs md:text-sm font-code px-2 py-1 rounded-full"
-          >{{ proj.date }}</time
-        >
-      </p>
-      <div class="p-4 text-center px-6 md:px-8 lg:px-10">
-        <h2
-          class="mb-3 text-xl md:text-2xl font-semibold text-coffee-bean-950 dark:text-soft-blush-50"
-        >
+          ~ projet principal
+        </p>
+        <ResponsiveImage
+          :alt="proj.alt"
+          :src="proj.image"
+          class="mb-5 h-48 w-full rounded-md border border-coffee-bean-100 bg-white object-contain sm:h-56 dark:border-coffee-bean-800"
+          loading="lazy"
+        />
+        <div class="mb-3 flex flex-wrap gap-2">
+          <span
+            class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
+          >
+            {{ proj.team }}
+          </span>
+          <time
+            class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
+          >
+            {{ proj.date }}
+          </time>
+        </div>
+        <h2 class="mb-2 font-heading text-xl font-bold text-coffee-bean-950 dark:text-soft-blush-50 sm:text-2xl">
           {{ proj.name }}
         </h2>
-        <p class="mt-1 text-base md:text-lg lg:text-xl text-coffee-bean-950 dark:text-soft-blush-200">
+        <p class="text-base leading-relaxed text-coffee-bean-700 dark:text-soft-blush-200">
           {{ proj.descriptionlongue }}
         </p>
-        <div v-if="proj.technos?.length" class="mt-5 flex flex-wrap justify-center gap-2">
+        <div v-if="proj.technos?.length" class="mt-5 flex flex-wrap gap-2">
           <span
             v-for="techno in proj.technos"
             :key="`${proj.name}-${techno}`"
-            class="rounded-full bg-regal-navy-100 dark:bg-regal-navy-900/50 px-3 py-1 text-xs md:text-sm text-regal-navy-700 dark:text-regal-navy-300 font-code"
+            class="border-l-2 border-regal-navy-400 bg-regal-navy-50/50 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/20 dark:text-regal-navy-300"
           >
             {{ techno }}
           </span>
         </div>
-        <a :href="proj.src" target="_blank" rel="noopener noreferrer">
-          <button
-            class="ml-auto hover:scale-110 motion-reduce:transform-none font-code font-medium rounded-xl px-4 py-2 m-2 md:m-4 lg:m-5 bg-regal-navy-500 hover:bg-regal-navy-600 text-soft-blush-50 shadow-md shadow-regal-navy-500/30 transition-all duration-300"
-          >
-            {{ proj.linkLabel || proj.name }}
-          </button>
+        <a
+          :href="proj.src"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex self-start bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-600 hover:shadow-lg"
+        >
+          {{ getProjectLinkLabel(proj) }}
         </a>
-      </div>
+      </article>
     </div>
-  </div>
+  </main>
 </template>

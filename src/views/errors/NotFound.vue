@@ -10,7 +10,7 @@
     </p>
     <router-link
       to="/"
-      class="px-6 py-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-colors"
+      class="px-6 py-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-none font-semibold shadow transition-colors"
     >
       Retour à l'accueil
     </router-link>

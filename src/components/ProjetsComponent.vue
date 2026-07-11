@@ -3,33 +3,38 @@ import { projets } from '@/data/projets.js';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Keyboard, Pagination } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
+import SectionHeading from './SectionHeading.vue';
 
 const featuredProjets = projets.slice(0, 6);
+
+const getProjectLinkLabel = (project) => {
+  if (project.linkLabel) return project.linkLabel;
+  if (project.src.includes('github.com')) return 'Voir le dépôt';
+  if (project.src.includes('huggingface.co')) return 'Tester la démo';
+  return 'Découvrir le projet';
+};
 </script>
 
 <template>
   <!-- ═══ Projects Section ═══ -->
-  <section>
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-spicy-paprika-600 dark:text-spicy-paprika-400 mb-4 text-center"
-    >
-      Projets
-    </h2>
+  <section id="projets">
+    <SectionHeading index="05" label="Portfolio" title="Projets" />
     <Swiper
-      :modules="[Pagination]"
+      :modules="[Keyboard, Pagination]"
+      :keyboard="{ enabled: true, onlyInViewport: true }"
       :pagination="{ clickable: true }"
       :space-between="16"
       :slides-per-view="1.1"
       :breakpoints="{
         640: { slidesPerView: 2.2, spaceBetween: 20 },
-        1024: { slidesPerView: 3, spaceBetween: 24 }
+        1024: { slidesPerView: 3, spaceBetween: 24 },
       }"
       class="pb-12"
     >
       <SwiperSlide
-        v-for="project in featuredProjets"
+        v-for="(project, index) in featuredProjets"
         :key="project.name"
         class="h-auto py-2"
       >
@@ -40,10 +45,16 @@ const featuredProjets = projets.slice(0, 6);
           class="group bento-cell p-4 flex flex-col hover:scale-[1.02] hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-600 h-full justify-between"
         >
           <div>
+            <p
+              v-if="index === 0"
+              class="mb-3 font-code text-[10px] uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
+            >
+              ~ featured project
+            </p>
             <ResponsiveImage
               :alt="project.alt"
               :src="project.image"
-              class="w-full h-40 object-contain bg-white mb-3"
+              class="mb-3 h-40 w-full rounded-md border border-coffee-bean-100 bg-white object-contain dark:border-coffee-bean-800"
               loading="lazy"
             />
             <h3
@@ -51,7 +62,7 @@ const featuredProjets = projets.slice(0, 6);
             >
               {{ project.name }}
             </h3>
-            <p class="text-sm text-coffee-bean-600 dark:text-soft-blush-300 mb-2 line-clamp-2">
+            <p class="mb-3 text-sm text-coffee-bean-600 dark:text-soft-blush-300 line-clamp-3">
               {{ project.description }}
             </p>
           </div>
@@ -60,13 +71,18 @@ const featuredProjets = projets.slice(0, 6);
               <span
                 v-for="techno in project.technos.slice(0, 3)"
                 :key="techno"
-                class="font-code text-xs px-2 py-0.5 bg-regal-navy-100 dark:bg-regal-navy-800 text-regal-navy-700 dark:text-regal-navy-200"
+                class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-0.5 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
               >
                 {{ techno }}
               </span>
             </div>
             <p class="text-xs font-code text-coffee-bean-500 dark:text-soft-blush-400 mt-2">
               {{ project.date }}
+            </p>
+            <p
+              class="mt-3 font-code text-[10px] font-semibold uppercase tracking-wide text-spicy-paprika-600 dark:text-spicy-paprika-400"
+            >
+              {{ getProjectLinkLabel(project) }} →
             </p>
           </div>
         </a>

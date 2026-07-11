@@ -10,25 +10,25 @@ import ChatbotWidget from './components/ChatbotWidget.vue';
 const route = useRoute();
 
 useMeta({
-  title: 'Valentin Fiess - Développeur Web & IA',
+  title: 'Valentin Fiess - Développeur Data & IA',
   meta: [
     {
       name: 'description',
       content:
-        'Portfolio de Valentin Fiess, développeur web et intelligence artificielle. Découvrez mes projets, compétences et expériences.',
+        "Portfolio de Valentin Fiess, développeur Data et intelligence artificielle spécialisé en RAG, automatisation et solutions IA.",
     },
     {
       name: 'keywords',
       content:
-        'Valentin Fiess, développeur web, IA, intelligence artificielle, portfolio, React, Vue, Python, full-stack',
+        'Valentin Fiess, développeur Data, IA, intelligence artificielle, RAG, automatisation, Python, MLOps, portfolio',
     },
     {
       property: 'og:title',
-      content: 'Valentin Fiess - Développeur Web & IA',
+      content: 'Valentin Fiess - Développeur Data & IA',
     },
     {
       property: 'og:description',
-      content: 'Portfolio de Valentin Fiess, développeur web et intelligence artificielle.',
+      content: 'Portfolio de Valentin Fiess, développeur Data et intelligence artificielle.',
     },
     {
       property: 'og:type',
@@ -47,8 +47,8 @@ onMounted(() => {
     '@type': 'Person',
     name: 'Valentin Fiess',
     url: 'https://valentin-fiess.com',
-    jobTitle: 'Développeur Web & IA',
-    knowsAbout: ['Développement Web', 'Intelligence Artificielle', 'Full-Stack'],
+    jobTitle: 'Développeur Data & IA',
+    knowsAbout: ['Intelligence Artificielle', 'RAG', 'Data', 'Python', 'MLOps'],
     sameAs: ['https://github.com/valentinfiess', 'https://linkedin.com/in/valentinfiess'],
   };
 
@@ -73,7 +73,7 @@ watchEffect(() => {
 <template>
   <a
     href="#main-content"
-    class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-regal-navy-600 text-soft-blush-50 px-4 py-2 rounded z-50"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-regal-navy-600 text-soft-blush-50 px-4 py-2 rounded-none z-50"
   >
     Aller au contenu principal
   </a>

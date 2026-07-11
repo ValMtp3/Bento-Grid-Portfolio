@@ -3,11 +3,6 @@ import { Icon } from '@iconify/vue';
 
 const links = [
   {
-    name: 'CV',
-    href: '/assets/assets_index/CV_Valentin_Fiess.pdf',
-    icon: 'academicons:cv',
-  },
-  {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/valentin-fiess/',
     icon: 'simple-icons:linkedin',
@@ -28,7 +23,7 @@ const links = [
 <template>
   <!-- Links Cell -->
   <div class="bento-cell p-6 h-full flex items-center justify-center">
-    <div class="grid grid-cols-4 gap-3 w-full max-w-md place-items-center">
+    <div class="grid grid-cols-3 gap-3 w-full max-w-md place-items-center">
       <a
         v-for="link in links"
         :key="link.name"

@@ -48,17 +48,17 @@ function declineCookies() {
         statistiques anonymes. Pour en savoir plus, consultez notre
         <a class="text-regal-navy-400 underline" href="/policy">Politique de Confidentialité</a>.
       </p>
-      <div class="flex">
+      <div class="flex gap-2">
         <button
           id="accept-cookies"
-          class="bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 font-bold font-code py-2 px-4 rounded mr-2"
+          class="min-h-11 bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 font-bold font-code py-2 px-4 rounded-none"
           @click="acceptCookies"
         >
           Accepter
         </button>
         <button
           id="decline-cookies"
-          class="bg-coffee-bean-700 hover:bg-coffee-bean-800 text-soft-blush-50 font-bold font-code py-2 px-4 rounded"
+          class="min-h-11 bg-coffee-bean-700 hover:bg-coffee-bean-800 text-soft-blush-50 font-bold font-code py-2 px-4 rounded-none"
           @click="declineCookies"
         >
           Refuser
