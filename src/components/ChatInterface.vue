@@ -137,6 +137,7 @@
 <script setup>
 import { ref, reactive, onMounted, nextTick, computed, defineAsyncComponent } from 'vue';
 import { loadTurnstile } from '@/turnstile';
+import { trackMatomoEvent } from '@/matomo';
 
 const MarkdownRender = defineAsyncComponent(() => import('markstream-vue'));
 
@@ -155,6 +156,7 @@ const isStreaming = ref(false);
 const messagesContainer = ref(null);
 const turnstileToken = ref(null);
 const turnstileContainer = ref(null);
+const hasTrackedFirstMessage = ref(false);
 
 const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
 const CHATBOT_API_URL = `${SPACE_URL}/gradio_api/call/generate_response`;
@@ -441,6 +443,9 @@ const sendMessage = async () => {
   }
 
   messages.value.push({ role: 'user', content: text });
+  if (!hasTrackedFirstMessage.value) {
+    hasTrackedFirstMessage.value = trackMatomoEvent('chatbot', 'first_message', 'widget');
+  }
   userInput.value = '';
   isLoading.value = true;
   await scrollToBottom();
@@ -465,6 +470,12 @@ const sendMessage = async () => {
   } catch (error) {
     smoother.cancel();
     console.error('Erreur Chatbot:', error);
+    const errorType = error.status === 503
+      ? 'cold_start'
+      : error.message === 'Le chatbot met trop longtemps à répondre.'
+        ? 'timeout'
+        : 'request_failure';
+    trackMatomoEvent('chatbot', 'error', errorType);
     let errorMsg = 'Désolé, une erreur est survenue lors de la connexion.';
 
     if (error.status === 503) {

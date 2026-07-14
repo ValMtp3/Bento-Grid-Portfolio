@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import { Keyboard, Pagination } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
 import SectionHeading from './SectionHeading.vue';
+import { trackMatomoEvent } from '@/matomo';
 
 const featuredProjets = projets.slice(0, 6);
 
@@ -14,6 +15,12 @@ const getProjectLinkLabel = (project) => {
   if (project.src.includes('github.com')) return 'Voir le dépôt';
   if (project.src.includes('huggingface.co')) return 'Tester la démo';
   return 'Découvrir le projet';
+};
+
+const getProjectAnalyticsAction = (project) => {
+  if (project.src.includes('github.com')) return 'open_repository';
+  if (project.src.includes('huggingface.co')) return 'open_demo';
+  return 'open_project';
 };
 </script>
 
@@ -42,6 +49,7 @@ const getProjectLinkLabel = (project) => {
           :href="project.src"
           target="_blank"
           rel="noopener noreferrer"
+          @click="trackMatomoEvent('portfolio_project', getProjectAnalyticsAction(project), project.name)"
           class="group bento-cell p-4 flex flex-col hover:scale-[1.02] hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-600 h-full justify-between"
         >
           <div>

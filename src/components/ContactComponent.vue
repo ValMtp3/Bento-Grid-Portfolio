@@ -1,4 +1,6 @@
 <script setup>
+import { trackMatomoEvent } from '@/matomo';
+
 const links = [
   {
     name: 'LinkedIn',
@@ -29,6 +31,7 @@ const links = [
         :title="link.name"
         target="_blank"
         rel="noopener noreferrer"
+        @click="trackMatomoEvent('portfolio_contact', `${link.name.toLowerCase()}_click`, 'home')"
         class="flex flex-col items-center justify-center gap-2 w-full min-w-0 hover:scale-110 transition-all duration-300 p-2 group text-coffee-bean-600 dark:text-soft-blush-400 hover:text-coffee-bean-500 dark:hover:text-soft-blush-300"
       >
         <span
