@@ -6,6 +6,7 @@ const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const ChatbotView = () => import('@/views/ChatbotView.vue');
+const JusticeView = () => import('@/views/JusticeView.vue');
 const NotFound = () => import('@/views/errors/NotFound.vue');
 
 const router = createRouter({
@@ -45,7 +46,13 @@ const router = createRouter({
       path: '/chatbot',
       name: 'chatbot',
       component: ChatbotView,
-      meta: { title: 'Assistant IA | Valentin Fiess', description: 'Interrogez l’assistant IA de Valentin Fiess sur son parcours, ses compétences et ses projets.' },
+      meta: { title: 'Assistant IA | Valentin Fiess', description: 'Interrogez l\'assistant IA de Valentin Fiess sur son parcours, ses compétences et ses projets.' },
+    },
+    {
+      path: '/justice',
+      name: 'justice',
+      component: JusticeView,
+      meta: { title: 'Pièces justificatives | Valentin Fiess', description: 'Pièces justificatives.', robots: 'noindex, nofollow' },
     },
     {
       path: '/:pathMatch(.*)*',
