@@ -39,7 +39,7 @@ function declineCookies() {
     id="cookie-banner"
     aria-label="Bannière de consentement aux cookies"
     aria-live="polite"
-    class="fixed bottom-0 w-full bg-coffee-bean-900 text-soft-blush-50 p-4 z-[60]"
+    class="fixed bottom-0 w-full bg-coffee-bean-900 text-soft-blush-50 p-4 z-60"
     role="dialog"
   >
     <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">

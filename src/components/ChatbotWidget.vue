@@ -66,6 +66,7 @@
 
 <script>
 import { defineAsyncComponent, nextTick } from 'vue';
+import { trackMatomoEvent } from '@/matomo';
 
 const ChatInterface = defineAsyncComponent(() => import('./ChatInterface.vue'));
 
@@ -82,6 +83,7 @@ export default {
   methods: {
     async openChatbot() {
       this.isOpen = true;
+      trackMatomoEvent('chatbot', 'open', 'widget');
       await nextTick();
       this.$refs.closeButton?.focus();
     },

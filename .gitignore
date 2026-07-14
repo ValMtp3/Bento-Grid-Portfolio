@@ -48,4 +48,3 @@ __pycache__/
 *.pyo
 go-param
 public/matomo/
-src/matomo.js

@@ -1,5 +1,6 @@
 <script setup>
 import ResponsiveImage from './ResponsiveImage.vue';
+import { trackMatomoEvent } from '@/matomo';
 </script>
 
 <template>
@@ -75,6 +76,7 @@ import ResponsiveImage from './ResponsiveImage.vue';
       <a
         href="/assets/assets_index/CV_Valentin_Fiess.pdf"
         download="CV_Valentin_Fiess.pdf"
+        @click="trackMatomoEvent('portfolio_cta', 'download_cv', 'hero')"
         class="inline-flex items-center justify-center bg-spicy-paprika-500 px-6 py-2.5 font-code text-sm text-soft-blush-50 shadow-sm shadow-spicy-paprika-500/25 transition-colors hover:bg-spicy-paprika-600"
       >
         Télécharger mon CV
@@ -83,6 +85,7 @@ import ResponsiveImage from './ResponsiveImage.vue';
         href="/assets/assets_index/CV_Valentin_Fiess.pdf"
         target="_blank"
         rel="noopener noreferrer"
+        @click="trackMatomoEvent('portfolio_cta', 'view_cv', 'hero')"
         class="inline-flex items-center justify-center border border-regal-navy-300 px-6 py-2.5 font-code text-sm text-regal-navy-700 transition-colors hover:border-regal-navy-500 hover:bg-regal-navy-50 dark:border-regal-navy-700 dark:text-regal-navy-200 dark:hover:bg-regal-navy-950/40"
       >
         Voir mon CV

@@ -2,12 +2,19 @@
 import { projets } from '@/data/projets.js';
 import ResponsiveImage from '@/components/ResponsiveImage.vue';
 import SectionHeading from '@/components/SectionHeading.vue';
+import { trackMatomoEvent } from '@/matomo';
 
 const getProjectLinkLabel = (project) => {
   if (project.linkLabel) return project.linkLabel;
   if (project.src.includes('github.com')) return 'Voir le dépôt';
   if (project.src.includes('huggingface.co')) return 'Tester la démo';
   return 'Découvrir le projet';
+};
+
+const getProjectAnalyticsAction = (project) => {
+  if (project.src.includes('github.com')) return 'open_repository';
+  if (project.src.includes('huggingface.co')) return 'open_demo';
+  return 'open_project';
 };
 </script>
 
@@ -64,6 +71,7 @@ const getProjectLinkLabel = (project) => {
           :href="proj.src"
           target="_blank"
           rel="noopener noreferrer"
+          @click="trackMatomoEvent('portfolio_project', getProjectAnalyticsAction(proj), proj.name)"
           class="mt-6 inline-flex self-start bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-600 hover:shadow-lg"
         >
           {{ getProjectLinkLabel(proj) }}

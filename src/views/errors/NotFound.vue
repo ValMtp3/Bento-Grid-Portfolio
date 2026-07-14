@@ -20,6 +20,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
 import { useMeta } from 'vue-meta';
+import { trackMatomoEvent } from '@/matomo';
 
 // Meta tags pour la page 404
 useMeta({
@@ -33,6 +34,7 @@ useMeta({
 });
 
 onMounted(() => {
+  trackMatomoEvent('portfolio_error', 'not_found', 'route');
   const meta = document.createElement('meta');
   meta.name = 'robots';
   meta.content = 'noindex';
