@@ -10,6 +10,10 @@ const props = defineProps({
     type: String,
     default: '1px',
   },
+  placeholderClass: {
+    type: String,
+    default: '',
+  },
   targetId: {
     type: String,
     default: undefined,
@@ -63,6 +67,7 @@ onBeforeUnmount(() => observer?.disconnect());
   <div
     :id="targetId"
     ref="container"
+    :class="!shouldRender ? placeholderClass : undefined"
     :style="shouldRender ? undefined : { minHeight }"
   >
     <slot v-if="shouldRender" />

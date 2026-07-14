@@ -54,9 +54,9 @@ const scrollGithubChartToRecent = () => {
         alt="Historique global des contributions GitHub de Valentin Fiess"
         width="720"
         height="86"
-        loading="lazy"
+        loading="eager"
         decoding="async"
-        fetchpriority="low"
+        fetchpriority="high"
         @load="scrollGithubChartToRecent"
         class="h-auto w-[720px] max-w-none opacity-90 sm:w-full"
       />
