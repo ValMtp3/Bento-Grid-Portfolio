@@ -81,7 +81,12 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
     <DeferredRender :eager="targetSectionIndex >= 1" min-height="440px" target-id="experience">
       <ExperienceComponent />
     </DeferredRender>
-    <DeferredRender :eager="targetSectionIndex >= 2" min-height="440px" target-id="formation">
+    <DeferredRender
+      :eager="targetSectionIndex >= 2"
+      min-height="620px"
+      placeholder-class="md:min-h-[300px] lg:min-h-[180px]"
+      target-id="formation"
+    >
       <FormationComponent />
     </DeferredRender>
     <DeferredRender :eager="targetSectionIndex >= 3" min-height="420px" target-id="competences">
