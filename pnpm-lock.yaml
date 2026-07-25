@@ -24,8 +24,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
       markstream-vue:
-        specifier: 1.0.5-beta.4
-        version: 1.0.5-beta.4(vue@3.5.40(typescript@5.9.3))
+        specifier: 1.0.7
+        version: 1.0.7(vue@3.5.40(typescript@5.9.3))
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.40(typescript@5.9.3))
@@ -692,15 +692,16 @@ packages:
   markstream-core@1.0.3:
     resolution: {integrity: sha512-QXn+yERo1q+RD6YlGDW61zc/af65uhkQEH3K8YvEKkprHbgRJ/JIeBeEQjELCTyBnPoxqtKQ7I565rylY+PePg==}
 
-  markstream-vue@1.0.5-beta.4:
-    resolution: {integrity: sha512-RLOFELFFprku1TLawhGYlZ06QTY+N6/LYbEGy1M75dz6Tq7t6JgNTzbPQKHWkpyO3Guu4dlZkk4Nu1J20Nj+Ow==}
+  markstream-vue@1.0.7:
+    resolution: {integrity: sha512-88UVoAH34jh/BXGUVYtK8t+Tw9JETbHhRVF2DwBAIE8r8W6MO27xRADotHpz1Qn34Mas6XRW6NmqvzwwjtvciQ==}
     peerDependencies:
       '@antv/infographic': ^0.2.3
       '@terrastruct/d2': '>=0.1.33'
       katex: '>=0.16.22'
       mermaid: '>=11'
+      stream-diffs: '>=0.0.2'
       stream-markdown: '>=0.0.16'
-      stream-monaco: '>=0.0.45'
+      stream-monaco: '>=0.0.48'
       vue: '>=3.0.0'
       vue-i18n: '>=9'
     peerDependenciesMeta:
@@ -711,6 +712,8 @@ packages:
       katex:
         optional: true
       mermaid:
+        optional: true
+      stream-diffs:
         optional: true
       stream-markdown:
         optional: true
@@ -804,8 +807,8 @@ packages:
     resolution: {integrity: sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ==}
     engines: {node: '>=0.10.0'}
 
-  stream-markdown-parser@1.0.9:
-    resolution: {integrity: sha512-uqf2F7DMBxc2JCWv9QyrzFNWQpzLF8zIH0BuLgA5LKv2jRbF+VJ9Dqz7LyRToJilAnns7PTud5XbsaSmIcjZ6Q==}
+  stream-markdown-parser@1.1.4:
+    resolution: {integrity: sha512-fjkHUh7uIOH5Yp/kt26l2td+q/4sRusMFO4iB0d+GcWj40ZZuH+HxxiLxGeSD1oo8YdyapokzHOfchDIYFnNgg==}
 
   superjson@2.2.6:
     resolution: {integrity: sha512-H+ue8Zo4vJmV2nRjpx86P35lzwDT3nItnIsocgumgr0hHMQ+ZGq5vrERg9kJBo5AWGmxZDhzDo+WVIJqkB0cGA==}
@@ -1506,12 +1509,12 @@ snapshots:
 
   markstream-core@1.0.3: {}
 
-  markstream-vue@1.0.5-beta.4(vue@3.5.40(typescript@5.9.3)):
+  markstream-vue@1.0.7(vue@3.5.40(typescript@5.9.3)):
     dependencies:
       '@chenglou/pretext': 0.0.8
       '@floating-ui/dom': 1.8.0
       markstream-core: 1.0.3
-      stream-markdown-parser: 1.0.9
+      stream-markdown-parser: 1.1.4
       vue: 3.5.40(typescript@5.9.3)
 
   mdurl@2.1.0: {}
@@ -1601,7 +1604,7 @@ snapshots:
 
   speakingurl@14.0.1: {}
 
-  stream-markdown-parser@1.0.9:
+  stream-markdown-parser@1.1.4:
     dependencies:
       markdown-it-container: 4.0.0
       markdown-it-footnote: 4.0.0
