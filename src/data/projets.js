@@ -245,3 +245,18 @@ export const projets = [
     technos: ['HTML', 'CSS'],
   },
 ];
+
+// Libelle du lien et action Matomo deduits de l'hebergeur du projet, partages
+// entre le carrousel de la page d'accueil et la page /projets.
+export const getProjectLinkLabel = (project) => {
+  if (project.linkLabel) return project.linkLabel;
+  if (project.src.includes('github.com')) return 'Voir le dépôt';
+  if (project.src.includes('huggingface.co')) return 'Tester la démo';
+  return 'Découvrir le projet';
+};
+
+export const getProjectAnalyticsAction = (project) => {
+  if (project.src.includes('github.com')) return 'open_repository';
+  if (project.src.includes('huggingface.co')) return 'open_demo';
+  return 'open_project';
+};

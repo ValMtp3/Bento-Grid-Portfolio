@@ -136,7 +136,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, nextTick, computed, defineAsyncComponent } from 'vue';
-import { loadTurnstile } from '@/turnstile';
+import { renderTurnstile } from '@/turnstile';
 import { trackMatomoEvent } from '@/matomo';
 
 const MarkdownRender = defineAsyncComponent(() => import('markstream-vue'));
@@ -161,42 +161,11 @@ const hasTrackedFirstMessage = ref(false);
 const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
 const CHATBOT_API_URL = `${SPACE_URL}/gradio_api/call/generate_response`;
 const CHATBOT_TIMEOUT_MS = 90000;
-const isLocal = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || 
-   window.location.hostname === '127.0.0.1' || 
-   window.location.hostname.startsWith('192.168.'));
 
-const TURNSTILE_SITE_KEY = isLocal 
-  ? '1x00000000000000000000AA' 
-  : (import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY');
-
-onMounted(async () => {
+onMounted(() => {
   void scrollToBottom();
-  initTurnstile();
+  void renderTurnstile(turnstileContainer, turnstileToken);
 });
-
-const initTurnstile = async () => {
-  try {
-    const turnstile = await loadTurnstile();
-    if (turnstileContainer.value) {
-      turnstile.render(turnstileContainer.value, {
-        sitekey: TURNSTILE_SITE_KEY,
-        theme: 'auto',
-        callback: (token) => {
-          turnstileToken.value = token;
-        },
-        'expired-callback': () => {
-          turnstileToken.value = null;
-        },
-        'error-callback': () => {
-          turnstileToken.value = null;
-        },
-      });
-    }
-  } catch (error) {
-    console.warn('Turnstile:', error.message);
-  }
-};
 
 // Format attendu par le Space : [[user_msg1, bot_msg1], ...]
 const history = computed(() => {

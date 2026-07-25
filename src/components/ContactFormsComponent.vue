@@ -2,21 +2,12 @@
 import { onMounted, ref, watch } from 'vue';
 import emailjs from '@emailjs/browser';
 import Cookies from 'js-cookie';
-import { loadTurnstile } from '@/turnstile';
+import { renderTurnstile } from '@/turnstile';
 import SectionHeading from './SectionHeading.vue';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const apikey = import.meta.env.VITE_EMAILJS_API;
-const isLocal =
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname.startsWith('192.168.'));
-
-const TURNSTILE_SITE_KEY = isLocal
-  ? '1x00000000000000000000AA'
-  : import.meta.env.VITE_TURNSTILE_SITE_KEY || 'YOUR_SITE_KEY';
 
 const formSubmitted = ref(false);
 const isSubmitting = ref(false);
@@ -30,75 +21,46 @@ const errors = ref({});
 const turnstileToken = ref(null);
 const turnstileContainer = ref(null);
 
+// Champs du formulaire indexes par nom : sert a la fois a la validation, a la
+// persistance en cookie et au payload EmailJS, pour n'avoir qu'une seule liste.
+const isFilled = (value) => Boolean(value);
+const fields = {
+  name: { model: name, error: 'Le nom est requis.', isValid: isFilled },
+  email: {
+    model: email,
+    error: 'Un email valide est requis.',
+    isValid: (value) => Boolean(value) && /\S[^\s@]*@\S+\.\S+/.test(value),
+  },
+  subject: { model: subject, error: 'Le sujet est requis.', isValid: isFilled },
+  message: { model: message, error: 'Le message est requis.', isValid: isFilled },
+};
+const cookieKey = (field) => `form_${field}`;
+
 const validateForm = () => {
   errors.value = {};
-  if (!name.value) errors.value.name = 'Le nom est requis.';
-  if (!email.value || !/\S[^\s@]*@\S+\.\S+/.test(email.value))
-    errors.value.email = 'Un email valide est requis.';
-  if (!subject.value) errors.value.subject = 'Le sujet est requis.';
-  if (!message.value) errors.value.message = 'Le message est requis.';
+  for (const [field, { model, error, isValid }] of Object.entries(fields)) {
+    if (!isValid(model.value)) errors.value[field] = error;
+  }
   return Object.keys(errors.value).length === 0;
 };
 
-const saveToCookie = (key, value) => {
-  Cookies.set(key, value, {
-    expires: 1 / 12,
-    sameSite: 'Strict',
-    secure: location.protocol === 'https:',
-  });
-};
-
 const clearFormCookies = () => {
-  Cookies.remove('form_name');
-  Cookies.remove('form_email');
-  Cookies.remove('form_subject');
-  Cookies.remove('form_message');
-};
-
-const loadFromCookie = (key, defaultValue) => {
-  return Cookies.get(key) || defaultValue;
-};
-
-const setupFormPersistence = () => {
-  watch(name, (newValue) => {
-    saveToCookie('form_name', newValue);
-  });
-  watch(email, (newValue) => saveToCookie('form_email', newValue));
-  watch(subject, (newValue) => saveToCookie('form_subject', newValue));
-  watch(message, (newValue) => saveToCookie('form_message', newValue));
+  Object.keys(fields).forEach((field) => Cookies.remove(cookieKey(field)));
 };
 
 onMounted(() => {
-  name.value = loadFromCookie('form_name', '');
-  email.value = loadFromCookie('form_email', '');
-  subject.value = loadFromCookie('form_subject', '');
-  message.value = loadFromCookie('form_message', '');
-  setupFormPersistence();
-  initTurnstile();
-});
-
-const initTurnstile = async () => {
-  try {
-    const turnstile = await loadTurnstile();
-    if (turnstileContainer.value) {
-      turnstile.render(turnstileContainer.value, {
-        sitekey: TURNSTILE_SITE_KEY,
-        theme: 'auto',
-        callback: (token) => {
-          turnstileToken.value = token;
-        },
-        'expired-callback': () => {
-          turnstileToken.value = null;
-        },
-        'error-callback': () => {
-          turnstileToken.value = null;
-        },
+  for (const [field, { model }] of Object.entries(fields)) {
+    model.value = Cookies.get(cookieKey(field)) || '';
+    watch(model, (value) => {
+      Cookies.set(cookieKey(field), value, {
+        expires: 1 / 12,
+        sameSite: 'Strict',
+        secure: location.protocol === 'https:',
       });
-    }
-  } catch (error) {
-    console.warn('Turnstile:', error.message);
+    });
   }
-};
+  void renderTurnstile(turnstileContainer, turnstileToken);
+});
 
 const onSubmit = async () => {
   if (!turnstileToken.value) {
@@ -111,28 +73,21 @@ const onSubmit = async () => {
   }
   errorMessage.value = '';
   isSubmitting.value = true;
-  await sendFeedback(serviceId, templateId, {
-    name: sanitizeInput(name.value),
-    email: sanitizeInput(email.value),
-    subject: sanitizeInput(subject.value),
-    message: sanitizeInput(message.value),
-  });
-};
 
-const sendFeedback = async (serviceId, templateId, variables) => {
+  const variables = Object.fromEntries(
+    Object.entries(fields).map(([field, { model }]) => [field, model.value.trim()]),
+  );
+
   try {
     await emailjs.send(serviceId, templateId, variables, apikey);
-      formSubmitted.value = true;
-      clearFormCookies();
+    formSubmitted.value = true;
+    clearFormCookies();
   } catch (err) {
-      console.error("Erreur d'envoi EmailJS", err);
-      errorMessage.value = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+    console.error("Erreur d'envoi EmailJS", err);
+    errorMessage.value = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
   } finally {
     isSubmitting.value = false;
   }
-};
-const sanitizeInput = (input) => {
-  return input.trim();
 };
 </script>
 
@@ -140,94 +95,84 @@ const sanitizeInput = (input) => {
   <section class="bento-cell p-6">
     <SectionHeading index="06" label="Contact" title="Me contacter" />
     <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
-      <div class="mb-3">
-        <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
-          for="name"
-        >
-          Prénom Nom :
-        </label>
-        <input
-          id="name"
-          v-model="name"
-          :required="name === ''"
-          class="w-full rounded-md mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
-          name="name"
-          placeholder="Prénom Nom"
-          type="text"
-          :aria-invalid="Boolean(errors.name)"
-          :aria-describedby="errors.name ? 'name-error' : undefined"
-        />
-        <span v-if="errors.name" id="name-error" role="alert" class="text-spicy-paprika-700 dark:text-spicy-paprika-300">{{ errors.name }}</span>
-      </div>
-      <div class="mb-3">
-        <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
-          for="email"
-        >
-          Adresse Mail
-        </label>
-        <input
-          id="email"
-          v-model="email"
-          :required="email === ''"
-          class="w-full rounded-md mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
-          name="email"
-          placeholder="example@domain.com"
-          type="email"
-          :aria-invalid="Boolean(errors.email)"
-          :aria-describedby="errors.email ? 'email-error' : undefined"
-        />
-        <span v-if="errors.email" id="email-error" role="alert" class="text-spicy-paprika-700 dark:text-spicy-paprika-300">{{ errors.email }}</span>
-      </div>
-      <div class="mb-3">
-        <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
-          for="subject"
-        >
-          Sujet
-        </label>
-        <input
-          id="subject"
-          v-model="subject"
-          :required="subject === ''"
-          class="w-full rounded-md mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
-          name="subject"
-          placeholder="Entrer votre sujet"
-          type="text"
-          :aria-invalid="Boolean(errors.subject)"
-          :aria-describedby="errors.subject ? 'subject-error' : undefined"
-        />
-        <span v-if="errors.subject" id="subject-error" role="alert" class="text-spicy-paprika-700 dark:text-spicy-paprika-300">{{ errors.subject }}</span>
-      </div>
-      <div class="mb-3">
-        <label
-          class="mb-1 block text-base font-medium text-regal-navy-700 dark:text-regal-navy-300 font-semibold"
-          for="message"
-        >
-          Message
-        </label>
-        <textarea
-          id="message"
-          v-model="message"
-          :required="message === ''"
-          class="w-full resize-none rounded-md mt-2 border border-coffee-bean-200 dark:border-coffee-bean-700 bg-soft-blush-50 dark:bg-coffee-bean-900/60 py-3 px-6 text-base font-medium text-coffee-bean-600 dark:text-soft-blush-200 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md"
-          name="message"
-          placeholder="Entrer votre message"
-          rows="4"
-          :aria-invalid="Boolean(errors.message)"
-          :aria-describedby="errors.message ? 'message-error' : undefined"
-        ></textarea>
-        <span v-if="errors.message" id="message-error" role="alert" class="text-spicy-paprika-700 dark:text-spicy-paprika-300">{{ errors.message }}</span>
-      </div>
-      <!-- Widget Turnstile et Sceau Homard -->
-      <div class="mb-4 flex flex-col items-center justify-center min-h-[50px]">
-        <div ref="turnstileContainer" v-show="!turnstileToken"></div>
+      <div class="grid grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2">
+        <div>
+          <label class="form-label" for="name">Prénom Nom</label>
+          <input
+            id="name"
+            v-model="name"
+            :required="name === ''"
+            class="form-field"
+            name="name"
+            placeholder="Prénom Nom"
+            type="text"
+            :aria-invalid="Boolean(errors.name)"
+            :aria-describedby="errors.name ? 'name-error' : undefined"
+          />
+          <span v-if="errors.name" id="name-error" role="alert" class="form-error">{{
+            errors.name
+          }}</span>
+        </div>
+        <div>
+          <label class="form-label" for="email">Adresse mail</label>
+          <input
+            id="email"
+            v-model="email"
+            :required="email === ''"
+            class="form-field"
+            name="email"
+            placeholder="example@domain.com"
+            type="email"
+            :aria-invalid="Boolean(errors.email)"
+            :aria-describedby="errors.email ? 'email-error' : undefined"
+          />
+          <span v-if="errors.email" id="email-error" role="alert" class="form-error">{{
+            errors.email
+          }}</span>
+        </div>
+        <div class="md:col-span-2">
+          <label class="form-label" for="subject">Sujet</label>
+          <input
+            id="subject"
+            v-model="subject"
+            :required="subject === ''"
+            class="form-field"
+            name="subject"
+            placeholder="Entrer votre sujet"
+            type="text"
+            :aria-invalid="Boolean(errors.subject)"
+            :aria-describedby="errors.subject ? 'subject-error' : undefined"
+          />
+          <span v-if="errors.subject" id="subject-error" role="alert" class="form-error">{{
+            errors.subject
+          }}</span>
+        </div>
+        <div class="md:col-span-2">
+          <label class="form-label" for="message">Message</label>
+          <textarea
+            id="message"
+            v-model="message"
+            :required="message === ''"
+            class="form-field resize-none"
+            name="message"
+            placeholder="Entrer votre message"
+            rows="5"
+            :aria-invalid="Boolean(errors.message)"
+            :aria-describedby="errors.message ? 'message-error' : undefined"
+          ></textarea>
+          <span v-if="errors.message" id="message-error" role="alert" class="form-error">{{
+            errors.message
+          }}</span>
+        </div>
       </div>
 
-      <div class="flex justify-center">
+      <!-- Widget Turnstile et Sceau Homard -->
+      <div
+        class="mt-5 flex flex-col items-start gap-4 border-t border-coffee-bean-200/60 pt-5 dark:border-soft-blush-50/10 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div ref="turnstileContainer" v-show="!turnstileToken" class="min-h-[50px]"></div>
         <button
-          class="hover:shadow-form rounded-none bg-spicy-paprika-500 hover:bg-spicy-paprika-600 transition-colors duration-300 py-3 px-8 text-base font-semibold text-soft-blush-50 outline-none font-code disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full rounded-none bg-spicy-paprika-500 px-8 py-3 font-code text-base font-semibold text-soft-blush-50 outline-none transition-colors duration-300 hover:bg-spicy-paprika-600 disabled:cursor-not-allowed disabled:opacity-50 sm:ml-auto sm:w-auto"
           type="submit"
           :disabled="!turnstileToken || isSubmitting"
           :aria-busy="isSubmitting"

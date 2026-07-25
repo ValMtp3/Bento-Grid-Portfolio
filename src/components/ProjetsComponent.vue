@@ -1,5 +1,10 @@
 <script setup>
-import { projets } from '@/data/projets.js';
+import { ref } from 'vue';
+import {
+  getProjectAnalyticsAction,
+  getProjectLinkLabel,
+  projets,
+} from '@/data/projets.js';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -10,17 +15,13 @@ import { trackMatomoEvent } from '@/matomo';
 
 const featuredProjets = projets.slice(0, 6);
 
-const getProjectLinkLabel = (project) => {
-  if (project.linkLabel) return project.linkLabel;
-  if (project.src.includes('github.com')) return 'Voir le dépôt';
-  if (project.src.includes('huggingface.co')) return 'Tester la démo';
-  return 'Découvrir le projet';
-};
-
-const getProjectAnalyticsAction = (project) => {
-  if (project.src.includes('github.com')) return 'open_repository';
-  if (project.src.includes('huggingface.co')) return 'open_demo';
-  return 'open_project';
+// Le fondu ne doit apparaitre que du cote ou il reste des projets a atteindre :
+// affiche d'entree, il donnerait l'impression d'une carte deja tronquee.
+const atStart = ref(true);
+const atEnd = ref(false);
+const updateFadeEdges = (swiper) => {
+  atStart.value = swiper.isBeginning;
+  atEnd.value = swiper.isEnd;
 };
 </script>
 
@@ -38,7 +39,16 @@ const getProjectAnalyticsAction = (project) => {
         640: { slidesPerView: 2.2, spaceBetween: 20 },
         1024: { slidesPerView: 3, spaceBetween: 24 },
       }"
-      class="pb-12"
+      class="slider-fade pb-12"
+      :style="{
+        '--slider-fade-start': atStart ? '0px' : undefined,
+        '--slider-fade-end': atEnd ? '0px' : undefined,
+      }"
+      @swiper="updateFadeEdges"
+      @progress="updateFadeEdges"
+      @slide-change="updateFadeEdges"
+      @resize="updateFadeEdges"
+      @breakpoint="updateFadeEdges"
     >
       <SwiperSlide
         v-for="(project, index) in featuredProjets"
@@ -80,7 +90,7 @@ const getProjectAnalyticsAction = (project) => {
               <span
                 v-for="techno in project.technos.slice(0, 3)"
                 :key="techno"
-                class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-0.5 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
+                class="tag tag-navy py-0.5"
               >
                 {{ techno }}
               </span>

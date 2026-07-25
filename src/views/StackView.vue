@@ -1,157 +1,92 @@
 <script setup>
-import { useMeta } from 'vue-meta';
+// Les balises meta de la page sont appliquees par App.vue depuis router/index.js.
+import DocSection from '@/components/include/DocSection.vue';
 
-// Meta tags pour la page Stack
-useMeta({
-  title: 'Stack Technique | Valentin Fiess - Outils & Technologies',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Découvrez ma stack technique complète : IDE, frameworks, outils de développement et technologies utilisées par Valentin Fiess, développeur web et IA.',
-    },
-    {
-      name: 'keywords',
-      content:
-        'stack technique, outils développement, IDE, WebStorm, PyCharm, Vue.js, Tailwind CSS, Valentin Fiess, technologies développeur',
-    },
-    { property: 'og:title', content: 'Stack Technique | Valentin Fiess - Outils & Technologies' },
-    {
-      property: 'og:description',
-      content:
-        'Découvrez ma stack technique complète : IDE, frameworks et outils de développement.',
-    },
-    { property: 'og:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/VueJS.webp' },
-    { property: 'og:url', content: 'https://www.valentin-fiess.fr/stack' },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Stack Technique | Valentin Fiess - Outils & Technologies' },
-    {
-      name: 'twitter:description',
-      content: 'Découvrez ma stack technique complète et mes outils de développement.',
-    },
-    { name: 'twitter:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/VueJS.webp' },
-    { name: 'author', content: 'Valentin Fiess' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'language', content: 'fr-FR' },
-  ],
-});
+const stack = [
+  {
+    title: 'Matériel',
+    items: [
+      { label: 'Ordinateur', value: 'MacBook Air M1 2020, 13", 8 Go de RAM, 256 Go de stockage' },
+      { label: 'Écrans externes', value: 'Écrans externe ARZOPA FullHD' },
+    ],
+  },
+  {
+    title: "Système d'exploitation",
+    items: [{ label: 'OS', value: 'macOS Sonoma 14.0' }],
+  },
+  {
+    title: 'Navigateur',
+    items: [{ label: 'Navigateur', value: 'Arc, Brave' }],
+  },
+  {
+    title: 'IDE',
+    items: [
+      { label: 'IDE principaux', value: 'WebStorm, PhpStorm, PyCharm (suite IntelliJ)' },
+      { label: 'Pour les retouches rapides', value: 'CursorAI' },
+    ],
+  },
+  {
+    title: 'Plugins IDE',
+    items: [{ label: 'Plugin', value: 'GitHub Copilot' }],
+  },
+  {
+    title: 'Versioning',
+    items: [
+      { label: 'Outil de versioning', value: 'GitHub' },
+      { label: 'Client', value: 'GitHub Desktop' },
+    ],
+  },
+  {
+    title: 'Gestion de projet',
+    items: [{ label: 'Outils', value: 'Linear, Notion, Trello' }],
+  },
+  {
+    title: 'Communication',
+    items: [{ label: 'Outils', value: 'Discord, Zoom, Microsoft Teams, Slack, Telegram' }],
+  },
+  {
+    title: 'Déploiement',
+    items: [{ label: 'Outils', value: 'Cyberduck ( FTP), Docker, Cloudflare, Plesk' }],
+  },
+  {
+    title: 'Statistique',
+    items: [{ label: 'Outils', value: 'Google analytics, Semrush' }],
+  },
+  {
+    title: 'Framework CSS',
+    items: [{ label: 'Outil', value: 'Tailwind CSS' }],
+  },
+  {
+    title: 'Intelligence Artificielle',
+    items: [{ label: 'Outils', value: 'ChatGPT, Mistral' }],
+  },
+  {
+    title: 'Design',
+    items: [{ label: 'Outil', value: 'Figma' }],
+  },
+  {
+    title: 'Outils de productivité',
+    items: [{ label: 'Outils', value: 'Notion, Raycast' }],
+  },
+  {
+    title: 'Virtualisation',
+    items: [{ label: 'Outil', value: 'Parallels Desktop' }],
+  },
+];
 </script>
 
 <template>
   <div class="text-gray-800 dark:text-soft-blush-200">
     <div class="container mx-auto p-6">
-      <h1 class="text-3xl font-bold mb-6 text-center dark:text-soft-blush-50">Ma Stack Développement</h1>
+      <h1 class="text-3xl font-bold mb-6 text-center dark:text-soft-blush-50">
+        Ma Stack Développement
+      </h1>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Matériel</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>
-            <strong>Ordinateur :</strong> MacBook Air M1 2020, 13", 8 Go de RAM, 256 Go de stockage
-          </p>
-          <p><strong>Écrans externes :</strong> Écrans externe ARZOPA FullHD</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Système d'exploitation</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>OS :</strong> macOS Sonoma 14.0</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Navigateur</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Navigateur :</strong> Arc, Brave</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">IDE</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>IDE principaux :</strong> WebStorm, PhpStorm, PyCharm (suite IntelliJ)</p>
-          <p><strong>Pour les retouches rapides :</strong> CursorAI</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Plugins IDE</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Plugin :</strong> GitHub Copilot</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Versioning</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outil de versioning :</strong> GitHub</p>
-          <p><strong>Client :</strong> GitHub Desktop</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Gestion de projet</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> Linear, Notion, Trello</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Communication</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> Discord, Zoom, Microsoft Teams, Slack, Telegram</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Déploiement</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> Cyberduck ( FTP), Docker, Cloudflare, Plesk</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Statistique</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> Google analytics, Semrush</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Framework CSS</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outil :</strong> Tailwind CSS</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Intelligence Artificielle</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> ChatGPT, Mistral</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Design</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outil :</strong> Figma</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Outils de productivité</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outils :</strong> Notion, Raycast</p>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold mb-2 dark:text-soft-blush-50">Virtualisation</h2>
-      <div class="bg-white dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Outil :</strong> Parallels Desktop</p>
-        </div>
-      </section>
+      <DocSection v-for="section in stack" :key="section.title" :title="section.title">
+        <p v-for="item in section.items" :key="item.label">
+          <strong>{{ item.label }} :</strong> {{ item.value }}
+        </p>
+      </DocSection>
     </div>
   </div>
 </template>

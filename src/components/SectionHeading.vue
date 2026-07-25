@@ -8,7 +8,9 @@ defineProps({
 </script>
 
 <template>
-  <header class="mb-5 text-center sm:mb-6">
+  <header
+    class="mb-5 border-b border-coffee-bean-200/70 pb-3 dark:border-soft-blush-50/10 sm:mb-6"
+  >
     <p
       class="mb-1 font-code text-[10px] font-semibold uppercase tracking-[0.2em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
     >

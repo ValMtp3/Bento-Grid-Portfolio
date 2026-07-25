@@ -9,6 +9,15 @@ const ALLOWED_QUERY_PARAMETERS = new Set([
   'utm_term',
 ]);
 const SCROLL_MILESTONES = [50, 90];
+const PAGE_TYPES = {
+  '/': 'home',
+  '/projets': 'projects',
+  '/chatbot': 'chatbot',
+  '/stack': 'stack',
+  '/legal': 'legal',
+  '/policy': 'privacy_policy',
+  '/justice': 'justice',
+};
 
 function getQueue() {
   window._paq = window._paq || [];
@@ -30,17 +39,8 @@ function getSafeUrl(path) {
 }
 
 function getPageType(path) {
-  const pathname = new URL(path, window.location.origin).pathname;
-  const pageTypes = {
-    '/': 'home',
-    '/projets': 'projects',
-    '/chatbot': 'chatbot',
-    '/stack': 'stack',
-    '/legal': 'legal',
-    '/policy': 'privacy_policy',
-    '/justice': 'justice',
-  };
-  return pageTypes[pathname] || 'not_found';
+  const { pathname } = new URL(path, window.location.origin);
+  return PAGE_TYPES[pathname] || 'not_found';
 }
 
 export function trackMatomoEvent(category, action, name) {

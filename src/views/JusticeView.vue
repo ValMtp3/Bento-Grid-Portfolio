@@ -1,18 +1,11 @@
 <script setup>
-import { useMeta } from 'vue-meta';
-
-useMeta({
-  title: 'Pièces justificatives',
-  meta: [
-    { name: 'robots', content: 'noindex, nofollow' },
-  ],
-});
-
-const imageModules = import.meta.glob(
-  '@/assets/justice/*.{jpg,jpeg,png,webp,gif,svg}',
-  { eager: true, import: 'default' },
+// Titre et robots noindex sont appliques par App.vue depuis router/index.js.
+const images = Object.values(
+  import.meta.glob('@/assets/justice/*.{jpg,jpeg,png,webp,gif,svg}', {
+    eager: true,
+    import: 'default',
+  }),
 );
-const images = Object.values(imageModules);
 </script>
 
 <template>

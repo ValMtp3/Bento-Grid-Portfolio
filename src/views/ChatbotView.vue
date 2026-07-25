@@ -14,43 +14,6 @@
 </template>
 
 <script setup>
+// Les balises meta de la page sont appliquees par App.vue depuis router/index.js.
 import ChatInterface from '@/components/ChatInterface.vue';
-import { useMeta } from 'vue-meta';
-
-useMeta({
-  title: 'Chatbot IA | Valentin Fiess - Assistant Intelligent',
-  meta: [
-    {
-      name: 'description',
-      content:
-        "Discutez avec le chatbot IA de Valentin Fiess. Un assistant intelligent connecté à mon CV pour répondre à vos questions sur mes compétences, projets et parcours.",
-    },
-    {
-      name: 'keywords',
-      content:
-        'chatbot IA, assistant intelligent, Valentin Fiess, RAG, Mistral, intelligence artificielle, CV interactif',
-    },
-    { property: 'og:title', content: 'Chatbot IA | Valentin Fiess - Assistant Intelligent' },
-    {
-      property: 'og:description',
-      content:
-        "Discutez avec le chatbot IA de Valentin Fiess, connecté à son CV pour répondre à vos questions.",
-    },
-    { property: 'og:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp' },
-    { property: 'og:url', content: 'https://www.valentin-fiess.fr/chatbot' },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Chatbot IA | Valentin Fiess - Assistant Intelligent' },
-    {
-      name: 'twitter:description',
-      content: "Discutez avec le chatbot IA de Valentin Fiess.",
-    },
-    { name: 'twitter:image', content: 'https://www.valentin-fiess.fr/assets/assets_index/Profile.webp' },
-    { name: 'author', content: 'Valentin Fiess' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'language', content: 'fr-FR' },
-  ],
-});
 </script>
-
-<style scoped></style>
