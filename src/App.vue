@@ -18,26 +18,21 @@ watch(
       link.rel = 'canonical';
       document.head.appendChild(link);
     }
-    link.href = `https://www.valentin-fiess.fr${route.path === '/' ? '/' : route.path}`;
+    link.href = `https://valentin-fiess.fr${route.path === '/' ? '/' : route.path}`;
 
     document.title = route.meta.title;
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.content = route.meta.description;
 
-    const robots = document.querySelector('meta[name="robots"]');
-    if (robots) robots.content = route.meta.robots || 'index, follow';
-
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.content = link.href;
-
-    const socialMeta = [
+    const metaTags = [
+      ['meta[name="description"]', route.meta.description],
+      ['meta[name="robots"]', route.meta.robots || 'index, follow'],
       ['meta[property="og:title"]', route.meta.title],
       ['meta[property="og:description"]', route.meta.description],
+      ['meta[property="og:url"]', link.href],
       ['meta[name="twitter:title"]', route.meta.title],
       ['meta[name="twitter:description"]', route.meta.description],
       ['meta[property="twitter:url"]', link.href],
     ];
-    socialMeta.forEach(([selector, content]) => {
+    metaTags.forEach(([selector, content]) => {
       const meta = document.querySelector(selector);
       if (meta) meta.content = content;
     });

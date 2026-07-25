@@ -3,14 +3,14 @@
 > Portfolio professionnel de Valentin Fiess, développeur Data et intelligence artificielle spécialisé en RAG, automatisation, Python, MLOps et applications web.
 
 Langue principale : français
-URL canonique : https://www.valentin-fiess.fr/
+URL canonique : https://valentin-fiess.fr/
 
 ## Pages principales
 
-- [Accueil](https://www.valentin-fiess.fr/) : présentation, expérience, formation, compétences et contact.
-- [Projets](https://www.valentin-fiess.fr/projets) : réalisations Data, IA, automatisation et développement web.
-- [Stack technique](https://www.valentin-fiess.fr/stack) : technologies et outils maîtrisés.
-- [Assistant IA](https://www.valentin-fiess.fr/chatbot) : chatbot permettant d'interroger le parcours professionnel.
+- [Accueil](https://valentin-fiess.fr/) : présentation, expérience, formation, compétences et contact.
+- [Projets](https://valentin-fiess.fr/projets) : réalisations Data, IA, automatisation et développement web.
+- [Stack technique](https://valentin-fiess.fr/stack) : technologies et outils maîtrisés.
+- [Assistant IA](https://valentin-fiess.fr/chatbot) : chatbot permettant d'interroger le parcours professionnel.
 
 ## Profils officiels
 
@@ -19,8 +19,8 @@ URL canonique : https://www.valentin-fiess.fr/
 
 ## Informations complémentaires
 
-- [Mentions légales](https://www.valentin-fiess.fr/legal)
-- [Politique de confidentialité](https://www.valentin-fiess.fr/policy)
-- [Sitemap XML](https://www.valentin-fiess.fr/sitemap.xml)
+- [Mentions légales](https://valentin-fiess.fr/legal)
+- [Politique de confidentialité](https://valentin-fiess.fr/policy)
+- [Sitemap XML](https://valentin-fiess.fr/sitemap.xml)
 
 Le contenu peut être indexé pour la recherche, utilisé comme référence ou comme entrée d'un système d'IA, et servir à l'entraînement ou au fine-tuning de modèles.

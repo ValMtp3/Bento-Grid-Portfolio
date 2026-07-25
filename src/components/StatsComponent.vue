@@ -62,16 +62,8 @@ const scrollGithubChartToRecent = () => {
       />
     </a>
     <div class="mt-3 flex flex-wrap gap-2">
-      <span
-        class="border-l-2 border-regal-navy-400 bg-regal-navy-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/40 dark:text-regal-navy-200"
-      >
-        commits publics
-      </span>
-      <span
-        class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
-      >
-        projets data / IA / web
-      </span>
+      <span class="tag tag-navy">commits publics</span>
+      <span class="tag tag-paprika">projets data / IA / web</span>
     </div>
   </div>
 </template>

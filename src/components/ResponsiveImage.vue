@@ -1,4 +1,10 @@
 <script setup>
+import { computed } from 'vue';
+
+// Largeurs generees par image_processor.go dans public/assets/assets_index/<w>/.
+const WIDTHS = [360, 400, 640, 800, 1200, 1400];
+const FALLBACK_WIDTH = 640;
+
 const props = defineProps({
   src: {
     type: String,
@@ -31,28 +37,32 @@ const props = defineProps({
   },
 });
 
-const getResponsiveSrc = (src, size) => {
-  if (!src) return '';
-  if (src.endsWith('.svg') || src.startsWith('data:') || !src.includes('assets_index')) {
-    return src;
-  }
-  const path = src.substring(0, src.lastIndexOf('/'));
-  let filename = src.substring(src.lastIndexOf('/') + 1);
-  const lastDot = filename.lastIndexOf('.');
-  if (lastDot !== -1) {
-    filename = filename.substring(0, lastDot) + '.webp';
-  }
-  return `${path}/${size}/${encodeURIComponent(filename)}`;
+// Seules les images passees par le pipeline de redimensionnement ont des
+// declinaisons : SVG, data-URI et URLs externes sont servis tels quels.
+const hasVariants = computed(
+  () =>
+    !props.src.endsWith('.svg') &&
+    !props.src.startsWith('data:') &&
+    props.src.includes('assets_index'),
+);
+
+const variantUrl = (width) => {
+  const segments = props.src.split('/');
+  const filename = segments.pop().replace(/\.[^.]*$/, '.webp');
+  return [...segments, width, encodeURIComponent(filename)].join('/');
 };
 
-const srcset = (props.src.endsWith('.svg') || props.src.startsWith('data:') || !props.src.includes('assets_index'))
-  ? undefined
-  : `${getResponsiveSrc(props.src, 360)} 360w, ${getResponsiveSrc(props.src, 400)} 400w, ${getResponsiveSrc(props.src, 640)} 640w, ${getResponsiveSrc(props.src, 800)} 800w, ${getResponsiveSrc(props.src, 1200)} 1200w, ${getResponsiveSrc(props.src, 1400)} 1400w`;
+const resolvedSrc = computed(() => (hasVariants.value ? variantUrl(FALLBACK_WIDTH) : props.src));
+const srcset = computed(() =>
+  hasVariants.value
+    ? WIDTHS.map((width) => `${variantUrl(width)} ${width}w`).join(', ')
+    : undefined,
+);
 </script>
 
 <template>
   <img
-    :src="getResponsiveSrc(src, 640)"
+    :src="resolvedSrc"
     :srcset="srcset"
     :sizes="sizes"
     :alt="alt"

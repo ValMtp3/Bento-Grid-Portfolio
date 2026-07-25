@@ -50,26 +50,10 @@ import { trackMatomoEvent } from '@/matomo';
         </div>
       </div>
       <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2">
-        <span
-          class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-1.5 text-center font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
-        >
-          IA / MLOps
-        </span>
-        <span
-          class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1.5 text-center font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
-        >
-          Data
-        </span>
-        <span
-          class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1.5 text-center font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
-        >
-          Python
-        </span>
-        <span
-          class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1.5 text-center font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
-        >
-          RAG
-        </span>
+        <span class="tag tag-navy py-1.5 text-center">IA / MLOps</span>
+        <span class="tag tag-paprika py-1.5 text-center">Data</span>
+        <span class="tag tag-paprika py-1.5 text-center">Python</span>
+        <span class="tag tag-paprika py-1.5 text-center">RAG</span>
       </div>
     </div>
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center">

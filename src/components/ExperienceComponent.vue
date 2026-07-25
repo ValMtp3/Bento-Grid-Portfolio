@@ -11,14 +11,6 @@ const experiences = [
     skills: ['Webflow', 'SEO', 'WebP'],
   },
   {
-    year: 'Mai 2024 – Juin 2024',
-    title: 'Développeur Web',
-    company: 'From_Scratch, Distanciel',
-    detail:
-      "Participation au développement de sites pour une agence web, de l'intégration front-end aux adaptations PHP selon les besoins des projets.",
-    skills: ['HTML / CSS', 'PHP'],
-  },
-  {
     year: 'Sept 2024 – Sept 2025',
     title: 'Développeur IA',
     company: 'R2D automation, Clapiers',
@@ -27,12 +19,20 @@ const experiences = [
     skills: ['OCR', 'Computer vision', 'Contrôle qualité'],
   },
   {
-    year: 'Mars 2026 – Mai 2026',
+    year: 'Février 2026 – Juillet 2026',
     title: 'Fondateur / Développeur IA',
     company: 'Raguia, Montpellier',
     detail:
       "Développement d'un assistant RAG sécurisé avec ingestion documentaire, recherche sémantique, permissions utilisateurs et architecture conteneurisée.",
     skills: ['FastAPI', 'PostgreSQL / PGVector', 'React', 'Docker'],
+  },
+  {
+    year: 'Juillet 2026 – Présent',
+    title: 'Développeur Data/IA',
+    company: 'Shaarp, Montpellier',
+    detail:
+      "Amélioration des pipelines data et IA d'une application SaaS IA pour commerciaux : optimisation des flux de données, sélection et mise à jour des modèles LLM et amélioration continue de la stack MLOps.",
+    skills: ['API', 'LLM', 'MLOps', 'TypeScript', 'Data'],
     featured: true,
   },
 ];
@@ -68,7 +68,7 @@ const experiences = [
           <span
             v-for="skill in exp.skills"
             :key="skill"
-            class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
+            class="tag tag-navy"
           >
             {{ skill }}
           </span>

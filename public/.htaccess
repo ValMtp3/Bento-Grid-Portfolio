@@ -1,5 +1,5 @@
 # Sécurité et performances pour le portfolio Valentin Fiess
-# https://www.valentin-fiess.fr
+# https://valentin-fiess.fr
 
 # Encodage explicite pour les pages et ressources texte destinées aux crawlers.
 AddDefaultCharset UTF-8
@@ -14,7 +14,7 @@ RewriteRule ^$ llms.txt [END]
 
 # Redirige tout vers index.html sauf si le fichier existe.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
-RewriteRule ^index\.html$ https://www.valentin-fiess.fr/ [R=301,L]
+RewriteRule ^index\.html$ https://valentin-fiess.fr/ [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]

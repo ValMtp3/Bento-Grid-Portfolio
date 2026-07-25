@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { getScrollBehavior } from '@/scroll';
 
 const HomeView = () => import('@/views/HomeView.vue');
 const LegalView = () => import('@/views/LegalView.vue');
@@ -62,14 +63,9 @@ const router = createRouter({
     },
   ],
   scrollBehavior(to, from, savedPosition) {
-    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'auto'
-      : 'smooth';
+    const behavior = getScrollBehavior();
     if (to.hash) {
-      return {
-        el: to.hash,
-        behavior,
-      };
+      return { el: to.hash, behavior };
     }
     if (savedPosition) {
       return savedPosition;

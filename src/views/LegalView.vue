@@ -1,97 +1,74 @@
-<script setup></script>
+<script setup>
+// Les balises meta de la page sont appliquees par App.vue depuis router/index.js.
+import DocSection from '@/components/include/DocSection.vue';
+</script>
 
 <template>
   <div class="text-coffee-bean-800 dark:text-soft-blush-200">
     <div class="container mx-auto p-6">
       <h1 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">Mentions Légales</h1>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Identité du propriétaire du site</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Nom :</strong> Valentin Fiess</p>
-          <p><strong>Adresse :</strong> 34470 Pérols</p>
-          <p>
-            <strong>Email :</strong>
-            <a href="mailto:sobre.05.statue@icloud.com" class="text-regal-navy-500"
-              >sobre.05.statue@icloud.com</a
-            >
-          </p>
-        </div>
-      </section>
+      <DocSection title="Identité du propriétaire du site" tone="blush">
+        <p><strong>Nom :</strong> Valentin Fiess</p>
+        <p><strong>Adresse :</strong> 34470 Pérols</p>
+        <p>
+          <strong>Email :</strong>
+          <a href="mailto:sobre.05.statue@icloud.com" class="text-regal-navy-500"
+            >sobre.05.statue@icloud.com</a
+          >
+        </p>
+      </DocSection>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Responsable de la publication</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Responsable :</strong> Valentin Fiess</p>
-        </div>
-      </section>
+      <DocSection title="Responsable de la publication" tone="blush">
+        <p><strong>Responsable :</strong> Valentin Fiess</p>
+      </DocSection>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Hébergeur du site</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p><strong>Nom :</strong> PIVATEHEBERG via ANCELADE</p>
-          <p><strong>Adresse :</strong> 128 rue de la Boétie, 75008 Paris</p>
-          <p>
-            <strong>Email :</strong>
-            <a href="mailto:contact@ancelade.com" class="text-regal-navy-500"
-              >contact@ancelade.com</a
-            >
-          </p>
-        </div>
-      </section>
+      <DocSection title="Hébergeur du site" tone="blush">
+        <p><strong>Nom :</strong> PIVATEHEBERG via ANCELADE</p>
+        <p><strong>Adresse :</strong> 128 rue de la Boétie, 75008 Paris</p>
+        <p>
+          <strong>Email :</strong>
+          <a href="mailto:contact@ancelade.com" class="text-regal-navy-500">contact@ancelade.com</a>
+        </p>
+      </DocSection>
 
       <h2 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">
         Conditions Générales d'Utilisation (CGU)
       </h2>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Objet des CGU</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>
-            Le site a pour objectif de présenter le portfolio, le profil, les projets et les
-            connaissances de Valentin Fiess, ainsi que de fournir un moyen de le contacter.
-          </p>
-        </div>
-      </section>
+      <DocSection title="Objet des CGU" tone="blush">
+        <p>
+          Le site a pour objectif de présenter le portfolio, le profil, les projets et les
+          connaissances de Valentin Fiess, ainsi que de fournir un moyen de le contacter.
+        </p>
+      </DocSection>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Accès au site</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>L'accès au site est libre.</p>
-        </div>
-      </section>
+      <DocSection title="Accès au site" tone="blush">
+        <p>L'accès au site est libre.</p>
+      </DocSection>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Propriété intellectuelle</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>
-            Toutes les images non libres de droit, les marques d'entreprises et les langages
-            utilisés sur le site sont protégés par des droits d'auteur.
-          </p>
-        </div>
-      </section>
+      <DocSection title="Propriété intellectuelle" tone="blush">
+        <p>
+          Toutes les images non libres de droit, les marques d'entreprises et les langages utilisés
+          sur le site sont protégés par des droits d'auteur.
+        </p>
+      </DocSection>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Modifications des CGU</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>
-            Valentin Fiess se réserve le droit de modifier les CGU sans informer les utilisateurs
-            individuellement.
-          </p>
-        </div>
-      </section>
+      <DocSection title="Modifications des CGU" tone="blush">
+        <p>
+          Valentin Fiess se réserve le droit de modifier les CGU sans informer les utilisateurs
+          individuellement.
+        </p>
+      </DocSection>
 
       <h2 class="text-3xl font-bold font-heading mb-6 text-center dark:text-soft-blush-50">Autres informations</h2>
 
-      <section class="mb-10">
-        <h2 class="text-2xl font-semibold font-heading mb-2 dark:text-soft-blush-50">Litiges et droit applicable</h2>
-      <div class="bg-soft-blush-50 dark:bg-coffee-bean-900/60 dark:border dark:border-coffee-bean-800/40 p-4 shadow rounded-xl">
-          <p>
-            En cas de litige, le droit applicable sera le droit français, et les tribunaux
-            compétents seront ceux de la cour d'appel de Paris.
-          </p>
-        </div>
-      </section>
+      <DocSection title="Litiges et droit applicable" tone="blush">
+        <p>
+          En cas de litige, le droit applicable sera le droit français, et les tribunaux compétents
+          seront ceux de la cour d'appel de Paris.
+        </p>
+      </DocSection>
     </div>
   </div>
 </template>

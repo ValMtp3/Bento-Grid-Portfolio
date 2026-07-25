@@ -64,47 +64,36 @@
   </div>
 </template>
 
-<script>
-import { defineAsyncComponent, nextTick } from 'vue';
+<script setup>
+import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { trackMatomoEvent } from '@/matomo';
 
 const ChatInterface = defineAsyncComponent(() => import('./ChatInterface.vue'));
 
-export default {
-  name: 'ChatbotWidget',
-  components: {
-    ChatInterface,
-  },
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  methods: {
-    async openChatbot() {
-      this.isOpen = true;
-      trackMatomoEvent('chatbot', 'open', 'widget');
-      await nextTick();
-      this.$refs.closeButton?.focus();
-    },
+const isOpen = ref(false);
+const triggerButton = ref(null);
+const closeButton = ref(null);
 
-    async closeChatbot() {
-      this.isOpen = false;
-      await nextTick();
-      this.$refs.triggerButton?.focus();
-    },
-
-    handleKeydown(event) {
-      if (event.key === 'Escape' && this.isOpen) this.closeChatbot();
-    },
-  },
-  mounted() {
-    document.addEventListener('keydown', this.handleKeydown);
-  },
-  beforeUnmount() {
-    document.removeEventListener('keydown', this.handleKeydown);
-  },
+// Le focus suit l'ouverture puis revient sur le declencheur a la fermeture.
+const openChatbot = async () => {
+  isOpen.value = true;
+  trackMatomoEvent('chatbot', 'open', 'widget');
+  await nextTick();
+  closeButton.value?.focus();
 };
+
+const closeChatbot = async () => {
+  isOpen.value = false;
+  await nextTick();
+  triggerButton.value?.focus();
+};
+
+const handleKeydown = (event) => {
+  if (event.key === 'Escape' && isOpen.value) void closeChatbot();
+};
+
+onMounted(() => document.addEventListener('keydown', handleKeydown));
+onBeforeUnmount(() => document.removeEventListener('keydown', handleKeydown));
 </script>
 
 <style scoped>

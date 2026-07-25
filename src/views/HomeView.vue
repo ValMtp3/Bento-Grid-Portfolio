@@ -6,6 +6,7 @@ import ContactComponent from '@/components/ContactComponent.vue';
 import StatusComponent from '@/components/StatusComponent.vue';
 import StatsComponent from '@/components/StatsComponent.vue';
 import DeferredRender from '@/components/DeferredRender.vue';
+import { getScrollBehavior } from '@/scroll';
 
 const EntrepriseComponent = defineAsyncComponent(() => import('@/components/EntrepriseComponent.vue'));
 const ExperienceComponent = defineAsyncComponent(() => import('@/components/ExperienceComponent.vue'));
@@ -32,30 +33,22 @@ const scrollToHashWhenReady = async (hash) => {
 
   await nextTick();
 
+  // Toutes les sections situees avant la cible doivent etre montees, sinon la
+  // cible se deplacerait encore pendant le defilement.
   const requiredSections = sectionOrder.slice(0, targetIndex + 1);
-  const finishScroll = () => {
-    const allMounted = requiredSections.every((id) =>
-      document.querySelector(`#${id} > section`),
-    );
-    if (!allMounted) return;
+  const tryScroll = () => {
+    if (!requiredSections.every((id) => document.querySelector(`#${id} > section`))) return false;
 
     sectionObserver?.disconnect();
     sectionObserver = undefined;
-    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'auto'
-      : 'smooth';
-    document.getElementById(targetId)?.scrollIntoView({ behavior });
+    document.getElementById(targetId)?.scrollIntoView({ behavior: getScrollBehavior() });
+    return true;
   };
 
-  finishScroll();
-  if (sectionObserver || requiredSections.every((id) => document.querySelector(`#${id} > section`))) {
-    return;
-  }
+  if (tryScroll() || !homeContent.value) return;
 
-  sectionObserver = new MutationObserver(finishScroll);
-  if (homeContent.value) {
-    sectionObserver.observe(homeContent.value, { childList: true, subtree: true });
-  }
+  sectionObserver = new MutationObserver(tryScroll);
+  sectionObserver.observe(homeContent.value, { childList: true, subtree: true });
 };
 
 watch(

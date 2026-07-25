@@ -9,6 +9,7 @@ pizzaoplomo
 Profile
 ProSwipe
 R2D automation
+SHAARP_logo
 sportandgreen
 to-do-go
 Valentin_Fiess

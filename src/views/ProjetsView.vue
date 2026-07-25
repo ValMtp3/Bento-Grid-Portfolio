@@ -1,21 +1,12 @@
 <script setup>
-import { projets } from '@/data/projets.js';
+import {
+  getProjectAnalyticsAction,
+  getProjectLinkLabel,
+  projets,
+} from '@/data/projets.js';
 import ResponsiveImage from '@/components/ResponsiveImage.vue';
 import SectionHeading from '@/components/SectionHeading.vue';
 import { trackMatomoEvent } from '@/matomo';
-
-const getProjectLinkLabel = (project) => {
-  if (project.linkLabel) return project.linkLabel;
-  if (project.src.includes('github.com')) return 'Voir le dépôt';
-  if (project.src.includes('huggingface.co')) return 'Tester la démo';
-  return 'Découvrir le projet';
-};
-
-const getProjectAnalyticsAction = (project) => {
-  if (project.src.includes('github.com')) return 'open_repository';
-  if (project.src.includes('huggingface.co')) return 'open_demo';
-  return 'open_project';
-};
 </script>
 
 <template>
@@ -41,14 +32,10 @@ const getProjectAnalyticsAction = (project) => {
           sizes="(max-width: 639px) calc(100vw - 72px), (max-width: 767px) calc(100vw - 96px), (max-width: 1279px) calc(50vw - 82px), 550px"
         />
         <div class="mb-3 flex flex-wrap gap-2">
-          <span
-            class="border-l-2 border-spicy-paprika-400 bg-spicy-paprika-50/80 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/40 dark:text-spicy-paprika-200"
-          >
+          <span class="tag tag-paprika">
             {{ proj.team }}
           </span>
-          <time
-            class="border-l-2 border-regal-navy-400 bg-regal-navy-50/60 px-2 py-1 font-code text-[10px] uppercase tracking-wide text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/30 dark:text-regal-navy-200"
-          >
+          <time class="tag tag-navy">
             {{ proj.date }}
           </time>
         </div>
