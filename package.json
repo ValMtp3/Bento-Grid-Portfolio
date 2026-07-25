@@ -21,7 +21,7 @@
     "pinia": "^3.0.4",
     "swiper": "^12.2.0",
     "vue": "^3.5.40",
-    "vue-router": "^4.6.4"
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
