@@ -5,3 +5,7 @@ allowBuilds:
 ignoredBuiltDependencies:
   - esbuild
   - vue-demi
+overrides:
+  '@vue/devtools-api': 8.1.5
+  '@vue/devtools-kit': 8.1.5
+  '@vue/devtools-shared': 8.1.5
