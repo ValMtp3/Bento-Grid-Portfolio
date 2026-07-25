@@ -19,7 +19,7 @@
     "js-cookie": "^3.0.8",
     "markstream-vue": "1.0.5-beta.4",
     "pinia": "^3.0.4",
-    "swiper": "^12.2.0",
+    "swiper": "^14.0.6",
     "vue": "^3.5.40",
     "vue-router": "^4.6.4"
   },
