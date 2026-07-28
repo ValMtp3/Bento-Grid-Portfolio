@@ -1,11 +1,14 @@
 <script setup>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
 import ResponsiveImage from './ResponsiveImage.vue';
+import SectionHeading from './SectionHeading.vue';
 
 const entreprise = [
+  {
+    alt: 'Logo SHAARP',
+    image: '/assets/assets_index/SHAARP_logo.webp',
+    name: 'Shaarp',
+    role: 'Développeur Data/IA',
+  },
   {
     alt: 'Logo Capgemini',
     image: '/assets/assets_index/capgemini.webp',
@@ -37,69 +40,116 @@ const entreprise = [
     role: 'Licence Développeur Data/IA',
   },
 ];
+
+// Le bandeau est un marquee CSS et non un carrousel Swiper : avec 6 slides pour
+// 4 visibles, le mode loop de Swiper ne calculait qu'un slide de boucle et le
+// defilement se figeait au premier rebouclage. Une animation CSS defile sans
+// rebouclage a calculer, et s'interrompt reellement au survol via
+// animation-play-state. La piste contient deux copies de la liste : l'animation
+// se translate de -50%, donc la seconde copie prend exactement la place de la
+// premiere et la boucle est invisible. La copie est masquee aux lecteurs d'ecran.
+const marqueeSlides = [...entreprise, ...entreprise];
 </script>
 
 <template>
   <!-- ═══ entreprise Section ═══ -->
-  <section id="entreprises">
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-4 text-center"
-    >
-      Entreprises
-    </h2>
-    <Swiper
-      :modules="[Pagination]"
-      :pagination="{ clickable: true }"
-      :space-between="12"
-      :slides-per-view="1.35"
-      :breakpoints="{
-        640: { slidesPerView: 2.6, spaceBetween: 14 },
-        1024: { slidesPerView: 4, spaceBetween: 16 },
-      }"
-      class="entreprise-swiper pb-2"
-    >
-      <SwiperSlide v-for="client in entreprise" :key="client.name" class="h-auto py-2">
-        <div class="bento-cell p-4 flex flex-col items-center text-center h-full justify-between">
-          <div class="flex flex-col items-center">
-            <ResponsiveImage
-              :alt="client.alt"
-              :src="client.image"
-              :title="client.name"
-              class="w-20 h-16 md:w-24 md:h-20 object-contain mb-3"
-              loading="lazy"
-            />
-            <p class="font-heading font-bold text-sm text-coffee-bean-950 dark:text-soft-blush-50">
-              {{ client.name }}
-            </p>
-          </div>
-          <span
-            class="inline-block mt-2 text-[11px] font-code text-soft-blush-50 bg-spicy-paprika-500 px-2 py-0.5"
+  <section>
+    <SectionHeading index="01" label="Réseau" title="Entreprises" />
+    <div class="marquee slider-fade lg:[--slider-fade-edge:56px]">
+      <ul class="marquee-track">
+        <li
+          v-for="(client, index) in marqueeSlides"
+          :key="`${client.name}-${index}`"
+          :aria-hidden="index >= entreprise.length ? 'true' : undefined"
+          class="marquee-item"
+        >
+          <div
+            class="brand-logo-card bento-cell p-3 flex flex-col items-center text-center h-full justify-between"
           >
-            {{ client.role }}
-          </span>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+            <div class="flex w-full flex-col items-center">
+              <!-- Plaque uniforme : absorbe les fonds blancs ou colores deja incrustes
+                   dans certains logos, pour que la rangee se lise comme un seul systeme. -->
+              <div
+                class="mb-2 flex h-14 w-full items-center justify-center rounded-md bg-white px-3 md:h-16"
+              >
+                <ResponsiveImage
+                  :alt="client.alt"
+                  :src="client.image"
+                  :title="client.name"
+                  class="brand-logo max-h-9 w-auto max-w-full object-contain md:max-h-11"
+                  loading="lazy"
+                  sizes="(max-width: 767px) 64px, 80px"
+                />
+              </div>
+              <p
+                class="font-heading font-bold text-sm text-coffee-bean-950 dark:text-soft-blush-50"
+              >
+                {{ client.name }}
+              </p>
+            </div>
+            <span class="tag tag-paprika mt-1.5 py-0.5">
+              {{ client.role }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
 
 <style scoped>
-:deep(.swiper-slide) {
-  height: auto;
+.marquee {
+  /* Vitesse du defilement : duree d'un passage complet des 6 entreprises.
+     Augmenter la valeur ralentit le bandeau, la diminuer l'accelere. */
+  --marquee-duration: 30s;
+  overflow: hidden;
 }
-:deep(.swiper-pagination) {
-  position: static;
-  margin-top: 10px;
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: marquee-scroll var(--marquee-duration) linear infinite;
 }
-:deep(.swiper-pagination-bullet) {
-  background-color: var(--color-coffee-bean-300, #db6b3e);
-  opacity: 0.4;
-  transition: all 0.3s ease;
+
+/* Pas de gap sur la piste : l'ecart est porte par les items, sinon la
+   translation de -50% laisse un demi-espacement de decalage a chaque cycle. */
+.marquee-item {
+  flex: 0 0 auto;
+  width: 13rem;
+  padding: 0.5rem 0;
+  margin-right: 0.75rem;
 }
-:deep(.swiper-pagination-bullet-active) {
-  background-color: var(--color-spicy-paprika-500, #e4501b) !important;
-  opacity: 1;
-  width: 20px;
-  border-radius: 4px;
+
+@media (min-width: 1024px) {
+  .marquee-item {
+    width: 15rem;
+    margin-right: 1rem;
+  }
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
 }
 </style>

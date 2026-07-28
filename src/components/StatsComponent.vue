@@ -1,11 +1,9 @@
 <script setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const githubChartContainer = ref(null);
 
-const scrollGithubChartToRecent = async () => {
-  await nextTick();
-
+const scrollGithubChartToRecent = () => {
   requestAnimationFrame(() => {
     const container = githubChartContainer.value;
 
@@ -18,8 +16,6 @@ const scrollGithubChartToRecent = async () => {
     }
   });
 };
-
-onMounted(scrollGithubChartToRecent);
 </script>
 
 <template>
@@ -66,16 +62,8 @@ onMounted(scrollGithubChartToRecent);
       />
     </a>
     <div class="mt-3 flex flex-wrap gap-2">
-      <span
-        class="font-code text-[11px] px-2 py-1 border border-regal-navy-200 dark:border-regal-navy-800 text-regal-navy-700 dark:text-regal-navy-200 bg-regal-navy-50/80 dark:bg-regal-navy-950/40"
-      >
-        commits publics
-      </span>
-      <span
-        class="font-code text-[11px] px-2 py-1 border border-coffee-bean-100 dark:border-soft-blush-50/10 text-coffee-bean-700 dark:text-soft-blush-200 bg-soft-blush-100/70 dark:bg-coffee-bean-950/30"
-      >
-        projets data / IA / web
-      </span>
+      <span class="tag tag-navy">commits publics</span>
+      <span class="tag tag-paprika">projets data / IA / web</span>
     </div>
   </div>
 </template>

@@ -13,17 +13,6 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('vue')) return 'vendor-vue';
-            if (id.includes('marked') || id.includes('dompurify')) return 'vendor-chat';
-            if (id.includes('swiper')) return 'vendor-swiper';
-            return 'vendor';
-          }
-        },
-      },
-    },
+    chunkSizeWarningLimit: 1000,
   },
 });

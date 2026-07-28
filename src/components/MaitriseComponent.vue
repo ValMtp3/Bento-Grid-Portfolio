@@ -1,116 +1,89 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import SectionHeading from './SectionHeading.vue';
 
-const aiSkills = [
-  { name: 'Python', icon: 'tabler:brand-python' },
-  { name: 'PyTorch', icon: 'simple-icons:pytorch' },
-  { name: 'TensorFlow', icon: 'simple-icons:tensorflow' },
-  { name: 'Scikit-Learn', icon: 'simple-icons:scikitlearn' },
-  { name: 'Pandas', icon: 'simple-icons:pandas' },
-  { name: 'Transformers', icon: 'simple-icons:huggingface' },
-];
-
-const webSkills = [
-  { name: 'HTML', icon: 'tabler:brand-html5' },
-  { name: 'Tailwind', icon: 'tabler:brand-tailwind' },
-  { name: 'VueJS', icon: 'tabler:brand-vue' },
-  { name: 'React', icon: 'tabler:brand-react' },
-  { name: 'Go', icon: 'tabler:brand-golang' },
-  { name: 'SQL', icon: 'tabler:database' },
-  { name: 'NoSQL', icon: 'tabler:database-share' },
-  { name: 'API', icon: 'tabler:api' },
-  { name: 'FastAPI', icon: 'simple-icons:fastapi' },
-  { name: 'n8n', icon: 'simple-icons:n8n' },
-];
-
-const devopsSkills = [
-  { name: 'Git', icon: 'tabler:brand-git' },
-  { name: 'Docker', icon: 'tabler:brand-docker' },
-  { name: 'Cloudflare', icon: 'tabler:brand-cloudflare' },
-  { name: 'OVH', icon: 'simple-icons:ovh' },
+// Les trois cartes partagent exactement la meme structure : seuls le titre, sa
+// couleur, la couleur de survol des icones et le nombre de colonnes changent.
+// Les classes sont ecrites en clair pour rester detectables par Tailwind.
+const skillGroups = [
+  {
+    title: 'Data & IA',
+    titleClass: 'text-emerald-700 dark:text-emerald-400',
+    iconHoverClass: 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
+    columnsClass: 'grid-cols-3',
+    skills: [
+      { name: 'Python', icon: 'simple-icons:python' },
+      { name: 'PyTorch', icon: 'simple-icons:pytorch' },
+      { name: 'TensorFlow', icon: 'simple-icons:tensorflow' },
+      { name: 'Scikit-Learn', icon: 'simple-icons:scikitlearn' },
+      { name: 'Pandas', icon: 'simple-icons:pandas' },
+      { name: 'Transformers', icon: 'simple-icons:huggingface' },
+      { name: 'OpenAI API', icon: 'simple-icons:openai' },
+      { name: 'RAG', icon: 'mdi:database-search' },
+      { name: 'Mistral', icon: 'simple-icons:mistralai' },
+      { name: 'n8n', icon: 'simple-icons:n8n' },
+      { name: 'NLP', icon: 'mdi:message-processing-outline' },
+      { name: 'Vision par ordinateur', icon: 'mdi:eye-outline' },
+      { name: 'Agents IA', icon: 'mdi:robot-outline' },
+    ],
+  },
+  {
+    title: 'Web & Automation',
+    titleClass: 'text-spicy-paprika-700 dark:text-spicy-paprika-400',
+    iconHoverClass: 'group-hover:text-spicy-paprika-600 dark:group-hover:text-spicy-paprika-400',
+    columnsClass: 'grid-cols-3',
+    skills: [
+      { name: 'HTML', icon: 'simple-icons:html5' },
+      { name: 'Tailwind', icon: 'simple-icons:tailwindcss' },
+      { name: 'VueJS', icon: 'simple-icons:vuedotjs' },
+      { name: 'React', icon: 'simple-icons:react' },
+      { name: 'Go', icon: 'simple-icons:go' },
+      { name: 'PostgreSQL', icon: 'simple-icons:postgresql' },
+      { name: 'MongoDB', icon: 'simple-icons:mongodb' },
+      { name: 'API', icon: 'simple-icons:openapiinitiative' },
+      { name: 'FastAPI', icon: 'simple-icons:fastapi' },
+    ],
+  },
+  {
+    title: 'MLOps & DevOps',
+    titleClass: 'text-regal-navy-600 dark:text-regal-navy-400',
+    iconHoverClass: 'group-hover:text-regal-navy-500 dark:group-hover:text-regal-navy-400',
+    columnsClass: 'grid-cols-2',
+    skills: [
+      { name: 'Git', icon: 'simple-icons:git' },
+      { name: 'Docker', icon: 'simple-icons:docker' },
+      { name: 'Cloudflare', icon: 'simple-icons:cloudflare' },
+      { name: 'OVH', icon: 'simple-icons:ovh' },
+      { name: 'Cryptographie', icon: 'mdi:shield-check' },
+    ],
+  },
 ];
 </script>
 
 <template>
   <!-- ═══ Skills Section ═══ -->
-  <section id="competences">
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-6 text-center"
-    >
-      Compétences
-    </h2>
+  <section>
+    <SectionHeading index="04" label="Expertise" title="Compétences" />
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Data & IA -->
-      <div class="bento-cell p-6 flex flex-col justify-between">
+      <div
+        v-for="group in skillGroups"
+        :key="group.title"
+        class="bento-cell p-6 flex flex-col justify-between"
+      >
         <div>
-          <h3
-            class="font-heading font-bold text-lg text-spicy-paprika-600 dark:text-spicy-paprika-400 mb-4"
-          >
-            Data & IA
+          <h3 class="font-heading font-bold text-lg mb-4" :class="group.titleClass">
+            {{ group.title }}
           </h3>
-          <div class="grid grid-cols-3 gap-3">
+          <div class="grid gap-3" :class="group.columnsClass">
             <div
-              v-for="skill in aiSkills"
+              v-for="skill in group.skills"
               :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
+              class="flex flex-col items-center justify-center p-3 rounded-md bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
             >
               <Icon
                 :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-spicy-paprika-500 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
-              />
-              <span
-                class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"
-                >{{ skill.name }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Web & Automation -->
-      <div class="bento-cell p-6 flex flex-col justify-between">
-        <div>
-          <h3
-            class="font-heading font-bold text-lg text-regal-navy-600 dark:text-regal-navy-400 mb-4"
-          >
-            Web & Automation
-          </h3>
-          <div class="grid grid-cols-3 gap-3">
-            <div
-              v-for="skill in webSkills"
-              :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
-            >
-              <Icon
-                :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-regal-navy-500 dark:group-hover:text-regal-navy-400 transition-colors duration-300"
-              />
-              <span
-                class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"
-                >{{ skill.name }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MLOps & DevOps -->
-      <div class="bento-cell p-6 flex flex-col justify-between">
-        <div>
-          <h3
-            class="font-heading font-bold text-lg text-coffee-bean-600 dark:text-coffee-bean-400 mb-4"
-          >
-            MLOps & DevOps
-          </h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div
-              v-for="skill in devopsSkills"
-              :key="skill.name"
-              class="flex flex-col items-center justify-center p-3 rounded-xl bg-soft-blush-100/20 dark:bg-coffee-bean-900/30 border border-coffee-bean-100/10 dark:border-coffee-bean-800/20 hover:bg-white dark:hover:bg-coffee-bean-900 hover:scale-105 hover:shadow-md transition-all duration-300 group cursor-default"
-            >
-              <Icon
-                :icon="skill.icon"
-                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 group-hover:text-coffee-bean-500 dark:group-hover:text-spicy-paprika-400 transition-colors duration-300"
+                class="w-8 h-8 text-coffee-bean-600 dark:text-soft-blush-400 transition-colors duration-300"
+                :class="group.iconHoverClass"
               />
               <span
                 class="text-[10px] font-code text-coffee-bean-700 dark:text-soft-blush-300 text-center mt-2 font-medium"
