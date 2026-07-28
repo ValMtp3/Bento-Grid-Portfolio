@@ -7,7 +7,6 @@ const stack = [
     title: 'Matériel',
     items: [
       { label: 'Ordinateur', value: 'MacBook Air M4' },
-      { label: 'Écrans externes', value: 'Écrans externe ARZOPA FullHD' },
     ],
   },
   {

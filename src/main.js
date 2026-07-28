@@ -9,13 +9,15 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
-import { initMatomo } from './matomo';
 
 const app = createApp(App);
 
 app.use(router);
 app.use(createPinia());
-initMatomo(router);
+
+import('./matomo')
+  .then(({ initMatomo }) => initMatomo(router))
+  .catch(() => {});
 
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {
