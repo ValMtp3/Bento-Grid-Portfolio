@@ -1,10 +1,4 @@
-# Préférences d'usage du contenu pour les moteurs et systèmes d'IA.
-User-agent: *
-Content-Signal: ai-train=yes, search=yes, ai-input=yes
-Allow: /
-Disallow: /cgi-bin/
-
-# Robots indésirables ou non pertinents.
+# Bloque les robots indésirables ou non pertinents
 User-agent: baiduspider
 Disallow: /
 
@@ -17,4 +11,11 @@ Disallow: /
 User-agent: Barkrowler
 Disallow: /
 
-Sitemap: https://valentin-fiess.fr/sitemap.xml
+# Autorise tous les autres robots, sauf pour /cgi-bin/ et /justice/
+User-agent: *
+Disallow: /cgi-bin/
+Disallow: /justice/
+Allow: /
+
+# Emplacement du sitemap
+Sitemap: https://www.valentin-fiess.fr/sitemap.xml
