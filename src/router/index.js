@@ -56,6 +56,12 @@ const router = createRouter({
       meta: { title: 'Pièces justificatives | Valentin Fiess', description: 'Pièces justificatives.', robots: 'noindex, nofollow' },
     },
     {
+      path: '/justice',
+      name: 'justice',
+      component: JusticeView,
+      meta: { blankLayout: true },
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: NotFound,
