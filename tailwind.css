@@ -56,6 +56,19 @@
   --font-code: 'Intel One Mono', monospace;
 }
 
+/* Enregistrees pour que la largeur des fondus puisse etre animee : une variable
+   CSS non typee bascule d'un coup au lieu de se transitionner. */
+@property --slider-fade-start {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --slider-fade-end {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 @layer base {
   html,
   body {
@@ -64,6 +77,16 @@
     width: 100%;
     margin: 0;
     padding: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-spicy-paprika-500);
+    outline-offset: 3px;
   }
   h1,
   h2 {
@@ -83,6 +106,20 @@
   code {
     @apply font-code;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @utility bg-custom-gradient {
@@ -101,17 +138,74 @@
 
 @layer components {
   .bento-cell {
-    @apply bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20 backdrop-blur-[2px] transition-all duration-300;
+    @apply rounded-xl bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20 backdrop-blur-[2px] transition-all duration-300;
   }
   .bento-cell:hover {
-    @apply shadow-md;
+    @apply border-regal-navy-300 shadow-md dark:border-regal-navy-600;
   }
-  .mono-logo {
-    filter: grayscale(1) sepia(1) saturate(5) brightness(0.3);
-    transition: filter 0.3s;
+  /* Etiquettes techniques : fond assez contraste pour rester lisible sur une carte soft-blush-50. */
+  .tag {
+    @apply inline-block border-l-2 px-2 py-1 font-code text-[10px] uppercase tracking-wide;
   }
-  .mono-logo:hover {
-    filter: grayscale(1) sepia(1) saturate(5) brightness(0.45);
+  .tag-paprika {
+    @apply border-spicy-paprika-400 bg-spicy-paprika-100 text-spicy-paprika-700 dark:border-spicy-paprika-500 dark:bg-spicy-paprika-950/50 dark:text-spicy-paprika-200;
+  }
+  .tag-navy {
+    @apply border-regal-navy-400 bg-regal-navy-50 text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/50 dark:text-regal-navy-200;
   }
 
+  /* Fondu lateral commun a tous les carrousels : signale que le bandeau defile
+     au lieu de laisser une carte coupee net au bord. Les deux bords sont pilotes
+     separement pour qu'un carrousel non defile n'affiche pas de fondu du cote ou
+     il n'y a rien a atteindre : il suffit de passer le bord concerne a 0px. */
+  .slider-fade {
+    --slider-fade-edge: 16px;
+    --slider-fade-start: var(--slider-fade-edge);
+    --slider-fade-end: var(--slider-fade-edge);
+    transition:
+      --slider-fade-start 0.3s ease,
+      --slider-fade-end 0.3s ease;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--slider-fade-start),
+      #000 calc(100% - var(--slider-fade-end)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--slider-fade-start),
+      #000 calc(100% - var(--slider-fade-end)),
+      transparent 100%
+    );
+  }
+  @media (min-width: 1024px) {
+    .slider-fade {
+      --slider-fade-edge: 32px;
+    }
+  }
+
+  .form-label {
+    @apply mb-2 block text-sm font-semibold text-regal-navy-700 dark:text-regal-navy-300;
+  }
+  .form-field {
+    @apply w-full rounded-md border border-coffee-bean-200 bg-soft-blush-50 px-4 py-2.5 text-base text-coffee-bean-700 outline-none transition-colors placeholder:text-coffee-bean-400 focus:border-regal-navy-700 dark:border-coffee-bean-700 dark:bg-coffee-bean-900/60 dark:text-soft-blush-200 dark:placeholder:text-soft-blush-400/60 dark:focus:border-regal-navy-400;
+  }
+  .form-error {
+    @apply mt-1 block font-code text-xs text-spicy-paprika-700 dark:text-spicy-paprika-300;
+  }
+
+  /* Logos partenaires : monochrome au repos pour neutraliser des couleurs de marque
+     heterogenes ; couleur de marque restituee au survol. La plaque claire qui les
+     porte reste identique en clair et en sombre, sinon les logos a fond blanc
+     incruste ressortent differemment d'un theme a l'autre. */
+  .brand-logo {
+    filter: grayscale(1) opacity(0.85);
+    transition: filter 0.3s ease;
+  }
+  .brand-logo-card:hover .brand-logo,
+  .brand-logo-card:focus-within .brand-logo {
+    filter: grayscale(0) opacity(1);
+  }
 }

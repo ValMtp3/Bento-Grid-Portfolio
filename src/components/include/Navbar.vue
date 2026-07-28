@@ -61,7 +61,7 @@ const navLinks = [
         <div class="hidden md:block">
           <router-link
             to="/#contact"
-            class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-lg text-sm"
+            class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-sm"
           >
             CONTACT
           </router-link>
@@ -71,8 +71,10 @@ const navLinks = [
         <div class="md:hidden flex items-center">
           <button
             @click="toggleMenu"
-            class="text-coffee-bean-950 dark:text-soft-blush-50 p-2 hover:text-spicy-paprika-500 focus:outline-none"
-            aria-label="Toggle navigation menu"
+            class="flex min-h-11 min-w-11 items-center justify-center text-coffee-bean-950 dark:text-soft-blush-50 p-2 hover:text-spicy-paprika-500"
+            :aria-expanded="isMenuOpen"
+            aria-controls="mobile-navigation"
+            :aria-label="isMenuOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'"
           >
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
@@ -106,6 +108,7 @@ const navLinks = [
     >
       <div
         v-if="isMenuOpen"
+        id="mobile-navigation"
         class="md:hidden border-t border-coffee-bean-100/40 dark:border-coffee-bean-900/60 bg-soft-blush-50 dark:bg-coffee-bean-950 shadow-inner px-4 pt-2 pb-6 space-y-3"
       >
         <router-link
@@ -113,14 +116,14 @@ const navLinks = [
           :key="link.name"
           :to="link.to"
           @click="closeMenu"
-          class="block px-3 py-2.5 rounded-lg text-base font-heading font-medium text-coffee-bean-800 dark:text-soft-blush-200 hover:bg-soft-blush-100 dark:hover:bg-coffee-bean-900 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-all"
+          class="block px-3 py-2.5 rounded-md text-base font-heading font-medium text-coffee-bean-800 dark:text-soft-blush-200 hover:bg-soft-blush-100 dark:hover:bg-coffee-bean-900 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-all"
         >
           {{ link.name }}
         </router-link>
         <router-link
           to="/#contact"
           @click="closeMenu"
-          class="block text-center font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-4 py-3 shadow-md shadow-spicy-paprika-500/20 transition-all rounded-lg text-base mx-3"
+          class="block text-center font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-4 py-3 shadow-md shadow-spicy-paprika-500/20 transition-all rounded-none text-base mx-3"
         >
           CONTACT
         </router-link>

@@ -10,7 +10,7 @@
     </p>
     <router-link
       to="/"
-      class="px-6 py-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-colors"
+      class="px-6 py-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-none font-semibold shadow transition-colors"
     >
       Retour à l'accueil
     </router-link>
@@ -18,40 +18,10 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
-import { useMeta } from 'vue-meta';
+import { onMounted } from 'vue';
+import { trackMatomoEvent } from '@/matomo';
 
-// Meta tags pour la page 404
-useMeta({
-  title: 'Page non trouvée | Valentin Fiess',
-  meta: [
-    {
-      name: 'description',
-      content: "Oups ! La page que vous cherchez n'existe pas ou a été déplacée.",
-    },
-  ],
-});
-
-onMounted(() => {
-  const meta = document.createElement('meta');
-  meta.name = 'robots';
-  meta.content = 'noindex';
-  document.head.appendChild(meta);
-
-  // Tracking Matomo : Catégoriser comme erreur 404
-  if (window._paq) {
-    window._paq.push([
-      'setDocumentTitle',
-      '404/URL = ' + encodeURIComponent(window.location.pathname + window.location.search),
-    ]);
-    window._paq.push(['trackPageView']);
-  }
-});
-
-onUnmounted(() => {
-  const meta = document.querySelector('meta[name="robots"]');
-  if (meta) {
-    document.head.removeChild(meta);
-  }
-});
+// Titre, description et robots noindex sont appliques par App.vue depuis
+// router/index.js : la route NotFound porte deja meta.robots = 'noindex, nofollow'.
+onMounted(() => trackMatomoEvent('portfolio_error', 'not_found', 'route'));
 </script>

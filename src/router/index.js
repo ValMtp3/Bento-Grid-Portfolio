@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { getScrollBehavior } from '@/scroll';
 
 const HomeView = () => import('@/views/HomeView.vue');
 const LegalView = () => import('@/views/LegalView.vue');
@@ -16,31 +17,43 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { title: 'Valentin Fiess | Développeur Data & IA', description: 'Portfolio de Valentin Fiess, développeur Data et IA spécialisé en RAG, automatisation, Python et applications web. Découvrez ses projets et compétences.' },
     },
     {
       path: '/legal',
       name: 'legal',
       component: LegalView,
+      meta: { title: 'Mentions légales | Valentin Fiess', description: 'Mentions légales et conditions générales d’utilisation du portfolio de Valentin Fiess.' },
     },
     {
       path: '/stack',
       name: 'stack',
       component: StackView,
+      meta: { title: 'Stack technique | Valentin Fiess', description: 'Stack technique complète : développement agentique avec OpenCode, MCP, lean-ctx, ZED, infrastructure VPS OVH et outils IA.' },
     },
     {
       path: '/projets',
       name: 'projets',
       component: ProjetsView,
+      meta: { title: 'Projets Data, IA & Web | Valentin Fiess', description: 'Découvrez les projets Data, intelligence artificielle, automatisation et développement web réalisés par Valentin Fiess.' },
     },
     {
       path: '/policy',
       name: 'policy',
       component: PolicyView,
+      meta: { title: 'Politique de confidentialité | Valentin Fiess', description: 'Politique de confidentialité du portfolio de Valentin Fiess.' },
     },
     {
       path: '/chatbot',
       name: 'chatbot',
       component: ChatbotView,
+      meta: { title: 'Assistant IA | Valentin Fiess', description: 'Interrogez l\'assistant IA de Valentin Fiess sur son parcours, ses compétences et ses projets.' },
+    },
+    {
+      path: '/justice',
+      name: 'justice',
+      component: JusticeView,
+      meta: { title: 'Pièces justificatives | Valentin Fiess', description: 'Pièces justificatives.', robots: 'noindex, nofollow' },
     },
     {
       path: '/justice',
@@ -52,19 +65,18 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: NotFound,
+      meta: { title: 'Page non trouvée | Valentin Fiess', description: 'La page demandée est introuvable.', robots: 'noindex, nofollow' },
     },
   ],
   scrollBehavior(to, from, savedPosition) {
+    const behavior = getScrollBehavior();
     if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-      };
+      return { el: to.hash, behavior };
     }
     if (savedPosition) {
       return savedPosition;
     }
-    return { top: 0, behavior: 'smooth' };
+    return { top: 0, behavior };
   },
 });
 export default router;

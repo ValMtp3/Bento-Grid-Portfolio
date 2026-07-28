@@ -1,4 +1,6 @@
 <script setup>
+import SectionHeading from './SectionHeading.vue';
+
 const formations = [
   {
     year: '2018–2020',
@@ -23,25 +25,28 @@ const formations = [
     title: 'Licence Développeur Data/IA',
     school: 'EPSI Montpellier',
     detail: 'Diplômé — Développement & Big Data (RNCP Niv. 6)',
+    featured: true,
   },
 ];
 </script>
 
 <template>
   <!-- ═══ Formation Section ═══ -->
-  <section id="formation">
-    <h2
-      class="text-xl sm:text-2xl font-heading font-bold text-regal-navy-700 dark:text-regal-navy-300 mb-4 text-center"
-    >
-      Formation
-    </h2>
+  <section>
+    <SectionHeading index="03" label="Formation" title="Diplômes et certifications" />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div
         v-for="formation in formations"
         :key="formation.year"
         class="bento-cell p-5 flex flex-col"
       >
-        <span class="font-code text-sm text-spicy-paprika-500 mb-1">{{ formation.year }}</span>
+        <span
+          v-if="formation.featured"
+          class="mb-3 font-code text-[10px] uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
+        >
+          &gt; core degree
+        </span>
+        <span class="font-code text-sm text-regal-navy-600 dark:text-regal-navy-400 mb-1 font-semibold">{{ formation.year }}</span>
         <h3 class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50 mb-1">
           {{ formation.title }}
         </h3>

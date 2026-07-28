@@ -1,26 +1,21 @@
 <script setup>
-import { Icon } from '@iconify/vue';
+import { trackMatomoEvent } from '@/matomo';
 
 const links = [
   {
-    name: 'CV',
-    href: '/assets/assets_index/CV_Valentin_Fiess.pdf',
-    icon: 'tabler:file-cv',
-  },
-  {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/valentin-fiess/',
-    icon: 'tabler:brand-linkedin',
+    icon: '/assets/assets_index/Linkedin.svg',
   },
   {
     name: 'GitHub',
     href: 'https://www.github.com/ValMtp3',
-    icon: 'tabler:brand-github',
+    icon: '/assets/assets_index/Github.svg',
   },
   {
     name: 'Mail',
     href: 'mailto:fetes01pseudo@icloud.com',
-    icon: 'tabler:mail',
+    icon: '/assets/assets_index/mail.svg',
   },
 ];
 </script>
@@ -28,7 +23,7 @@ const links = [
 <template>
   <!-- Links Cell -->
   <div class="bento-cell p-6 h-full flex items-center justify-center">
-    <div class="grid grid-cols-4 gap-3 w-full max-w-md place-items-center">
+    <div class="grid grid-cols-3 gap-3 w-full max-w-md place-items-center">
       <a
         v-for="link in links"
         :key="link.name"
@@ -36,9 +31,23 @@ const links = [
         :title="link.name"
         target="_blank"
         rel="noopener noreferrer"
+        @click="trackMatomoEvent('portfolio_contact', `${link.name.toLowerCase()}_click`, 'home')"
         class="flex flex-col items-center justify-center gap-2 w-full min-w-0 hover:scale-110 transition-all duration-300 p-2 group text-coffee-bean-600 dark:text-soft-blush-400 hover:text-coffee-bean-500 dark:hover:text-soft-blush-300"
       >
-        <Icon :icon="link.icon" class="w-10 h-10 sm:w-12 sm:h-12 transition-colors duration-300" />
+        <span
+          aria-hidden="true"
+          class="h-10 w-10 bg-current transition-colors duration-300 sm:h-12 sm:w-12"
+          :style="{
+            maskImage: `url(${link.icon})`,
+            maskPosition: 'center',
+            maskRepeat: 'no-repeat',
+            maskSize: 'contain',
+            WebkitMaskImage: `url(${link.icon})`,
+            WebkitMaskPosition: 'center',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskSize: 'contain',
+          }"
+        ></span>
         <span class="text-xs font-code text-coffee-bean-700 dark:text-soft-blush-300">{{
           link.name
         }}</span>

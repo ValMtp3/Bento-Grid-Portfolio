@@ -1,16 +1,28 @@
 # Sécurité et performances pour le portfolio Valentin Fiess
-# https://www.valentin-fiess.fr
+# https://valentin-fiess.fr
+
+# Encodage explicite pour les pages et ressources texte destinées aux crawlers.
+AddDefaultCharset UTF-8
 
 # 1. Activer la réécriture d'URL
 RewriteEngine On
 
-# 1.5. Gestion du Routing (SPA - React/Vite)
-# Redirige tout vers index.html sauf si le fichier existe
+# 1.5. Négociation Markdown pour les agents, puis routing SPA.
+# Une requête explicite Accept: text/markdown sur l'accueil reçoit llms.txt.
+RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*text/markdown([;,]|$) [NC]
+RewriteRule ^$ llms.txt [END]
+
+# Redirige tout vers index.html sauf si le fichier existe.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
-RewriteRule ^index\.html$ https://www.valentin-fiess.fr/ [R=301,L]
+RewriteRule ^index\.html$ https://valentin-fiess.fr/ [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]
+
+# llms.txt est aussi la représentation Markdown négociée de l'accueil.
+<Files "llms.txt">
+    ForceType text/markdown
+</Files>
 
 # 2. Protection contre les attaques XSS et Headers de sécurité
 <IfModule mod_headers.c>
@@ -37,6 +49,27 @@ RewriteRule ^ index.html [QSA,L]
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     # Permissions Policy
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # Découverte de ressources par les agents après la réécriture SPA (RFC 8288).
+    <Files "index.html">
+        Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
+        Header always merge Vary "Accept"
+    </Files>
+
+    # Le type doit rester explicite après la réécriture interne de l'accueil.
+    <Files "llms.txt">
+        Header always set Content-Type "text/markdown; charset=UTF-8"
+    </Files>
+
+    # Les manifestes de découverte doivent être rafraîchis rapidement par les CDN.
+    <FilesMatch "^(robots\.txt|llms\.txt|sitemap\.xml)$">
+        Header always set Cache-Control "public, max-age=300, must-revalidate"
+    </FilesMatch>
+
+    # Les noms générés par Vite contiennent un hash : ils peuvent être mis en cache durablement.
+    <FilesMatch "-[A-Za-z0-9_-]{8,}\.(css|js|woff2?)$">
+        Header always set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
 </IfModule>
 
 # 3. Compression GZIP/Brotli
