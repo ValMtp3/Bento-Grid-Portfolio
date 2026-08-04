@@ -35,8 +35,8 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.40(typescript@5.9.3))
       swiper:
-        specifier: ^14.0.6
-        version: 14.0.6
+        specifier: ^14.0.7
+        version: 14.0.7
       vue:
         specifier: ^3.5.40
         version: 3.5.40(typescript@5.9.3)
@@ -807,8 +807,8 @@ packages:
   stream-markdown-parser@1.1.4:
     resolution: {integrity: sha512-fjkHUh7uIOH5Yp/kt26l2td+q/4sRusMFO4iB0d+GcWj40ZZuH+HxxiLxGeSD1oo8YdyapokzHOfchDIYFnNgg==}
 
-  swiper@14.0.6:
-    resolution: {integrity: sha512-ArptjmcZMBvpLCbvzSKuqvQpjjITCbZdymiGOrbZQffQ3ZSjgpvMByXX0WZBUt+FV4PPIumdYfZ9ZdBbFsdH6g==}
+  swiper@14.0.7:
+    resolution: {integrity: sha512-PDMY+8hNQBh4kAYdfKIF1GNS7u3hg4xl3NVKBey0rENnpUpTsiE/aCcbgpmm1PIf4RMI7loO3XhW9BdxLzQw0A==}
     engines: {node: '>= 4.7.0'}
 
   tailwindcss@4.3.3:
@@ -1583,7 +1583,7 @@ snapshots:
       markdown-it-task-checkbox: 1.0.6
       markdown-it-ts: 1.0.5
 
-  swiper@14.0.6: {}
+  swiper@14.0.7: {}
 
   tailwindcss@4.3.3: {}
 
