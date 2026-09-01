@@ -61,7 +61,6 @@ const skillGroups = [
 </script>
 
 <template>
-  <!-- ═══ Skills Section ═══ -->
   <section>
     <SectionHeading index="04" label="Expertise" title="Compétences" />
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

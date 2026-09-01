@@ -7,13 +7,13 @@ const details = [
 </script>
 
 <template>
-  <!-- Status Cell -->
+  <!-- Carte statut professionnel -->
   <div class="bento-cell p-6 flex flex-col justify-between gap-4">
     <div>
       <p
         class="mb-2 font-code text-[10px] font-semibold uppercase tracking-[0.18em] text-regal-navy-600 dark:text-regal-navy-400"
       >
-        $ En poste
+        En poste
       </p>
       <div class="flex items-center gap-3">
         <!-- Meme silhouette carree que l'indicateur du widget chatbot. -->

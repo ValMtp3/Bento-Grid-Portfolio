@@ -31,7 +31,6 @@ const formations = [
 </script>
 
 <template>
-  <!-- ═══ Formation Section ═══ -->
   <section>
     <SectionHeading index="03" label="Formation" title="Diplômes et certifications" />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -44,7 +43,7 @@ const formations = [
           v-if="formation.featured"
           class="mb-3 font-code text-[10px] uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
         >
-          &gt; core degree
+          Diplôme principal
         </span>
         <span class="font-code text-sm text-regal-navy-600 dark:text-regal-navy-400 mb-1 font-semibold">{{ formation.year }}</span>
         <h3 class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50 mb-1">

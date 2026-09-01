@@ -21,7 +21,7 @@ const links = [
 </script>
 
 <template>
-  <!-- Links Cell -->
+  <!-- Carte liens de contact -->
   <div class="bento-cell p-6 h-full flex items-center justify-center">
     <div class="grid grid-cols-3 gap-3 w-full max-w-md place-items-center">
       <a

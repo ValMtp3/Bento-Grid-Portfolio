@@ -39,7 +39,6 @@ const experiences = [
 </script>
 
 <template>
-  <!-- ═══ Expérience Section ═══ -->
   <section>
     <SectionHeading index="02" label="Parcours" title="Expérience professionnelle" />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -52,7 +51,7 @@ const experiences = [
           v-if="exp.featured"
           class="mb-3 font-code text-[10px] uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
         >
-          ~ latest role
+          Poste actuel
         </span>
         <span class="font-code text-sm text-regal-navy-600 dark:text-regal-navy-400 mb-1 font-semibold">{{ exp.year }}</span>
         <h3 class="font-heading font-bold text-coffee-bean-950 dark:text-soft-blush-50 mb-1">

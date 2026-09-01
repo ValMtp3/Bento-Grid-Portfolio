@@ -32,19 +32,16 @@ const scrollToTop = () => {
         <!-- Identite -->
         <div class="lg:col-span-2">
           <p
-            class="mb-2 font-code text-[10px] font-semibold uppercase tracking-[0.2em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
-          >
-            $ valentin fiess
-          </p>
-          <p
             class="font-heading text-2xl font-bold text-coffee-bean-950 dark:text-soft-blush-50"
           >
+            Valentin Fiess
+          </p>
+          <p class="mt-1 font-code text-sm text-regal-navy-600 dark:text-regal-navy-400">
             Développeur Data &amp; IA
-            <span class="select-none" aria-hidden="true">🦞</span>
           </p>
           <p class="mt-3 max-w-sm text-sm leading-relaxed text-coffee-bean-700 dark:text-soft-blush-300">
-            Des solutions d'intelligence artificielle, de RAG et de Data qui transforment des
-            besoins métier en outils concrets.
+            Assistants RAG, pipelines de données et applications web. Basé à Montpellier,
+            ouvert aux échanges.
           </p>
           <router-link
             class="mt-5 inline-flex items-center bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm text-soft-blush-50 transition-colors hover:bg-spicy-paprika-600"
@@ -118,9 +115,7 @@ const scrollToTop = () => {
         class="mt-10 flex flex-col gap-2 border-t border-coffee-bean-200/60 pt-6 font-code text-xs text-coffee-bean-600 dark:border-soft-blush-50/10 dark:text-soft-blush-400 sm:flex-row sm:items-center sm:justify-between"
       >
         <p>© {{ currentYear }} Valentin Fiess</p>
-        <p>
-          Développé en VueJS <span class="select-none" aria-hidden="true">❤️</span>
-        </p>
+        <p>Vue 3 · Tailwind · hébergé sur Cloudflare</p>
       </div>
     </div>
   </footer>

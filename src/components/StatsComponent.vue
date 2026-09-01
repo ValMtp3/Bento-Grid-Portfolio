@@ -19,13 +19,10 @@ const scrollGithubChartToRecent = () => {
 </script>
 
 <template>
-  <!-- GitHub activity cell -->
+  <!-- Carte activite GitHub -->
   <div class="md:col-span-2 bento-cell p-5 sm:p-6 flex flex-col justify-between overflow-hidden">
     <div class="flex items-start justify-between gap-3 mb-4">
       <div>
-        <p class="font-code text-xs text-regal-navy-700 dark:text-regal-navy-300 mb-1">
-          ~ dev activity
-        </p>
         <h3
           class="font-heading font-bold text-base sm:text-lg text-coffee-bean-950 dark:text-soft-blush-50"
         >

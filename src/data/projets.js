@@ -6,7 +6,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Agrégateur local-first d'offres d'emploi pour le marché français",
     descriptionlongue:
-      "Fork de : Just Hire Me pour l'adapter au marché francais. JRM est un agrégateur d'offres d'emploi local-first dédié au marché français. L'outil centralise les offres, les nettoie, les déduplique et génère des dossiers de candidature sur mesure, le tout en gardant tes données 100% locales et privées par défaut.",
+      "Fork de Just Hire Me adapté au marché français. L'outil agrège les offres de plusieurs sources, les nettoie, les déduplique et prépare des dossiers de candidature. Tout tourne en local : aucune donnée de candidature ne sort de la machine.",
     src: 'https://github.com/ValMtp3/Juste-Recrute-Moi',
     name: 'Juste Recrute Moi',
     linkLabel: 'Accéder au GitHub',
@@ -17,22 +17,22 @@ export const projets = [
     image: '/assets/assets_index/raguia.webp',
     date: 'Mars 2026',
     team: 'Valentin Fiess',
-    description: 'SaaS B2B de RAG IA conçu pour connecter les entreprises à leurs connaissances.',
+    description: 'Assistant RAG sur les documents internes des PME.',
     descriptionlongue:
-      "Raguia est mon premier SaaS B2B, construit autour du RAG IA pour aider les entreprises à exploiter leurs propres données et documents. Le projet vise à transformer une base de connaissances interne en assistant intelligent capable de retrouver les bonnes informations, contextualiser les réponses et simplifier l'accès au savoir métier.",
+      "Mon premier SaaS. L'entreprise dépose ses documents, Raguia les découpe, les indexe dans PGVector et répond aux questions des équipes en citant ses sources. Gestion des permissions par utilisateur et déploiement conteneurisé, pour que les documents restent chez le client.",
     src: 'https://raguia.valentin-fiess.fr',
     name: 'Raguia',
     linkLabel: 'Accéder au SaaS',
-    technos: ['SaaS B2B', 'RAG', 'IA', 'Base de connaissances', 'Assistant IA'],
+    technos: ['FastAPI', 'PostgreSQL / PGVector', 'React', 'Docker'],
   },
   {
     alt: 'Chiffremento App - Application de chiffrement de fichiers en TypeScript',
     image: '/assets/assets_index/Chiffremento.webp',
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
-    description: 'Application de chiffrement de fichiers avec fonctionnalités avancées',
+    description: 'Chiffrement de fichiers AES-256 avec stéganographie et déni plausible',
     descriptionlongue:
-      'Application de chiffrement de fichiers sécurisée développée en TypeScript, offrant des fonctionnalités avancées telles que le chiffrement AES-256, un mode paranoïaque pour une sécurité maximale, de la stéganographie pour cacher des données, un déni plausible et un chiffrement temporisé.',
+      'Chiffrement de fichiers en TypeScript : AES-256, stéganographie pour dissimuler un fichier dans un autre, déni plausible via un second volume caché, et chiffrement temporisé qui ne libère la clé qu\'après une date donnée.',
     src: 'https://chiffremento-app.vercel.app/',
     name: 'chiffremento-app',
     technos: ['TypeScript'],
@@ -106,7 +106,7 @@ export const projets = [
     description:
       "Application de reconnaissance de traces d'animaux avec pipeline ETL et intelligence artificielle.",
     descriptionlongue:
-      "Application complète de reconnaissance de traces d'animaux sauvages. Pipeline ETL pour le traitement d'images, génération de métadonnées enrichies avec IA (Mistral et Gemini), puis entraînement d'un modèle de classification basé sur MobileNetV3Small.",
+      "Reconnaissance d'empreintes d'animaux sauvages à partir d'une photo. Pipeline ETL de préparation des images, enrichissement des métadonnées via Mistral et Gemini, puis classification avec un MobileNetV3Small ré-entraîné.",
     src: 'https://github.com/CedricSanchezGithub/ETL',
     name: 'WildLens',
     technos: ['Python', 'MobileNetV3Small', 'Mistral', 'Gemini', 'ETL'],
@@ -118,7 +118,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Pipeline de détection de fake news avec machine learning en Python.',
     descriptionlongue:
-      'Pipeline complet de détection de fake news utilisant le machine learning pour classifier automatiquement les textes. Projet réalisé en Jupyter Notebook avec Python, scikit-learn et autres bibliothèques de data science.',
+      "Classification d'articles en vrai ou faux à partir de leur texte. Nettoyage et vectorisation du corpus, comparaison de plusieurs modèles scikit-learn, analyse des erreurs dans un notebook Jupyter.",
     src: 'https://github.com/ValMtp3/Fakenews-detection',
     name: 'Fakenews Detection',
     technos: ['Jupyter Notebook', 'Python', 'scikit-learn', 'NLP', 'Machine Learning'],
@@ -130,7 +130,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Analyse de sentiment des critiques cinéma avec machine learning.',
     descriptionlongue:
-      'Analyse de sentiment automatisée sur les critiques de films du dataset IMDB/Allociné. Utilisation de modèles de machine learning et transformers pour classifier positivement ou négativement les avis des spectateurs. Réalisé en Jupyter Notebook avec Python.',
+      "Classification positive ou négative des critiques de films du jeu de données IMDB/Allociné. Comparaison entre une approche scikit-learn classique et un transformer, avec une démo Gradio pour tester une critique à la volée.",
     src: 'https://github.com/ValMtp3/sentiment-analysis-allocine',
     name: 'Sentiment Analysis Allociné',
     technos: ['Python', 'NLP', 'Gradio', 'Scikit-learn'],
@@ -142,7 +142,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Application CLI de chiffrement/déchiffrement de fichiers en Python',
     descriptionlongue:
-      'Application en ligne de commande pour chiffrer et déchiffrer des fichiers de manière sécurisée. Développé en Python avec la bibliothèque cryptography pour garantir la protection des données sensibles.',
+      "Outil en ligne de commande pour chiffrer et déchiffrer un fichier, écrit en Python avec la bibliothèque cryptography. La version TypeScript de Chiffremento reprend et étend ce premier essai.",
     src: 'https://github.com/ValMtp3/Chiffremento',
     name: 'Chiffremento cli',
     technos: ['Python', 'cryptography'],
@@ -152,9 +152,9 @@ export const projets = [
     image: '/assets/assets_index/Valentin_Fiess.webp',
     date: 'Mai 2024',
     team: 'Valentin Fiess',
-    description: 'Portfolio personnel avec un style moderne',
+    description: 'Ce site : grille Bento, Vue 3 et Tailwind.',
     descriptionlongue:
-      "Création de mon portfolio moderne avec un syle Bento Grid. Intégration d'animations fluides, design responsive pour une expérience optimale sur tous les appareils.",
+      "Le site que vous lisez. Mise en page en grille Bento, direction artistique documentée, chargement différé section par section et images WebP générées par un processeur maison écrit en Go.",
     src: '',
     name: 'Portfolio Bento-Grids',
     technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
@@ -179,7 +179,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Application de gestion de portefeuille d'investissements",
     descriptionlongue:
-      "Application web de gestion de portefeuille d'investissements développée avec Python. Fonctionnalités : ajout/suppression d'investissements, suivi des performances, interface utilisateur interactive et responsive.",
+      "Suivi d'un portefeuille d'investissements : saisie des lignes, calcul des performances et historique stocké en MySQL. Interface de bureau en Tkinter.",
     src: 'https://github.com/ValMtp3/InvestManagment/tree/main',
     name: 'InvestManagment',
     technos: ['Python', 'Tkinter', 'MySQL'],
@@ -191,7 +191,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Bibliothèque musicale avec Symfony : CRUD, authentification et API REST',
     descriptionlongue:
-      "Application web de gestion de bibliothèque musicale développée avec PHP Symfony. Fonctionnalités complètes : CRUD pour les albums/morceaux, système d'authentification, API REST, tests unitaires automatisés et base de données MySQL.",
+      "Bibliothèque musicale en Symfony : CRUD albums et morceaux, authentification, API REST et tests unitaires. Premier projet mené avec un framework PHP complet.",
     src: 'https://github.com/ValMtp3/HarmoniSound',
     name: 'HarmoniSound',
     technos: ['PHP', 'Symfony', 'MySQL', 'API REST'],
@@ -215,7 +215,7 @@ export const projets = [
     team: 'Groupe de classe',
     description: 'Site web complet pour pizzeria avec stratégie digitale intégrée',
     descriptionlongue:
-      'Projet complet de création de site web pour pizzeria à plusieurs développeurs. Inclut : site responsive, conception MCD, optimisation SEO, campagne emailing et stratégie SMO. Technologies : HTML, CSS, JavaScript, PHP.',
+      "Site vitrine d'une pizzeria réalisé en équipe : conception du MCD, intégration, référencement, campagne emailing et présence sur les réseaux.",
     src: 'https://www.pizzaoplomo.gaetandev.fr',
     name: "Pizza O'Plomo",
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP'],
@@ -227,7 +227,7 @@ export const projets = [
     team: 'Groupe de classe',
     description: "Refonte complète du site web d'un hôtel avec système de réservation",
     descriptionlongue:
-      "Refonte totale du site web d'un hôtel avec système de réservation en ligne. Intégration d'une base de données MySQL pour la gestion des chambres et réservations. Technologies : HTML, CSS, JavaScript, PHP et MySQL.",
+      "Refonte du site d'un hôtel avec réservation en ligne : gestion des chambres, des disponibilités et des réservations en base MySQL.",
     src: 'https://github.com/HotelNeptune/Application/tree/dev',
     name: 'Neptune',
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],

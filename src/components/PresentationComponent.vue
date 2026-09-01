@@ -4,7 +4,7 @@ import { trackMatomoEvent } from '@/matomo';
 </script>
 
 <template>
-  <!-- Profile Cell -->
+  <!-- Carte profil -->
   <div class="md:col-span-2 lg:row-span-2 bento-cell p-6 flex flex-col gap-6">
     <div>
       <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
@@ -26,11 +26,6 @@ import { trackMatomoEvent } from '@/matomo';
           </div>
         </div>
         <div class="text-center sm:text-left">
-          <p
-            class="mb-1 font-code text-[10px] font-semibold uppercase tracking-[0.18em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
-          >
-            $ profil data / IA
-          </p>
           <h1
             class="text-2xl sm:text-3xl font-bold font-heading text-coffee-bean-950 dark:text-soft-blush-50 mb-1"
           >
@@ -44,8 +39,9 @@ import { trackMatomoEvent } from '@/matomo';
           <p
             class="text-coffee-bean-700 dark:text-soft-blush-200 max-w-md text-base sm:text-lg leading-relaxed"
           >
-            Je développe des solutions d'intelligence artificielle, de RAG et de Data qui
-            transforment des besoins métier en outils concrets, fiables et faciles à utiliser.
+            Je construis des assistants RAG et des pipelines de données, du prototype à la mise
+            en production. Aujourd'hui chez Shaarp, sur une application SaaS IA pour des équipes
+            commerciales.
           </p>
         </div>
       </div>

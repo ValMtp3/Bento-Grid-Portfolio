@@ -52,7 +52,6 @@ const marqueeSlides = [...entreprise, ...entreprise];
 </script>
 
 <template>
-  <!-- ═══ entreprise Section ═══ -->
   <section>
     <SectionHeading index="01" label="Réseau" title="Entreprises" />
     <div class="marquee slider-fade lg:[--slider-fade-edge:56px]">

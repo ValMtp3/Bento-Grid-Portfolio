@@ -26,7 +26,6 @@ const updateFadeEdges = (swiper) => {
 </script>
 
 <template>
-  <!-- ═══ Projects Section ═══ -->
   <section>
     <SectionHeading index="05" label="Portfolio" title="Projets" />
     <Swiper
@@ -51,7 +50,7 @@ const updateFadeEdges = (swiper) => {
       @breakpoint="updateFadeEdges"
     >
       <SwiperSlide
-        v-for="(project, index) in featuredProjets"
+        v-for="project in featuredProjets"
         :key="project.name"
         class="h-auto py-2"
       >
@@ -63,12 +62,6 @@ const updateFadeEdges = (swiper) => {
           class="group bento-cell p-4 flex flex-col hover:scale-[1.02] hover:border-spicy-paprika-300 dark:hover:border-spicy-paprika-600 h-full justify-between"
         >
           <div>
-            <p
-              v-if="index === 0"
-              class="mb-3 font-code text-[10px] uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
-            >
-              ~ featured project
-            </p>
             <ResponsiveImage
               :alt="project.alt"
               :src="project.image"

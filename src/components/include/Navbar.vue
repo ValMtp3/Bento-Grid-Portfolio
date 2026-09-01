@@ -38,7 +38,7 @@ const navLinks = [
           VALENTIN FIESS 🦞
         </router-link>
 
-        <!-- Desktop Navigation -->
+        <!-- Navigation desktop -->
         <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
           <router-link
             v-for="link in navLinks"
@@ -57,7 +57,7 @@ const navLinks = [
           </router-link>
         </nav>
 
-        <!-- Right Side Button -->
+        <!-- Action principale -->
         <div class="hidden md:block">
           <router-link
             to="/#contact"
@@ -67,7 +67,7 @@ const navLinks = [
           </router-link>
         </div>
 
-        <!-- Mobile Menu Button -->
+        <!-- Bouton menu mobile -->
         <div class="md:hidden flex items-center">
           <button
             @click="toggleMenu"
@@ -97,7 +97,7 @@ const navLinks = [
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
+    <!-- Menu mobile deroulant -->
     <transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0 -translate-y-4"

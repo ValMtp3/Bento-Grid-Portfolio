@@ -14,16 +14,10 @@ import { trackMatomoEvent } from '@/matomo';
     <SectionHeading :level="1" index="05" label="Portfolio" title="Projets réalisés" />
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
       <article
-        v-for="(proj, index) in projets"
+        v-for="proj in projets"
         :key="proj.name"
         class="bento-cell flex h-full flex-col p-5 sm:p-6"
       >
-        <p
-          v-if="proj.featured || index === 0"
-          class="mb-3 font-code text-[10px] font-semibold uppercase tracking-[0.16em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
-        >
-          ~ projet principal
-        </p>
         <ResponsiveImage
           :alt="proj.alt"
           :src="proj.image"

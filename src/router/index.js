@@ -53,13 +53,12 @@ const router = createRouter({
       path: '/justice',
       name: 'justice',
       component: JusticeView,
-      meta: { title: 'Pièces justificatives | Valentin Fiess', description: 'Pièces justificatives.', robots: 'noindex, nofollow' },
-    },
-    {
-      path: '/justice',
-      name: 'justice',
-      component: JusticeView,
-      meta: { blankLayout: true },
+      meta: {
+        title: 'Pièces justificatives | Valentin Fiess',
+        description: 'Pièces justificatives.',
+        robots: 'noindex, nofollow',
+        blankLayout: true,
+      },
     },
     {
       path: '/:pathMatch(.*)*',
