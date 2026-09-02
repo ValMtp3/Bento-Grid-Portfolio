@@ -6,6 +6,10 @@ ignoredBuiltDependencies:
   - esbuild
   - vue-demi
 overrides:
+  # GHSA-2v37-7h3g-55p8 : nanoid < 3.3.18 boucle indefiniment quand un
+  # generateur personnalise recoit une taille nulle. Tire par postcss, qui
+  # accepte ^3.3.11 : l'override suffit, sans toucher aux dependances directes.
+  nanoid: 3.3.18
   '@vue/devtools-api': 8.1.5
   '@vue/devtools-kit': 8.1.5
   '@vue/devtools-shared': 8.1.5
