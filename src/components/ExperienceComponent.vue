@@ -28,7 +28,7 @@ const experiences = [
   },
   {
     year: 'Juillet 2026 – Présent',
-    title: 'Développeur Data/IA',
+    title: 'Ingénieur IA/Data',
     company: 'Shaarp, Montpellier',
     detail:
       "Amélioration des pipelines data et IA d'une application SaaS IA pour commerciaux : optimisation des flux de données, sélection et mise à jour des modèles LLM et amélioration continue de la stack MLOps.",

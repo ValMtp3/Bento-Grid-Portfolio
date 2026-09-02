@@ -1,6 +1,33 @@
 <script setup>
+import { computed, ref } from 'vue';
 import ResponsiveImage from './ResponsiveImage.vue';
+import LobsterParade from './LobsterParade.vue';
 import { trackMatomoEvent } from '@/matomo';
+
+// Cinq clics sur la pastille lachent la file de homards. Le compteur se remet a
+// zero a la fin du passage, l'oeuf de Paques est donc rejouable.
+const LOBSTER_THRESHOLD = 5;
+const lobsterClicks = ref(0);
+const paradeActive = ref(false);
+
+const lobsterHint = computed(() =>
+  lobsterClicks.value === 0
+    ? 'Salut, je suis Homard ! 🦞'
+    : `Encore ${LOBSTER_THRESHOLD - lobsterClicks.value}...`,
+);
+
+const onLobsterClick = () => {
+  if (paradeActive.value) return;
+  lobsterClicks.value += 1;
+  if (lobsterClicks.value < LOBSTER_THRESHOLD) return;
+  paradeActive.value = true;
+  trackMatomoEvent('easter_egg', 'lobster_parade', 'home');
+};
+
+const onParadeFinished = () => {
+  paradeActive.value = false;
+  lobsterClicks.value = 0;
+};
 </script>
 
 <template>
@@ -18,12 +45,15 @@ import { trackMatomoEvent } from '@/matomo';
             decoding="sync"
             sizes="(max-width: 639px) 160px, 192px"
           />
-          <div
+          <button
+            type="button"
             class="absolute -bottom-2 -right-2 bg-white dark:bg-coffee-bean-900 border-2 border-spicy-paprika-500 rounded-full w-10 h-10 flex items-center justify-center text-xl shadow-lg rotate-12 hover:rotate-0 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
-            title="Salut, je suis Homard ! 🦞"
+            :title="lobsterHint"
+            aria-label="Homard, la mascotte du site"
+            @click="onLobsterClick"
           >
             🦞
-          </div>
+          </button>
         </div>
         <div class="text-center sm:text-left">
           <p
@@ -39,7 +69,7 @@ import { trackMatomoEvent } from '@/matomo';
           <h2
             class="text-lg sm:text-xl font-heading text-regal-navy-600 dark:text-regal-navy-400 font-semibold mb-3"
           >
-            Développeur Data & IA
+            Ingénieur IA & Data
           </h2>
           <p
             class="text-coffee-bean-700 dark:text-soft-blush-200 max-w-md text-base sm:text-lg leading-relaxed"
@@ -75,5 +105,7 @@ import { trackMatomoEvent } from '@/matomo';
         Voir mon CV
       </a>
     </div>
+
+    <LobsterParade :active="paradeActive" @finished="onParadeFinished" />
   </div>
 </template>
