@@ -49,3 +49,6 @@ __pycache__/
 go-param
 public/matomo/
 .poolside/settings.local.yaml
+
+# Binaire produit par `go build ./...`
+/bento-grid-portfolio
