@@ -1,19 +1,20 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Important info + SEO -->
-    <title>Valentin Fiess | Portfolio | Développeur web</title>
-    <meta content="Valentin Fiess | Portfolio développeur" name="title" />
     <meta charset="UTF-8" />
-    <meta
-      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio
-        pour en savoir + sur mes compétences et mes projets "
-      name="description"
-    />
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <!-- SEO. Ces valeurs sont celles de l'accueil : scripts/prerender.mjs les
+         reecrit route par route dans dist/ a partir de src/data/seo.js. -->
+    <title>Valentin Fiess | Ingénieur IA &amp; Data</title>
+    <meta
+      content="Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours."
+      name="description"
+    />
     <meta content="Valentin Fiess" name="author" />
     <meta content="index, follow" name="robots" />
+    <link href="https://valentin-fiess.fr/" rel="canonical" />
 
     <!-- Favicon -->
     <link href="/assets/assets_index/val.ico" rel="icon" type="image/ico" />
@@ -27,51 +28,35 @@
     />
 
     <!-- Open Graph -->
-    <meta content="Valentin Fiess | Portfolio" property="og:title" />
-    <meta
-      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
-      property="og:description"
-    />
-    <meta
-      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
-      property="og:image"
-    />
-    <meta content="https://www.valentin-fiess.fr/" property="og:url" />
-
-    <!-- Facebook Meta Tags -->
-    <meta content="https://www.valentin-fiess.fr/" property="og:url" />
     <meta content="website" property="og:type" />
-    <meta content="Valentin Fiess | Portfolio" property="og:title" />
+    <meta content="Valentin Fiess" property="og:site_name" />
+    <meta content="fr_FR" property="og:locale" />
+    <meta content="Valentin Fiess | Ingénieur IA &amp; Data" property="og:title" />
     <meta
-      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
+      content="Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours."
       property="og:description"
     />
-    <meta
-      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
-      property="og:image"
-    />
+    <meta content="https://valentin-fiess.fr/" property="og:url" />
+    <meta content="https://valentin-fiess.fr/assets/og/home.png" property="og:image" />
+    <meta content="1200" property="og:image:width" />
+    <meta content="630" property="og:image:height" />
+    <meta content="Valentin Fiess — Ingénieur IA / Data" property="og:image:alt" />
 
-    <!-- Twitter Meta Tags -->
+    <!-- Twitter -->
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="valentin-fiess.fr" property="twitter:domain" />
-    <meta content="https://www.valentin-fiess.fr/" property="twitter:url" />
+    <meta content="https://valentin-fiess.fr/" property="twitter:url" />
     <meta content="@WyqBzm" name="twitter:site" />
-    <meta content="Valentin Fiess | Portfolio" name="twitter:title" />
+    <meta content="Valentin Fiess | Ingénieur IA &amp; Data" name="twitter:title" />
     <meta
-      content="Je suis un développeur passionné par la création de sites web et modèle d'IA. Découvrez mon portfolio pour en savoir + sur mes compétences et mes projets"
+      content="Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours."
       name="twitter:description"
     />
-    <meta
-      content="https://www.valentin-fiess.fr/assets/assets_index/Valentin_Fiess.webp"
-      name="twitter:image"
-    />
+    <meta content="https://valentin-fiess.fr/assets/og/home.png" name="twitter:image" />
+    <meta content="Valentin Fiess — Ingénieur IA / Data" name="twitter:image:alt" />
 
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-    <script>
-      html, body { overscroll-behavior-y: none; }
-    </script>
 
     <style>
       @font-face {

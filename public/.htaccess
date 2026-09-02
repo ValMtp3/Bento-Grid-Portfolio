@@ -15,6 +15,13 @@ RewriteRule ^$ llms.txt [END]
 # Redirige tout vers index.html sauf si le fichier existe.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
 RewriteRule ^index\.html$ https://valentin-fiess.fr/ [R=301,L]
+
+# 1.6. Coquilles prerendues : /projets sert dist/projets/index.html, qui porte
+# ses propres meta et son image OG. Servi avant le fallback SPA et sans
+# redirection, pour que l'URL reste sans slash final.
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ /$1/index.html [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]

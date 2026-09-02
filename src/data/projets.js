@@ -1,5 +1,17 @@
 export const projets = [
   {
+    alt: 'Seed Generator - Générateur de phrases BIP-39 hors ligne en Go avec tableau de bord de transparence',
+    image: '/assets/assets_index/Go.png',
+    date: 'Août 2026',
+    team: 'Valentin Fiess',
+    description: 'Générateur de phrases BIP-39 hors ligne en Go, sans dépendance tierce',
+    descriptionlongue:
+      "Générateur de mnémoniques BIP-39 conçu pour être vérifié plutôt que cru sur parole. La racine de confiance reste crypto/rand : les sources auxiliaires (gigue CPU, télémétrie du runtime, souris, micro, caméra) sont mélangées comme diversifiants via HKDF-SHA-512, jamais en remplacement du CSPRNG, donc l'entropie ne peut que monter. Au démarrage, le binaire rejoue les 96 vecteurs de test officiels contre ses quatre dictionnaires embarqués (en, fr, es, ja) et refuse de démarrer si un seul échoue. L'interface web est liée au loopback, vérifie l'en-tête Host contre le DNS rebinding, sert les flux SSE par tickets à usage unique et applique une CSP stricte. Go standard library, zéro dépendance externe.",
+    src: 'https://gitlab.com/ValMtp3/seed-generator',
+    name: 'Seed Generator',
+    technos: ['Go', 'BIP-39', 'HKDF-SHA-512', 'Cryptographie', 'SSE', 'Zero-dep'],
+  },
+  {
     alt: "Juste Recrute Moi - Plateforme d'agregation d'offre d'emploi",
     image: 'https://v2.tauri.app/_astro/logo_light.C7Zm2ZoX.svg',
     date: 'Juin 2026',
@@ -23,6 +35,7 @@ export const projets = [
     src: 'https://raguia.valentin-fiess.fr',
     name: 'Raguia',
     linkLabel: 'Accéder au SaaS',
+    caseStudy: '/projets/raguia',
     technos: ['SaaS B2B', 'RAG', 'IA', 'Base de connaissances', 'Assistant IA'],
   },
   {
@@ -136,16 +149,16 @@ export const projets = [
     technos: ['Python', 'NLP', 'Gradio', 'Scikit-learn'],
   },
   {
-    alt: 'Chiffremento CLI - Application en ligne de commande pour chiffrer des fichiers en Python',
+    alt: 'Chiffremento CLI - Outil Go de chiffrement de fichiers et de dossiers en ligne de commande',
     image: '/assets/assets_index/Chiffremento.webp',
-    date: 'Novembre 2024',
+    date: 'Août 2026',
     team: 'Valentin Fiess',
-    description: 'Application CLI de chiffrement/déchiffrement de fichiers en Python',
+    description: 'Outil Go de chiffrement de fichiers et de dossiers en ligne de commande',
     descriptionlongue:
-      'Application en ligne de commande pour chiffrer et déchiffrer des fichiers de manière sécurisée. Développé en Python avec la bibliothèque cryptography pour garantir la protection des données sensibles.',
-    src: 'https://github.com/ValMtp3/Chiffremento',
-    name: 'Chiffremento cli',
-    technos: ['Python', 'cryptography'],
+      "Chiffrement authentifié AES-256-GCM ou ChaCha20-Poly1305 en streaming, avec des clés dérivées en Argon2id dont les paramètres sont inscrits dans le fichier : un chiffré ancien reste lisible après un durcissement du coût. Un dossier est empaqueté en tar au fil du chiffrement, sans archive intermédiaire sur le disque. Compression zstd, remplissage optionnel pour masquer la taille réelle, écriture atomique, et un mot de passe qui n'est jamais passé en argument. Interface guidée sans argument, flags pour les scripts. Distribué en cask Homebrew via GoReleaser.",
+    src: 'https://github.com/ValMtp3/chiffremento-go-cli',
+    name: 'Chiffremento CLI',
+    technos: ['Go', 'AES-256-GCM', 'ChaCha20-Poly1305', 'Argon2id', 'zstd', 'GoReleaser'],
   },
   {
     alt: 'Portfolio Bento-Grids - Site portfolio personnel de Valentin Fiess en Vue.js',
@@ -250,13 +263,33 @@ export const projets = [
 // entre le carrousel de la page d'accueil et la page /projets.
 export const getProjectLinkLabel = (project) => {
   if (project.linkLabel) return project.linkLabel;
-  if (project.src.includes('github.com')) return 'Voir le dépôt';
+  if (project.src.includes('github.com') || project.src.includes('gitlab.com')) return 'Voir le dépôt';
   if (project.src.includes('huggingface.co')) return 'Tester la démo';
   return 'Découvrir le projet';
 };
 
 export const getProjectAnalyticsAction = (project) => {
-  if (project.src.includes('github.com')) return 'open_repository';
+  if (project.src.includes('github.com') || project.src.includes('gitlab.com')) return 'open_repository';
   if (project.src.includes('huggingface.co')) return 'open_demo';
   return 'open_project';
 };
+
+// Projets mis en avant : carrousel d'accueil et haut de la page /projets. Le
+// reste part en archives repliees, pour que les projets recents ne soient pas
+// dilues par les travaux d'ecole de 2022.
+const FEATURED = [
+  'Raguia',
+  'Seed Generator',
+  'Chiffremento CLI',
+  'Juste Recrute Moi',
+  'Raisonnement_IA',
+  'WildLens',
+  'Brave RAG',
+  'Chatbot IA CV',
+];
+
+export const projetsFeatured = FEATURED.map((name) =>
+  projets.find((project) => project.name === name),
+).filter(Boolean);
+
+export const projetsArchives = projets.filter((project) => !FEATURED.includes(project.name));

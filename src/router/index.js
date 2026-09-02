@@ -1,71 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { getScrollBehavior } from '@/scroll';
+import { routeMeta } from '@/data/seo.js';
 
 const HomeView = () => import('@/views/HomeView.vue');
 const LegalView = () => import('@/views/LegalView.vue');
 const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
+const RaguiaView = () => import('@/views/projets/RaguiaView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const ChatbotView = () => import('@/views/ChatbotView.vue');
 const JusticeView = () => import('@/views/JusticeView.vue');
 const NotFound = () => import('@/views/errors/NotFound.vue');
 
+// Titres, descriptions et images OG vivent dans src/data/seo.js : le meme fichier
+// alimente la navigation client et la prerendition des coquilles HTML statiques.
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/', name: 'home', component: HomeView, meta: routeMeta('home') },
+    { path: '/legal', name: 'legal', component: LegalView, meta: routeMeta('legal') },
+    { path: '/stack', name: 'stack', component: StackView, meta: routeMeta('stack') },
+    { path: '/projets', name: 'projets', component: ProjetsView, meta: routeMeta('projets') },
     {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-      meta: { title: 'Valentin Fiess | Développeur Data & IA', description: 'Portfolio de Valentin Fiess, développeur Data et IA spécialisé en RAG, automatisation, Python et applications web. Découvrez ses projets et compétences.' },
+      path: '/projets/raguia',
+      name: 'projet-raguia',
+      component: RaguiaView,
+      meta: routeMeta('projets-raguia'),
     },
-    {
-      path: '/legal',
-      name: 'legal',
-      component: LegalView,
-      meta: { title: 'Mentions légales | Valentin Fiess', description: 'Mentions légales et conditions générales d’utilisation du portfolio de Valentin Fiess.' },
-    },
-    {
-      path: '/stack',
-      name: 'stack',
-      component: StackView,
-      meta: { title: 'Stack technique | Valentin Fiess', description: 'Stack technique complète : développement agentique avec OpenCode, MCP, lean-ctx, ZED, infrastructure VPS OVH et outils IA.' },
-    },
-    {
-      path: '/projets',
-      name: 'projets',
-      component: ProjetsView,
-      meta: { title: 'Projets Data, IA & Web | Valentin Fiess', description: 'Découvrez les projets Data, intelligence artificielle, automatisation et développement web réalisés par Valentin Fiess.' },
-    },
-    {
-      path: '/policy',
-      name: 'policy',
-      component: PolicyView,
-      meta: { title: 'Politique de confidentialité | Valentin Fiess', description: 'Politique de confidentialité du portfolio de Valentin Fiess.' },
-    },
-    {
-      path: '/chatbot',
-      name: 'chatbot',
-      component: ChatbotView,
-      meta: { title: 'Assistant IA | Valentin Fiess', description: 'Interrogez l\'assistant IA de Valentin Fiess sur son parcours, ses compétences et ses projets.' },
-    },
+    { path: '/policy', name: 'policy', component: PolicyView, meta: routeMeta('policy') },
+    { path: '/chatbot', name: 'chatbot', component: ChatbotView, meta: routeMeta('chatbot') },
     {
       path: '/justice',
       name: 'justice',
       component: JusticeView,
-      meta: { title: 'Pièces justificatives | Valentin Fiess', description: 'Pièces justificatives.', robots: 'noindex, nofollow' },
-    },
-    {
-      path: '/justice',
-      name: 'justice',
-      component: JusticeView,
-      meta: { blankLayout: true },
+      meta: { ...routeMeta('justice'), blankLayout: true },
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: NotFound,
-      meta: { title: 'Page non trouvée | Valentin Fiess', description: 'La page demandée est introuvable.', robots: 'noindex, nofollow' },
+      meta: routeMeta('404'),
     },
   ],
   scrollBehavior(to, from, savedPosition) {

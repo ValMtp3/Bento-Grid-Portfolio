@@ -39,7 +39,7 @@ const scrollToTop = () => {
           <p
             class="font-heading text-2xl font-bold text-coffee-bean-950 dark:text-soft-blush-50"
           >
-            Développeur Data &amp; IA
+            Ingénieur IA &amp; Data
             <span class="select-none" aria-hidden="true">🦞</span>
           </p>
           <p class="mt-3 max-w-sm text-sm leading-relaxed text-coffee-bean-700 dark:text-soft-blush-300">

@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/generate-og.mjs && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
+    "generate-og": "node scripts/generate-og.mjs",
+    "prerender": "node scripts/prerender.mjs",
     "cache-github-chart": "node scripts/cache-github-chart.mjs",
     "process-images": "go run image_processor.go",
     "process-images:force": "go run image_processor.go --force"
@@ -24,9 +26,12 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-vue": "^6.0.8",
+    "satori": "^0.33.4",
     "tailwindcss": "^4.3.3",
-    "vite": "^8.1.5"
+    "vite": "^8.1.5",
+    "wawoff2": "^2.0.1"
   }
 }
