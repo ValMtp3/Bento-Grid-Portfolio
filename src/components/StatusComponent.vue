@@ -28,7 +28,7 @@ const details = [
         <span
           class="font-heading font-bold text-lg leading-tight text-coffee-bean-950 dark:text-soft-blush-50"
         >
-          Développeur Data/IA
+          Ingénieur IA/Data
         </span>
       </div>
       <p class="mt-1.5 text-sm text-coffee-bean-600 dark:text-soft-blush-300">

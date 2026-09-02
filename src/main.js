@@ -9,6 +9,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
+import { printConsoleSignature } from './easter-eggs/console.js';
 
 const app = createApp(App);
 
@@ -22,4 +23,5 @@ import('./matomo')
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {
   app.mount('#app');
+  printConsoleSignature();
 });

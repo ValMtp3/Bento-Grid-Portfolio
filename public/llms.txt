@@ -1,6 +1,6 @@
 # Valentin Fiess — Portfolio
 
-> Portfolio professionnel de Valentin Fiess, développeur Data et intelligence artificielle spécialisé en RAG, automatisation, Python, MLOps et applications web.
+> Portfolio de Valentin Fiess, ingénieur IA/Data à Montpellier : RAG, LLM, MLOps, Python et applications web.
 
 Langue principale : français
 URL canonique : https://valentin-fiess.fr/
@@ -9,6 +9,7 @@ URL canonique : https://valentin-fiess.fr/
 
 - [Accueil](https://valentin-fiess.fr/) : présentation, expérience, formation, compétences et contact.
 - [Projets](https://valentin-fiess.fr/projets) : réalisations Data, IA, automatisation et développement web.
+- [Étude de cas Raguia](https://valentin-fiess.fr/projets/raguia) : architecture d'un RAG multi-tenant sécurisé, arbitrages PGVector et filtrage des permissions au retrieval.
 - [Stack technique](https://valentin-fiess.fr/stack) : technologies et outils maîtrisés.
 - [Assistant IA](https://valentin-fiess.fr/chatbot) : chatbot permettant d'interroger le parcours professionnel.
 
