@@ -1,0 +1,47 @@
+name: Refresh pulse
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Toutes les 6 h : assez pour un resultat de match le soir meme, et le
+    # script n'ecrit que si les donnees ont reellement change.
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pulse
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect pulse data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: node scripts/fetch-pulse.mjs
+
+      - name: Commit updated pulse
+        run: |
+          if git diff --quiet -- public/data/pulse.json; then
+            echo "Pulse already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/pulse.json
+          git commit -m "chore: update pulse"
+          git push

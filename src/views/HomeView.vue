@@ -2,9 +2,11 @@
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import PresentationComponent from '@/components/PresentationComponent.vue';
-import ContactComponent from '@/components/ContactComponent.vue';
 import StatusComponent from '@/components/StatusComponent.vue';
 import StatsComponent from '@/components/StatsComponent.vue';
+import PulseComponent from '@/components/PulseComponent.vue';
+import FootballComponent from '@/components/FootballComponent.vue';
+import FavorisComponent from '@/components/FavorisComponent.vue';
 import DeferredRender from '@/components/DeferredRender.vue';
 import { getScrollBehavior } from '@/scroll';
 
@@ -65,8 +67,9 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <PresentationComponent />
       <StatusComponent />
-      <ContactComponent />
       <StatsComponent />
+      <PulseComponent />
+      <FootballComponent />
     </section>
     <DeferredRender :eager="targetSectionIndex >= 0" min-height="220px" target-id="entreprises">
       <EntrepriseComponent />
@@ -96,5 +99,6 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
     <DeferredRender :eager="targetSectionIndex >= 5" min-height="600px" target-id="contact">
       <ContactFormsComponent />
     </DeferredRender>
+    <FavorisComponent />
   </div>
 </template>
