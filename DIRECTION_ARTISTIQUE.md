@@ -75,6 +75,7 @@ Intel One Mono doit apporter une touche geek et Data, sans etre utilisee pour de
 - Cartes claires ou translucides avec bordures fines et ombres mesurees.
 - Alternance clair/sombre basee sur Seashell et Coffee Bean.
 - Iconographie technique simple et majoritairement monochrome.
+- Images venues de l'exterieur (logos partenaires, affiches TMDB) desaturees au repos et restituees en couleur au survol : leurs teintes ne sont pas negociables, la palette du portfolio si. Classes `brand-logo` et `poster-art`.
 - Homard comme signature personnelle et mascotte du chatbot.
 - Contenu direct : parcours, disponibilite, competences, projets et contact.
 

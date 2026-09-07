@@ -208,4 +208,33 @@
   .brand-logo-card:focus-within .brand-logo {
     filter: grayscale(0) opacity(1);
   }
+
+  /* Affiches TMDB : meme doctrine que les logos partenaires. Huit jaquettes
+     photographiques pleine couleur formeraient un mur de teintes etrangeres a
+     la palette, juste sous des cartes volontairement sobres. Monochrome au
+     repos, couleur restituee sur la seule affiche survolee : la cellule reste
+     calme et le detail se revele a la demande.
+
+     Le `transition` couvre aussi le `transform` du survol : une utilitaire
+     `transition-transform` dans le template ecraserait cette propriete, la
+     couche utilities de Tailwind passant apres la couche components. */
+  .poster-art {
+    filter: grayscale(1) opacity(0.9);
+    transition:
+      filter 0.3s ease,
+      transform 0.3s ease;
+  }
+  .poster-card:hover .poster-art,
+  .poster-card:focus-visible .poster-art {
+    filter: grayscale(0) opacity(1);
+  }
+
+  /* Pastille bicolore d'un club : les couleurs sortent de son ecusson, elles ne
+     lui appartiennent pas moins en theme sombre. Le lisere est donc constant et
+     opaque, sans variante `dark:` et sans transparence — un blanc de maillot se
+     noyait dans la carte claire puis eclatait sur la carte sombre, donnant
+     l'impression que le club changeait de couleurs d'un theme a l'autre. */
+  .team-chip {
+    box-shadow: 0 0 0 1px var(--color-coffee-bean-400);
+  }
 }

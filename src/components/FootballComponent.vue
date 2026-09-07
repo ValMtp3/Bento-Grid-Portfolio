@@ -90,7 +90,7 @@ onMounted(() => {
       </div>
       <p class="flex items-center gap-2.5 font-code text-base text-coffee-bean-800 dark:text-soft-blush-200">
         <span
-          class="h-6 w-6 shrink-0 rounded ring-1 ring-coffee-bean-950/15 dark:ring-soft-blush-50/25"
+          class="h-6 w-6 shrink-0 rounded team-chip"
           :style="chipStyle(last.home)"
           aria-hidden="true"
         />
@@ -102,7 +102,7 @@ onMounted(() => {
         </span>
         <span class="font-semibold">{{ last.away.tla }}</span>
         <span
-          class="h-6 w-6 shrink-0 rounded ring-1 ring-coffee-bean-950/15 dark:ring-soft-blush-50/25"
+          class="h-6 w-6 shrink-0 rounded team-chip"
           :style="chipStyle(last.away)"
           aria-hidden="true"
         />
@@ -127,7 +127,7 @@ onMounted(() => {
         class="flex flex-wrap items-center gap-1.5 font-code text-[11px] text-coffee-bean-700 dark:text-soft-blush-300"
       >
         <span
-          class="h-2.5 w-2.5 shrink-0 rounded-[3px] ring-1 ring-coffee-bean-950/15 dark:ring-soft-blush-50/25"
+          class="h-2.5 w-2.5 shrink-0 rounded-[3px] team-chip"
           :style="chipStyle(next.home)"
           aria-hidden="true"
         />
@@ -135,7 +135,7 @@ onMounted(() => {
         <span class="text-coffee-bean-400 dark:text-soft-blush-400">–</span>
         {{ next.away.tla }}
         <span
-          class="h-2.5 w-2.5 shrink-0 rounded-[3px] ring-1 ring-coffee-bean-950/15 dark:ring-soft-blush-50/25"
+          class="h-2.5 w-2.5 shrink-0 rounded-[3px] team-chip"
           :style="chipStyle(next.away)"
           aria-hidden="true"
         />
