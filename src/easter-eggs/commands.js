@@ -51,7 +51,7 @@ const resolvePath = (target, current) => {
   return PAGES[absolute] ? absolute : null;
 };
 
-export const COMMANDS = {
+const COMMANDS = {
   help: {
     summary: 'liste les commandes',
     run: () => [

@@ -2,8 +2,6 @@
 // Consommee par le routeur (navigation client) et par scripts/prerender.mjs
 // (coquilles HTML statiques lues par les crawlers sociaux, qui n'executent pas JS).
 export const SITE_URL = 'https://valentin-fiess.fr';
-export const SITE_NAME = 'Valentin Fiess';
-export const TWITTER_HANDLE = '@WyqBzm';
 
 export const seoRoutes = [
   {
