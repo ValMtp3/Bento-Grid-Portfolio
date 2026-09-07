@@ -8,7 +8,7 @@ const details = [
 
 <template>
   <!-- Status Cell -->
-  <div class="bento-cell p-6 flex flex-col justify-between gap-4">
+  <div class="md:col-span-2 bento-cell p-6 flex flex-col justify-between gap-4">
     <div>
       <p
         class="mb-2 font-code text-[10px] font-semibold uppercase tracking-[0.18em] text-regal-navy-600 dark:text-regal-navy-400"
