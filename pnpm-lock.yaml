@@ -33,8 +33,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(vue@3.5.40(typescript@5.9.3))
       swiper:
-        specifier: ^14.0.6
-        version: 14.0.6
+        specifier: ^14.2.0
+        version: 14.2.0
       vue:
         specifier: ^3.5.40
         version: 3.5.40(typescript@5.9.3)
@@ -968,8 +968,8 @@ packages:
   string.prototype.codepointat@0.2.1:
     resolution: {integrity: sha512-2cBVCj6I4IOvEnjgO/hWqXjqBGsY+zwPmHl12Srk9IXSZ56Jwwmy+66XO5Iut/oQVR7t5ihYdLB0GMa4alEUcg==}
 
-  swiper@14.0.6:
-    resolution: {integrity: sha512-ArptjmcZMBvpLCbvzSKuqvQpjjITCbZdymiGOrbZQffQ3ZSjgpvMByXX0WZBUt+FV4PPIumdYfZ9ZdBbFsdH6g==}
+  swiper@14.2.0:
+    resolution: {integrity: sha512-GsL4M9Fq7Sg22OyL3SjdNj/0bxTfIxPJJHHW394Li0u5vYtExi0a09iBUc8CuLafJi5pAlH2AHUe1PocxHl45g==}
     engines: {node: '>= 4.7.0'}
 
   tailwindcss@4.3.3:
@@ -1874,7 +1874,7 @@ snapshots:
 
   string.prototype.codepointat@0.2.1: {}
 
-  swiper@14.0.6: {}
+  swiper@14.2.0: {}
 
   tailwindcss@4.3.3: {}
 
