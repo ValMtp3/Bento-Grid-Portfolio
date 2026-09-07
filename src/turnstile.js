@@ -14,7 +14,7 @@ const TURNSTILE_SITE_KEY = isLocalHost()
 
 let turnstilePromise;
 
-export const loadTurnstile = () => {
+const loadTurnstile = () => {
   if (window.turnstile) return Promise.resolve(window.turnstile);
   if (turnstilePromise) return turnstilePromise;
 

@@ -1,7 +1,7 @@
 // Signature affichee dans la console du navigateur. Les developpeurs et une
 // partie des recruteurs techniques ouvrent les devtools sur un portfolio : autant
 // y laisser quelque chose plutot qu'une console vide.
-import { LOBSTER, lobsterWithIdentity } from './lobster.js';
+import { lobsterWithIdentity } from './lobster.js';
 
 export const printConsoleSignature = () => {
   // line-height 1.2 : le dessin est calcule pour ce rapport (voir lobster.js).
@@ -17,5 +17,3 @@ export const printConsoleSignature = () => {
   );
   console.log('%cCtrl+K (ou ~) ouvre un vrai terminal sur ce site.', muted);
 };
-
-export { LOBSTER };

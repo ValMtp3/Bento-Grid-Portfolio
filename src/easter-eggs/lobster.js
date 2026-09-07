@@ -30,7 +30,7 @@ export const LOBSTER = [
   '             ##########',
 ];
 
-export const IDENTITY = [
+const IDENTITY = [
   'valentin@valentin-fiess.fr',
   '--------------------------',
   'poste     ingenieur ia / data',
