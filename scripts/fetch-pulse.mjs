@@ -8,6 +8,10 @@
 // Sources : activite GitHub publique + actualite de l'OM (football-data.org).
 // La meteo et l'heure restent cote client, elles doivent etre vraies a la
 // seconde ou la page se charge.
+//
+// Execution locale : `pnpm pulse`, qui charge les cles depuis .env — node ne le
+// lit pas de lui-meme. En CI, le workflow les injecte depuis les secrets du
+// depot et appelle ce fichier directement, sans .env.
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
@@ -286,20 +290,26 @@ const colorsFromSvg = (source) => {
   return dominantColors(found);
 };
 
+// Le repli etait muet : les quatre clubs d'une affiche ont porte navy/paprika
+// pendant des heures sans qu'aucune ligne de log ne l'indique, alors que la
+// cause etait triviale (node_modules absent du runner, donc import('pngjs') qui
+// leve). Toute sortie par le repli se signale desormais, avec sa raison.
 const crestColors = async (crestUrl) => {
   if (!crestUrl) return FALLBACK_COLORS;
 
   try {
     const response = await fetch(crestUrl);
-    if (!response.ok) return FALLBACK_COLORS;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const buffer = Buffer.from(await response.arrayBuffer());
     const colors = crestUrl.endsWith('.svg')
       ? colorsFromSvg(buffer.toString('utf8'))
       : await colorsFromPng(buffer);
 
-    return colors ? colors.map(toHex) : FALLBACK_COLORS;
-  } catch {
+    if (!colors) throw new Error('aucune couleur dominante exploitable');
+    return colors.map(toHex);
+  } catch (error) {
+    console.error(`[pulse] ecusson illisible (${crestUrl}) : ${error.message} — couleurs de repli`);
     return FALLBACK_COLORS;
   }
 };
@@ -434,13 +444,24 @@ const collectFavoris = async () => {
   return { series, films };
 };
 
-// Une source en panne ne doit jamais vider les autres cellules.
-const settle = async (label, task) => {
+// Le JSON precedent sert a deux choses : eviter un commit inutile quand rien
+// n'a bouge, et servir de filet quand une source tombe.
+const previous = await readFile(OUTPUT_PATH, 'utf8').catch(() => null);
+const previousPulse = previous ? JSON.parse(previous) : {};
+
+// Une source en panne ne doit jamais vider une cellule — pas meme la sienne.
+// Ecrire `null` par-dessus une valeur valide effacait la cellule du site
+// jusqu'a la prochaine execution reussie : une cle d'API absente ou un quota
+// depasse suffisait a faire disparaitre les favoris pendant des heures. On
+// reconduit donc la derniere valeur connue, quitte a la laisser vieillir.
+const settle = async (key, task) => {
   try {
     return await task();
   } catch (error) {
-    console.error(`[pulse] ${label} indisponible : ${error.message}`);
-    return null;
+    const fallback = previousPulse[key] ?? null;
+    const suffix = fallback ? ' — valeur precedente conservee' : '';
+    console.error(`[pulse] ${key} indisponible : ${error.message}${suffix}`);
+    return fallback;
   }
 };
 
@@ -459,9 +480,8 @@ const payload = { github, om, favoris };
 // Le workflow tourne toutes les 6 h alors que les donnees changent quelques
 // fois par semaine. Sans cette comparaison, l'horodatage seul suffirait a
 // produire un commit a chaque execution et noierait l'historique du depot.
-const previous = await readFile(OUTPUT_PATH, 'utf8').catch(() => null);
 if (previous) {
-  const { generatedAt: _ignored, ...previousPayload } = JSON.parse(previous);
+  const { generatedAt: _ignored, ...previousPayload } = previousPulse;
   if (JSON.stringify(previousPayload) === JSON.stringify(payload)) {
     console.log('Pulse inchange, aucune ecriture.');
     process.exit(0);

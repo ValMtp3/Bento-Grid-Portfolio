@@ -22,15 +22,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Version pinnee ici plutot que via un champ `packageManager` : celui-ci
+      # fait entrer le binaire pnpm lui-meme dans pnpm-lock.yaml, avec une
+      # variante par plateforme.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
+
+      # pngjs sert a extraire les couleurs dominantes des ecussons. Sans cette
+      # etape, node_modules n'existait pas dans le runner : l'import echouait et
+      # les quatre clubs d'une affiche retombaient sur les couleurs de repli.
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Collect pulse data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: node scripts/fetch-pulse.mjs
 
       - name: Commit updated pulse

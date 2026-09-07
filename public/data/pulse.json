@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T18:59:02.671Z",
+  "generatedAt": "2026-09-07T19:53:04.321Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
@@ -41,16 +41,16 @@
         "name": "Marseille",
         "tla": "MAR",
         "colors": [
-          "#123b7d",
-          "#e65a28"
+          "#0d61ab",
+          "#fefefe"
         ]
       },
       "away": {
         "name": "Paris FC",
         "tla": "PFC",
         "colors": [
-          "#e65a28",
-          "#123b7d"
+          "#090f30",
+          "#fbfbfb"
         ]
       },
       "outcome": "loss",
@@ -67,16 +67,16 @@
         "name": "Stade Rennais",
         "tla": "REN",
         "colors": [
-          "#123b7d",
-          "#e65a28"
+          "#010100",
+          "#d42c3e"
         ]
       },
       "away": {
         "name": "Marseille",
         "tla": "MAR",
         "colors": [
-          "#e65a28",
-          "#123b7d"
+          "#0d61ab",
+          "#fefefe"
         ]
       }
     },
@@ -89,5 +89,58 @@
       "lost": 2
     }
   },
-  "favoris": null
+  "favoris": {
+    "series": [
+      {
+        "id": 62476,
+        "title": "Le Bureau des légendes",
+        "year": "2015",
+        "poster": "/iwfPM9DKmhksFZ1FVskAHZirORi.jpg"
+      },
+      {
+        "id": 2288,
+        "title": "Prison Break",
+        "year": "2005",
+        "poster": "/bCFZhGJLYxmEac4viu6orDeOXYJ.jpg"
+      },
+      {
+        "id": 65430,
+        "title": "Baron Noir",
+        "year": "2016",
+        "poster": "/gINvtfRTIrmdJnKp5iEntGJR9X3.jpg"
+      },
+      {
+        "id": 1425,
+        "title": "House of Cards",
+        "year": "2013",
+        "poster": "/hKWxWjFwnMvkWQawbhvC0Y7ygQ8.jpg"
+      },
+      {
+        "id": 202772,
+        "title": "Le Flambeau, les aventuriers de Chupacabra",
+        "year": "2022",
+        "poster": "/a89SLEtX9AsooDEHOXKoSvj9BRG.jpg"
+      }
+    ],
+    "films": [
+      {
+        "id": 77338,
+        "title": "Intouchables",
+        "year": "2011",
+        "poster": "/bPPNSVARJ8DqiRpMZCdbWuVEYa8.jpg"
+      },
+      {
+        "id": 12405,
+        "title": "Slumdog Millionaire",
+        "year": "2008",
+        "poster": "/r9zN2ZwT2nuUew4r9oApWRkiyIm.jpg"
+      },
+      {
+        "id": 5528,
+        "title": "Les Choristes",
+        "year": "2004",
+        "poster": "/kfWIeoVIBBxLQKhJ22LWYvcEgaP.jpg"
+      }
+    ]
+  }
 }

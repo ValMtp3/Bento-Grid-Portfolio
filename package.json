@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "generate-og": "node scripts/generate-og.mjs",
     "prerender": "node scripts/prerender.mjs",
+    "pulse": "node --env-file=.env scripts/fetch-pulse.mjs",
     "cache-github-chart": "node scripts/cache-github-chart.mjs",
     "process-images": "go run image_processor.go",
     "process-images:force": "go run image_processor.go --force"

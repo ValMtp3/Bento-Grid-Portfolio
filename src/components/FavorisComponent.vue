@@ -109,10 +109,12 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure));
         aria-hidden="true"
       />
 
-      <!-- Squelettes tant que les donnees ne sont pas la : meme grille, meme
-           ratio, donc aucun decalage a l'arrivee des affiches. Le placement
-           automatique saute la colonne du filet, deja occupee. -->
-      <template v-if="!posters.length">
+      <!-- Squelettes pendant le chargement seulement : meme grille, meme ratio,
+           donc aucun decalage a l'arrivee des affiches. Le placement automatique
+           saute la colonne du filet, deja occupee. La condition porte sur
+           `loaded` et non sur le nombre d'affiches : une source en panne laissait
+           sinon huit rectangles gris pulser a cote du message d'indisponibilite. -->
+      <template v-if="!loaded">
         <div v-for="slot in SERIES_COUNT + FILMS_COUNT" :key="`skeleton-${slot}`" class="row-start-2">
           <span
             class="block aspect-[2/3] w-full rounded-md bg-coffee-bean-100 dark:bg-soft-blush-50/[0.06]"
@@ -128,7 +130,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure));
         :href="`https://www.themoviedb.org/${entry.type}/${entry.id}`"
         target="_blank"
         rel="noopener noreferrer"
-        class="group row-start-2 block min-w-0"
+        class="poster-card group row-start-2 block min-w-0"
       >
         <span class="relative block">
           <img
@@ -138,7 +140,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure));
             height="278"
             loading="lazy"
             decoding="async"
-            class="aspect-[2/3] w-full rounded-md object-cover shadow-sm ring-1 ring-coffee-bean-950/10 transition-transform duration-300 group-hover:-translate-y-0.5 dark:ring-soft-blush-50/15"
+            class="poster-art aspect-[2/3] w-full rounded-md object-cover shadow-sm ring-1 ring-coffee-bean-950/10 group-hover:-translate-y-0.5 dark:ring-soft-blush-50/15"
           />
           <!-- Le rang est pose dans l'angle et non en debord : la bande
                defilante rognerait tout ce qui sort du cadre. -->
