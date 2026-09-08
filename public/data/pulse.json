@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-09-08T01:52:26.225Z",
+  "generatedAt": "2026-09-08T20:26:13.125Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "8518897dc3280a41ad19fe8948b1718007e235b6",
-      "date": "2026-09-07T20:08:51Z",
-      "message": "refactor: retire le code mort et restreint les exports internes",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/8518897dc3280a41ad19fe8948b1718007e235b6"
+      "repo": "ValMtp3/chiffremento-go-cli",
+      "sha": "d68bd2bede0cc917fca3ed2ad127aebdd467f807",
+      "date": "2026-09-08T19:04:29Z",
+      "message": "compile avec -trimpath, pour des binaires reproductibles",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/d68bd2bede0cc917fca3ed2ad127aebdd467f807"
     },
     "week": {
       "days": 7,
-      "commits": 6,
-      "repos": 1,
+      "commits": 11,
+      "repos": 3,
       "languages": [
         {
           "name": "Vue",
-          "share": 49
+          "share": 40
         },
         {
           "name": "JavaScript",
-          "share": 38
+          "share": 31
+        },
+        {
+          "name": "Go",
+          "share": 17
         },
         {
           "name": "Config",
-          "share": 9
-        },
-        {
-          "name": "HTML",
-          "share": 2
+          "share": 7
         }
       ]
     }
