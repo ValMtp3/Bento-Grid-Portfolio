@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-09-07T19:53:04.321Z",
+  "generatedAt": "2026-09-08T01:52:26.225Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "c13283944fd3db380cf89f64ddf9fcd61b3352a6",
-      "date": "2026-09-07T18:58:16Z",
-      "message": "feat(portfolio): signaux vivants et favoris series/films",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/c13283944fd3db380cf89f64ddf9fcd61b3352a6"
+      "sha": "8518897dc3280a41ad19fe8948b1718007e235b6",
+      "date": "2026-09-07T20:08:51Z",
+      "message": "refactor: retire le code mort et restreint les exports internes",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/8518897dc3280a41ad19fe8948b1718007e235b6"
     },
     "week": {
       "days": 7,
-      "commits": 4,
+      "commits": 6,
       "repos": 1,
       "languages": [
         {
           "name": "Vue",
-          "share": 51
+          "share": 49
         },
         {
           "name": "JavaScript",
@@ -23,7 +23,7 @@
         },
         {
           "name": "Config",
-          "share": 6
+          "share": 9
         },
         {
           "name": "HTML",
