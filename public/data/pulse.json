@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T20:26:13.125Z",
+  "generatedAt": "2026-09-09T20:09:29.721Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
@@ -10,24 +10,24 @@
     },
     "week": {
       "days": 7,
-      "commits": 11,
+      "commits": 9,
       "repos": 3,
       "languages": [
         {
           "name": "Vue",
-          "share": 40
-        },
-        {
-          "name": "JavaScript",
-          "share": 31
+          "share": 32
         },
         {
           "name": "Go",
-          "share": 17
+          "share": 31
+        },
+        {
+          "name": "JavaScript",
+          "share": 23
         },
         {
           "name": "Config",
-          "share": 7
+          "share": 12
         }
       ]
     }
