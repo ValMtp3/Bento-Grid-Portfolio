@@ -1,4 +1,76 @@
-# Bloque les robots indésirables ou non pertinents
+# robots.txt — valentin-fiess.fr
+#
+# Politique d'usage declaree, identique a celle de /llms.txt : le contenu de ce
+# site peut etre indexe, cite, utilise comme reference et servir a
+# l'entrainement de modeles. Les directives ci-dessous ne restreignent donc pas
+# l'usage, elles nomment explicitement les agents attendus pour qu'aucun n'ait a
+# deviner s'il est le bienvenu.
+
+# ─── Signal d'usage lisible par machine ──────────────────────────────────────
+# Content Signals (https://contentsignals.org). Coherent avec /llms.txt.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+# ─── Moteurs de reponse et agents conversationnels ───────────────────────────
+# Ces agents alimentent les reponses de ChatGPT, Claude, Perplexity et Gemini.
+# Ils sont explicitement autorises sur l'integralite du site.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: ora-agent
+Allow: /
+
+# ─── Robots sans interet pour ce site ────────────────────────────────────────
+# Aucun public francophone cible, ou aspirateurs de liens sans valeur ajoutee.
+
 User-agent: baiduspider
 Disallow: /
 
@@ -11,11 +83,21 @@ Disallow: /
 User-agent: Barkrowler
 Disallow: /
 
-# Autorise tous les autres robots, sauf pour /cgi-bin/ et /justice/
+# ─── Tous les autres ─────────────────────────────────────────────────────────
+
 User-agent: *
 Disallow: /cgi-bin/
 Disallow: /justice/
 Allow: /
 
-# Emplacement du sitemap
-Sitemap: https://www.valentin-fiess.fr/sitemap.xml
+# ─── Decouverte ──────────────────────────────────────────────────────────────
+# Domaine apex uniquement : c'est l'URL canonique du site, et passer par www
+# ajouterait une redirection entre le robot et le document.
+
+Sitemap: https://valentin-fiess.fr/sitemap.xml
+
+# Carte des flux de donnees structurees (NLWeb Schema Feeds).
+Schemamap: https://valentin-fiess.fr/schemamap.xml
+
+# Index destine aux agents et aux modeles de langage.
+# https://valentin-fiess.fr/llms.txt

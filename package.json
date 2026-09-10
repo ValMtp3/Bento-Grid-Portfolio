@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-og.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/generate-og.mjs && node scripts/generate-agent-manifests.mjs && vite build && node scripts/prerender.mjs && node scripts/verify-agent-manifests.mjs",
     "preview": "vite preview",
     "generate-og": "node scripts/generate-og.mjs",
+    "agent-manifests": "node scripts/generate-agent-manifests.mjs",
+    "verify:agents": "node scripts/verify-agent-manifests.mjs",
     "prerender": "node scripts/prerender.mjs",
     "pulse": "node --env-file=.env scripts/fetch-pulse.mjs",
     "cache-github-chart": "node scripts/cache-github-chart.mjs",

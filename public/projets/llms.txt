@@ -1,0 +1,8 @@
+# Projets — Valentin Fiess
+
+> Réalisations Data, IA, automatisation et développement web, avec une étude de cas architecturale détaillée.
+
+- [Projets Data, IA et Web](https://valentin-fiess.fr/projets) : Projets Data et IA : RAG, agents, vision par ordinateur, pipelines ETL et applications web. Code source et démos. Markdown : https://valentin-fiess.fr/projets.md
+- [Raguia — étude de cas](https://valentin-fiess.fr/projets/raguia) : Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval. Markdown : https://valentin-fiess.fr/projets/raguia.md
+
+Index complet du site : https://valentin-fiess.fr/llms.txt

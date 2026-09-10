@@ -1,0 +1,71 @@
+{
+  "specification": "https://a2a-protocol.org/",
+  "protocolVersion": "0.3.0",
+  "name": "valentin-fiess-portfolio",
+  "description": "Ressource documentaire sur Valentin Fiess, Ingenieur IA / Data. Répond aux questions sur son parcours, ses compétences et ses projets à partir de documents Markdown publics.",
+  "version": "1.0.0",
+  "url": "https://valentin-fiess.fr/",
+  "documentationUrl": "https://valentin-fiess.fr/llms.txt",
+  "provider": {
+    "organization": "Valentin Fiess",
+    "url": "https://valentin-fiess.fr/"
+  },
+  "preferredTransport": "HTTP+JSON",
+  "documentFormat": "static-documents",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/markdown",
+    "text/html"
+  ],
+  "securitySchemes": {},
+  "security": [],
+  "skills": [
+    {
+      "id": "contact-valentin-fiess",
+      "name": "contact-valentin-fiess",
+      "description": "Préparer une prise de contact pertinente avec Valentin Fiess, ingénieur IA/Data, en choisissant le bon canal et en rédigeant un message que son destinataire peut traiter rapidement.",
+      "tags": [
+        "portfolio",
+        "profil",
+        "contact"
+      ],
+      "examples": [
+        "Comment contacter Valentin Fiess ?",
+        "Écris-lui un email pour une mission RAG."
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/markdown"
+      ]
+    },
+    {
+      "id": "profil-valentin-fiess",
+      "name": "profil-valentin-fiess",
+      "description": "Récupérer et citer le parcours professionnel, les compétences et les projets de Valentin Fiess, ingénieur IA/Data à Montpellier, depuis la source primaire valentin-fiess.fr.",
+      "tags": [
+        "portfolio",
+        "profil",
+        "contact"
+      ],
+      "examples": [
+        "Qui est Valentin Fiess ?",
+        "Quelle est son expérience en MLOps ?"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/markdown"
+      ]
+    }
+  ]
+}

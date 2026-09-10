@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agent-plugins.org/schema/v1/plugin.json",
+  "name": "valentin-fiess-portfolio",
+  "version": "1.0.0",
+  "description": "Skills permettant à un agent de consulter et citer le parcours professionnel de Valentin Fiess, ingénieur IA/Data, depuis la source primaire valentin-fiess.fr.",
+  "author": {
+    "name": "Valentin Fiess",
+    "email": "sobre.05.statue@icloud.com",
+    "url": "https://valentin-fiess.fr/"
+  },
+  "license": "CC-BY-4.0",
+  "homepage": "https://valentin-fiess.fr/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio"
+  },
+  "keywords": ["portfolio", "profil", "cv", "ia", "data", "montpellier"],
+  "skills": [
+    {
+      "name": "profil-valentin-fiess",
+      "description": "Récupérer et citer le parcours professionnel, les compétences et les projets de Valentin Fiess depuis la source primaire.",
+      "path": "public/.well-known/agent-skills/profil-valentin-fiess.md",
+      "url": "https://valentin-fiess.fr/.well-known/agent-skills/profil-valentin-fiess.md"
+    },
+    {
+      "name": "contact-valentin-fiess",
+      "description": "Préparer une prise de contact pertinente en choisissant le bon canal et en rédigeant un message exploitable.",
+      "path": "public/.well-known/agent-skills/contact-valentin-fiess.md",
+      "url": "https://valentin-fiess.fr/.well-known/agent-skills/contact-valentin-fiess.md"
+    }
+  ],
+  "mcpServers": {},
+  "discovery": {
+    "index": "https://valentin-fiess.fr/.well-known/agent-skills/index.json",
+    "agentCard": "https://valentin-fiess.fr/.well-known/agent-card.json",
+    "llmsTxt": "https://valentin-fiess.fr/llms.txt"
+  }
+}

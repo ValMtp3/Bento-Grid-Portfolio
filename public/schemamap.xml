@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Genere par scripts/generate-agent-manifests.mjs. Ne pas editer a la main. -->
+<schemamap xmlns="http://www.schemamap.org/schemas/schemamap/0.1">
+  <feed>
+    <loc>https://valentin-fiess.fr/feeds/pages.jsonl</loc>
+    <type>application/jsonl</type>
+    <schema>https://schema.org/WebPage</schema>
+    <lastmod>2026-09-10</lastmod>
+    <description>Une ligne JSON-LD par page publique du site.</description>
+  </feed>
+</schemamap>
