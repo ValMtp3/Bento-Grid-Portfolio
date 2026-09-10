@@ -195,7 +195,11 @@ AddType application/jsonl .jsonl
 </IfModule>
 
 # 5. Protection des fichiers sensibles
-<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql|conf|git)$">
+# .DS_Store est ajoute a la liste : macOS en depose dans chaque dossier, Vite
+# les recopie de public/ vers dist/, et ils partent en ligne au deploiement. Le
+# fichier revele les noms de tout ce que contient le dossier, y compris ce qui
+# n'est reference nulle part.
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql|conf|git|DS_Store)$">
     Require all denied
 </FilesMatch>
 
