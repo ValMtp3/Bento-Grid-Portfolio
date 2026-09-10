@@ -8,6 +8,9 @@ const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
 const RaguiaView = () => import('@/views/projets/RaguiaView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
+const AboutView = () => import('@/views/AboutView.vue');
+const ContactView = () => import('@/views/ContactView.vue');
+const PrivacyView = () => import('@/views/PrivacyView.vue');
 const ChatbotView = () => import('@/views/ChatbotView.vue');
 const JusticeView = () => import('@/views/JusticeView.vue');
 const NotFound = () => import('@/views/errors/NotFound.vue');
@@ -29,6 +32,12 @@ const router = createRouter({
     },
     { path: '/policy', name: 'policy', component: PolicyView, meta: routeMeta('policy') },
     { path: '/chatbot', name: 'chatbot', component: ChatbotView, meta: routeMeta('chatbot') },
+    // /about, /contact et /privacy sont les pages que les agents consultent pour
+    // verifier qu'un site est legitime avant de le citer. Elles doublent
+    // /legal et /policy en version lisible plutot qu'en version juridique.
+    { path: '/about', name: 'about', component: AboutView, meta: routeMeta('about') },
+    { path: '/contact', name: 'contact', component: ContactView, meta: routeMeta('contact') },
+    { path: '/privacy', name: 'privacy', component: PrivacyView, meta: routeMeta('privacy') },
     {
       path: '/justice',
       name: 'justice',

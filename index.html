@@ -16,6 +16,31 @@
     <meta content="index, follow" name="robots" />
     <link href="https://valentin-fiess.fr/" rel="canonical" />
 
+    <!-- Representation Markdown de la page, pour les agents. scripts/prerender.mjs
+         reecrit ce href route par route. -->
+    <link href="https://valentin-fiess.fr/index.md" rel="alternate" type="text/markdown" />
+
+    <!-- JSON-LD. Valeurs de l'accueil ; scripts/prerender.mjs regenere le graphe
+         complet route par route depuis scripts/generate-agent-manifests.mjs. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://valentin-fiess.fr/#person",
+            "name": "Valentin Fiess",
+            "jobTitle": "Ingenieur IA / Data",
+            "url": "https://valentin-fiess.fr/",
+            "sameAs": [
+              "https://github.com/ValMtp3",
+              "https://www.linkedin.com/in/valentin-fiess/"
+            ]
+          }
+        ]
+      }
+    </script>
+
     <!-- Favicon -->
     <link href="/assets/assets_index/val.ico" rel="icon" type="image/ico" />
     <link href="/assets/assets_index/Profile2.jpeg" rel="apple-touch-icon" sizes="180x180" />
@@ -59,6 +84,43 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <style>
+      /* Contenu pose par scripts/prerender.mjs dans #app, remplace des que Vue
+         monte. Styles minimaux et autonomes : ce bloc s'affiche avant que la
+         feuille Tailwind ne soit chargee. */
+      .prerendered-content {
+        max-width: 46rem;
+        margin: 0 auto;
+        padding: 2.5rem 1.25rem;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        line-height: 1.7;
+        color: #3b2a24;
+      }
+      .prerendered-content h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .prerendered-content h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 1.75rem 0 0.5rem;
+      }
+      .prerendered-content ul,
+      .prerendered-content ol {
+        padding-left: 1.5rem;
+      }
+      .prerendered-content a {
+        color: #2b5fad;
+      }
+      @media (prefers-color-scheme: dark) {
+        .prerendered-content {
+          color: #f4d7cb;
+        }
+        .prerendered-content a {
+          color: #7aa7ef;
+        }
+      }
+
       @font-face {
         font-family: '0xProto';
         src: url('/assets/Font/0xProto-Regular.woff2') format('woff2');

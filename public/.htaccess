@@ -7,10 +7,46 @@ AddDefaultCharset UTF-8
 # 1. Activer la réécriture d'URL
 RewriteEngine On
 
+# mod_dir redirige par défaut /about vers /about/ dès qu'un dossier du même nom
+# existe dans dist/ -- et il agit avant les règles ci-dessous. Conséquences :
+# chaque page interne coûtait une redirection 301 supplémentaire, l'URL servie
+# ne correspondait plus à la balise canonical (déclarée sans barre finale), et
+# la négociation Markdown ne s'appliquait jamais aux sous-pages.
+# Options -Indexes accompagne obligatoirement DirectorySlash Off : sans lui, un
+# dossier sans index pourrait exposer la liste de ses fichiers.
+DirectorySlash Off
+Options -Indexes
+
 # 1.5. Négociation Markdown pour les agents, puis routing SPA.
-# Une requête explicite Accept: text/markdown sur l'accueil reçoit llms.txt.
+#
+# Trois portes d'entrée mènent au même document Markdown, parce que les agents
+# n'utilisent pas tous la même convention :
+#   - l'en-tête Accept: text/markdown sur l'URL HTML ;
+#   - le suffixe .md ajouté à l'URL (servi directement, ce sont de vrais
+#     fichiers produits par scripts/generate-agent-manifests.mjs) ;
+#   - le paramètre ?mode=agent.
+#
+# La condition -f est indispensable : sans elle, une page sans jumeau Markdown
+# renverrait un 404 au lieu de sa version HTML.
+
+# Accueil, par négociation de contenu.
 RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*text/markdown([;,]|$) [NC]
-RewriteRule ^$ llms.txt [END]
+RewriteCond %{DOCUMENT_ROOT}/index.md -f
+RewriteRule ^$ /index.md [END]
+
+# Pages internes, par négociation de contenu.
+RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*text/markdown([;,]|$) [NC]
+RewriteCond %{DOCUMENT_ROOT}/$1.md -f
+RewriteRule ^([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ /$1.md [END]
+
+# Vue agent explicite : ?mode=agent renvoie la représentation structurée.
+RewriteCond %{QUERY_STRING} (^|&)mode=agent(&|$) [NC]
+RewriteCond %{DOCUMENT_ROOT}/index.md -f
+RewriteRule ^$ /index.md [END]
+
+RewriteCond %{QUERY_STRING} (^|&)mode=agent(&|$) [NC]
+RewriteCond %{DOCUMENT_ROOT}/$1.md -f
+RewriteRule ^([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ /$1.md [END]
 
 # Redirige tout vers index.html sauf si le fichier existe.
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
@@ -22,13 +58,29 @@ RewriteRule ^index\.html$ https://valentin-fiess.fr/ [R=301,L]
 RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
 RewriteRule ^([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ /$1/index.html [L]
 
+# Un fichier absent sous /.well-known/, /feeds/ ou /api/ doit répondre 404,
+# pas la coquille HTML de la SPA. Sans cette règle, un scanner qui demande un
+# manifeste inexistant reçoit du HTML et conclut « le fichier existe mais son
+# JSON est invalide » — c'est le diagnostic qu'a produit l'audit orank.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(\.well-known|feeds|api)/ - [R=404,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]
 
-# llms.txt est aussi la représentation Markdown négociée de l'accueil.
+# Types explicites des documents destinés aux machines. Sans eux, Apache sert
+# les .md en application/octet-stream et le manifeste api-catalog, qui n'a pas
+# d'extension, en text/plain.
+AddType text/markdown .md
+AddType application/jsonl .jsonl
+
 <Files "llms.txt">
     ForceType text/markdown
+</Files>
+
+<Files "api-catalog">
+    ForceType application/linkset+json
 </Files>
 
 # 2. Protection contre les attaques XSS et Headers de sécurité
@@ -58,15 +110,49 @@ RewriteRule ^ index.html [QSA,L]
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
     # Découverte de ressources par les agents après la réécriture SPA (RFC 8288).
+    # Ces liens valent pour toute page HTML : ils ne désignent que des documents
+    # à l'échelle du site.
     <Files "index.html">
-        Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
+        Header always set Link "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\"; type=\"application/xml\", </.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/agent-card.json>; rel=\"service-desc\"; type=\"application/json\", </.well-known/agent-skills/index.json>; rel=\"service-meta\"; type=\"application/json\", </schemamap.xml>; rel=\"describedby\"; type=\"application/xml\""
+
+        # Vary: Accept est obligatoire dès qu'une URL a deux représentations.
+        # Sans lui, un CDN peut resservir la variante HTML mise en cache à un
+        # agent qui demande du Markdown, ou l'inverse (acceptmarkdown.com).
         Header always merge Vary "Accept"
     </Files>
+
+    # Le jumeau Markdown est propre à chaque page : le déclarer globalement
+    # ferait pointer toutes les pages vers /index.md. Seul l'accueil le porte en
+    # en-tête ; les autres pages le déclarent dans leur <head>, via la balise
+    # <link rel="alternate" type="text/markdown"> posée par prerender.mjs.
+    <If "%{REQUEST_URI} == '/' || %{REQUEST_URI} == '/index.html'">
+        Header always merge Link "</index.md>; rel=\"alternate\"; type=\"text/markdown\""
+    </If>
+
+    # Les documents Markdown varient eux aussi selon Accept : ils sont l'autre
+    # face de la même URL.
+    <FilesMatch "\.md$">
+        Header always set Content-Type "text/markdown; charset=UTF-8"
+        Header always merge Vary "Accept"
+    </FilesMatch>
 
     # Le type doit rester explicite après la réécriture interne de l'accueil.
     <Files "llms.txt">
         Header always set Content-Type "text/markdown; charset=UTF-8"
+        Header always merge Vary "Accept"
     </Files>
+
+    # RFC 9727 impose ce type, avec le profil, pour le catalogue d'API.
+    <Files "api-catalog">
+        Header always set Content-Type "application/linkset+json;profile=\"https://www.rfc-editor.org/info/rfc9727\""
+    </Files>
+
+    # Les manifestes de découverte sont lus par des agents anonymes, souvent
+    # depuis une autre origine : sans CORS, un agent navigateur ne peut pas les
+    # lire. Ils sont publics, donc aucun risque à les ouvrir.
+    <FilesMatch "^(ard\.json|ai-catalog\.json|agent-card\.json|api-catalog|index\.json|server-card\.json)$">
+        Header always set Access-Control-Allow-Origin "*"
+    </FilesMatch>
 
     # Les manifestes de découverte doivent être rafraîchis rapidement par les CDN.
     <FilesMatch "^(robots\.txt|llms\.txt|sitemap\.xml)$">
@@ -128,5 +214,14 @@ RewriteCond %{REQUEST_FILENAME} \.(gif|jpe?g|png|webp|svg)$ [NC]
 RewriteRule . - [F,L]
 
 # 8. Gestion des erreurs
+#
+# Les visiteurs reçoivent la SPA, qui affiche sa page 404. Les chemins destinés
+# aux machines reçoivent du JSON : un agent ne sait pas lire une page d'erreur
+# HTML, et l'audit orank compte explicitement ce point.
 ErrorDocument 404 /index.html
 ErrorDocument 500 /index.html
+
+<If "%{REQUEST_URI} =~ m#^/(\.well-known|feeds|api)/#">
+    ErrorDocument 404 /errors/404.json
+    ErrorDocument 500 /errors/500.json
+</If>
