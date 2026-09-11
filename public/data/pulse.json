@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-09-10T20:11:17.991Z",
+  "generatedAt": "2026-09-11T20:10:23.014Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "3ffec20c611891031b7382b1ac4fcda02091d83c",
-      "date": "2026-09-10T17:41:33Z",
-      "message": "fix(privacy): nomme EmailJS comme destinataire et bloque les .DS_Store",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/3ffec20c611891031b7382b1ac4fcda02091d83c"
+      "repo": "ValMtp3/chiffremento-go-cli",
+      "sha": "7d6bac74283fc597a61cdf09be6eb88b3b4c3904",
+      "date": "2026-09-11T16:52:13Z",
+      "message": "aligne la documentation sur la version 2.2.1",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/7d6bac74283fc597a61cdf09be6eb88b3b4c3904"
     },
     "week": {
       "days": 7,
-      "commits": 14,
+      "commits": 19,
       "repos": 3,
       "languages": [
         {
           "name": "Go",
-          "share": 46
+          "share": 50
         },
         {
           "name": "JavaScript",
-          "share": 20
+          "share": 19
         },
         {
           "name": "Docs",
-          "share": 16
+          "share": 15
         },
         {
           "name": "Vue",
-          "share": 10
+          "share": 9
         }
       ]
     }
@@ -81,12 +81,12 @@
       }
     },
     "standing": {
-      "position": 10,
+      "position": 11,
       "points": 3,
-      "played": 3,
+      "played": 4,
       "won": 1,
       "draw": 0,
-      "lost": 2
+      "lost": 3
     }
   },
   "favoris": {
