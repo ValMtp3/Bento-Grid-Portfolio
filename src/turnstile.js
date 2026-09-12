@@ -54,15 +54,24 @@ const loadTurnstile = () => {
  * Monte le widget Turnstile dans un conteneur et pousse le token dans une ref.
  * Le token repasse a null a l'expiration ou en cas d'erreur, ce qui redesactive
  * le formulaire appelant.
+ *
+ * `appearance` vaut 'always' par defaut : le cadre reste visible, comme sur le
+ * formulaire de contact. Le chatbot demande 'interaction-only', qui ne montre
+ * le cadre que si Cloudflare reclame vraiment une action au visiteur.
+ *
+ * @param {import('vue').Ref<HTMLElement | null>} container
+ * @param {import('vue').Ref<string | null>} tokenRef
+ * @param {{ appearance?: 'always' | 'execute' | 'interaction-only' }} [options]
  */
-export const renderTurnstile = async (container, tokenRef) => {
+export const renderTurnstile = async (container, tokenRef, { appearance = 'always' } = {}) => {
   try {
     const turnstile = await loadTurnstile();
-    if (!container.value) return;
+    if (!container.value) return null;
 
-    turnstile.render(container.value, {
+    return turnstile.render(container.value, {
       sitekey: TURNSTILE_SITE_KEY,
       theme: 'auto',
+      appearance,
       callback: (token) => {
         tokenRef.value = token;
       },
@@ -74,6 +83,26 @@ export const renderTurnstile = async (container, tokenRef) => {
       },
     });
   } catch (error) {
+    console.warn('Turnstile:', error.message);
+    return null;
+  }
+};
+
+/**
+ * Libere un widget Turnstile. A appeler au demontage du composant qui l'a monte :
+ * sans cela, chaque ouverture du chatbot laisse derriere elle une instance
+ * enregistree cote Cloudflare, qui n'est jamais reclamee.
+ *
+ * @param {string | null | undefined} widgetId - l'identifiant rendu par renderTurnstile.
+ */
+export const removeTurnstile = (widgetId) => {
+  if (!widgetId || !window.turnstile) return;
+
+  try {
+    window.turnstile.remove(widgetId);
+  } catch (error) {
+    // Widget deja retire, ou script decharge : rien a reparer, mais la trace
+    // reste utile si le comportement devenait suspect.
     console.warn('Turnstile:', error.message);
   }
 };
