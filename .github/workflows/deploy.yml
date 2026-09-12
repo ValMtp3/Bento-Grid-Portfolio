@@ -157,8 +157,13 @@ jobs:
           # pipefail est indispensable : sans lui, un echec de ssh en bout de
           # tube serait masque par le succes de tar, et le job passerait au vert
           # alors que rien n'est deploye.
+          # -4 force IPv4. Le VPS publie aussi une adresse IPv6, mais les
+          # runners GitHub n'ont pas de connectivite IPv6 : sans cette option,
+          # ssh tenterait l'IPv6 en premier et attendrait l'expiration du delai
+          # a chaque deploiement.
           tar -czf - -C dist . \
-            | ssh -i ~/.ssh/deploy_key \
+            | ssh -4 \
+                  -i ~/.ssh/deploy_key \
                   -p "$VPS_PORT" \
                   -o StrictHostKeyChecking=yes \
                   -o BatchMode=yes \
