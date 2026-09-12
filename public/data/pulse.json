@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-09-12T01:57:58.686Z",
+  "generatedAt": "2026-09-12T19:49:09.376Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "7d6bac74283fc597a61cdf09be6eb88b3b4c3904",
-      "date": "2026-09-11T16:52:13Z",
-      "message": "aligne la documentation sur la version 2.2.1",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/7d6bac74283fc597a61cdf09be6eb88b3b4c3904"
+      "repo": "ValMtp3/Bento-Grid-Portfolio",
+      "sha": "ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9",
+      "date": "2026-09-12T18:11:22Z",
+      "message": "ci: force IPv4 au deploiement et documente l'installation du VPS",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9"
     },
     "week": {
       "days": 7,
-      "commits": 19,
+      "commits": 26,
       "repos": 3,
       "languages": [
         {
-          "name": "Go",
-          "share": 50
+          "name": "JavaScript",
+          "share": 39
         },
         {
-          "name": "JavaScript",
-          "share": 19
+          "name": "Go",
+          "share": 27
         },
         {
           "name": "Docs",
@@ -27,7 +27,7 @@
         },
         {
           "name": "Vue",
-          "share": 9
+          "share": 10
         }
       ]
     }
@@ -81,7 +81,7 @@
       }
     },
     "standing": {
-      "position": 11,
+      "position": 12,
       "points": 3,
       "played": 4,
       "won": 1,
