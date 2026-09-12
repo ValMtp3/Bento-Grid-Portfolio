@@ -1,12 +1,31 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-coffee-bean-950 py-8">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-soft-blush-50 mb-2">Chatbot IA</h1>
-        <p class="text-gray-600 dark:text-soft-blush-300">Discutez avec mon assistant IA intelligent</p>
-      </div>
+  <!-- Pas de fond pose ici : le degrade du site, porte par <body>, doit rester
+       visible autour de la carte. Un aplat gris le recouvrait et detachait cette
+       page du reste du portfolio. -->
+  <div class="min-h-screen px-4 py-8 sm:py-10">
+    <div class="mx-auto max-w-4xl">
+      <header class="mb-5 border-b border-coffee-bean-200/70 pb-3 dark:border-soft-blush-50/10 sm:mb-6">
+        <p
+          class="mb-1 font-code text-[10px] font-semibold uppercase tracking-[0.2em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
+        >
+          $ / Assistant
+        </p>
+        <h1
+          class="font-heading text-xl font-bold text-balance text-regal-navy-700 dark:text-regal-navy-300 sm:text-2xl"
+        >
+          Chatbot IA
+        </h1>
+        <p class="mt-2 max-w-xl text-sm text-pretty text-coffee-bean-600 dark:text-soft-blush-300">
+          Posez vos questions sur mon parcours, mes projets et mes compétences. Les réponses sont
+          générées par un modèle, elles peuvent contenir des erreurs.
+        </p>
+      </header>
 
-    <div class="bg-white dark:bg-coffee-bean-950 rounded-xl shadow-lg overflow-hidden h-200 dark:border dark:border-coffee-bean-800/40">
+      <!-- Meme cadre que les cellules du bento, sans leur reaction au survol :
+           une carte de cette taille n'a pas a bouger quand la souris la traverse. -->
+      <div
+        class="h-[72dvh] overflow-hidden rounded-xl border border-coffee-bean-100 shadow-sm shadow-coffee-bean-950/10 md:h-200 dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20"
+      >
         <ChatInterface />
       </div>
     </div>

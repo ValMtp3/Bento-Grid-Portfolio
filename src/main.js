@@ -9,10 +9,18 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { printConsoleSignature } from './easter-eggs/console.js';
+import { vReveal } from './directives/reveal.js';
+import { initTheme } from './theme.js';
+
+// Avant la creation de l'application : le script en ligne de index.html a deja
+// pose l'apparence, ici on reprend la preference memorisee et on branche le
+// suivi du theme systeme.
+initTheme();
 
 const app = createApp(App);
 
 app.use(router);
+app.directive('reveal', vReveal);
 
 import('./matomo')
   .then(({ initMatomo }) => initMatomo(router))

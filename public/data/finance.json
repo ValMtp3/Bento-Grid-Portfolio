@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-09-11T17:44:47.317Z",
+  "mix": [
+    {
+      "label": "Crypto",
+      "share": 75
+    },
+    {
+      "label": "Actions",
+      "share": 20
+    },
+    {
+      "label": "ETF",
+      "share": 5
+    }
+  ],
+  "regions": [
+    {
+      "label": "Europe",
+      "share": 65
+    },
+    {
+      "label": "Amerique du Nord",
+      "share": 30
+    },
+    {
+      "label": "Autres",
+      "share": 5
+    }
+  ],
+  "currencies": [
+    {
+      "label": "EUR",
+      "share": 80
+    },
+    {
+      "label": "USD",
+      "share": 20
+    }
+  ],
+  "structure": {
+    "positions": 61,
+    "topThreeShare": 60,
+    "countries": 8,
+    "currencies": 2,
+    "networks": 9,
+    "workingShare": 15
+  },
+  "behaviour": {
+    "avgHoldingDays": 144,
+    "oldestPositionMonths": 7,
+    "ordersLast30d": 14,
+    "buyRatio": 100,
+    "favouriteDay": "jeudi"
+  },
+  "sources": [
+    "Trading 212",
+    "EVM ethereum",
+    "EVM base",
+    "EVM optimism",
+    "EVM arbitrum",
+    "EVM polygon",
+    "EVM bnb",
+    "Solana",
+    "Bitcoin #1",
+    "Bitcoin #2",
+    "Dogecoin"
+  ]
+}

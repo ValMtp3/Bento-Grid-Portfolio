@@ -50,8 +50,12 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
 
       <DocSection title="4. Destinataires des Données">
         <p>
-          Vos données personnelles sont directement envoyées à ma boîte mail personnelle et ne sont
-          partagées avec aucun tiers.
+          Vos données personnelles sont envoyées directement à ma boîte mail personnelle. Leur
+          acheminement transite par <strong>EmailJS</strong>, prestataire technique d'envoi
+          d'e-mails, et le formulaire est protégé des envois automatisés par
+          <strong>Cloudflare Turnstile</strong>. En dehors de ces prestataires techniques,
+          nécessaires au fonctionnement du formulaire, vos données ne sont partagées avec aucun
+          tiers : ni revente, ni usage publicitaire.
         </p>
       </DocSection>
 
