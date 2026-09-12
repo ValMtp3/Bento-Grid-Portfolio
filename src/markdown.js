@@ -29,7 +29,7 @@ const escapeHtml = (value) =>
 // jour ou ce convertisseur servira un contenu moins maitrise, ou l'echappement
 // HTML seul ne suffirait plus : escapeHtml ne touche pas au schema d'une URL,
 // donc `javascript:alert(1)` traverserait intact jusqu'a l'attribut href.
-const isSafeHref = (href) =>
+export const isSafeHref = (href) =>
   /^(https?:|mailto:)/i.test(href) || href.startsWith('/') || href.startsWith('#');
 
 // Les liens externes recoivent rel="noopener noreferrer" : sans lui, la page

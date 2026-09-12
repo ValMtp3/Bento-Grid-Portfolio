@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 
+/* Par defaut, la variante `dark:` de Tailwind suit @media (prefers-color-scheme),
+   une decision du systeme d'exploitation que la page ne peut pas contredire.
+   On la rattache a une classe posee sur <html> : le theme redevient pilotable
+   depuis le site, sans changer une seule des variantes `dark:` existantes.
+
+   `:where()` maintient la specificite a zero, pour que la bascule ne gagne pas
+   de poids face aux regles ecrites a la main plus bas dans ce fichier. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Custom colors */
   --color-spicy-paprika-50: #fff1ea;
@@ -72,7 +81,11 @@
 @layer base {
   html,
   body {
-    @apply bg-custom-gradient;
+    /* Le fond sombre est porte ici, et pas seulement par le conteneur de
+       App.vue : la classe .dark est posee sur <html> avant le demarrage de
+       l'application, le fond doit pouvoir suivre des cet instant. Sinon la page
+       s'afficherait sur fond clair jusqu'au montage de Vue. */
+    @apply bg-custom-gradient dark:bg-custom-gradient-dark;
     overflow-x: hidden;
     width: 100%;
     margin: 0;
@@ -138,10 +151,18 @@
 
 @layer components {
   .bento-cell {
-    @apply rounded-xl bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20 backdrop-blur-[2px] transition-all duration-300;
+    @apply rounded-xl bg-soft-blush-50 shadow-sm shadow-coffee-bean-950/10 border border-coffee-bean-100 dark:bg-soft-blush-50/[0.07] dark:border-soft-blush-50/[0.12] dark:shadow-coffee-bean-950/20;
+    /* Proprietes listees une a une : "all" animerait aussi la couleur de fond
+       et les ombres portees a chaque changement d'etat, pour rien. */
+    transition-property: transform, border-color, box-shadow;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
   .bento-cell:hover {
     @apply border-regal-navy-300 shadow-md dark:border-regal-navy-600;
+    /* Un pixel et demi : assez pour que la carte reponde, trop peu pour que le
+       regard saute d'une cellule a l'autre en balayant la grille. */
+    transform: translateY(-1.5px);
   }
   /* Etiquettes techniques : fond assez contraste pour rester lisible sur une carte soft-blush-50. */
   .tag {
@@ -152,6 +173,79 @@
   }
   .tag-navy {
     @apply border-regal-navy-400 bg-regal-navy-50 text-regal-navy-700 dark:border-regal-navy-500 dark:bg-regal-navy-950/50 dark:text-regal-navy-200;
+  }
+
+  /* Revelation au defilement. L'etat masque est pose par la directive v-reveal,
+     jamais par cette feuille de style : le site etant pre-rendu, une opacite
+     nulle en CSS laisserait une page blanche si le script ne s'executait pas.
+     Seules opacity et transform sont animees, les deux proprietes que le
+     navigateur bouge sans remesurer la page. */
+  .reveal-pending {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  @keyframes reveal-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal-in {
+    animation: reveal-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* Entree des cellules du bento au premier rendu, en cascade. Pure CSS : pas
+     de script, donc rien ne peut rester invisible. Le delai est porte par la
+     cellule elle-meme via --cell-delay. */
+  .bento-enter {
+    animation: stat-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--cell-delay, 0ms);
+  }
+
+  /* Entree des chiffres d'un tableau de bord : un leger decalage vertical qui
+     retombe, decale d'une tuile a l'autre. Seules opacity et transform sont
+     animees, les deux proprietes que le navigateur sait bouger sans recalculer
+     la mise en page. Le bloc prefers-reduced-motion plus haut les neutralise
+     globalement, aucune garde supplementaire n'est necessaire. */
+  @keyframes stat-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-reveal {
+    animation: stat-reveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--stat-delay, 0ms);
+  }
+
+  /* Barre de repartition qui se deploie depuis la gauche. scaleX plutot que
+     width : animer une largeur force le navigateur a remesurer la page a
+     chaque image, la transformation non. */
+  @keyframes bar-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .bar-grow {
+    transform-origin: left;
+    animation: bar-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--bar-delay, 0ms);
   }
 
   /* Fondu lateral commun a tous les carrousels : signale que le bandeau defile

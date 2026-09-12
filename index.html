@@ -5,6 +5,43 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
+    <!-- Theme applique avant le premier affichage. Le site etant pre-rendu, le
+         HTML arrive avant le JavaScript de l'application : sans ce bloc, un
+         visiteur en theme sombre verrait la page s'afficher en clair pendant un
+         instant avant de basculer. Volontairement en ligne et synchrone, place
+         avant la feuille de style : un fichier externe arriverait trop tard.
+         La logique complete vit dans src/theme.js ; ici on ne fait que poser
+         l'etat initial. -->
+    <script>
+      (function () {
+        var racine = document.documentElement;
+
+        // Marque posee avant le premier affichage : elle permet au CSS de
+        // masquer le contenu de secours pre-rendu, que Vue remplacera. Sans
+        // JavaScript, la marque n'existe pas et le contenu reste visible.
+        racine.classList.add('js');
+
+        var systemeSombre =
+          typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var sombre = systemeSombre;
+
+        try {
+          // Valeur ecrite par le visiteur : on ne la compare qu'a une liste
+          // connue, elle n'atteint jamais le DOM telle quelle.
+          var choix = window.localStorage.getItem('theme');
+          if (choix === 'dark') sombre = true;
+          else if (choix === 'light') sombre = false;
+        } catch (erreur) {
+          // Navigation privee ou stockage bloque : on garde la preference
+          // systeme. Une page sans bascule reste une page correcte.
+        }
+
+        racine.classList.toggle('dark', sombre);
+        racine.style.colorScheme = sombre ? 'dark' : 'light';
+      })();
+    </script>
+
     <!-- SEO. Ces valeurs sont celles de l'accueil : scripts/prerender.mjs les
          reecrit route par route dans dist/ a partir de src/data/seo.js. -->
     <title>Valentin Fiess | Ingénieur IA &amp; Data</title>
@@ -87,6 +124,15 @@
       /* Contenu pose par scripts/prerender.mjs dans #app, remplace des que Vue
          monte. Styles minimaux et autonomes : ce bloc s'affiche avant que la
          feuille Tailwind ne soit chargee. */
+      /* Le bloc ci-dessous n'est destine qu'aux visiteurs sans JavaScript et aux
+         agents qui lisent le HTML brut. Avec JavaScript, il serait affiche puis
+         efface par Vue : le visiteur verrait passer la version Markdown de la
+         page avant l'interface. La marque .js est posee dans le <head>, donc
+         avant le premier affichage : le bloc n'apparait jamais. */
+      .js .prerendered-content {
+        display: none;
+      }
+
       .prerendered-content {
         max-width: 46rem;
         margin: 0 auto;
