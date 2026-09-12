@@ -13,6 +13,7 @@
     "verify:agents": "node scripts/verify-agent-manifests.mjs",
     "prerender": "node scripts/prerender.mjs",
     "pulse": "node --env-file=.env scripts/fetch-pulse.mjs",
+    "finance": "node --env-file=.env scripts/fetch-finance.mjs",
     "cache-github-chart": "node scripts/cache-github-chart.mjs",
     "process-images": "go run image_processor.go",
     "process-images:force": "go run image_processor.go --force"

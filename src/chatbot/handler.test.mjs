@@ -194,4 +194,24 @@ describe('createChatHandler', () => {
     assert.equal(displayed(), 'Debut de reponse');
     assert.equal(state.closed, 1);
   });
+  it('n\'affiche jamais la signature du modele et la remonte a l\'interface', async () => {
+    // Le Space termine chaque reponse par une balise HTML qui nomme le modele.
+    // Elle appartient a l'interface, pas a la bulle : deep-chat l'afficherait
+    // telle quelle, puisqu'il n'interprete pas le HTML des reponses.
+    const models = [];
+    const handler = createHandler(
+      async ({ onUpdate }) => {
+        onUpdate('Salut !\n\n<small sty');
+        onUpdate('Salut !\n\n<small style="opacity:0.5">open-mistral-nemo</small>');
+        return 'Salut !';
+      },
+      { onModel: (name) => models.push(name) },
+    );
+    const { signals, displayed } = createSignalsDouble();
+
+    await handler(bodyWith([{ role: 'user', text: 'Salut' }]), signals);
+
+    assert.equal(displayed(), 'Salut !');
+    assert.deepEqual(models, ['open-mistral-nemo']);
+  });
 });
