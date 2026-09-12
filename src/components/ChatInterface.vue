@@ -1,715 +1,478 @@
 <template>
-  <div class="flex flex-col h-full bg-white dark:bg-coffee-bean-950 transition-colors duration-300">
-    <!-- Zone de messages -->
-    <div
-      ref="messagesContainer"
-      class="flex-1 overflow-y-auto p-4 space-y-6 scroll-smooth"
-      role="log"
-      aria-live="polite"
-      aria-relevant="additions"
-      :aria-busy="isLoading"
+  <div class="flex h-full min-h-0 flex-col bg-soft-blush-50 dark:bg-coffee-bean-950">
+    <!-- En-tete de la page dediee. Le widget flottant a deja la sienne, dans
+         ChatbotWidget.vue : la redoubler ferait deux bandeaux empiles. -->
+    <header
+      v-if="variant === 'page'"
+      class="flex items-center gap-3 border-b border-coffee-bean-100 px-4 py-3 dark:border-soft-blush-50/10"
     >
-      <div
-        v-for="(message, index) in messages"
-        :key="index"
-        class="flex items-start gap-3 max-w-[85%]"
-        :class="message.role === 'user' ? 'ml-auto flex-row-reverse space-x-reverse' : 'mr-auto'"
+      <span
+        class="chat-avatar flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-spicy-paprika-200 bg-spicy-paprika-50 text-lg dark:border-spicy-paprika-700/60 dark:bg-spicy-paprika-950/40"
+        aria-hidden="true"
       >
-        <!-- Avatar/Mascot if bot -->
-        <div
-          v-if="message.role === 'bot'"
-          class="shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
-        >
-          🦞
-        </div>
+        🦞
+      </span>
 
-        <div class="flex flex-col" :class="message.role === 'user' ? 'items-end' : 'items-start'">
-          <div
-            class="rounded-xl px-5 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
-            :class="[
-              message.role === 'user'
-                ? 'bg-regal-navy-500 text-white rounded-br-none dark:bg-regal-navy-700'
-                : 'bg-gray-100 text-gray-800 rounded-bl-none dark:bg-coffee-bean-800 dark:text-soft-blush-100',
-            ]"
-          >
-            <!-- Contenu du message -->
+      <div class="min-w-0 flex-1">
+        <p class="font-heading text-sm font-bold text-regal-navy-700 dark:text-regal-navy-300">
+          Valentin Chatbot
+        </p>
+        <p
+          class="truncate font-code text-[10px] uppercase tracking-[0.18em] text-coffee-bean-600 dark:text-soft-blush-300"
+        >
+          $ assistant du portfolio
+        </p>
+      </div>
+
+      <!-- L'etat affiche est l'etat reel du composant, pas une pastille
+           decorative toujours verte. -->
+      <p
+        class="flex shrink-0 items-center gap-2 font-code text-[10px] uppercase tracking-[0.18em]"
+        :class="
+          isStreaming
+            ? 'text-spicy-paprika-600 dark:text-spicy-paprika-300'
+            : 'text-regal-navy-600 dark:text-regal-navy-400'
+        "
+      >
+        <!-- Meme respiration que dans la bulle d'attente, cote a cote avec le
+             fil : l'en-tete et la reponse en cours battent au meme rythme. -->
+        <span v-if="isStreaming" class="flex items-center gap-[3px]" aria-hidden="true">
+          <span class="breath-dot h-1.5 w-1.5 bg-spicy-paprika-500 dark:bg-spicy-paprika-300"></span>
+          <span class="breath-dot h-1.5 w-1.5 bg-spicy-paprika-500 dark:bg-spicy-paprika-300"></span>
+          <span class="breath-dot h-1.5 w-1.5 bg-spicy-paprika-500 dark:bg-spicy-paprika-300"></span>
+        </span>
+        <span v-else class="h-2 w-2 bg-green-500" aria-hidden="true"></span>
+        {{ isStreaming ? 'répond' : 'prêt' }}
+      </p>
+    </header>
+
+    <!-- deep-chat vit dans un shadow DOM : son habillage vient de buildChatStyles,
+         pas des classes Tailwind. La cle force sa reconstruction au changement de
+         theme, car sa feuille de style interne n'est posee qu'une fois.
+
+         Le conteneur intermediaire n'est pas decoratif : deep-chat naît en
+         350x320 px fixes, et sa hauteur interne est heritee de l'element. Lui
+         donner 100% d'une boite dont le flex a deja fixe la hauteur est la
+         seule facon d'obtenir un chat qui remplit la place sans deborder. -->
+    <div class="min-h-0 flex-1">
+      <deep-chat ref="chatElement" :key="chatKey">
+        <div v-if="hasSuggestions" style="display: none">
+          <div class="chat-intro">
+            <div class="chat-intro-lobster" aria-hidden="true">🦞</div>
+            <div class="chat-intro-label">$ assistant du portfolio</div>
+            <div class="chat-intro-text">{{ initialMessage }}</div>
+            <!-- Les suggestions entrent l'une apres l'autre, comme les cellules
+                 du bento sur la page d'accueil. -->
             <div
-              v-if="message.role === 'bot'"
-              class="markdown-content"
+              v-for="question in SUGGESTED_QUESTIONS"
+              :key="question"
+              class="chat-intro-suggestion"
             >
-              <MarkdownRender
-                v-if="index > 0"
-                mode="chat"
-                :content="formatMarkdownLayout(message.content)"
-                :final="message.final !== false"
-                :smooth-streaming="false"
-                html-policy="escape"
-                :fade="false"
-              />
-              <span v-else>{{ message.content }}</span>
-              <span
-                v-if="message.final === false"
-                class="streaming-cursor"
-                aria-hidden="true"
-              ></span>
+              <span class="chat-intro-arrow">→</span>
+              <span class="chat-intro-suggestion-text">{{ question }}</span>
             </div>
-            <div v-else>{{ message.content }}</div>
           </div>
-
-          <!-- Label auteur -->
-          <span class="text-[10px] text-gray-400 dark:text-soft-blush-400 mt-1 px-1">
-              {{ message.role === 'user' ? 'Vous' : 'Valentin Chatbot 🦞' }}
-          </span>
         </div>
-      </div>
-
-      <!-- Indicateur de chargement -->
-      <div v-if="isLoading && !isStreaming" class="flex items-start gap-3 max-w-[85%] mr-auto">
-        <div
-          class="shrink-0 w-8 h-8 rounded-full bg-regal-navy-100 dark:bg-regal-navy-950 flex items-center justify-center text-lg border border-regal-navy-200 dark:border-regal-navy-800 shadow-sm animate-lobster select-none"
-        >
-          🦞
-        </div>
-        <div class="flex flex-col items-start animate-pulse">
-          <div
-            class="bg-gray-100 dark:bg-coffee-bean-800 rounded-xl rounded-bl-none px-5 py-4 flex items-center space-x-2"
-          >
-            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-            <div
-              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-              style="animation-delay: 0.2s"
-            ></div>
-            <div
-              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-              style="animation-delay: 0.4s"
-            ></div>
-          </div>
-        <span class="text-xs text-gray-400 mt-1 px-1">Valentin Chatbot réfléchit...</span>
-        </div>
-      </div>
+      </deep-chat>
     </div>
 
-    <!-- Zone de saisie -->
-    <div class="p-4 bg-white dark:bg-coffee-bean-950 border-t border-gray-100 dark:border-coffee-bean-800/60">
-      <!-- Widget Turnstile -->
-      <div ref="turnstileContainer" class="mb-2 flex justify-center" v-show="!turnstileToken"></div>
+    <!-- Verification Cloudflare en mode discret : le cadre n'apparait que si un
+         defi est reellement demande au visiteur. -->
+    <div ref="turnstileContainer" class="flex justify-center empty:hidden"></div>
 
-      <form @submit.prevent="sendMessage" class="relative flex items-center">
-        <input
-          v-model="userInput"
-          aria-label="Votre message"
-          type="text"
-          placeholder="Posez votre question..."
-          :disabled="isLoading || !turnstileToken"
-          class="w-full rounded-md border border-[#e0e0e0] dark:border-coffee-bean-700 bg-white dark:bg-coffee-bean-900/60 py-3 pl-6 pr-14 text-base font-medium text-[#6B7280] dark:text-soft-blush-100 outline-none focus:border-regal-navy-700 dark:focus:border-regal-navy-400 focus:shadow-md transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-        />
-
-        <button
-          type="submit"
-          :disabled="!userInput.trim() || isLoading || !turnstileToken"
-          class="absolute right-2 p-2 rounded-none bg-regal-navy-500 hover:bg-regal-navy-600 text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
-          aria-label="Envoyer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-5 h-5"
-          >
-            <path
-              d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
-            />
-          </svg>
+    <div
+      class="flex items-center gap-3 border-t border-coffee-bean-100 px-3 py-2 dark:border-soft-blush-50/10"
+      :class="variant === 'page' ? 'justify-between' : 'justify-center'"
+    >
+      <div v-if="variant === 'page'" class="flex shrink-0 items-center gap-2">
+        <button type="button" class="chat-action" :disabled="!hasAnswer" @click="copyLastAnswer">
+          <Icon :icon="copyIcon" class="chat-action-icon" aria-hidden="true" />
+          <span>{{ copyLabel }}</span>
         </button>
-      </form>
-      <div class="text-center mt-2">
-        <p v-if="!turnstileToken" class="text-[10px] text-amber-500 dark:text-amber-400">
-          Veuillez compléter la vérification de sécurité pour envoyer un message.
-        </p>
-        <p class="text-[10px] text-gray-400 dark:text-soft-blush-400">
-          L'IA peut faire des erreurs. Vérifiez les informations importantes.
-        </p>
+        <button type="button" class="chat-action" @click="startNewConversation">
+          <Icon icon="mdi:refresh" class="chat-action-icon" aria-hidden="true" />
+          <span class="hidden sm:inline">Nouvelle conversation</span>
+          <span class="sm:hidden">Effacer</span>
+        </button>
       </div>
+
+      <p
+        class="min-w-0 font-code text-[10px] leading-tight text-coffee-bean-500 dark:text-soft-blush-400"
+        :class="variant === 'page' ? 'text-right' : 'text-center'"
+      >
+        <span class="hidden sm:inline">L'IA peut faire des erreurs. Vérifiez les informations importantes.</span>
+        <span class="sm:hidden">L'IA peut se tromper.</span>
+      </p>
     </div>
+
+    <!-- Les changements d'etat sont annonces aux lecteurs d'ecran, qui ne voient
+         pas le texte du bouton changer. -->
+    <p class="sr-only" role="status" aria-live="polite">{{ statusMessage }}</p>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, nextTick, computed, defineAsyncComponent } from 'vue';
-import { renderTurnstile } from '@/turnstile';
-import { trackMatomoEvent } from '@/matomo';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { Icon } from '@iconify/vue';
+import 'deep-chat';
 
-const MarkdownRender = defineAsyncComponent(() => import('markstream-vue'));
+import { createChatHandler } from '@/chatbot/handler';
+import { buildChatStyles, buildIntroPanelStyles } from '@/chatbot/styles';
+import { trackMatomoEvent } from '@/matomo';
+import { DARK, resolvedTheme } from '@/theme';
+import { removeTurnstile, renderTurnstile } from '@/turnstile';
+
+const DEFAULT_INITIAL_MESSAGE =
+  "Bonjour ! Je suis Valentin Chatbot 🦞, l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?";
+
+const SUGGESTED_QUESTIONS = [
+  'Quel est ton parcours ?',
+  'Sur quels projets as-tu travaillé ?',
+  'Quelles technos maitrises-tu ?',
+];
+
+// Le bouton de copie porte trois etats, chacun avec son libelle et son icone.
+// Les deduire d'un seul etat evite que le texte et l'icone se desynchronisent.
+const COPY_STATES = {
+  idle: { label: 'Copier', icon: 'mdi:content-copy' },
+  done: { label: 'Copié', icon: 'mdi:check' },
+  failed: { label: 'Échec', icon: 'mdi:alert-circle-outline' },
+};
+const COPY_FEEDBACK_MS = 2000;
 
 const props = defineProps({
-  initialMessage: {
+  initialMessage: { type: String, default: DEFAULT_INITIAL_MESSAGE },
+  variant: {
     type: String,
-    default:
-      "Bonjour ! Je suis Valentin Chatbot 🦞, l'assistant virtuel de Valentin. Je peux répondre à vos questions sur son parcours, ses projets et ses compétences. Que souhaitez-vous savoir ?",
+    default: 'page',
+    validator: (value) => ['page', 'widget'].includes(value),
   },
 });
 
-const messages = ref([{ role: 'bot', content: props.initialMessage, final: true }]);
-const userInput = ref('');
-const isLoading = ref(false);
-const isStreaming = ref(false);
-const messagesContainer = ref(null);
-const turnstileToken = ref(null);
+const chatElement = ref(null);
 const turnstileContainer = ref(null);
-const hasTrackedFirstMessage = ref(false);
+const turnstileToken = ref(null);
+const chatKey = ref(0);
+const copyState = ref('idle');
+const statusMessage = ref('');
+const hasAnswer = ref(false);
 
-const SPACE_URL = 'https://valmtp3-chatbot-ia-cv.hf.space';
-const CHATBOT_API_URL = `${SPACE_URL}/gradio_api/call/generate_response`;
-const CHATBOT_TIMEOUT_MS = 90000;
+const isStreaming = ref(false);
+
+let themeChangeIsPending = false;
+let copyFeedbackTimer = null;
+let hasTrackedFirstMessage = false;
+// Interrompt la reponse en cours d'ecriture, s'il y en a une. Renseigne par le
+// handler au debut de chaque echange, remis a null a la fin.
+let stopActiveAnswer = null;
+// Promesse du montage Turnstile, gardee pour pouvoir liberer le widget.
+let turnstileRender = null;
+
+const hasSuggestions = computed(() => props.variant === 'page');
+const copyLabel = computed(() => COPY_STATES[copyState.value].label);
+const copyIcon = computed(() => COPY_STATES[copyState.value].icon);
+
+// Le panneau d'accueil est habille par styles.js, comme le reste du composant.
+// Seul le clic reste ici : lui seul a besoin de l'element deep-chat pour poser
+// la question a sa place.
+const introPanelStyles = (isDark) => {
+  const styles = buildIntroPanelStyles(isDark);
+
+  return {
+    ...styles,
+    'chat-intro-suggestion': {
+      ...styles['chat-intro-suggestion'],
+      events: {
+        click: (event) => {
+          // Le libelle seul : la fleche decorative ne doit pas partir dans la
+          // question envoyee au modele.
+          const label = event.currentTarget.querySelector('.chat-intro-suggestion-text');
+          const text = label?.textContent?.trim();
+          if (text) chatElement.value?.submitUserMessage({ text });
+        },
+      },
+    },
+  };
+};
+
+// Le curseur clignotant s'appuie sur cette classe : elle marque la periode ou
+// une reponse est en train de s'ecrire.
+const setStreamingClass = (isActive) => {
+  isStreaming.value = isActive;
+  chatElement.value?.classList.toggle('streaming', isActive);
+};
+
+const handleChatRequest = createChatHandler({
+  getTurnstileToken: () => turnstileToken.value,
+  onError: (kind) => trackMatomoEvent('chatbot', 'error', kind),
+});
+
+const configureChat = (previousMessages = []) => {
+  const element = chatElement.value;
+  if (!element) return;
+
+  const isDark = resolvedTheme.value === DARK;
+
+  // `style` est la propriete CSS standard de l'element, pas une propriete de
+  // deep-chat : elle se remplit champ par champ. Le reste se pose directement
+  // sur l'element, comme attendu par un composant web.
+  const { style, ...chatProperties } = buildChatStyles({ isDark, variant: props.variant });
+  Object.assign(element.style, style);
+  Object.assign(element, chatProperties);
+
+  element.htmlClassUtilities = hasSuggestions.value ? introPanelStyles(isDark) : {};
+  element.errorMessages = { displayServiceErrorMessages: false };
+
+  // Le widget n'a pas la place d'un panneau d'accueil : l'accueil y est un
+  // simple message. Sur la page, le panneau porte deja le bonjour.
+  if (!hasSuggestions.value) element.introMessage = { text: props.initialMessage };
+
+  if (previousMessages.length > 0) element.history = previousMessages;
+
+  element.onComponentRender = (renderedElement) => restoreAccessibility(renderedElement);
+
+  element.connect = {
+    stream: { partialRender: true },
+    handler: async (body, signals) => {
+      if (!hasTrackedFirstMessage) {
+        hasTrackedFirstMessage = trackMatomoEvent('chatbot', 'first_message', props.variant);
+      }
+      setStreamingClass(true);
+      // Le bouton d'arret de deep-chat et le bouton "Nouvelle conversation"
+      // passent par le meme chemin : sans cela, effacer la conversation pendant
+      // qu'une reponse s'ecrit la laisserait reapparaitre ligne par ligne.
+      stopActiveAnswer = () => signals.stopClicked.listener?.();
+      try {
+        await handleChatRequest(body, signals);
+      } finally {
+        stopActiveAnswer = null;
+        setStreamingClass(false);
+        hasAnswer.value = lastAiText() !== '';
+        if (themeChangeIsPending) void applyThemeChange();
+      }
+    },
+  };
+};
+
+// deep-chat ne pose presque aucun attribut d'accessibilite : pas de zone de
+// journal pour les messages, et un champ de saisie qui est un simple div
+// editable. Sans ce rattrapage, un lecteur d'ecran n'annoncerait ni les
+// reponses qui arrivent, ni le role du champ — ce que faisait l'ancienne
+// interface. Les identifiants vises sont ceux du CSS interne de deep-chat ;
+// s'ils changeaient, l'interface resterait fonctionnelle, simplement sans ce
+// rattrapage.
+const restoreAccessibility = (element) => {
+  const shadow = element?.shadowRoot;
+  if (!shadow) return;
+
+  const messages = shadow.querySelector('#messages');
+  if (messages) {
+    messages.setAttribute('role', 'log');
+    messages.setAttribute('aria-live', 'polite');
+    messages.setAttribute('aria-relevant', 'additions');
+    messages.setAttribute('aria-label', 'Conversation avec le chatbot');
+  }
+
+  const input = shadow.querySelector('#text-input');
+  if (input) {
+    input.setAttribute('role', 'textbox');
+    input.setAttribute('aria-label', 'Votre message');
+    input.setAttribute('aria-multiline', 'false');
+  }
+};
+
+const lastAiText = () => {
+  const messages = chatElement.value?.getMessages?.() ?? [];
+  const lastAiMessage = [...messages].reverse().find((message) => message.role === 'ai');
+  return lastAiMessage?.text?.trim() ?? '';
+};
+
+// Changer de theme reconstruit le composant : on remet les messages en place
+// pour que la conversation survive a la bascule.
+const applyThemeChange = async () => {
+  themeChangeIsPending = false;
+  const previousMessages = chatElement.value?.getMessages?.() ?? [];
+  chatKey.value += 1;
+  await nextTick();
+  configureChat(previousMessages);
+};
+
+watch(resolvedTheme, () => {
+  // Reconstruire pendant qu'une reponse s'ecrit la ferait disparaitre : on
+  // attend la fin du flux.
+  if (isStreaming) themeChangeIsPending = true;
+  else void applyThemeChange();
+});
+
+const showCopyFeedback = (state, announcement) => {
+  copyState.value = state;
+  statusMessage.value = announcement;
+  globalThis.clearTimeout(copyFeedbackTimer);
+  copyFeedbackTimer = globalThis.setTimeout(() => {
+    copyState.value = 'idle';
+    statusMessage.value = '';
+  }, COPY_FEEDBACK_MS);
+};
+
+const copyLastAnswer = async () => {
+  const text = lastAiText();
+  if (!text) return;
+
+  // L'API presse-papiers echoue hors HTTPS, ou si le navigateur la refuse :
+  // l'echec doit se voir, pas disparaitre dans la console.
+  try {
+    await navigator.clipboard.writeText(text);
+    showCopyFeedback('done', 'Réponse copiée dans le presse-papiers.');
+  } catch (error) {
+    console.warn('Copie impossible:', error);
+    showCopyFeedback('failed', 'La copie a échoué.');
+  }
+};
+
+const startNewConversation = () => {
+  stopActiveAnswer?.();
+  chatElement.value?.clearMessages?.();
+  hasAnswer.value = false;
+  statusMessage.value = 'Conversation effacée.';
+  chatElement.value?.focusInput?.();
+};
 
 onMounted(() => {
-  void scrollToBottom();
-  void renderTurnstile(turnstileContainer, turnstileToken);
+  configureChat();
+  // La promesse est conservee plutot que son resultat : le widget flottant peut
+  // etre referme avant que Cloudflare ait fini de monter son cadre, et il faut
+  // tout de meme pouvoir le liberer.
+  turnstileRender = renderTurnstile(turnstileContainer, turnstileToken, {
+    appearance: 'interaction-only',
+  });
 });
 
-// Format attendu par le Space : [[user_msg1, bot_msg1], ...]
-const history = computed(() => {
-  const chatHistory = [];
-  let currentPair = [];
-
-  messages.value.forEach((message) => {
-    if (message.role === 'user') {
-      currentPair = [message.content, null];
-    } else if (message.role === 'bot' && currentPair.length === 1) {
-      currentPair[1] = message.content;
-      chatHistory.push(currentPair);
-      currentPair = [];
-    }
-  });
-
-  return chatHistory;
+onBeforeUnmount(async () => {
+  globalThis.clearTimeout(copyFeedbackTimer);
+  stopActiveAnswer?.();
+  removeTurnstile(await turnstileRender);
 });
-
-const scrollToBottom = async () => {
-  await nextTick();
-  if (messagesContainer.value) {
-    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-  }
-};
-
-const formatMarkdownLayout = (text) =>
-  text.replace(
-    /\n(?=\s*\*\*[^*\n]{2,80}\*\*(?:\s*[,.:]|$))/g,
-    '\n\n',
-  );
-
-const parseGradioEvent = (eventBlock) => {
-  const lines = eventBlock.split(/\r?\n/);
-  const event = lines.find((line) => line.startsWith('event:'))?.slice(6).trim();
-  const dataText = lines
-    .filter((line) => line.startsWith('data:'))
-    .map((line) => line.slice(5).trimStart())
-    .join('\n');
-
-  if (event === 'error') {
-    throw new Error('Erreur retournée par le Space Hugging Face');
-  }
-
-  if (!dataText || (event !== 'generating' && event !== 'complete')) {
-    return { event, response: null };
-  }
-
-  const data = JSON.parse(dataText);
-  const response = Array.isArray(data) ? data[0] : data;
-
-  return {
-    event,
-    response: typeof response === 'string' ? response : null,
-  };
-};
-
-const createTextSmoother = (onDisplay) => {
-  const START_RESERVE = 120;
-  const STREAM_RESERVE = 48;
-  const TICK_MS = 20;
-  let target = '';
-  let displayedLength = 0;
-  let timerId = null;
-  let isComplete = false;
-  let isCancelled = false;
-  let resolveFinished;
-  const finished = new Promise((resolve) => {
-    resolveFinished = resolve;
-  });
-
-  const scheduleTick = () => {
-    if (!timerId && !isCancelled) {
-      timerId = window.setTimeout(tick, TICK_MS);
-    }
-  };
-
-  const tick = () => {
-    timerId = null;
-    if (isCancelled) return;
-
-    const remaining = target.length - displayedLength;
-    if (remaining <= 0) {
-      if (isComplete) {
-        resolveFinished();
-      }
-      return;
-    }
-
-    if (!isComplete && displayedLength === 0 && target.length < START_RESERVE) {
-      return;
-    }
-
-    const available = isComplete ? remaining : Math.max(0, remaining - STREAM_RESERVE);
-    if (available <= 0) return;
-
-    const step = remaining > 180 ? 4 : remaining > 80 ? 3 : remaining > 30 ? 2 : 1;
-    displayedLength += Math.min(step, available);
-
-    // Ne coupe pas un emoji entre ses deux unités UTF-16.
-    const lastCodeUnit = target.charCodeAt(displayedLength - 1);
-    if (lastCodeUnit >= 0xd800 && lastCodeUnit <= 0xdbff) {
-      displayedLength += 1;
-    }
-
-    onDisplay(target.slice(0, displayedLength));
-    scheduleTick();
-  };
-
-  return {
-    push(value) {
-      target = value;
-      scheduleTick();
-    },
-    async finish() {
-      isComplete = true;
-      scheduleTick();
-      await finished;
-    },
-    cancel() {
-      isCancelled = true;
-      window.clearTimeout(timerId);
-      timerId = null;
-      resolveFinished();
-    },
-  };
-};
-
-const fetchChatbotResponse = async (message, chatHistory, onUpdate) => {
-  const controller = new AbortController();
-  let timeoutId;
-
-  const resetTimeout = () => {
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => controller.abort(), CHATBOT_TIMEOUT_MS);
-  };
-
-  resetTimeout();
-
-  try {
-    const submitResponse = await fetch(CHATBOT_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: [message, chatHistory],
-      }),
-      signal: controller.signal,
-    });
-
-    if (!submitResponse.ok) {
-      const error = new Error(`Erreur HTTP ${submitResponse.status}`);
-      error.status = submitResponse.status;
-      throw error;
-    }
-
-    const { event_id: eventId } = await submitResponse.json();
-    if (!eventId) {
-      throw new Error('Identifiant de réponse manquant');
-    }
-
-    const resultResponse = await fetch(`${CHATBOT_API_URL}/${eventId}`, {
-      signal: controller.signal,
-    });
-
-    if (!resultResponse.ok) {
-      const error = new Error(`Erreur HTTP ${resultResponse.status}`);
-      error.status = resultResponse.status;
-      throw error;
-    }
-
-    if (!resultResponse.body) {
-      throw new Error('Streaming indisponible dans ce navigateur');
-    }
-
-    const reader = resultResponse.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-    let finalResponse = '';
-    let isComplete = false;
-
-    const processEvent = (eventBlock) => {
-      const { event, response } = parseGradioEvent(eventBlock);
-      if (
-        typeof response === 'string' &&
-        response.trim()
-      ) {
-        finalResponse = response;
-        onUpdate(response);
-      }
-      if (event === 'complete') {
-        isComplete = true;
-      }
-    };
-
-    while (!isComplete) {
-      const { value, done } = await reader.read();
-      if (done) break;
-
-      resetTimeout();
-      buffer += decoder.decode(value, { stream: true });
-      const eventBlocks = buffer.split(/\r?\n\r?\n/);
-      buffer = eventBlocks.pop() ?? '';
-      for (const eventBlock of eventBlocks.filter(Boolean)) {
-        processEvent(eventBlock);
-      }
-    }
-
-    buffer += decoder.decode();
-    if (buffer.trim()) {
-      processEvent(buffer.trim());
-    }
-
-    if (!isComplete) {
-      throw new Error('Réponse incomplète du Space Hugging Face');
-    }
-    if (!finalResponse.trim()) {
-      throw new Error('Réponse vide');
-    }
-
-    return finalResponse;
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      throw new Error('Le chatbot met trop longtemps à répondre.');
-    }
-    throw error;
-  } finally {
-    window.clearTimeout(timeoutId);
-  }
-};
-
-const sendMessage = async () => {
-  const text = userInput.value.trim();
-  if (!text || isLoading.value) return;
-
-  if (!turnstileToken.value) {
-    messages.value.push({
-      role: 'bot',
-      content: "Veuillez compléter la vérification de sécurité avant d'envoyer un message.",
-    });
-    await scrollToBottom();
-    return;
-  }
-
-  messages.value.push({ role: 'user', content: text });
-  if (!hasTrackedFirstMessage.value) {
-    hasTrackedFirstMessage.value = trackMatomoEvent('chatbot', 'first_message', 'widget');
-  }
-  userInput.value = '';
-  isLoading.value = true;
-  await scrollToBottom();
-
-  let botMessage = null;
-  const currentHistory = history.value;
-  const smoother = createTextSmoother((displayedResponse) => {
-    if (!botMessage) {
-      botMessage = reactive({ role: 'bot', content: '', final: false });
-      messages.value.push(botMessage);
-      isStreaming.value = true;
-    }
-    botMessage.content = displayedResponse;
-    void scrollToBottom();
-  });
-
-  try {
-    await fetchChatbotResponse(text, currentHistory, (partialResponse) => {
-      smoother.push(partialResponse);
-    });
-    await smoother.finish();
-  } catch (error) {
-    smoother.cancel();
-    console.error('Erreur Chatbot:', error);
-    const errorType = error.status === 503
-      ? 'cold_start'
-      : error.message === 'Le chatbot met trop longtemps à répondre.'
-        ? 'timeout'
-        : 'request_failure';
-    trackMatomoEvent('chatbot', 'error', errorType);
-    let errorMsg = 'Désolé, une erreur est survenue lors de la connexion.';
-
-    if (error.status === 503) {
-      errorMsg = 'Le serveur démarre (Cold Boot). Veuillez réessayer dans quelques secondes.';
-    } else if (error.message === 'Le chatbot met trop longtemps à répondre.') {
-      errorMsg = 'Le chatbot met trop longtemps à répondre. Veuillez réessayer dans quelques instants.';
-    }
-
-    if (botMessage) {
-      botMessage.content = errorMsg;
-      botMessage.final = true;
-    } else {
-      messages.value.push({ role: 'bot', content: errorMsg, final: true });
-    }
-  } finally {
-    if (botMessage) {
-      botMessage.final = true;
-    }
-    isLoading.value = false;
-    isStreaming.value = false;
-    await scrollToBottom();
-  }
-};
 </script>
 
 <style scoped>
-/* Typographie des réponses Markdown, finales comme progressives */
-.markdown-content {
-  min-width: 0;
-  line-height: 1.65;
-  overflow-wrap: anywhere;
-}
-
-.markdown-content :deep(p) {
-  margin: 0 0 0.85rem;
-}
-
-.markdown-content :deep(.markdown-renderer > .node-slot:last-of-type p:last-child) {
-  margin-bottom: 0;
-}
-
-.markdown-content :deep(h1),
-.markdown-content :deep(h2),
-.markdown-content :deep(h3),
-.markdown-content :deep(h4) {
-  margin: 1.15rem 0 0.55rem;
-  color: inherit;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-.markdown-content :deep(h1:first-child),
-.markdown-content :deep(h2:first-child),
-.markdown-content :deep(h3:first-child),
-.markdown-content :deep(h4:first-child) {
-  margin-top: 0;
-}
-
-.markdown-content :deep(h1) { font-size: 1.2em; }
-.markdown-content :deep(h2) { font-size: 1.12em; }
-.markdown-content :deep(h3),
-.markdown-content :deep(h4) { font-size: 1.04em; }
-
-.markdown-content :deep(a) {
-  color: #2563eb;
+/* Boutons de la barre basse : l'etiquette technique du site (fonte a chasse
+   fixe, capitales espacees) transformee en controle cliquable. */
+.chat-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  /* 40px de haut : une cible confortable au doigt, meme si le texte est petit. */
+  min-height: 40px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--color-coffee-bean-100);
+  border-radius: 8px;
+  background-color: transparent;
+  font-family: var(--font-code);
+  font-size: 10px;
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-coffee-bean-600);
+  /* Jamais `all` : la couleur de fond et les ombres n'ont pas a etre animees
+     a chaque changement d'etat. */
+  transition-property: transform, border-color, color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.markdown-content :deep(a:hover) {
-  color: #1d4ed8;
+.chat-action:hover:not(:disabled) {
+  border-color: var(--color-regal-navy-300);
+  color: var(--color-regal-navy-700);
+  box-shadow: 0 2px 8px rgb(18 6 2 / 0.08);
+  transform: translateY(-1.5px);
 }
 
-.dark .markdown-content :deep(a) {
-  color: #93c5fd;
+/* Enfoncement : le bouton repond sous le doigt sans sauter. */
+.chat-action:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 100ms;
 }
 
-.dark .markdown-content :deep(a:hover) {
-  color: #bfdbfe;
+.chat-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.markdown-content :deep(ul),
-.markdown-content :deep(ol) {
-  margin: 0.35rem 0 0.9rem;
-  padding-left: 1.4rem;
+.chat-action-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
-.markdown-content :deep(ul) {
-  list-style-type: disc;
+/* Respiration de l'indicateur d'activite. Le pendant, cote Vue, de la regle
+   posee dans le shadow DOM par styles.js : les deux partagent la duree et la
+   courbe pour battre ensemble. */
+.breath-dot {
+  animation: breathe 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
-.markdown-content :deep(ol) {
-  list-style-type: decimal;
+.breath-dot:nth-child(2) {
+  animation-delay: 0.18s;
 }
 
-.markdown-content :deep(li) {
-  margin: 0.3rem 0;
-  padding-left: 0.15rem;
+.breath-dot:nth-child(3) {
+  animation-delay: 0.36s;
 }
 
-.markdown-content :deep(li::marker) {
-  color: #64748b;
-  font-weight: 700;
-}
-
-.dark .markdown-content :deep(li::marker) {
-  color: #cbd5e1;
-}
-
-.markdown-content :deep(li > ul),
-.markdown-content :deep(li > ol) {
-  margin: 0.3rem 0 0.2rem;
-}
-
-.markdown-content :deep(strong) {
-  color: inherit;
-  font-weight: 700;
-}
-
-.markdown-content :deep(blockquote) {
-  margin: 0.85rem 0;
-  padding: 0.65rem 0.85rem;
-  border-left: 3px solid #94a3b8;
-  background: rgba(148, 163, 184, 0.12);
-  color: #475569;
-}
-
-.markdown-content :deep(blockquote p:last-child) {
-  margin-bottom: 0;
-}
-
-.dark .markdown-content :deep(blockquote) {
-  border-left-color: #64748b;
-  background: rgba(148, 163, 184, 0.08);
-  color: #cbd5e1;
-}
-
-.markdown-content :deep(code) {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 0.14rem 0.35rem;
-  border-radius: 0.3rem;
-  font-family: 'Intel One Mono', monospace;
-  font-size: 0.88em;
-}
-
-.dark .markdown-content :deep(code) {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.markdown-content :deep(pre) {
-  margin: 0.85rem 0 1rem;
-  padding: 0.9rem 1rem;
-  background-color: #1e293b;
-  color: #f1f5f9;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0.65rem;
-  overflow-x: auto;
-  line-height: 1.55;
-}
-
-.markdown-content :deep(pre code) {
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-  color: inherit;
-  font-size: 0.84em;
-}
-
-.markdown-content :deep(hr) {
-  margin: 1rem 0;
-  border: 0;
-  border-top: 1px solid rgba(100, 116, 139, 0.3);
-}
-
-.markdown-content :deep(table) {
-  display: block;
-  width: 100%;
-  margin: 0.85rem 0 1rem;
-  overflow-x: auto;
-  border-collapse: collapse;
-  font-size: 0.9em;
-}
-
-.markdown-content :deep(th),
-.markdown-content :deep(td) {
-  padding: 0.5rem 0.65rem;
-  border: 1px solid rgba(100, 116, 139, 0.3);
-  text-align: left;
-  vertical-align: top;
-}
-
-.markdown-content :deep(th) {
-  background: rgba(148, 163, 184, 0.14);
-  font-weight: 700;
-}
-
-.streaming-cursor {
-  display: inline-block;
-  width: 0.12em;
-  height: 1em;
-  margin-left: 0.12em;
-  vertical-align: -0.12em;
-  background: currentColor;
-  animation: cursorBlink 0.9s steps(2, start) infinite;
-}
-
-/* Custom Scrollbar pour Webkit */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.5);
-  border-radius: 20px;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.3);
-}
-
-@keyframes wiggleSlow {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-8deg); }
-  75% { transform: rotate(8deg); }
-}
-
-@keyframes cursorBlink {
-  50% { opacity: 0; }
-}
-
-.animate-lobster {
-  animation: wiggleSlow 2.5s ease-in-out infinite;
-}
-
-@media (max-width: 480px) {
-  .markdown-content {
-    line-height: 1.58;
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.22;
   }
-
-  .markdown-content :deep(p) {
-    margin-bottom: 0.72rem;
+  50% {
+    opacity: 1;
   }
+}
 
-  .markdown-content :deep(ul),
-  .markdown-content :deep(ol) {
-    padding-left: 1.2rem;
-  }
+/* Le homard salue au chargement, une seule fois : une boucle permanente dans
+   un en-tete fixe deviendrait vite fatigante. */
+.chat-avatar {
+  animation: chat-avatar-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
 
-  .markdown-content :deep(pre) {
-    margin-inline: -0.25rem;
-    padding: 0.75rem;
+@keyframes chat-avatar-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-12deg);
   }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+:global(.dark) .chat-action {
+  border-color: var(--color-coffee-bean-700);
+  color: var(--color-soft-blush-300);
+}
+
+:global(.dark) .chat-action:hover:not(:disabled) {
+  border-color: var(--color-regal-navy-600);
+  color: var(--color-regal-navy-300);
+  box-shadow: 0 2px 8px rgb(18 6 2 / 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-lobster {
+  .chat-action,
+  .chat-avatar,
+  .breath-dot {
+    transition: none;
     animation: none;
   }
 
-  .streaming-cursor {
-    animation: none;
+  .breath-dot {
+    opacity: 0.7;
+  }
+
+  .chat-action:hover:not(:disabled),
+  .chat-action:active:not(:disabled) {
+    transform: none;
   }
 }
 </style>

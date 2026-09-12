@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "node scripts/generate-og.mjs && node scripts/generate-agent-manifests.mjs && vite build && node scripts/prerender.mjs && node scripts/verify-agent-manifests.mjs",
     "preview": "vite preview",
+    "test": "node --test \"scripts/**/*.test.mjs\" \"src/**/*.test.mjs\"",
     "generate-og": "node scripts/generate-og.mjs",
     "agent-manifests": "node scripts/generate-agent-manifests.mjs",
     "verify:agents": "node scripts/verify-agent-manifests.mjs",
@@ -21,8 +22,8 @@
     "@fontsource/intel-one-mono": "^5.3.0",
     "@fontsource/space-grotesk": "^5.3.0",
     "@iconify/vue": "^5.0.1",
+    "deep-chat": "2.5.1",
     "js-cookie": "^3.0.8",
-    "markstream-vue": "1.0.7",
     "swiper": "^14.0.6",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
