@@ -6,6 +6,7 @@ import StatusComponent from '@/components/StatusComponent.vue';
 import StatsComponent from '@/components/StatsComponent.vue';
 import PulseComponent from '@/components/PulseComponent.vue';
 import FootballComponent from '@/components/FootballComponent.vue';
+import FinanceComponent from '@/components/FinanceComponent.vue';
 import FavorisComponent from '@/components/FavorisComponent.vue';
 import DeferredRender from '@/components/DeferredRender.vue';
 import { getScrollBehavior } from '@/scroll';
@@ -65,14 +66,15 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
 <template>
   <div ref="homeContent" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <PresentationComponent />
-      <StatusComponent />
-      <StatsComponent />
-      <PulseComponent />
-      <FootballComponent />
+      <PresentationComponent class="bento-enter" />
+      <StatusComponent class="bento-enter" style="--cell-delay: 70ms" />
+      <StatsComponent class="bento-enter" style="--cell-delay: 140ms" />
+      <FinanceComponent class="bento-enter" style="--cell-delay: 210ms" />
+      <PulseComponent class="bento-enter" style="--cell-delay: 280ms" />
+      <FootballComponent class="bento-enter" style="--cell-delay: 350ms" />
     </section>
     <DeferredRender :eager="targetSectionIndex >= 0" min-height="220px" target-id="entreprises">
-      <EntrepriseComponent />
+      <EntrepriseComponent v-reveal />
     </DeferredRender>
     <DeferredRender
       :eager="targetSectionIndex >= 1"
@@ -80,7 +82,7 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
       placeholder-class="md:min-h-[520px] lg:min-h-[300px]"
       target-id="experience"
     >
-      <ExperienceComponent />
+      <ExperienceComponent v-reveal />
     </DeferredRender>
     <DeferredRender
       :eager="targetSectionIndex >= 2"
@@ -88,17 +90,17 @@ onBeforeUnmount(() => sectionObserver?.disconnect());
       placeholder-class="md:min-h-[300px] lg:min-h-[180px]"
       target-id="formation"
     >
-      <FormationComponent />
+      <FormationComponent v-reveal />
     </DeferredRender>
     <DeferredRender :eager="targetSectionIndex >= 3" min-height="420px" target-id="competences">
-      <MaitriseComponent />
+      <MaitriseComponent v-reveal />
     </DeferredRender>
     <DeferredRender :eager="targetSectionIndex >= 4" min-height="560px" target-id="projets">
-      <ProjetsComponent />
+      <ProjetsComponent v-reveal />
     </DeferredRender>
     <DeferredRender :eager="targetSectionIndex >= 5" min-height="600px" target-id="contact">
-      <ContactFormsComponent />
+      <ContactFormsComponent v-reveal />
     </DeferredRender>
-    <FavorisComponent />
+    <FavorisComponent v-reveal />
   </div>
 </template>

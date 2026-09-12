@@ -170,7 +170,14 @@ onBeforeUnmount(() => clearInterval(clock));
     </div>
 
     <div v-if="languages.length" class="mt-auto">
-      <div class="flex h-1.5 w-full overflow-hidden rounded-full">
+      <!-- Sans ce libelle, la barre n'est qu'un degrade sans signification : ni
+           le sujet ni la fenetre glissante de sept jours ne sont devinables. -->
+      <p class="mb-1.5 font-code text-[10px] text-coffee-bean-600 dark:text-soft-blush-300">
+        Ce que j'ai codé ces 7 derniers jours
+      </p>
+      <!-- La legende juste en dessous porte deja l'information en texte : la
+           barre ferait doublon a la synthese vocale. -->
+      <div class="flex h-1.5 w-full overflow-hidden rounded-full" aria-hidden="true">
         <span
           v-for="language in languages"
           :key="language.name"

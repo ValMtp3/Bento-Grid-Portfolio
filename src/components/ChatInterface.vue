@@ -117,6 +117,7 @@ import { Icon } from '@iconify/vue';
 import 'deep-chat';
 
 import { createChatHandler } from '@/chatbot/handler';
+import { createModelTagElement, MODEL_TAG_CLASS } from '@/chatbot/modelTag';
 import { buildChatStyles, buildIntroPanelStyles } from '@/chatbot/styles';
 import { trackMatomoEvent } from '@/matomo';
 import { DARK, resolvedTheme } from '@/theme';
@@ -167,6 +168,16 @@ let hasTrackedFirstMessage = false;
 let stopActiveAnswer = null;
 // Promesse du montage Turnstile, gardee pour pouvoir liberer le widget.
 let turnstileRender = null;
+// Un nom de modele par reponse produite, dans l'ordre du fil, et `null` quand
+// le Space n'a rien signe (une erreur, par exemple). Chaque echange ajoute
+// exactement une entree : c'est ce qui permet de retrouver la bulle de chaque
+// etiquette apres une reconstruction du composant.
+let answerModels = [];
+let currentAnswerModel = null;
+// Change a chaque « Nouvelle conversation » : une reponse commencee avant
+// l'effacement ne doit pas venir ajouter son etiquette apres coup.
+let conversationId = 0;
+let modelTagsFrame = null;
 
 const hasSuggestions = computed(() => props.variant === 'page');
 const copyLabel = computed(() => COPY_STATES[copyState.value].label);
@@ -205,7 +216,45 @@ const setStreamingClass = (isActive) => {
 const handleChatRequest = createChatHandler({
   getTurnstileToken: () => turnstileToken.value,
   onError: (kind) => trackMatomoEvent('chatbot', 'error', kind),
+  onModel: (model) => {
+    currentAnswerModel = model;
+  },
 });
+
+// Pose l'etiquette du modele sous les reponses qui en portent une.
+//
+// Les etiquettes sont alignees par la FIN du fil : la derniere reponse produite
+// correspond a la derniere bulle. Compter depuis le debut supposerait de savoir
+// si le message d'accueil occupe une bulle, ce qui change d'une variante a
+// l'autre. La pose est sans effet si l'etiquette est deja la, ce qui permet de
+// rappeler cette fonction sans precaution.
+const applyModelTags = () => {
+  const shadow = chatElement.value?.shadowRoot;
+  if (!shadow) return;
+
+  // La bulle d'attente partage la classe des reponses : elle est ecartee, sans
+  // quoi l'etiquette se poserait sous les trois points.
+  const bubbles = shadow.querySelectorAll(
+    '.ai-message-text:not(.deep-chat-loading-message-bubble)',
+  );
+  const offset = bubbles.length - answerModels.length;
+
+  answerModels.forEach((model, index) => {
+    const bubble = bubbles[offset + index];
+    if (!model || !bubble || bubble.querySelector(`.${MODEL_TAG_CLASS}`)) return;
+    bubble.appendChild(createModelTagElement(model));
+  });
+};
+
+// deep-chat finit d'ecrire la bulle dans la foulee de la derniere reponse : on
+// attend l'image suivante pour poser l'etiquette dans un DOM stabilise.
+const scheduleModelTags = () => {
+  if (modelTagsFrame !== null) return;
+  modelTagsFrame = globalThis.requestAnimationFrame(() => {
+    modelTagsFrame = null;
+    applyModelTags();
+  });
+};
 
 const configureChat = (previousMessages = []) => {
   const element = chatElement.value;
@@ -229,7 +278,12 @@ const configureChat = (previousMessages = []) => {
 
   if (previousMessages.length > 0) element.history = previousMessages;
 
-  element.onComponentRender = (renderedElement) => restoreAccessibility(renderedElement);
+  element.onComponentRender = (renderedElement) => {
+    restoreAccessibility(renderedElement);
+    // Un changement de theme reconstruit le composant : les etiquettes des
+    // reponses deja affichees sont reposees sur le fil restaure.
+    scheduleModelTags();
+  };
 
   element.connect = {
     stream: { partialRender: true },
@@ -237,6 +291,8 @@ const configureChat = (previousMessages = []) => {
       if (!hasTrackedFirstMessage) {
         hasTrackedFirstMessage = trackMatomoEvent('chatbot', 'first_message', props.variant);
       }
+      const startedIn = conversationId;
+      currentAnswerModel = null;
       setStreamingClass(true);
       // Le bouton d'arret de deep-chat et le bouton "Nouvelle conversation"
       // passent par le meme chemin : sans cela, effacer la conversation pendant
@@ -248,6 +304,13 @@ const configureChat = (previousMessages = []) => {
         stopActiveAnswer = null;
         setStreamingClass(false);
         hasAnswer.value = lastAiText() !== '';
+        // Une entree par echange, meme sans modele : c'est cet alignement d'une
+        // reponse par bulle qui tient le reste.
+        if (startedIn === conversationId) {
+          answerModels.push(currentAnswerModel);
+          scheduleModelTags();
+        }
+        currentAnswerModel = null;
         if (themeChangeIsPending) void applyThemeChange();
       }
     },
@@ -331,6 +394,8 @@ const copyLastAnswer = async () => {
 
 const startNewConversation = () => {
   stopActiveAnswer?.();
+  conversationId += 1;
+  answerModels = [];
   chatElement.value?.clearMessages?.();
   hasAnswer.value = false;
   statusMessage.value = 'Conversation effacée.';
@@ -349,6 +414,7 @@ onMounted(() => {
 
 onBeforeUnmount(async () => {
   globalThis.clearTimeout(copyFeedbackTimer);
+  if (modelTagsFrame !== null) globalThis.cancelAnimationFrame(modelTagsFrame);
   stopActiveAnswer?.();
   removeTurnstile(await turnstileRender);
 });

@@ -286,6 +286,92 @@ ${cursorTargets
   }
   @keyframes chat-cursor { 50% { opacity: 0; } }
 
+  /* Signature du modele, en pied de reponse. Le nom et le cadenas sont poses
+     par ChatInterface.vue (modelTag.js), le shadow DOM ne recevant pas le CSS
+     du site. Meme etiquette technique que le reste du portfolio : petite fonte
+     a chasse fixe, tres discrete, qui se reveille au survol. */
+  .chat-model-tag {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    margin-top: 0.7rem;
+  }
+  .chat-model-tag-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: ${theme.muted};
+    font-family: ${CODE_FONT};
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    opacity: 0.6;
+    /* Le curseur annonce une explication, pas une action. */
+    cursor: help;
+    transition: opacity 0.2s ease;
+  }
+  .chat-model-tag-trigger:hover,
+  .chat-model-tag-trigger:focus { opacity: 1; }
+  .chat-model-tag-icon {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    /* Le cadenas suit la couleur du texte : gris, jamais colore. */
+    fill: currentColor;
+  }
+  .chat-model-tag-name { overflow-wrap: anywhere; }
+
+  /* Infobulle. Elle reste dans le shadow DOM, donc au-dessus de la bulle et
+     non de la page : d'ou la position absolue plutot qu'un panneau flottant. */
+  .chat-model-tag-tip {
+    position: absolute;
+    bottom: calc(100% + 7px);
+    left: 0;
+    z-index: 2;
+    width: max-content;
+    max-width: min(15rem, 72vw);
+    padding: 0.5rem 0.65rem;
+    border: 1px solid ${theme.aiBorder};
+    border-radius: 8px;
+    background-color: ${theme.surface};
+    box-shadow: ${theme.shadowRaised};
+    color: ${theme.aiText};
+    font-family: ${HEADING_FONT};
+    font-size: 11px;
+    line-height: 1.45;
+    text-wrap: pretty;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(3px);
+    transition: opacity 0.2s ${EASE}, transform 0.2s ${EASE}, visibility 0.2s;
+  }
+  /* Petit coin pointe vers le cadenas, dans la meme matiere que l'infobulle. */
+  .chat-model-tag-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0.8rem;
+    width: 7px;
+    height: 7px;
+    margin-top: -4px;
+    border-right: 1px solid ${theme.aiBorder};
+    border-bottom: 1px solid ${theme.aiBorder};
+    background-color: ${theme.surface};
+    transform: rotate(45deg);
+  }
+  /* Le survol est pris sur le conteneur : l'infobulle reste ouverte quand le
+     pointeur passe dessus, comme l'exige le critere 1.4.13 des WCAG. Le focus
+     ouvre aussi, ce qui couvre le clavier et le doigt. */
+  .chat-model-tag:hover .chat-model-tag-tip,
+  .chat-model-tag-trigger:focus + .chat-model-tag-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
   /* Champ de saisie : meme comportement que .form-field du site, ou la
      bordure seule signale le focus. */
   #text-input-container {
@@ -376,6 +462,8 @@ ${cursorTargets
     .avatar,
     .input-button,
     #text-input-container,
+    .chat-model-tag-trigger,
+    .chat-model-tag-tip,
     .message-bubble a { transition: none; }
     .outer-message-container:last-child .avatar { transform: none; }
   }

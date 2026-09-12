@@ -12,6 +12,7 @@
 //      bouton d'envoi reste bloque sur "stop".
 
 import { buildHistory, streamChatbotResponse, TIMEOUT_MESSAGE } from './gradio.js';
+import { extractModelTag } from './modelTag.js';
 import { neutralizeUnsafeLinks } from './safeLinks.js';
 import { createTypewriter } from './typewriter.js';
 
@@ -49,12 +50,14 @@ const lastUserMessage = (messages) => {
  * @param {object} [options.typewriterOptions] - minuteurs de la machine a ecrire.
  * @param {() => string | null} [options.getTurnstileToken] - jeton de verification Cloudflare.
  * @param {(kind: string) => void} [options.onError] - suivi d'audience.
+ * @param {(model: string) => void} [options.onModel] - nom du modele signe par le Space.
  */
 export const createChatHandler = ({
   streamResponse = streamChatbotResponse,
   typewriterOptions = {},
   getTurnstileToken = () => 'no-check',
   onError = () => {},
+  onModel = () => {},
 } = {}) => {
   return async (body, signals) => {
     const messages = body?.messages ?? [];
@@ -113,9 +116,13 @@ export const createChatHandler = ({
         history: buildHistory(messages.slice(0, -1)),
         onUpdate: (partialResponse) => {
           if (isStopped) return;
+          // La signature du modele part vers l'interface, qui l'affiche sous la
+          // reponse : laissee dans le texte, elle s'afficherait en clair.
+          const { text, model } = extractModelTag(partialResponse);
+          if (model) onModel(model);
           // La reponse du modele n'est pas du contenu de confiance : deep-chat
           // rend le Markdown sans filtrer les schemas d'URL.
-          receivedText = neutralizeUnsafeLinks(partialResponse);
+          receivedText = neutralizeUnsafeLinks(text);
           typewriter.push(receivedText);
         },
       });
