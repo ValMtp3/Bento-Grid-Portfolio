@@ -1,0 +1,188 @@
+name: Deploy to VPS
+
+# Deploiement automatique du portfolio sur le VPS a chaque push sur main.
+#
+# Modele retenu : "push" depuis GitHub Actions. Le runner construit le site,
+# empaquete dist/ en tar.gz et l'envoie sur stdin a un script figé cote VPS.
+# La cle SSH confiée a GitHub est verrouillee sur ce seul script
+# (command="..." dans authorized_keys) : elle ne donne ni shell ni acces au
+# reste du serveur. Voir DEPLOIEMENT_VPS.md pour la mise en place.
+#
+# Pourquoi un tar sur stdin plutot qu'un rsync : rsync a besoin d'ecrire dans le
+# dossier servi puis de basculer le lien symbolique, soit deux commandes
+# distinctes, ce qu'une cle verrouillee sur une commande unique interdit. Le
+# tar fait porter les deux operations au script du VPS, qui reste maitre du
+# chemin et de la bascule. Le site pese quelques Mo : le gain differentiel de
+# rsync serait invisible ici.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Lecture seule : ce workflow ne commite rien, contrairement a pulse et finance.
+permissions:
+  contents: read
+
+# Deux deploiements ne doivent jamais se croiser sur le VPS. On ne coupe pas
+# celui qui tourne : il pourrait laisser une release a moitie extraite.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Environnement GitHub "production" : c'est lui qui porte les secrets du VPS
+    # et qui permet d'exiger une validation manuelle plus tard si besoin.
+    environment:
+      name: production
+      url: https://valentin-fiess.fr
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Action tierce epinglee sur le SHA du commit, et non sur le tag "v4".
+      # Ce job manipule la cle SSH du VPS : si le tag etait un jour repointe vers
+      # du code malveillant (compte mainteneur compromis, deja vu ailleurs), ce
+      # code aurait acces a tous les secrets du job. Le SHA, lui, ne bouge pas.
+      # Correspond au tag v4 du 11/03/2026. Pour mettre a jour :
+      #   gh api repos/pnpm/action-setup/git/ref/tags/v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 12
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Barriere avant mise en ligne : un test rouge doit empecher le
+      # deploiement, pas seulement colorer le badge du depot.
+      - name: Run tests
+        run: pnpm test
+
+      # Un build sans ces cles passerait au vert, mais le formulaire de contact
+      # et l'anti-spam seraient inertes en production : panne silencieuse, la
+      # pire a diagnostiquer. On echoue donc avant de construire.
+      - name: Check build secrets
+        env:
+          VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
+          VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
+          VITE_EMAILJS_API: ${{ secrets.VITE_EMAILJS_API }}
+          VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          missing=0
+          for name in VITE_EMAILJS_SERVICE_ID VITE_EMAILJS_TEMPLATE_ID VITE_EMAILJS_API VITE_TURNSTILE_SITE_KEY; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Secret manquant : $name (voir DEPLOIEMENT_VPS.md, etape 4)."
+              missing=1
+            fi
+          done
+
+          [ "$missing" -eq 0 ] || exit 1
+          echo "Les quatre secrets de build sont presents."
+
+      - name: Build site
+        env:
+          VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
+          VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
+          VITE_EMAILJS_API: ${{ secrets.VITE_EMAILJS_API }}
+          VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
+        run: pnpm build
+
+      # Un build "reussi" mais vide mettrait le site hors ligne a la bascule.
+      # On verifie donc la presence des fichiers avant de toucher au VPS.
+      - name: Verify build output
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f dist/index.html ]; then
+            echo "::error::dist/index.html est absent : build incomplet, deploiement annule."
+            exit 1
+          fi
+
+          file_count=$(find dist -type f | wc -l)
+          echo "Build verifie : $file_count fichiers, $(du -sh dist | cut -f1)."
+
+          if [ "$file_count" -lt 10 ]; then
+            echo "::error::Seulement $file_count fichiers dans dist/ : build suspect, deploiement annule."
+            exit 1
+          fi
+
+      # La cle privee et l'empreinte du serveur ne transitent que par des
+      # variables d'environnement : jamais dans la ligne de commande, qui est
+      # visible dans les logs et par les autres processus du runner.
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # known_hosts renseigne : on refuse de se connecter a un serveur dont
+          # l'empreinte a change. Sans lui, StrictHostKeyChecking=no exposerait
+          # chaque deploiement a une interception.
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PORT: ${{ secrets.VPS_SSH_PORT || '22' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # pipefail est indispensable : sans lui, un echec de ssh en bout de
+          # tube serait masque par le succes de tar, et le job passerait au vert
+          # alors que rien n'est deploye.
+          tar -czf - -C dist . \
+            | ssh -i ~/.ssh/deploy_key \
+                  -p "$VPS_PORT" \
+                  -o StrictHostKeyChecking=yes \
+                  -o BatchMode=yes \
+                  -o ConnectTimeout=15 \
+                  "$VPS_USER@$VPS_HOST"
+
+      # Verification de bout en bout : le site repond-il vraiment apres la
+      # bascule ? Un 502 ici signale une config nginx cassee, pas un build rate.
+      - name: Smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 --retry 3 --retry-delay 5 https://valentin-fiess.fr/)
+
+          if [ "$status" != "200" ]; then
+            echo "::error::Le site repond $status apres deploiement. Rollback possible : voir DEPLOIEMENT_VPS.md."
+            exit 1
+          fi
+
+          echo "Site en ligne (HTTP $status)."
+
+      # Nettoyage explicite : le runner est ephemere, mais on ne laisse pas
+      # trainer une cle privee dechiffree si un step ulterieur echoue.
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
