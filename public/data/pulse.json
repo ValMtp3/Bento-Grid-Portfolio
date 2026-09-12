@@ -1,65 +1,39 @@
 {
-  "generatedAt": "2026-09-07T19:53:04.321Z",
+  "generatedAt": "2026-09-12T01:57:58.686Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "c13283944fd3db380cf89f64ddf9fcd61b3352a6",
-      "date": "2026-09-07T18:58:16Z",
-      "message": "feat(portfolio): signaux vivants et favoris series/films",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/c13283944fd3db380cf89f64ddf9fcd61b3352a6"
+      "repo": "ValMtp3/chiffremento-go-cli",
+      "sha": "7d6bac74283fc597a61cdf09be6eb88b3b4c3904",
+      "date": "2026-09-11T16:52:13Z",
+      "message": "aligne la documentation sur la version 2.2.1",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/7d6bac74283fc597a61cdf09be6eb88b3b4c3904"
     },
     "week": {
       "days": 7,
-      "commits": 4,
-      "repos": 1,
+      "commits": 19,
+      "repos": 3,
       "languages": [
         {
-          "name": "Vue",
-          "share": 51
+          "name": "Go",
+          "share": 50
         },
         {
           "name": "JavaScript",
-          "share": 38
+          "share": 19
         },
         {
-          "name": "Config",
-          "share": 6
+          "name": "Docs",
+          "share": 15
         },
         {
-          "name": "HTML",
-          "share": 2
+          "name": "Vue",
+          "share": 9
         }
       ]
     }
   },
   "om": {
     "last": {
-      "date": "2026-09-06T18:45:00Z",
-      "competition": "Ligue 1",
-      "matchday": 3,
-      "home": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "away": {
-        "name": "Paris FC",
-        "tla": "PFC",
-        "colors": [
-          "#090f30",
-          "#fbfbfb"
-        ]
-      },
-      "outcome": "loss",
-      "score": {
-        "home": 2,
-        "away": 3
-      }
-    },
-    "next": {
       "date": "2026-09-11T18:45:00Z",
       "competition": "Ligue 1",
       "matchday": 4,
@@ -78,15 +52,41 @@
           "#0d61ab",
           "#fefefe"
         ]
+      },
+      "outcome": "loss",
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    "next": {
+      "date": "2026-09-20T18:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 5,
+      "home": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
+      },
+      "away": {
+        "name": "PSG",
+        "tla": "PSG",
+        "colors": [
+          "#042753",
+          "#034f8d"
+        ]
       }
     },
     "standing": {
-      "position": 10,
+      "position": 11,
       "points": 3,
-      "played": 3,
+      "played": 4,
       "won": 1,
       "draw": 0,
-      "lost": 2
+      "lost": 3
     }
   },
   "favoris": {
