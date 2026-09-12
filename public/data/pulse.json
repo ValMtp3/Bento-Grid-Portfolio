@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T20:10:23.014Z",
+  "generatedAt": "2026-09-12T01:57:58.686Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
@@ -34,32 +34,6 @@
   },
   "om": {
     "last": {
-      "date": "2026-09-06T18:45:00Z",
-      "competition": "Ligue 1",
-      "matchday": 3,
-      "home": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "away": {
-        "name": "Paris FC",
-        "tla": "PFC",
-        "colors": [
-          "#090f30",
-          "#fbfbfb"
-        ]
-      },
-      "outcome": "loss",
-      "score": {
-        "home": 2,
-        "away": 3
-      }
-    },
-    "next": {
       "date": "2026-09-11T18:45:00Z",
       "competition": "Ligue 1",
       "matchday": 4,
@@ -77,6 +51,32 @@
         "colors": [
           "#0d61ab",
           "#fefefe"
+        ]
+      },
+      "outcome": "loss",
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    "next": {
+      "date": "2026-09-20T18:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 5,
+      "home": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
+      },
+      "away": {
+        "name": "PSG",
+        "tla": "PSG",
+        "colors": [
+          "#042753",
+          "#034f8d"
         ]
       }
     },
