@@ -64,7 +64,12 @@ Place occupée : environ 22 Mo par version, 5 versions conservées, soit **~110 
 # Utilisateur de déploiement. Son dossier personnel est volontairement SÉPARÉ
 # du dossier servi : c'est là que vivra authorized_keys, et /srv/www est monté
 # en entier dans le conteneur nginx.
-sudo adduser --system --group --home /home/deploy --shell /usr/sbin/nologin deploy
+#
+# Le shell est /bin/sh et non nologin : SSH exécute la commande forcée
+# (command="...") À TRAVERS le shell de l'utilisateur. Avec nologin, toute
+# connexion échouerait. Ce n'est pas le shell qui verrouille ce compte, ce sont
+# command=, no-pty et l'absence de mot de passe (étape 3).
+sudo adduser --system --group --home /home/deploy --shell /bin/sh deploy
 
 # La release initiale reçoit une copie du site actuellement en ligne : elle sert
 # de filet si la bascule se passe mal.
@@ -134,6 +139,10 @@ sudo chmod 750 /home/deploy
 | `no-pty` | L'ouverture d'un terminal interactif |
 | `no-port-forwarding` | L'usage du VPS comme tunnel vers ton réseau interne |
 | `no-agent-forwarding` | La réutilisation de la clé pour rebondir ailleurs |
+
+Le shell `/bin/sh` de l'utilisateur ne rouvre aucune porte : `command="..."` remplace
+toute commande demandée par le client, y compris une demande de session interactive.
+Le shell ne sert qu'à lancer le script de déploiement.
 
 ---
 
@@ -235,6 +244,7 @@ version du dépôt : corriger la cause avant de repousser.
 |---|---|---|
 | `Host key verification failed` | `VPS_KNOWN_HOSTS` absent ou mal formé | Refaire l'étape 4 |
 | `Permission denied (publickey)` | Mauvaise clé ou `authorized_keys` mal placé | Vérifier l'étape 3 |
+| `This account is currently not available` | Le shell de `deploy` est `nologin` | `sudo chsh -s /bin/sh deploy` |
 | `[deploy] ERREUR : index.html absent` | Le build a produit un `dist/` vide | Voir l'étape `Build site` dans les logs |
 | `[deploy] ERREUR : archive rejetée` | Un lien symbolique dans `dist/` | `find dist ! -type f ! -type d` en local |
 | 403 sur tout le site | `root` ne pointe pas sur `current`, ou droits | `docker exec static-site ls -l /usr/share/nginx/html/` |
