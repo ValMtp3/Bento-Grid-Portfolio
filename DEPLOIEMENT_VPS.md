@@ -154,7 +154,7 @@ Le shell ne sert qu'à lancer le script de déploiement.
 |---|---|
 | `VPS_HOST` | IP ou nom d'hôte du VPS |
 | `VPS_USER` | `deploy` |
-| `VPS_SSH_PORT` | Uniquement si SSH n'est pas sur le port 22 |
+| `VPS_SSH_PORT` | `61457` — le SSH de ce VPS n'ecoute pas sur le port 22 |
 | `VPS_SSH_KEY` | Contenu complet de `~/.ssh/portfolio_deploy` (`pbcopy < ~/.ssh/portfolio_deploy`) |
 | `VPS_KNOWN_HOSTS` | Empreinte du VPS, voir ci-dessous |
 | `VITE_EMAILJS_SERVICE_ID` | Depuis ton `.env` local |
@@ -166,8 +166,17 @@ L'empreinte du serveur (`VPS_KNOWN_HOSTS`) est sa carte d'identité : sans elle,
 se connecterait à n'importe quel serveur répondant à cette adresse. **Sur le VPS** :
 
 ```bash
-echo "$(curl -s ifconfig.me) $(cut -d' ' -f1,2 /etc/ssh/ssh_host_ed25519_key.pub)"
+# -4 est indispensable : sans lui, ifconfig.me renvoie l'adresse IPv6, que les
+# runners GitHub ne savent pas joindre.
+echo "[$(curl -s -4 ifconfig.me)]:61457 $(cut -d' ' -f1,2 /etc/ssh/ssh_host_ed25519_key.pub)"
 ```
+
+Le format `[adresse]:port` est obligatoire dès que SSH n'écoute pas sur le port 22 :
+sans les crochets, OpenSSH ne retrouve pas l'entrée et refuse la connexion.
+
+L'utilisateur `deploy` doit aussi figurer dans `AllowUsers`
+(`/etc/ssh/sshd_config.d/00-hardening.conf`), sans quoi la clé est rejetée quoi qu'il
+arrive.
 
 > Ne pas utiliser `ssh-keyscan` depuis ton Mac : cette commande fait confiance à ce
 > qu'elle reçoit, ce qui annule l'intérêt de la vérification.
@@ -186,13 +195,31 @@ Une seule ligne change dans `/home/debian/static-site/nginx.conf` :
      index index.html;
 ```
 
+🔴 **Modifier ce fichier en place, jamais avec `sed -i`.** Docker ne monte pas un
+chemin mais le fichier lui-même. `sed -i` écrit un nouveau fichier et remplace
+l'ancien : le conteneur reste attaché à l'exemplaire d'origine et ne voit aucun
+changement — nginx continue alors de servir l'ancienne racine sans la moindre erreur.
+Utiliser un éditeur, ou `tee` qui réécrit le fichier existant :
+
+```bash
+sudo cp /home/debian/static-site/nginx.conf /tmp/ng.conf
+sed 's#root /usr/share/nginx/html;#root /usr/share/nginx/html/current;#' /tmp/ng.conf \
+  | sudo tee /home/debian/static-site/nginx.conf > /dev/null
+```
+
 Puis :
 
 ```bash
 docker exec static-site nginx -t          # valider AVANT d'appliquer
 docker exec static-site nginx -s reload   # rechargement sans coupure
-curl -I http://localhost:8099/            # doit répondre 200
+
+# Verification indispensable : ce que voit le CONTENEUR, pas l'hote
+docker exec static-site grep -n 'root ' /etc/nginx/conf.d/default.conf
+curl -s http://localhost:8099/ | head -1
 ```
+
+Si le conteneur affiche encore l'ancienne racine, c'est que le fichier a été remplacé
+et non modifié : `docker restart static-site` rétablit le lien.
 
 Le lien `current` est **relatif** (`releases/xxx`), ce qui lui permet de se résoudre
 aussi bien sur l'hôte que dans le conteneur, où le dossier porte un autre chemin.
@@ -249,3 +276,5 @@ version du dépôt : corriger la cause avant de repousser.
 | `[deploy] ERREUR : archive rejetée` | Un lien symbolique dans `dist/` | `find dist ! -type f ! -type d` en local |
 | 403 sur tout le site | `root` ne pointe pas sur `current`, ou droits | `docker exec static-site ls -l /usr/share/nginx/html/` |
 | Le site ne change pas | nginx sert encore l'ancien chemin | Étape 5, puis `nginx -s reload` |
+| Le fichier est bon sur le disque mais pas servi | Le conteneur est resté sur l'ancien exemplaire du fichier de config | `docker restart static-site` |
+| `not listed in AllowUsers` | `deploy` absent de la liste blanche SSH | L'ajouter dans `sshd_config.d/00-hardening.conf` |
