@@ -16,10 +16,15 @@ set -euo pipefail
 
 # ---------------------------------------------------------------------------
 # Configuration : seule partie a adapter au VPS.
-# SITE_ROOT doit etre le dossier PARENT de ce que sert nginx. nginx doit viser
-# "$SITE_ROOT/current", pas une release precise, sinon la bascule est invisible.
+#
+# SITE_ROOT est le dossier monte dans le conteneur "static-site" :
+#   /srv/www/valentin-fiess.fr  ->  /usr/share/nginx/html  (lecture seule)
+#
+# nginx doit viser "$SITE_ROOT/current" et non une release precise, sinon la
+# bascule reste invisible. Cote conteneur, cela donne :
+#   root /usr/share/nginx/html/current;
 # ---------------------------------------------------------------------------
-readonly SITE_ROOT="/var/www/portfolio"
+readonly SITE_ROOT="/srv/www/valentin-fiess.fr"
 readonly RELEASES_DIR="$SITE_ROOT/releases"
 readonly CURRENT_LINK="$SITE_ROOT/current"
 readonly RELEASES_TO_KEEP=5
