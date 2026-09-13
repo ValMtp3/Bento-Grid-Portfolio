@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-09-12T19:49:09.376Z",
+  "generatedAt": "2026-09-13T19:58:18.186Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9",
-      "date": "2026-09-12T18:11:22Z",
-      "message": "ci: force IPv4 au deploiement et documente l'installation du VPS",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9"
+      "sha": "9ae7e17c7401faa90918e79ed0c87b9a2dc4cf5d",
+      "date": "2026-09-13T17:01:41Z",
+      "message": "fix(chatbot): rend les boutons du chat lisibles en theme sombre",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/9ae7e17c7401faa90918e79ed0c87b9a2dc4cf5d"
     },
     "week": {
       "days": 7,
-      "commits": 26,
+      "commits": 27,
       "repos": 3,
       "languages": [
         {
           "name": "JavaScript",
-          "share": 39
+          "share": 40
         },
         {
           "name": "Go",
@@ -81,7 +81,7 @@
       }
     },
     "standing": {
-      "position": 12,
+      "position": 13,
       "points": 3,
       "played": 4,
       "won": 1,
