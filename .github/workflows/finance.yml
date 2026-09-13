@@ -1,0 +1,59 @@
+name: Refresh finance
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Toutes les 6 h, comme le pulse. Les statistiques publiees sont des parts
+    # arrondies : elles bougent peu, et le script n'ecrit que si elles changent.
+    - cron: '30 */6 * * *'
+
+# Workflow distinct de pulse.yml volontairement : l'API Trading 212 est en beta
+# et quatre blockchains sont interrogees. Une panne cote finance ne doit pas
+# empecher le pulse GitHub et football de se rafraichir.
+permissions:
+  contents: write
+
+concurrency:
+  group: finance
+  cancel-in-progress: false
+
+jobs:
+  finance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Pas de pnpm install ici, contrairement au pulse : le collecteur
+      # n'utilise que fetch et la bibliotheque standard de Node.
+
+      - name: Check anonymisation guard
+        run: node --test "scripts/finance/**/*.test.mjs"
+
+      - name: Collect finance data
+        env:
+          TRADING212_API_KEY: ${{ secrets.TRADING212_API_KEY }}
+          WALLET_EVM: ${{ secrets.WALLET_EVM }}
+          WALLET_SOLANA: ${{ secrets.WALLET_SOLANA }}
+          WALLET_BITCOIN: ${{ secrets.WALLET_BITCOIN }}
+          WALLET_DOGECOIN: ${{ secrets.WALLET_DOGECOIN }}
+        run: node scripts/fetch-finance.mjs
+
+      - name: Commit updated finance
+        run: |
+          if git diff --quiet -- public/data/finance.json; then
+            echo "Finance already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/finance.json
+          git commit -m "chore: update finance"
+          git push

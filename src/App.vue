@@ -5,6 +5,7 @@ import Footer from './components/include/Footer.vue';
 import CookieBanner from './components/include/CookieBanner.vue';
 import Navbar from './components/include/Navbar.vue';
 import ChatbotWidget from './components/ChatbotWidget.vue';
+import TerminalEasterEgg from './components/TerminalEasterEgg.vue';
 
 const route = useRoute();
 
@@ -28,9 +29,11 @@ watch(
       ['meta[property="og:title"]', route.meta.title],
       ['meta[property="og:description"]', route.meta.description],
       ['meta[property="og:url"]', link.href],
+      ['meta[property="og:image"]', route.meta.image],
       ['meta[name="twitter:title"]', route.meta.title],
       ['meta[name="twitter:description"]', route.meta.description],
       ['meta[property="twitter:url"]', link.href],
+      ['meta[name="twitter:image"]', route.meta.image],
     ];
     metaTags.forEach(([selector, content]) => {
       const meta = document.querySelector(selector);
@@ -58,5 +61,6 @@ watch(
 
     <CookieBanner />
     <ChatbotWidget />
+    <TerminalEasterEgg />
   </div>
 </template>

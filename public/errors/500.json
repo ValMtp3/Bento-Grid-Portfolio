@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "internal_error",
+    "status": 500,
+    "message": "Le serveur n'a pas pu traiter cette requête.",
+    "hint": "Erreur temporaire côté serveur. Réessayez dans quelques minutes ; si le problème persiste, signalez-le à l'adresse publiée dans /.well-known/security.txt",
+    "documentation": "https://valentin-fiess.fr/llms.txt",
+    "contact": "https://valentin-fiess.fr/.well-known/security.txt"
+  }
+}

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import ThemeToggle from './ThemeToggle.vue';
 
 const route = useRoute();
 const isMenuOpen = ref(false);
@@ -58,7 +59,8 @@ const navLinks = [
         </nav>
 
         <!-- Right Side Button -->
-        <div class="hidden md:block">
+        <div class="hidden md:flex md:items-center md:gap-2">
+          <ThemeToggle />
           <router-link
             to="/#contact"
             class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-sm"
@@ -120,6 +122,12 @@ const navLinks = [
         >
           {{ link.name }}
         </router-link>
+        <div class="flex items-center justify-between px-3 pt-1">
+          <span class="text-base font-heading font-medium text-coffee-bean-800 dark:text-soft-blush-200">
+            Thème
+          </span>
+          <ThemeToggle />
+        </div>
         <router-link
           to="/#contact"
           @click="closeMenu"

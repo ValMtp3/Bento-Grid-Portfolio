@@ -4,7 +4,7 @@
       v-if="!isOpen"
       ref="triggerButton"
       @click="openChatbot"
-      class="chatbot-trigger group flex h-14 items-center gap-3 border border-coffee-bean-100 bg-soft-blush-50/95 px-3 shadow-sm shadow-coffee-bean-950/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-spicy-paprika-300 hover:shadow-md active:translate-y-0 dark:border-soft-blush-50/15 dark:bg-coffee-bean-900/95 dark:shadow-coffee-bean-950/30"
+      class="chatbot-trigger group flex h-14 items-center gap-3 border border-coffee-bean-100 bg-soft-blush-50/95 px-3 shadow-sm shadow-coffee-bean-950/10 backdrop-blur-sm transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-spicy-paprika-300 hover:shadow-md active:translate-y-0 dark:border-soft-blush-50/15 dark:bg-coffee-bean-900/95 dark:shadow-coffee-bean-950/30"
       aria-label="Ouvrir le chatbot"
     >
       <span
@@ -32,18 +32,36 @@
       role="dialog"
       aria-modal="true"
       aria-labelledby="chatbot-title"
-      class="bg-white dark:bg-coffee-bean-950 rounded-xl shadow-2xl border border-gray-200 dark:border-coffee-bean-800/60 w-[calc(100vw-2rem)] md:w-96 h-[70vh] md:h-150 flex flex-col"
+      class="flex h-[70vh] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-xl border border-coffee-bean-100 bg-soft-blush-50 shadow-2xl shadow-coffee-bean-950/25 md:h-150 md:w-96 dark:border-soft-blush-50/[0.12] dark:bg-coffee-bean-950"
     >
       <div
-        class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-coffee-bean-800/60"
+        class="flex items-center gap-3 border-b border-coffee-bean-100 px-4 py-3 dark:border-soft-blush-50/10"
       >
-        <h3 id="chatbot-title" class="font-semibold text-gray-900 dark:text-soft-blush-50 flex items-center gap-2 select-none">
-          <span>Valentin Chatbot</span>
-        </h3>
+        <span
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-spicy-paprika-200 bg-spicy-paprika-50 text-lg dark:border-spicy-paprika-700/60 dark:bg-spicy-paprika-950/40"
+          aria-hidden="true"
+        >
+          🦞
+        </span>
+
+        <div class="min-w-0 flex-1 select-none">
+          <h3
+            id="chatbot-title"
+            class="font-heading text-sm font-bold text-regal-navy-700 dark:text-regal-navy-300"
+          >
+            Valentin Chatbot
+          </h3>
+          <p
+            class="truncate font-code text-[10px] uppercase tracking-[0.18em] text-coffee-bean-600 dark:text-soft-blush-300"
+          >
+            $ assistant du portfolio
+          </p>
+        </div>
+
         <button
           ref="closeButton"
           @click="closeChatbot"
-          class="flex min-h-11 min-w-11 items-center justify-center text-gray-500 hover:text-gray-700 dark:text-soft-blush-400 dark:hover:text-soft-blush-200"
+          class="chatbot-close flex min-h-11 min-w-11 items-center justify-center rounded-lg text-coffee-bean-500 hover:text-spicy-paprika-600 dark:text-soft-blush-400 dark:hover:text-spicy-paprika-300"
           aria-label="Fermer le chatbot"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +76,7 @@
       </div>
 
       <div class="flex-1 overflow-hidden relative">
-        <ChatInterface />
+        <ChatInterface variant="widget" />
       </div>
     </div>
   </div>
@@ -98,11 +116,21 @@ onBeforeUnmount(() => document.removeEventListener('keydown', handleKeydown));
 
 <style scoped>
 .fixed > div:last-child {
-  animation: slideIn 0.3s ease-out;
+  animation: slideIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lobster-icon {
   display: inline-block;
+}
+
+.chatbot-close {
+  transition-property: transform, color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chatbot-close:hover {
+  transform: rotate(90deg);
 }
 
 .chatbot-trigger:hover .lobster-icon {
@@ -112,19 +140,24 @@ onBeforeUnmount(() => document.removeEventListener('keydown', handleKeydown));
 @media (prefers-reduced-motion: reduce) {
   .chatbot-trigger,
   .lobster-icon,
+  .chatbot-close,
   .fixed > div:last-child {
     transition: none;
     animation: none;
+  }
+
+  .chatbot-close:hover {
+    transform: none;
   }
 }
 
 @keyframes slideIn {
   from {
-    transform: translateY(100%);
+    transform: translateY(12px) scale(0.98);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }

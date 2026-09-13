@@ -1,0 +1,61 @@
+{
+  "specification": "https://agenticresourcediscovery.org/",
+  "version": "1.0",
+  "updated": "2026-09-10T00:00:00.000Z",
+  "resource": {
+    "name": "Valentin Fiess — Portfolio",
+    "description": "Portfolio professionnel de Valentin Fiess, Ingenieur IA / Data à Montpellier. Source primaire sur son parcours, ses compétences et ses projets.",
+    "url": "https://valentin-fiess.fr/",
+    "type": "content",
+    "language": "fr",
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "contact": {
+    "email": "sobre.05.statue@icloud.com",
+    "url": "https://valentin-fiess.fr/contact"
+  },
+  "capabilities": [
+    {
+      "name": "profil-professionnel",
+      "description": "Parcours, expériences, formation et compétences de Valentin Fiess, en français.",
+      "url": "https://valentin-fiess.fr/about.md"
+    },
+    {
+      "name": "catalogue-projets",
+      "description": "Projets Data, IA, automatisation et web, avec étude de cas architecturale.",
+      "url": "https://valentin-fiess.fr/projets.md"
+    },
+    {
+      "name": "prise-de-contact",
+      "description": "Canaux de contact humains et façon de rédiger une demande utile.",
+      "url": "https://valentin-fiess.fr/contact.md"
+    }
+  ],
+  "resources": [
+    {
+      "type": "llms-txt",
+      "url": "https://valentin-fiess.fr/llms.txt"
+    },
+    {
+      "type": "sitemap",
+      "url": "https://valentin-fiess.fr/sitemap.xml"
+    },
+    {
+      "type": "agent-skills",
+      "url": "https://valentin-fiess.fr/.well-known/agent-skills/index.json"
+    },
+    {
+      "type": "agent-card",
+      "url": "https://valentin-fiess.fr/.well-known/agent-card.json"
+    },
+    {
+      "type": "security-txt",
+      "url": "https://valentin-fiess.fr/.well-known/security.txt"
+    }
+  ],
+  "interfaces": {
+    "api": null,
+    "mcp": null,
+    "payments": null
+  }
+}

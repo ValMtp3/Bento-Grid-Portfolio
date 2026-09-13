@@ -7,7 +7,7 @@ const entreprise = [
     alt: 'Logo SHAARP',
     image: '/assets/assets_index/SHAARP_logo.webp',
     name: 'Shaarp',
-    role: 'Développeur Data/IA',
+    role: 'Ingénieur IA/Data',
   },
   {
     alt: 'Logo Capgemini',
@@ -33,15 +33,9 @@ const entreprise = [
     name: 'From_Scratch',
     role: 'Développeur web',
   },
-  {
-    alt: 'Logo EPSI Montpellier',
-    image: '/assets/assets_index/epsi.svg',
-    name: 'EPSI Montpellier',
-    role: 'Licence Développeur Data/IA',
-  },
 ];
 
-// Le bandeau est un marquee CSS et non un carrousel Swiper : avec 6 slides pour
+// Le bandeau est un marquee CSS et non un carrousel Swiper : avec 5 slides pour
 // 4 visibles, le mode loop de Swiper ne calculait qu'un slide de boucle et le
 // defilement se figeait au premier rebouclage. Une animation CSS defile sans
 // rebouclage a calculer, et s'interrompt reellement au survol via
@@ -99,7 +93,7 @@ const marqueeSlides = [...entreprise, ...entreprise];
 
 <style scoped>
 .marquee {
-  /* Vitesse du defilement : duree d'un passage complet des 6 entreprises.
+  /* Vitesse du defilement : duree d'un passage complet des 5 entreprises.
      Augmenter la valeur ralentit le bandeau, la diminuer l'accelere. */
   --marquee-duration: 30s;
   overflow: hidden;

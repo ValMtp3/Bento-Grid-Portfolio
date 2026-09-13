@@ -1,0 +1,116 @@
+{
+  "specification": "https://ai-catalog.io/",
+  "version": "1.0",
+  "updated": "2026-09-10T00:00:00.000Z",
+  "name": "Valentin Fiess — Portfolio",
+  "description": "Site personnel et portfolio de Valentin Fiess, Ingenieur IA / Data basé à Montpellier (France).",
+  "url": "https://valentin-fiess.fr/",
+  "language": [
+    "fr"
+  ],
+  "categories": [
+    "portfolio",
+    "personal-website",
+    "artificial-intelligence",
+    "data-engineering"
+  ],
+  "provider": {
+    "name": "Valentin Fiess",
+    "type": "Person",
+    "url": "https://valentin-fiess.fr/",
+    "email": "sobre.05.statue@icloud.com",
+    "sameAs": [
+      "https://github.com/ValMtp3",
+      "https://www.linkedin.com/in/valentin-fiess/",
+      "https://x.com/WyqBzm"
+    ]
+  },
+  "content": [
+    {
+      "title": "Valentin Fiess — Ingénieur IA / Data",
+      "url": "https://valentin-fiess.fr/",
+      "markdown": "https://valentin-fiess.fr/index.md",
+      "description": "Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "Projets Data, IA et Web",
+      "url": "https://valentin-fiess.fr/projets",
+      "markdown": "https://valentin-fiess.fr/projets.md",
+      "description": "Projets Data et IA : RAG, agents, vision par ordinateur, pipelines ETL et applications web. Code source et démos.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "Raguia — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/raguia",
+      "markdown": "https://valentin-fiess.fr/projets/raguia.md",
+      "description": "Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval.",
+      "updated": "2026-09-01"
+    },
+    {
+      "title": "Stack technique",
+      "url": "https://valentin-fiess.fr/stack",
+      "markdown": "https://valentin-fiess.fr/stack.md",
+      "description": "Stack technique complète : développement agentique avec OpenCode, MCP et lean-ctx, ZED, VPS OVH, Docker et Cloudflare.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "Assistant IA",
+      "url": "https://valentin-fiess.fr/chatbot",
+      "markdown": "https://valentin-fiess.fr/chatbot.md",
+      "description": "Chatbot RAG connecté au parcours de Valentin Fiess : expériences, compétences et projets, sourcés depuis son CV.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "Mentions légales",
+      "url": "https://valentin-fiess.fr/legal",
+      "markdown": "https://valentin-fiess.fr/legal.md",
+      "description": "Mentions légales et conditions générales d'utilisation du portfolio de Valentin Fiess.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "Politique de confidentialité",
+      "url": "https://valentin-fiess.fr/policy",
+      "markdown": "https://valentin-fiess.fr/policy.md",
+      "description": "Politique de confidentialité : données collectées, cookies, mesure d’audience Matomo et droits RGPD.",
+      "updated": "2026-07-11"
+    },
+    {
+      "title": "À propos de Valentin Fiess",
+      "url": "https://valentin-fiess.fr/about",
+      "markdown": "https://valentin-fiess.fr/about.md",
+      "description": "Qui est Valentin Fiess : parcours d'ingénieur IA/Data à Montpellier, expériences chez Shaarp, Raguia et R2D automation, formation EPSI et façon de travailler.",
+      "updated": "2026-09-10"
+    },
+    {
+      "title": "Contacter Valentin Fiess",
+      "url": "https://valentin-fiess.fr/contact",
+      "markdown": "https://valentin-fiess.fr/contact.md",
+      "description": "Contacter Valentin Fiess, ingénieur IA/Data à Montpellier : email, LinkedIn, GitHub, délai de réponse et types de missions étudiées.",
+      "updated": "2026-09-10"
+    },
+    {
+      "title": "Confidentialité et traitement des données",
+      "url": "https://valentin-fiess.fr/privacy",
+      "markdown": "https://valentin-fiess.fr/privacy.md",
+      "description": "Résumé en clair du traitement des données sur valentin-fiess.fr : mesure d’audience Matomo, formulaire de contact, cookies, durées de conservation et droits RGPD.",
+      "updated": "2026-09-10"
+    }
+  ],
+  "access": {
+    "authentication": "none",
+    "pricing": "free",
+    "rateLimit": null,
+    "formats": [
+      "text/html",
+      "text/markdown"
+    ],
+    "contentNegotiation": "Envoyer Accept: text/markdown, ou ajouter .md à l’URL."
+  },
+  "usagePolicy": {
+    "indexing": "allowed",
+    "citation": "allowed",
+    "training": "allowed",
+    "attribution": "Valentin Fiess — https://valentin-fiess.fr"
+  }
+}

@@ -6,14 +6,21 @@ import '@fontsource/space-grotesk/latin-700.css';
 import '@fontsource/intel-one-mono/latin-400.css';
 import '@fontsource/intel-one-mono/latin-500.css';
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
+import { printConsoleSignature } from './easter-eggs/console.js';
+import { vReveal } from './directives/reveal.js';
+import { initTheme } from './theme.js';
+
+// Avant la creation de l'application : le script en ligne de index.html a deja
+// pose l'apparence, ici on reprend la preference memorisee et on branche le
+// suivi du theme systeme.
+initTheme();
 
 const app = createApp(App);
 
 app.use(router);
-app.use(createPinia());
+app.directive('reveal', vReveal);
 
 import('./matomo')
   .then(({ initMatomo }) => initMatomo(router))
@@ -22,4 +29,5 @@ import('./matomo')
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {
   app.mount('#app');
+  printConsoleSignature();
 });
