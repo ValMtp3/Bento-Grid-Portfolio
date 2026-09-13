@@ -513,12 +513,18 @@ onBeforeUnmount(async () => {
   }
 }
 
-:global(.dark) .chat-action {
+/* Sans :global(). La construction `:global(.dark) .chat-action` se reduit a la
+   compilation a `.dark { ... }` : le selecteur cible est perdu, les couleurs
+   atterrissent sur <html class="dark"> et les boutons gardent celles du theme
+   clair — un brun sombre sur fond noir. En style scoped, `.dark .chat-action`
+   recoit l'attribut du composant sur son dernier selecteur et cible bien le
+   bouton, la classe .dark etant portee par <html>. */
+.dark .chat-action {
   border-color: var(--color-coffee-bean-700);
   color: var(--color-soft-blush-300);
 }
 
-:global(.dark) .chat-action:hover:not(:disabled) {
+.dark .chat-action:hover:not(:disabled) {
   border-color: var(--color-regal-navy-600);
   color: var(--color-regal-navy-300);
   box-shadow: 0 2px 8px rgb(18 6 2 / 0.35);
