@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import {
   getProjectAnalyticsAction,
   getProjectLinkLabel,
-  projets,
+  projetsFeatured,
 } from '@/data/projets.js';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -13,7 +13,7 @@ import ResponsiveImage from './ResponsiveImage.vue';
 import SectionHeading from './SectionHeading.vue';
 import { trackMatomoEvent } from '@/matomo';
 
-const featuredProjets = projets.slice(0, 6);
+const featuredProjets = projetsFeatured.slice(0, 6);
 
 // Le fondu ne doit apparaitre que du cote ou il reste des projets a atteindre :
 // affiche d'entree, il donnerait l'impression d'une carte deja tronquee.

@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-09-12T19:49:09.376Z",
+  "github": {
+    "lastCommit": {
+      "repo": "ValMtp3/Bento-Grid-Portfolio",
+      "sha": "ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9",
+      "date": "2026-09-12T18:11:22Z",
+      "message": "ci: force IPv4 au deploiement et documente l'installation du VPS",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/ab060c39d9cfb2ecb03ac9dbc687db6e59ca36a9"
+    },
+    "week": {
+      "days": 7,
+      "commits": 26,
+      "repos": 3,
+      "languages": [
+        {
+          "name": "JavaScript",
+          "share": 39
+        },
+        {
+          "name": "Go",
+          "share": 27
+        },
+        {
+          "name": "Docs",
+          "share": 15
+        },
+        {
+          "name": "Vue",
+          "share": 10
+        }
+      ]
+    }
+  },
+  "om": {
+    "last": {
+      "date": "2026-09-11T18:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 4,
+      "home": {
+        "name": "Stade Rennais",
+        "tla": "REN",
+        "colors": [
+          "#010100",
+          "#d42c3e"
+        ]
+      },
+      "away": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
+      },
+      "outcome": "loss",
+      "score": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    "next": {
+      "date": "2026-09-20T18:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 5,
+      "home": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
+      },
+      "away": {
+        "name": "PSG",
+        "tla": "PSG",
+        "colors": [
+          "#042753",
+          "#034f8d"
+        ]
+      }
+    },
+    "standing": {
+      "position": 12,
+      "points": 3,
+      "played": 4,
+      "won": 1,
+      "draw": 0,
+      "lost": 3
+    }
+  },
+  "favoris": {
+    "series": [
+      {
+        "id": 62476,
+        "title": "Le Bureau des légendes",
+        "year": "2015",
+        "poster": "/iwfPM9DKmhksFZ1FVskAHZirORi.jpg"
+      },
+      {
+        "id": 2288,
+        "title": "Prison Break",
+        "year": "2005",
+        "poster": "/bCFZhGJLYxmEac4viu6orDeOXYJ.jpg"
+      },
+      {
+        "id": 65430,
+        "title": "Baron Noir",
+        "year": "2016",
+        "poster": "/gINvtfRTIrmdJnKp5iEntGJR9X3.jpg"
+      },
+      {
+        "id": 1425,
+        "title": "House of Cards",
+        "year": "2013",
+        "poster": "/hKWxWjFwnMvkWQawbhvC0Y7ygQ8.jpg"
+      },
+      {
+        "id": 202772,
+        "title": "Le Flambeau, les aventuriers de Chupacabra",
+        "year": "2022",
+        "poster": "/a89SLEtX9AsooDEHOXKoSvj9BRG.jpg"
+      }
+    ],
+    "films": [
+      {
+        "id": 77338,
+        "title": "Intouchables",
+        "year": "2011",
+        "poster": "/bPPNSVARJ8DqiRpMZCdbWuVEYa8.jpg"
+      },
+      {
+        "id": 12405,
+        "title": "Slumdog Millionaire",
+        "year": "2008",
+        "poster": "/r9zN2ZwT2nuUew4r9oApWRkiyIm.jpg"
+      },
+      {
+        "id": 5528,
+        "title": "Les Choristes",
+        "year": "2004",
+        "poster": "/kfWIeoVIBBxLQKhJ22LWYvcEgaP.jpg"
+      }
+    ]
+  }
+}

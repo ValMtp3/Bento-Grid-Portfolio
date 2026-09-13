@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from '@iconify/vue';
+
 const navLinks = [
   { to: '/', label: 'Accueil' },
   { to: '/stack', label: 'Stack' },
@@ -11,9 +13,16 @@ const legalLinks = [
   { to: '/policy', label: 'Politique de confidentialité' },
 ];
 
+// Les marques simple-icons sont des aplats monochromes qui heritent de
+// currentColor : elles suivent le texte et son etat de survol sans introduire
+// de couleur hors palette.
 const socialLinks = [
-  { href: 'https://www.linkedin.com/in/valentin-fiess/', label: 'LinkedIn' },
-  { href: 'https://www.github.com/ValMtp3', label: 'GitHub' },
+  {
+    href: 'https://www.linkedin.com/in/valentin-fiess/',
+    label: 'LinkedIn',
+    icon: 'simple-icons:linkedin',
+  },
+  { href: 'https://www.github.com/ValMtp3', label: 'GitHub', icon: 'simple-icons:github' },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -39,7 +48,7 @@ const scrollToTop = () => {
           <p
             class="font-heading text-2xl font-bold text-coffee-bean-950 dark:text-soft-blush-50"
           >
-            Développeur Data &amp; IA
+            Ingénieur IA &amp; Data
             <span class="select-none" aria-hidden="true">🦞</span>
           </p>
           <p class="mt-3 max-w-sm text-sm leading-relaxed text-coffee-bean-700 dark:text-soft-blush-300">
@@ -84,12 +93,13 @@ const scrollToTop = () => {
           <ul class="space-y-2.5">
             <li v-for="link in socialLinks" :key="link.href">
               <a
-                class="text-sm text-coffee-bean-800 transition-colors hover:text-spicy-paprika-600 dark:text-soft-blush-200 dark:hover:text-spicy-paprika-400"
+                class="inline-flex items-center gap-2 text-sm text-coffee-bean-800 transition-colors hover:text-spicy-paprika-600 dark:text-soft-blush-200 dark:hover:text-spicy-paprika-400"
                 :href="link.href"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {{ link.label }} ↗
+                <Icon :icon="link.icon" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                {{ link.label }}
               </a>
             </li>
           </ul>

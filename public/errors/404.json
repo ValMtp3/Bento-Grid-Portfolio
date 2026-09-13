@@ -1,0 +1,15 @@
+{
+  "error": {
+    "code": "not_found",
+    "status": 404,
+    "message": "Cette ressource n'existe pas sur valentin-fiess.fr.",
+    "hint": "valentin-fiess.fr est un site statique de portfolio : il n'expose aucune API. Les seules ressources destinées aux machines sont listées dans https://valentin-fiess.fr/llms.txt",
+    "documentation": "https://valentin-fiess.fr/llms.txt",
+    "discovery": {
+      "index": "https://valentin-fiess.fr/llms.txt",
+      "sitemap": "https://valentin-fiess.fr/sitemap.xml",
+      "skills": "https://valentin-fiess.fr/.well-known/agent-skills/index.json",
+      "agentCard": "https://valentin-fiess.fr/.well-known/agent-card.json"
+    }
+  }
+}

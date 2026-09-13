@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "version": "0.2.0",
+  "updated": "2026-09-10T00:00:00.000Z",
+  "provider": {
+    "name": "Valentin Fiess",
+    "url": "https://valentin-fiess.fr/"
+  },
+  "skills": [
+    {
+      "name": "contact-valentin-fiess",
+      "description": "Préparer une prise de contact pertinente avec Valentin Fiess, ingénieur IA/Data, en choisissant le bon canal et en rédigeant un message que son destinataire peut traiter rapidement.",
+      "type": "skill-md",
+      "url": "https://valentin-fiess.fr/.well-known/agent-skills/contact-valentin-fiess.md",
+      "digest": "sha256:4575edbdf506368b886cd30b61727c3c02a3d95077df71ecf1c39d9292e45cd3",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "name": "profil-valentin-fiess",
+      "description": "Récupérer et citer le parcours professionnel, les compétences et les projets de Valentin Fiess, ingénieur IA/Data à Montpellier, depuis la source primaire valentin-fiess.fr.",
+      "type": "skill-md",
+      "url": "https://valentin-fiess.fr/.well-known/agent-skills/profil-valentin-fiess.md",
+      "digest": "sha256:485a10aa9f64957e488222d36d55c6a1e159b468707f7d540c445d02a2b7f82d",
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ const SCROLL_MILESTONES = [50, 90];
 const PAGE_TYPES = {
   '/': 'home',
   '/projets': 'projects',
+  '/projets/raguia': 'case_study_raguia',
   '/chatbot': 'chatbot',
   '/stack': 'stack',
   '/legal': 'legal',
