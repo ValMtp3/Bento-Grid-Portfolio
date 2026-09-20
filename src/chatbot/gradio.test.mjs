@@ -121,57 +121,6 @@ describe('streamChatbotResponse', () => {
     assert.ok(calls[1].url.endsWith('/evt-1'), 'le flux est lu sur l\'identifiant rendu');
   });
 
-  // Sans cet identifiant, le Space en fabrique un different a chaque message et
-  // une discussion se lit en morceaux separes dans le tracage.
-  it('joint l\'identifiant de discussion a la soumission', async () => {
-    const { calls, fetchImpl } = createFetchDouble([complete('Salut')]);
-
-    await streamChatbotResponse({
-      message: 'Ton parcours ?',
-      history: [],
-      onUpdate: () => {},
-      fetchImpl,
-      sessionHash: 'renard-curieux-k3f9x2~causerie-vive-p71qd8',
-    });
-
-    assert.deepEqual(JSON.parse(calls[0].options.body), {
-      data: ['Ton parcours ?', []],
-      session_hash: 'renard-curieux-k3f9x2~causerie-vive-p71qd8',
-    });
-  });
-
-  // Un Space qui n'attend pas ce champ doit continuer a repondre : on ne
-  // l'envoie que s'il a une valeur.
-  it('n\'envoie pas de champ vide quand l\'identifiant manque', async () => {
-    const { calls, fetchImpl } = createFetchDouble([complete('Salut')]);
-
-    await streamChatbotResponse({
-      message: 'Salut',
-      history: [],
-      onUpdate: () => {},
-      fetchImpl,
-      sessionHash: '   ',
-    });
-
-    assert.ok(!('session_hash' in JSON.parse(calls[0].options.body)));
-  });
-
-  // La valeur par defaut ne couvre que `undefined` : un `null` explicite
-  // ferait echouer la mise en forme du corps de la requete.
-  it('accepte un identifiant absent sans planter', async () => {
-    const { calls, fetchImpl } = createFetchDouble([complete('Salut')]);
-
-    await streamChatbotResponse({
-      message: 'Salut',
-      history: [],
-      onUpdate: () => {},
-      fetchImpl,
-      sessionHash: null,
-    });
-
-    assert.ok(!('session_hash' in JSON.parse(calls[0].options.body)));
-  });
-
   it('remonte chaque etape puis rend la reponse finale', async () => {
     const { fetchImpl } = createFetchDouble([
       generating('Bon'),

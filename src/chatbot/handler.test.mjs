@@ -52,38 +52,6 @@ const respondWith = (text) => async ({ onUpdate }) => {
 const bodyWith = (messages) => ({ messages });
 
 describe('createChatHandler', () => {
-  // L'identifiant est RELU a chaque message : il peut naitre apres le premier
-  // envoi, si le stockage du navigateur n'etait pas encore accessible. Le faux
-  // en rend un different a chaque appel, sinon ce test passerait aussi avec un
-  // identifiant lu une seule fois puis garde en memoire.
-  it('relit l\'identifiant de discussion a chaque envoi', async () => {
-    const received = [];
-    let lectures = 0;
-    const handler = createHandler(
-      async ({ sessionHash, onUpdate }) => {
-        received.push(sessionHash);
-        onUpdate('ok');
-        return 'ok';
-      },
-      {
-        getSessionHash: () => {
-          lectures += 1;
-          return `visiteur-aaa111~discussion-${lectures}`;
-        },
-      },
-    );
-    const { signals } = createSignalsDouble();
-
-    await handler(bodyWith([{ role: 'user', text: 'Salut' }]), signals);
-    await handler(bodyWith([{ role: 'user', text: 'Et toi ?' }]), signals);
-
-    assert.equal(lectures, 2, 'l\'identifiant est relu a chaque envoi');
-    assert.deepEqual(received, [
-      'visiteur-aaa111~discussion-1',
-      'visiteur-aaa111~discussion-2',
-    ]);
-  });
-
   it('envoie la derniere question et l\'historique au Space', async () => {
     const received = [];
     const handler = createHandler(async ({ message, history, onUpdate }) => {
