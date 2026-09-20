@@ -116,14 +116,14 @@ describe('streamChatbotResponse', () => {
 
     assert.equal(calls[0].options.method, 'POST');
     assert.deepEqual(JSON.parse(calls[0].options.body), {
-      data: ['Ton parcours ?', [['Bonjour', 'Salut']]],
+      data: ['Ton parcours ?', [['Bonjour', 'Salut']], ''],
     });
     assert.ok(calls[1].url.endsWith('/evt-1'), 'le flux est lu sur l\'identifiant rendu');
   });
 
-  // Sans cet identifiant, le Space en fabrique un different a chaque message et
-  // une discussion se lit en morceaux separes dans le tracage.
-  it('joint l\'identifiant de discussion a la soumission', async () => {
+  // L'identifiant est la TROISIEME donnee. Le champ `session_hash` de l'API
+  // Gradio ne doit PAS etre utilise : la version du Space repond alors 404.
+  it('joint l\'identifiant de discussion comme troisieme donnee', async () => {
     const { calls, fetchImpl } = createFetchDouble([complete('Salut')]);
 
     await streamChatbotResponse({
@@ -134,15 +134,16 @@ describe('streamChatbotResponse', () => {
       sessionHash: 'renard-curieux-k3f9x2~causerie-vive-p71qd8',
     });
 
-    assert.deepEqual(JSON.parse(calls[0].options.body), {
-      data: ['Ton parcours ?', []],
-      session_hash: 'renard-curieux-k3f9x2~causerie-vive-p71qd8',
+    const body = JSON.parse(calls[0].options.body);
+    assert.deepEqual(body, {
+      data: ['Ton parcours ?', [], 'renard-curieux-k3f9x2~causerie-vive-p71qd8'],
     });
+    assert.ok(!('session_hash' in body), 'ce champ ferait echouer l\'appel');
   });
 
-  // Un Space qui n'attend pas ce champ doit continuer a repondre : on ne
-  // l'envoie que s'il a une valeur.
-  it('n\'envoie pas de champ vide quand l\'identifiant manque', async () => {
+  // Un Space qui n'attend que deux donnees ignore la troisieme : la place doit
+  // rester occupee, par une chaine vide plutot que par rien.
+  it('envoie une chaine vide quand l\'identifiant manque', async () => {
     const { calls, fetchImpl } = createFetchDouble([complete('Salut')]);
 
     await streamChatbotResponse({
@@ -153,7 +154,7 @@ describe('streamChatbotResponse', () => {
       sessionHash: '   ',
     });
 
-    assert.ok(!('session_hash' in JSON.parse(calls[0].options.body)));
+    assert.deepEqual(JSON.parse(calls[0].options.body).data, ['Salut', [], '']);
   });
 
   // La valeur par defaut ne couvre que `undefined` : un `null` explicite
@@ -169,7 +170,7 @@ describe('streamChatbotResponse', () => {
       sessionHash: null,
     });
 
-    assert.ok(!('session_hash' in JSON.parse(calls[0].options.body)));
+    assert.deepEqual(JSON.parse(calls[0].options.body).data, ['Salut', [], '']);
   });
 
   it('remonte chaque etape puis rend la reponse finale', async () => {

@@ -110,17 +110,15 @@ export const streamChatbotResponse = async ({
   resetTimeout();
 
   try {
-    // `session_hash` est le seul champ libre que l'API du Space accepte a cote
-    // des donnees. Absent, le Space en tire un neuf a chaque message : on ne
-    // l'envoie donc que s'il porte une valeur, jamais vide.
-    const payload = { data: [message, history] };
-    const trimmedSessionHash = (sessionHash ?? '').trim();
-    if (trimmedSessionHash) payload.session_hash = trimmedSessionHash;
-
+    // L'identifiant voyage comme TROISIEME donnee, jamais par le champ
+    // `session_hash` de l'API : sur la version de Gradio du Space, un
+    // `session_hash` fourni par le client fait echouer la lecture du flux (404).
+    // Un Space qui n'attend que deux donnees ignore simplement la troisieme,
+    // ce qui permet de deployer les deux depots l'un apres l'autre.
     const submitResponse = await fetchImpl(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ data: [message, history, (sessionHash ?? '').trim()] }),
       signal: controller.signal,
     });
 
