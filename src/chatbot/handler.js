@@ -11,7 +11,6 @@
 //   3. `onClose` doit etre appele dans tous les cas, erreur comprise, sinon le
 //      bouton d'envoi reste bloque sur "stop".
 
-import { getSessionHash as readSessionHash } from './conversation.js';
 import { buildHistory, streamChatbotResponse, TIMEOUT_MESSAGE } from './gradio.js';
 import { extractModelTag } from './modelTag.js';
 import { neutralizeUnsafeLinks } from './safeLinks.js';
@@ -50,7 +49,6 @@ const lastUserMessage = (messages) => {
  * @param {Function} [options.streamResponse] - l'appel au Space, injectable pour les tests.
  * @param {object} [options.typewriterOptions] - minuteurs de la machine a ecrire.
  * @param {() => string | null} [options.getTurnstileToken] - jeton de verification Cloudflare.
- * @param {() => string} [options.getSessionHash] - identifiant de la discussion, voir `conversation.js`.
  * @param {(kind: string) => void} [options.onError] - suivi d'audience.
  * @param {(model: string) => void} [options.onModel] - nom du modele signe par le Space.
  */
@@ -58,7 +56,6 @@ export const createChatHandler = ({
   streamResponse = streamChatbotResponse,
   typewriterOptions = {},
   getTurnstileToken = () => 'no-check',
-  getSessionHash = readSessionHash,
   onError = () => {},
   onModel = () => {},
 } = {}) => {
@@ -117,9 +114,6 @@ export const createChatHandler = ({
       await streamResponse({
         message: question,
         history: buildHistory(messages.slice(0, -1)),
-        // Relu a chaque envoi : le stockage du navigateur peut n'etre
-        // disponible qu'apres le premier message.
-        sessionHash: getSessionHash(),
         onUpdate: (partialResponse) => {
           if (isStopped) return;
           // La signature du modele part vers l'interface, qui l'affiche sous la
