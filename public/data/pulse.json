@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T19:55:35.731Z",
+  "generatedAt": "2026-09-21T02:09:15.217Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
@@ -26,32 +26,6 @@
   },
   "om": {
     "last": {
-      "date": "2026-09-11T18:45:00Z",
-      "competition": "Ligue 1",
-      "matchday": 4,
-      "home": {
-        "name": "Stade Rennais",
-        "tla": "REN",
-        "colors": [
-          "#010100",
-          "#d42c3e"
-        ]
-      },
-      "away": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "outcome": "loss",
-      "score": {
-        "home": 1,
-        "away": 0
-      }
-    },
-    "next": {
       "date": "2026-09-20T18:45:00Z",
       "competition": "Ligue 1",
       "matchday": 5,
@@ -70,15 +44,41 @@
           "#042753",
           "#034f8d"
         ]
+      },
+      "outcome": "loss",
+      "score": {
+        "home": 1,
+        "away": 2
+      }
+    },
+    "next": {
+      "date": "2026-10-11T18:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 6,
+      "home": {
+        "name": "Troyes",
+        "tla": "ETR",
+        "colors": [
+          "#016db2",
+          "#fdfefe"
+        ]
+      },
+      "away": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#fefefe",
+          "#0d61ab"
+        ]
       }
     },
     "standing": {
-      "position": 16,
-      "points": 4,
+      "position": 17,
+      "points": 3,
       "played": 5,
       "won": 1,
-      "draw": 1,
-      "lost": 3
+      "draw": 0,
+      "lost": 4
     }
   },
   "favoris": {
