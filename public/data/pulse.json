@@ -1,27 +1,12 @@
 {
-  "generatedAt": "2026-09-21T02:09:15.217Z",
+  "generatedAt": "2026-09-27T10:58:31.197Z",
   "github": {
-    "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "22a6d9460003d51bf358c285566d161a8173bdc6",
-      "date": "2026-09-20T10:13:49Z",
-      "message": "Revert \"feat(chatbot): regroupe une discussion en une seule session Langfuse\"",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/22a6d9460003d51bf358c285566d161a8173bdc6"
-    },
+    "lastCommit": null,
     "week": {
       "days": 7,
-      "commits": 6,
-      "repos": 3,
-      "languages": [
-        {
-          "name": "JavaScript",
-          "share": 95
-        },
-        {
-          "name": "Config",
-          "share": 5
-        }
-      ]
+      "commits": 0,
+      "repos": 0,
+      "languages": []
     }
   },
   "om": {
