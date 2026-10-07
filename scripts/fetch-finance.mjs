@@ -14,13 +14,14 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
-import { anonymize } from './finance/anonymize.mjs';
+import { anonymize, assertSafe } from './finance/anonymize.mjs';
 import { EVM_CHAINS, readBitcoin, readDogecoin, readEvm, readSolana } from './finance/chains.mjs';
 import { collectAll, CollectError, withDeadline, withRetry } from './finance/collect.mjs';
 import { measureCryptoPerformance } from './finance/crypto-performance.mjs';
 import { mergeHoldings, toCryptoPositions } from './finance/holdings.mjs';
 import { fetchPrices, priceKey } from './finance/prices.mjs';
 import { fetchAccountSummary, fetchOrders, fetchPositions } from './finance/trading212.mjs';
+import { stabilizePerformance } from './finance/stabilize.mjs';
 import { readVault } from './finance/vaults.mjs';
 
 const OUTPUT_PATH = resolve('public/data/finance.json');
@@ -290,21 +291,32 @@ try {
   warn('performance crypto')(error);
 }
 
-const payload = anonymize({
+// Lu avant l'anonymisation : la performance publiee en depend (seuil de
+// 2 points, report d'une valeur de moins de 24 h).
+const previous = await readPrevious();
+const now = new Date();
+
+const anonymized = anonymize({
   positions: [...broker.positions, ...cryptoPositions],
   ...(orders ? { orders } : {}),
   sources: [...broker.sources, ...chains.sources],
   performance: { stocks: stocksPerformance, crypto: cryptoPerformance },
-});
+}, now);
 
-if (!payload) {
+if (!anonymized) {
   throw new Error('Aucune position exploitable, on garde le finance.json precedent.');
 }
+
+// Repasse par la frontiere : la stabilisation ajoute des champs au fichier
+// publie, ils doivent subir le meme controle que le reste.
+const payload = assertSafe({
+  ...anonymized,
+  performance: stabilizePerformance(previous?.performance, anonymized.performance, now),
+});
 
 // Le workflow tourne toutes les 6 h alors que des parts arrondies a 5 % bougent
 // rarement. Sans cette comparaison, l'horodatage seul produirait un commit a
 // chaque execution et noierait l'historique du depot.
-const previous = await readPrevious();
 if (previous) {
   const { generatedAt: _previousDate, ...previousPayload } = previous;
   const { generatedAt: _currentDate, ...currentPayload } = payload;
