@@ -17,9 +17,10 @@ import { dirname, resolve } from 'node:path';
 import { anonymize } from './finance/anonymize.mjs';
 import { EVM_CHAINS, readBitcoin, readDogecoin, readEvm, readSolana } from './finance/chains.mjs';
 import { collectAll, CollectError } from './finance/collect.mjs';
+import { measureCryptoPerformance } from './finance/crypto-performance.mjs';
 import { mergeHoldings, toCryptoPositions } from './finance/holdings.mjs';
 import { fetchPrices, priceKey } from './finance/prices.mjs';
-import { fetchOrders, fetchPositions } from './finance/trading212.mjs';
+import { fetchAccountSummary, fetchOrders, fetchPositions } from './finance/trading212.mjs';
 import { readVault } from './finance/vaults.mjs';
 
 const OUTPUT_PATH = resolve('public/data/finance.json');
@@ -41,6 +42,27 @@ const splitAddresses = (value) =>
     .map((address) => address.trim())
     .filter(Boolean);
 
+// Chaque solde porte son reseau : la performance crypto en a besoin pour
+// exclure BNB Chain, dont l'historique est illisible sans cle.
+const tagNetwork = (holdings, network) => holdings.map((entry) => ({ ...entry, network }));
+
+const requestedEvmChains = (env) => {
+  const requested = (env.EVM_CHAINS ?? '')
+    .split(',')
+    .map((name) => name.trim().toLowerCase())
+    .filter(Boolean);
+
+  const unknown = requested.filter((name) => !(name in EVM_CHAINS));
+  if (unknown.length > 0) {
+    throw new Error(
+      `Chaines EVM inconnues : ${unknown.join(', ')}. `
+      + `Chaines disponibles : ${Object.keys(EVM_CHAINS).join(', ')}.`,
+    );
+  }
+
+  return requested.length > 0 ? requested : DEFAULT_EVM_CHAINS;
+};
+
 const buildSources = (env) => {
   const sources = [];
 
@@ -57,25 +79,12 @@ const buildSources = (env) => {
   }
 
   if (env.WALLET_EVM) {
-    const requested = (env.EVM_CHAINS ?? '')
-      .split(',')
-      .map((name) => name.trim().toLowerCase())
-      .filter(Boolean);
-
-    const unknown = requested.filter((name) => !(name in EVM_CHAINS));
-    if (unknown.length > 0) {
-      throw new Error(
-        `Chaines EVM inconnues : ${unknown.join(', ')}. `
-        + `Chaines disponibles : ${Object.keys(EVM_CHAINS).join(', ')}.`,
-      );
-    }
-
-    for (const chain of requested.length > 0 ? requested : DEFAULT_EVM_CHAINS) {
+    for (const chain of requestedEvmChains(env)) {
       for (const address of splitAddresses(env.WALLET_EVM)) {
         sources.push({
           name: `EVM ${chain}`,
           kind: 'holdings',
-          collect: () => readEvm(address, chain, { onFallback: warn(chain) }),
+          collect: async () => tagNetwork(await readEvm(address, chain, { onFallback: warn(chain) }), chain),
         });
       }
     }
@@ -85,7 +94,7 @@ const buildSources = (env) => {
     sources.push({
       name: splitAddresses(env.WALLET_SOLANA).length > 1 ? `Solana #${index + 1}` : 'Solana',
       kind: 'holdings',
-      collect: () => readSolana(address, { onFallback: warn('solana') }),
+      collect: async () => tagNetwork(await readSolana(address, { onFallback: warn('solana') }), 'solana'),
     });
   }
 
@@ -93,7 +102,7 @@ const buildSources = (env) => {
     sources.push({
       name: splitAddresses(env.WALLET_BITCOIN).length > 1 ? `Bitcoin #${index + 1}` : 'Bitcoin',
       kind: 'holdings',
-      collect: () => readBitcoin(address, { onFallback: warn('bitcoin') }),
+      collect: async () => tagNetwork(await readBitcoin(address, { onFallback: warn('bitcoin') }), 'bitcoin'),
     });
   }
 
@@ -101,12 +110,23 @@ const buildSources = (env) => {
     sources.push({
       name: splitAddresses(env.WALLET_DOGECOIN).length > 1 ? `Dogecoin #${index + 1}` : 'Dogecoin',
       kind: 'holdings',
-      collect: () => readDogecoin(address, { onFallback: warn('dogecoin') }),
+      collect: async () => tagNetwork(await readDogecoin(address, { onFallback: warn('dogecoin') }), 'dogecoin'),
     });
   }
 
   return sources;
 };
+
+// Cibles d'historique pour la performance crypto : une par (chaine, adresse).
+const buildTargets = (env) => [
+  ...(env.WALLET_EVM
+    ? requestedEvmChains(env).flatMap((network) =>
+        splitAddresses(env.WALLET_EVM).map((address) => ({ family: 'evm', network, address })))
+    : []),
+  ...splitAddresses(env.WALLET_SOLANA).map((address) => ({ family: 'solana', network: 'solana', address })),
+  ...splitAddresses(env.WALLET_BITCOIN).map((address) => ({ family: 'bitcoin', network: 'bitcoin', address })),
+  ...splitAddresses(env.WALLET_DOGECOIN).map((address) => ({ family: 'dogecoin', network: 'dogecoin', address })),
+];
 
 const readPrevious = async () => {
   try {
@@ -164,6 +184,7 @@ const prices = holdings.length > 0
 // l'argent place sur un protocole de rendement disparait du total.
 const unpriced = holdings.filter((holding) => holding.contract && !prices[priceKey(holding)]);
 const resolved = [];
+const vaults = {};
 
 for (const holding of unpriced) {
   const chain = EVM_CHAINS[holding.platform];
@@ -172,6 +193,18 @@ for (const holding of unpriced) {
   try {
     const vault = await readVault(chain.rpc, holding.contract, holding.amount);
     if (vault) {
+      // Taux part -> sous-jacent, reutilise pour valoriser les depots passes.
+      vaults[priceKey(holding)] = {
+        underlyingKey: priceKey(vault),
+        rate: vault.amount / holding.amount,
+        underlying: {
+          key: priceKey(vault),
+          symbol: vault.contract,
+          contract: vault.contract,
+          platform: holding.platform,
+        },
+      };
+
       resolved.push({
         ...holding,
         contract: vault.contract,
@@ -218,10 +251,39 @@ if (process.env.TRADING212_API_KEY) {
 
 console.log(`  ordres lus : ${orders ? orders.length : 'permission absente'}`);
 
+// Les deux mesures sont facultatives : leur echec masque la ligne concernee
+// sur la carte, sans priver le site des repartitions.
+let stocksPerformance = null;
+if (process.env.TRADING212_API_KEY) {
+  try {
+    stocksPerformance = await fetchAccountSummary({
+      apiKey: process.env.TRADING212_API_KEY,
+      apiSecret: process.env.TRADING212_API_SECRET,
+    });
+  } catch (error) {
+    warn('resume de compte')(error);
+  }
+}
+
+let cryptoPerformance = null;
+try {
+  cryptoPerformance = await measureCryptoPerformance({
+    targets: buildTargets(process.env),
+    holdings: chains.positions,
+    prices,
+    vaults,
+    apiKey: process.env.COINGECKO_API_KEY,
+    onWarn: warn('performance crypto'),
+  });
+} catch (error) {
+  warn('performance crypto')(error);
+}
+
 const payload = anonymize({
   positions: [...broker.positions, ...cryptoPositions],
   ...(orders ? { orders } : {}),
   sources: [...broker.sources, ...chains.sources],
+  performance: { stocks: stocksPerformance, crypto: cryptoPerformance },
 });
 
 if (!payload) {
@@ -249,3 +311,8 @@ console.log(`Finance ecrit : ${OUTPUT_PATH}`);
 console.log(`  positions : ${payload.structure.positions}`);
 console.log(`  melange   : ${payload.mix.map((part) => `${part.label} ${part.share} %`).join(' · ')}`);
 console.log(`  zones     : ${payload.regions.map((part) => `${part.label} ${part.share} %`).join(' · ') || 'aucune'}`);
+
+const performance = payload.performance;
+console.log(`  performance : ${performance
+  ? ['overall', 'stocks', 'crypto'].map((key) => `${key} ${performance[key] ?? '-'} %`).join(' · ')
+  : 'indisponible'}`);
