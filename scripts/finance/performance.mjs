@@ -60,20 +60,31 @@ const positivePrice = (value) => {
 };
 
 /**
+ * Cours actuel d'un solde : son cours direct, ou, pour une part de coffre, le
+ * cours du sous-jacent multiplie par le taux part -> sous-jacent. Rend null
+ * sans cours exploitable. Regle unique, partagee par la valorisation et par le
+ * controle de couverture de la perf crypto : les deux doivent voir les memes
+ * actifs.
+ */
+export const currentPrice = (holding, prices, vaults = {}) => {
+  const key = priceKey(holding);
+  const direct = positivePrice(prices?.[key]);
+  if (direct !== null) return direct;
+
+  const vault = vaults?.[key];
+  if (!vault) return null;
+  const underlying = positivePrice(prices?.[vault.underlyingKey]);
+  return underlying === null ? null : positivePrice(underlying * vault.rate);
+};
+
+/**
  * Valeur actuelle des soldes, avec la meme regle que les flux : une part de
  * coffre vaut son sous-jacent, un actif sans cours ne vaut rien.
  */
 export const valueHoldings = (holdings, prices, vaults = {}) =>
   (holdings ?? []).reduce((sum, holding) => {
-    const key = priceKey(holding);
-    const direct = positivePrice(prices?.[key]);
-    if (direct !== null) return sum + holding.amount * direct;
-
-    const vault = vaults[key];
-    const underlying = positivePrice(prices?.[vault?.underlyingKey]);
-    if (vault && underlying !== null) return sum + holding.amount * vault.rate * underlying;
-
-    return sum;
+    const price = currentPrice(holding, prices, vaults);
+    return price === null ? sum : sum + holding.amount * price;
   }, 0);
 
 // Un apport net minuscule face a la valeur actuelle (gains deja sortis vers

@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { priceAt, sumContributions, toPerformance, valueHoldings } from './performance.mjs';
+import { currentPrice, priceAt, sumContributions, toPerformance, valueHoldings } from './performance.mjs';
 
 const DAY = 24 * 60 * 60 * 1000;
 const T0 = Date.UTC(2026, 0, 1);
@@ -76,6 +76,24 @@ describe('sumContributions', () => {
     );
 
     assert.ok(Math.abs(result.total - 5) < 1e-9);
+  });
+});
+
+describe('currentPrice', () => {
+  const vaults = { '0xshare': { underlyingKey: '0xusdc', rate: 1.5, underlying: {} } };
+
+  it('prend le cours direct d un solde cote', () => {
+    assert.equal(currentPrice({ symbol: 'ETH', amount: 1 }, { ETH: 1000 }, {}), 1000);
+  });
+
+  it('convertit une part de coffre par le cours du sous-jacent et le taux', () => {
+    assert.equal(currentPrice({ symbol: 'X', contract: '0xSHARE', amount: 1 }, { '0xusdc': 2 }, vaults), 3);
+  });
+
+  it('rend null sans cours exploitable', () => {
+    assert.equal(currentPrice({ symbol: 'Y', contract: '0xNOPRICE', amount: 1 }, {}, vaults), null);
+    assert.equal(currentPrice({ symbol: 'ETH', amount: 1 }, { ETH: 0 }, {}), null);
+    assert.equal(currentPrice({ symbol: 'X', contract: '0xSHARE', amount: 1 }, {}, vaults), null);
   });
 });
 
