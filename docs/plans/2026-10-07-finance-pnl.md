@@ -60,12 +60,23 @@ Seuls des % entiers sortent, par `anonymize.mjs`, comme le reste de la carte.
    la collecte continue → test dans la tâche 1.
 
 Limites connues, non testables hors réseau et à observer au premier vrai lancement :
-- Solana : un compte de jeton **fermé** dont les dépôts ne portaient pas la
-  signature du wallet échappe à l'historique (gain surestimé).
+- Solana : un compte de jeton **fermé** est retrouvé dès qu'une transaction
+  lue cite le wallet comme propriétaire de ce compte (soldes de jetons avant /
+  après). Seul un compte fermé qu'aucune transaction lue ne cite échappe encore
+  à l'historique (gain surestimé).
 - Bitcoin/Dogecoin : les frais d'une transaction sortante comptent comme une
   sortie et non comme une perte (écart négligeable).
 - Le % global mélange du latent (bourse) et des apports nets (crypto) : les
   libellés de la carte le disent.
+- Coffres de dépôt (Morpho) : leur rendement est effacé, car les parts sont
+  valorisées au taux actuel des deux côtés (apports et valeur actuelle). La
+  perf crypto est donc prudente, jamais gonflée. Décision de Valentin : limite
+  acceptée.
+- Emballage ETH → WETH : à vérifier au premier vrai lancement que Blockscout
+  indexe bien le WETH reçu sur Base et Arbitrum.
+- Mémoire de 24 h : la date retenue est celle de la dernière **publication**
+  d'une valeur. Une valeur restée stable plus de 24 h (écart < 2 points), puis
+  suivie d'une panne de mesure, est donc masquée au lieu d'être reportée.
 
 ## Fichiers
 
