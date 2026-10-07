@@ -5,6 +5,7 @@ import { flowAssets, measureCryptoPerformance } from './crypto-performance.mjs';
 
 const DAY = 24 * 60 * 60 * 1000;
 const T0 = Date.UTC(2026, 0, 1);
+const NOW = T0 + 30 * DAY;
 const flow = (key, amount, extra = {}) => ({ time: T0, key, symbol: key, contract: null, platform: null, amount, ...extra });
 
 const baseOptions = (overrides = {}) => ({
@@ -13,8 +14,8 @@ const baseOptions = (overrides = {}) => ({
   prices: { ETH: 150 },
   vaults: {},
   readers: { evm: async () => ({ flows: [flow('ETH', 2)], truncated: false }) },
-  listPrices: async () => ({}),
-  fetchHistories: async () => ({ ETH: [[T0, 100]] }),
+  fetchFlowPrices: async () => ({ ETH: [[T0, 100]] }),
+  now: NOW,
   ...overrides,
 });
 
@@ -45,32 +46,41 @@ describe('measureCryptoPerformance', () => {
     assert.equal(result, null);
   });
 
-  // Un jeton de spam non cote ne doit ni couter un appel d'historique, ni
-  // peser dans les apports.
-  it('ne demande l historique que des jetons cotes', async () => {
-    const asked = [];
+  // Un jeton de spam peut avoir un cours actuel CoinGecko sans aucun cours
+  // historique : compte dans la valeur actuelle seulement, il gonflerait le
+  // gain. Sans serie, il est ignore des deux cotes.
+  it('ignore des deux cotes un jeton detenu sans cours historique', async () => {
+    const spam = { contract: '0xSPAM', platform: 'ethereum' };
     const result = await measureCryptoPerformance(baseOptions({
+      holdings: [
+        { symbol: 'ETH', amount: 2, network: 'ethereum' },
+        { symbol: 'SPAM', amount: 1e9, ...spam, network: 'ethereum' },
+      ],
+      prices: { ETH: 150, '0xspam': 1 },
       readers: {
-        evm: async () => ({
-          flows: [flow('ETH', 2), flow('0xspam', 1e9, { contract: '0xSPAM', platform: 'ethereum' })],
-          truncated: false,
-        }),
+        evm: async () => ({ flows: [flow('ETH', 2), flow('0xspam', 1e9, spam)], truncated: false }),
       },
-      listPrices: async () => ({}),
-      fetchHistories: async (assets) => { asked.push(...assets.map((asset) => asset.key)); return { ETH: [[T0, 100]] }; },
     }));
-    assert.deepEqual(asked, ['ETH']);
     assert.deepEqual(result, { cost: 200, gain: 100 });
   });
 
-  // Une cotation en panne ferait ignorer un vrai jeton : le resultat serait
-  // faux sans signal.
-  it('masque la mesure si la cotation des jetons echoue', async () => {
+  it('ignore un solde sans mouvement ni cours historique', async () => {
     const result = await measureCryptoPerformance(baseOptions({
-      readers: { evm: async () => ({ flows: [flow('0xusdc', 5, { contract: '0xUSDC', platform: 'ethereum' })], truncated: false }) },
-      listPrices: async (_assets, { onFallback }) => { onFallback(new Error('HTTP 500')); return {}; },
+      holdings: [
+        { symbol: 'ETH', amount: 2, network: 'ethereum' },
+        { symbol: 'SPAM', amount: 1e9, contract: '0xSPAM', platform: 'ethereum', network: 'ethereum' },
+      ],
+      prices: { ETH: 150, '0xspam': 1 },
     }));
-    assert.equal(result, null);
+    assert.deepEqual(result, { cost: 200, gain: 100 });
+  });
+
+  // Une source de cours en panne ferait ignorer un vrai actif : le resultat
+  // serait faux sans signal.
+  it('rejette si la source de cours historiques leve', async () => {
+    await assert.rejects(measureCryptoPerformance(baseOptions({
+      fetchFlowPrices: async () => { throw new Error('HTTP 429'); },
+    })), /429/);
   });
 
   it('exclut BNB Chain des flux et de la valeur actuelle', async () => {
@@ -105,8 +115,7 @@ describe('measureCryptoPerformance', () => {
           truncated: false,
         }),
       },
-      listPrices: async () => ({ '0xusdc': 1 }),
-      fetchHistories: async () => ({ '0xusdc': [[T0, 1]] }),
+      fetchFlowPrices: async () => ({ '0xusdc': [[T0, 1]] }),
     }));
     assert.equal(result, null);
   });
@@ -132,8 +141,7 @@ describe('measureCryptoPerformance', () => {
           truncated: false,
         }),
       },
-      listPrices: async () => ({}),
-      fetchHistories: async () => ({ '0xunderlying': [[T0, 2]] }),
+      fetchFlowPrices: async () => ({ '0xunderlying': [[T0, 2]] }),
     }));
     assert.equal(result, null);
   });
@@ -142,17 +150,22 @@ describe('measureCryptoPerformance', () => {
   // zero alors qu'il pese dans la valeur actuelle : le gain serait gonfle.
   it('masque la mesure si l historique d un actif demande est vide', async () => {
     const result = await measureCryptoPerformance(baseOptions({
-      fetchHistories: async () => ({ ETH: [] }),
+      fetchFlowPrices: async () => ({ ETH: [] }),
     }));
     assert.equal(result, null);
   });
 
   // Un solde detenu et cote sans le moindre mouvement signale un historique
   // incomplet, pas un portefeuille sans apport.
+  // Sans mouvement, le solde est sonde a la date du jour : connu de la
+  // source de cours, c'est un vrai actif et non du spam.
   it('masque la mesure si un solde cote n a aucun mouvement connu', async () => {
+    const asked = [];
     const result = await measureCryptoPerformance(baseOptions({
       readers: { evm: async () => ({ flows: [], truncated: false }) },
+      fetchFlowPrices: async (flows) => { asked.push(...flows); return { ETH: [[NOW, 150]] }; },
     }));
+    assert.deepEqual(asked.map(({ key, time }) => ({ key, time })), [{ key: 'ETH', time: NOW }]);
     assert.equal(result, null);
   });
 
@@ -180,10 +193,32 @@ describe('measureCryptoPerformance', () => {
           truncated: false,
         }),
       },
-      listPrices: async () => ({}),
-      fetchHistories: async () => ({ '0xunderlying': [[T0, 1]] }),
+      fetchFlowPrices: async () => ({ '0xunderlying': [[T0, 1]] }),
     }));
     assert.deepEqual(result, { cost: 20, gain: 40 });
+  });
+
+  // Les parts de coffre n'ont pas de cours historique propre : le sous-jacent
+  // est demande aux dates des mouvements de parts.
+  it('demande le cours du sous-jacent aux dates des mouvements de parts', async () => {
+    const underlying = { key: '0xunderlying', symbol: '0xunderlying', contract: '0xUNDERLYING', platform: 'ethereum' };
+    const vaults = { '0xvault': { underlyingKey: '0xunderlying', rate: 2, underlying } };
+    const calls = [];
+    await measureCryptoPerformance(baseOptions({
+      holdings: [{ symbol: 'VAULT', amount: 10, contract: '0xVAULT', platform: 'ethereum', network: 'ethereum' }],
+      prices: { '0xunderlying': 3 },
+      vaults,
+      readers: {
+        evm: async () => ({
+          flows: [{ ...flow('0xvault', 10, { contract: '0xVAULT', platform: 'ethereum' }), time: T0 + DAY }],
+          truncated: false,
+        }),
+      },
+      fetchFlowPrices: async (flows, assets) => { calls.push({ flows, assets }); return { '0xunderlying': [[T0 + DAY, 1]] }; },
+    }));
+    assert.equal(calls.length, 1);
+    assert.ok(calls[0].flows.some((entry) => entry.key === '0xunderlying' && entry.time === T0 + DAY));
+    assert.deepEqual(calls[0].assets.map((asset) => asset.key), ['0xunderlying']);
   });
 
   // Le RPC Solana public limite le debit par IP : deux adresses lues en meme
@@ -204,7 +239,7 @@ describe('measureCryptoPerformance', () => {
       holdings: [{ symbol: 'SOL', amount: 2, network: 'solana' }],
       prices: { SOL: 150 },
       readers: { solana: solanaReader },
-      fetchHistories: async () => ({ SOL: [[T0, 100]] }),
+      fetchFlowPrices: async () => ({ SOL: [[T0, 100]] }),
     }));
     assert.deepEqual(events, ['debut A', 'fin A', 'debut B', 'fin B']);
   });
