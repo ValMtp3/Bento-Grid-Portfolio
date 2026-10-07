@@ -8,7 +8,9 @@ import { describe, it } from 'node:test';
 import {
   authHeader,
   countryFromIsin,
+  fetchAccountSummary,
   isEtf,
+  parseAccountSummary,
   parseOrders,
   parsePositions,
   regionFromIsin,
@@ -195,5 +197,57 @@ describe('parseOrders', () => {
     assert.deepEqual(parseOrders(null), []);
     assert.deepEqual(parseOrders({ items: null }), []);
     assert.deepEqual(parseOrders({ error: 'nope' }), []);
+  });
+});
+
+describe('parseAccountSummary', () => {
+  it('garde le cout et la plus-value latente', () => {
+    const summary = parseAccountSummary({
+      cash: { availableToTrade: 12 },
+      id: 123,
+      investments: { currentValue: 5500, totalCost: 5000, unrealizedProfitLoss: 500, realizedProfitLoss: 80 },
+    });
+
+    assert.deepEqual(summary, { cost: 5000, gain: 500 });
+  });
+
+  // Sans cout, un pourcentage serait une division par zero : mieux vaut rien.
+  it('rend null sans cout exploitable', () => {
+    assert.equal(parseAccountSummary({ investments: { totalCost: 0, unrealizedProfitLoss: 0 } }), null);
+    assert.equal(parseAccountSummary({}), null);
+    assert.equal(parseAccountSummary(null), null);
+  });
+});
+
+const fakeFetch = (status, body) => async () => ({
+  ok: status >= 200 && status < 300,
+  status,
+  json: async () => body,
+});
+
+describe('fetchAccountSummary', () => {
+  it('rend le resume neutralise', async () => {
+    const summary = await fetchAccountSummary({
+      apiKey: 'k',
+      fetchImpl: fakeFetch(200, { investments: { totalCost: 100, unrealizedProfitLoss: -5 } }),
+    });
+
+    assert.deepEqual(summary, { cost: 100, gain: -5 });
+  });
+
+  // Le quota depasse arrive parfois en 200 : le lire comme un compte vide
+  // publierait une performance fausse.
+  it('leve sur un quota depasse deguise en 200', async () => {
+    await assert.rejects(
+      fetchAccountSummary({ apiKey: 'k', fetchImpl: fakeFetch(200, { context: { type: 'TooManyRequests' } }) }),
+      /quota/,
+    );
+  });
+
+  it('leve une HttpError definitive sur une cle refusee', async () => {
+    await assert.rejects(
+      fetchAccountSummary({ apiKey: 'k', fetchImpl: fakeFetch(401, {}) }),
+      (error) => error.permanent === true,
+    );
   });
 });
