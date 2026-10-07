@@ -18,8 +18,9 @@ const SIGNATURES_PAGE = 1000;
 // Au-dela, le job deviendrait trop long pour le RPC public : l'historique est
 // juge incomplet et la performance crypto masquee.
 const MAX_TRANSACTIONS = 1500;
-// Le RPC public limite le debit par IP : une pause courte evite les 429.
-const PAUSE_MS = 200;
+// Le RPC public limite le debit par IP : un vrai lancement a recu des 429 avec
+// une pause de 200 ms entre deux appels.
+const PAUSE_MS = 300;
 // Les sommes de flottants laissent des residus du type 1e-17.
 const DUST = 1e-12;
 

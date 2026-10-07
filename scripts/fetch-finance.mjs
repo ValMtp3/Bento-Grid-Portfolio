@@ -34,7 +34,9 @@ const DEFAULT_EVM_CHAINS = ['ethereum'];
 // L'historique Solana peut demander des centaines d'appels lents. Au-dela de
 // ce budget, la perf crypto est abandonnee pour cette fois : mieux vaut publier
 // les repartitions sans elle que depasser le timeout du job et ne rien publier.
-const CRYPTO_PERFORMANCE_BUDGET_MS = 10 * 60 * 1000;
+// Un vrai lancement a pris 8 minutes : 15 laissent de la marge, sous les 30
+// minutes du job.
+const CRYPTO_PERFORMANCE_BUDGET_MS = 15 * 60 * 1000;
 
 const warn = (label) => (error) =>
   console.warn(`  repli ${label} : ${error?.message ?? error}`);
