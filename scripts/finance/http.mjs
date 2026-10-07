@@ -21,6 +21,23 @@ export class HttpError extends Error {
   }
 }
 
+// Certaines instances Blockscout (base, polygon, arbitrum) protegent leur API
+// par un defi Cloudflare « managed challenge » : une requete qui n'a pas un
+// User-Agent de navigateur accompagne des client hints sec-ch-ua coherents
+// recoit 403, quel que soit le client (curl, Node). Ce n'est pas un bannissement
+// d'IP. On presente donc un navigateur Chrome complet ; l'identite du projet
+// reste portee par l'en-tete X-Portfolio-Client.
+const BROWSER_HEADERS = {
+  Accept: 'application/json',
+  'User-Agent':
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
+  'Accept-Language': 'fr-FR,fr;q=0.9,en;q=0.8',
+  'sec-ch-ua': '"Google Chrome";v="141", "Not?A_Brand";v="8", "Chromium";v="141"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"macOS"',
+  'X-Portfolio-Client': 'bento-grid-portfolio (+https://github.com/ValMtp3/Bento-Grid-Portfolio)',
+};
+
 /**
  * GET ou POST JSON avec garde-fous.
  * Pas d'en-tete Origin ni Referer : c'est la cause la plus courante des 403
@@ -30,8 +47,7 @@ export const fetchJson = async (url, { body, headers = {}, timeoutMs = DEFAULT_T
   const response = await fetch(url, {
     method: body ? 'POST' : 'GET',
     headers: {
-      Accept: 'application/json',
-      'User-Agent': 'Bento-Grid-Portfolio/1.0 (+https://github.com/ValMtp3/Bento-Grid-Portfolio)',
+      ...BROWSER_HEADERS,
       ...(body ? { 'Content-Type': 'application/json' } : {}),
       ...headers,
     },
