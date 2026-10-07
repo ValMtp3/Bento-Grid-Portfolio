@@ -95,4 +95,50 @@ describe('readSolanaFlows', () => {
     const result = await readSolanaFlows(ME, { call, pauseMs: 0, maxTransactions: 1 });
     assert.deepEqual(result, { flows: [], truncated: true });
   });
+
+  // Une reponse mal formee ne doit jamais etre lue comme "pas de comptes de
+  // jetons" : ce serait un historique tronque sans le moindre signal.
+  it('refuse une reponse getTokenAccountsByOwner sans tableau value', async () => {
+    const call = async (method) => {
+      if (method === 'getTokenAccountsByOwner') return { value: 'pas un tableau' };
+      throw new Error(`appel inattendu : ${method}`);
+    };
+
+    await assert.rejects(() => readSolanaFlows(ME, { call, pauseMs: 0 }), (error) => {
+      assert.ok(!error.message.includes(ME));
+      return true;
+    });
+  });
+
+  // Une reponse mal formee ne doit jamais etre lue comme une derniere page
+  // vide : ce serait un historique tronque sans le moindre signal.
+  it('refuse une reponse getSignaturesForAddress qui n est pas un tableau', async () => {
+    const call = async (method) => {
+      if (method === 'getTokenAccountsByOwner') return { value: [] };
+      if (method === 'getSignaturesForAddress') return { oops: true };
+      throw new Error(`appel inattendu : ${method}`);
+    };
+
+    await assert.rejects(() => readSolanaFlows(ME, { call, pauseMs: 0 }), (error) => {
+      assert.ok(!error.message.includes(ME));
+      return true;
+    });
+  });
+
+  // Une transaction signalee par getSignaturesForAddress mais introuvable au
+  // getTransaction signifie que le noeud ne peut pas la servir : l'historique
+  // est incomplet, pas vide pour cette transaction.
+  it('refuse quand une transaction signalee est indisponible (getTransaction nul)', async () => {
+    const call = async (method) => {
+      if (method === 'getTokenAccountsByOwner') return { value: [] };
+      if (method === 'getSignaturesForAddress') return [{ signature: 'sig1', err: null }];
+      if (method === 'getTransaction') return null;
+      throw new Error(`appel inattendu : ${method}`);
+    };
+
+    await assert.rejects(() => readSolanaFlows(ME, { call, pauseMs: 0 }), (error) => {
+      assert.ok(!error.message.includes(ME));
+      return true;
+    });
+  });
 });
