@@ -39,6 +39,9 @@ jobs:
       - name: Collect finance data
         env:
           TRADING212_API_KEY: ${{ secrets.TRADING212_API_KEY }}
+          TRADING212_API_SECRET: ${{ secrets.TRADING212_API_SECRET }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          EVM_CHAINS: ${{ secrets.EVM_CHAINS }}
           WALLET_EVM: ${{ secrets.WALLET_EVM }}
           WALLET_SOLANA: ${{ secrets.WALLET_SOLANA }}
           WALLET_BITCOIN: ${{ secrets.WALLET_BITCOIN }}
