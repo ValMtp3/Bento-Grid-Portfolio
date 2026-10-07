@@ -9,6 +9,7 @@ const UNITS_PER_COIN = 100_000_000;
 const ESPLORA = 'https://blockstream.info/api';
 // Taille de page fixe d'Esplora : une page plus courte est la derniere.
 const ESPLORA_PAGE_SIZE = 25;
+// 40 pages de 25 = 1000 transactions : au-dela, le job devient trop long.
 const MAX_BITCOIN_PAGES = 40;
 const BLOCKCYPHER = 'https://api.blockcypher.com/v1/doge/main';
 const BLOCKCYPHER_LIMIT = 2000;
@@ -44,13 +45,15 @@ export const readBitcoinFlows = async (address, { fetch = fetchJson, maxPages = 
 
   for (let page = 0; page < maxPages; page += 1) {
     const batch = await fetch(url);
-    const list = Array.isArray(batch) ? batch : [];
-    txs.push(...list);
+    if (!Array.isArray(batch)) {
+      throw new Error('Esplora : reponse inattendue pour l historique');
+    }
+    txs.push(...batch);
 
-    if (list.length < ESPLORA_PAGE_SIZE) {
+    if (batch.length < ESPLORA_PAGE_SIZE) {
       return { flows: parseBitcoinTransactions(txs, address), truncated: false };
     }
-    url = `${ESPLORA}/address/${address}/txs/chain/${list.at(-1).txid}`;
+    url = `${ESPLORA}/address/${address}/txs/chain/${batch.at(-1).txid}`;
   }
 
   return { flows: parseBitcoinTransactions(txs, address), truncated: true };
@@ -80,5 +83,11 @@ export const parseDogecoinTxrefs = (payload) => {
  */
 export const readDogecoinFlows = async (address, { fetch = fetchJson } = {}) => {
   const payload = await fetch(`${BLOCKCYPHER}/addrs/${address}?limit=${BLOCKCYPHER_LIMIT}`);
+  if (Array.isArray(payload) || typeof payload !== 'object' || payload === null) {
+    throw new Error('BlockCypher : reponse inattendue pour l historique');
+  }
+  if ('txrefs' in payload && !Array.isArray(payload.txrefs)) {
+    throw new Error('BlockCypher : reponse inattendue pour l historique');
+  }
   return { flows: parseDogecoinTxrefs(payload), truncated: Boolean(payload?.hasMore) };
 };
