@@ -141,4 +141,62 @@ describe('readSolanaFlows', () => {
       return true;
     });
   });
+
+  // getTokenAccountsByOwner ne rend que les comptes encore ouverts. Un depot
+  // recu sur un compte de jetons ferme depuis ne cite pas le wallet : sans
+  // cette decouverte, il echapperait aux apports et gonflerait le gain.
+  describe('comptes de jetons fermes', () => {
+    const CLOSED = 'CompteFerme';
+    const owned = (accountIndex, amount) => ({
+      accountIndex,
+      owner: ME,
+      mint: USDC,
+      uiTokenAmount: { uiAmountString: String(amount) },
+    });
+    const withKeys = (transaction, keys) => ({
+      ...transaction,
+      transaction: { message: { accountKeys: keys.map((pubkey) => ({ pubkey })), instructions: [] } },
+    });
+    // sigA : le wallet vide puis ferme son compte de jetons.
+    // sigB : un depot plus ancien sur ce compte, sans le wallet dans la transaction.
+    const transactions = {
+      sigA: withKeys(tx({ preTokens: [owned(1, 25)], postTokens: [owned(1, 0)] }), [ME, CLOSED]),
+      sigB: withKeys(tx({ preTokens: [owned(1, 0)], postTokens: [owned(1, 25)] }), ['Plateforme', CLOSED]),
+    };
+    const signaturesOf = { [ME]: ['sigA'], [CLOSED]: ['sigA', 'sigB'] };
+
+    const fakeCall = (asked) => async (method, params) => {
+      asked.push([method, params[0]]);
+      if (method === 'getTokenAccountsByOwner') return { value: [] };
+      if (method === 'getSignaturesForAddress') {
+        return (signaturesOf[params[0]] ?? []).map((signature) => ({ signature, err: null }));
+      }
+      if (method === 'getTransaction') return transactions[params[0]];
+      throw new Error(`appel inattendu : ${method}`);
+    };
+
+    it('lit les signatures d un compte decouvert dans les soldes de jetons', async () => {
+      const asked = [];
+      const result = await readSolanaFlows(ME, { call: fakeCall(asked), pauseMs: 0 });
+
+      assert.equal(result.truncated, false);
+      assert.deepEqual(result.flows.map((flow) => flow.amount).sort((a, b) => a - b), [-25, 25]);
+      assert.ok(result.flows.every((flow) => flow.key === USDC.toLowerCase()));
+    });
+
+    it('ne relit ni un compte ni une transaction deja parcourus', async () => {
+      const asked = [];
+      await readSolanaFlows(ME, { call: fakeCall(asked), pauseMs: 0 });
+
+      const signaturesAsked = asked.filter(([method]) => method === 'getSignaturesForAddress').map(([, target]) => target);
+      assert.deepEqual(signaturesAsked, [ME, CLOSED]);
+      const transactionsAsked = asked.filter(([method]) => method === 'getTransaction').map(([, target]) => target);
+      assert.deepEqual(transactionsAsked, ['sigA', 'sigB']);
+    });
+
+    it('applique le plafond au total, comptes decouverts compris', async () => {
+      const result = await readSolanaFlows(ME, { call: fakeCall([]), pauseMs: 0, maxTransactions: 1 });
+      assert.deepEqual(result, { flows: [], truncated: true });
+    });
+  });
 });
