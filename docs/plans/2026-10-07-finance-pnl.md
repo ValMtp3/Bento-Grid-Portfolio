@@ -89,6 +89,7 @@ Limites connues, non testables hors réseau et à observer au premier vrai lance
 | `scripts/finance/flows-utxo.mjs` (nouveau) | flux Bitcoin (Esplora) et Dogecoin (BlockCypher) |
 | `scripts/finance/flows-solana.mjs` (nouveau) | flux Solana via RPC |
 | `scripts/finance/crypto-performance.mjs` (nouveau) | orchestration réseau de la perf crypto |
+| `scripts/finance/stabilize.mjs` (nouveau) | seuil de 2 points et report de 24 h de la perf publiée |
 | `scripts/finance/anonymize.mjs` (modif.) | publie `performance` |
 | `scripts/finance/chains.mjs` (modif.) | exporte `SOLANA_RPC`, `SOLANA_TOKEN_PROGRAMS` |
 | `scripts/fetch-finance.mjs` (modif.) | branchement, tag `network`, cibles, coffres |
