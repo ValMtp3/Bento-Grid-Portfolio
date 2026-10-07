@@ -48,6 +48,8 @@ export const sumContributions = (flows, histories, vaults = {}) => {
     const price = priceAt(series, flow.time);
     if (price === null) return { complete: false, total: null };
 
+    // Part de coffre convertie au taux d'aujourd'hui, pas a celui du depot :
+    // le rendement accumule par le coffre n'est donc pas compte comme gain.
     total += flow.amount * (vault ? vault.rate : 1) * price;
   }
 
