@@ -254,4 +254,20 @@ describe('anonymize : statistiques enrichies', () => {
 
     assert.doesNotThrow(() => assertSafe(payload));
   });
+
+  it('publie la performance en pourcentages entiers, sans montant', () => {
+    const payload = anonymize({
+      positions: [{ kind: 'etf', value: 100 }],
+      performance: { stocks: { cost: 1000, gain: 100 }, crypto: { cost: 3000, gain: 900 } },
+      sources: ['Trading 212'],
+    });
+
+    assert.deepEqual(payload.performance, { overall: 25, stocks: 10, crypto: 30 });
+    assert.doesNotMatch(JSON.stringify(payload), /1000|3000|"cost"|"gain"/);
+  });
+
+  it('publie null quand aucune performance n est mesuree', () => {
+    const payload = anonymize({ positions: [{ kind: 'etf', value: 100 }], sources: [] });
+    assert.equal(payload.performance, null);
+  });
 });
