@@ -25,8 +25,8 @@
     "@iconify/vue": "^5.0.1",
     "deep-chat": "2.5.1",
     "js-cookie": "^3.0.8",
-    "swiper": "^14.0.6",
-    "vue": "^3.5.40",
+    "swiper": "^14.3.0",
+    "vue": "^3.5.43",
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "pngjs": "^7.0.0",
     "satori": "^0.33.4",
     "tailwindcss": "^4.3.3",
-    "vite": "^8.1.5",
+    "vite": "^8.3.3",
     "wawoff2": "^2.0.1"
   }
 }
