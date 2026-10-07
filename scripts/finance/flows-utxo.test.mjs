@@ -54,6 +54,19 @@ describe('readBitcoinFlows', () => {
     const result = await readBitcoinFlows(ME, { fetch: async () => full, maxPages: 2 });
     assert.equal(result.truncated, true);
   });
+
+  it('refuse une reponse non-tableau en milieu de pagination', async () => {
+    const full = Array.from({ length: 25 }, (_, index) => tx(`t${index}`, [['autre', 1]], [[ME, 1]]));
+    const fetch = async (url) => {
+      if (url.endsWith('/txs/chain')) return full;
+      return { error: 'unexpected' };
+    };
+
+    await assert.rejects(
+      () => readBitcoinFlows(ME, { fetch }),
+      /Esplora : reponse inattendue pour l historique/
+    );
+  });
 });
 
 describe('parseDogecoinTxrefs', () => {
@@ -77,5 +90,25 @@ describe('readDogecoinFlows', () => {
   it('signale un historique coupe par hasMore', async () => {
     const result = await readDogecoinFlows('D123', { fetch: async () => ({ txrefs: [], hasMore: true }) });
     assert.equal(result.truncated, true);
+  });
+
+  it('accepte une adresse sans transactions (txrefs absent)', async () => {
+    const result = await readDogecoinFlows('D123', { fetch: async () => ({ hasMore: false }) });
+    assert.equal(result.truncated, false);
+    assert.deepEqual(result.flows, []);
+  });
+
+  it('refuse une reponse non-objet', async () => {
+    await assert.rejects(
+      () => readDogecoinFlows('D123', { fetch: async () => [] }),
+      /BlockCypher : reponse inattendue pour l historique/
+    );
+  });
+
+  it('refuse txrefs non-tableau', async () => {
+    await assert.rejects(
+      () => readDogecoinFlows('D123', { fetch: async () => ({ txrefs: 'invalid' }) }),
+      /BlockCypher : reponse inattendue pour l historique/
+    );
   });
 });
