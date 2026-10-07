@@ -16,7 +16,11 @@ import { COINGECKO_IDS } from './prices.mjs';
 const LLAMA_URL = 'https://coins.llama.fi/batchHistorical';
 const FRANKFURTER_BASE = 'https://api.frankfurter.dev/v1';
 // Ecart tolere, en secondes, entre le moment demande et le cours rendu par DefiLlama.
-const SEARCH_WIDTH = 600;
+// Aligne sur le rayon d un jour de priceAt (performance.mjs). DefiLlama rend le point
+// le plus proche : une fenetre plus large ne sert que s il n existe aucun point plus proche.
+// Observe : une part de vault (bbqUSDC) n a de cours que 25 min apres un mouvement ;
+// avec 600 s, rien n etait rendu et toute la performance crypto etait masquee.
+const SEARCH_WIDTH = 24 * 60 * 60;
 // Au-dela, certains serveurs et proxys rejettent l'URL : les demandes sont
 // decoupees en plusieurs appels.
 const MAX_URL_LENGTH = 6000;
