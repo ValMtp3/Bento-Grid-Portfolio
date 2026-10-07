@@ -49,10 +49,12 @@ export const withRetry = async (task, { attempts = DEFAULT_ATTEMPTS, delayMs = D
   throw lastError;
 };
 
-const withTimeout = async (task, timeoutMs, name) => {
+// Le minuteur est toujours nettoye : oublie, il garderait le processus en vie
+// jusqu'a son echeance, bien apres la fin du travail.
+const raceAgainstTimer = async (task, timeoutMs, message) => {
   let timer;
   const guard = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(`${name} : pas de reponse en ${timeoutMs} ms`)), timeoutMs);
+    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
   });
 
   try {
@@ -61,6 +63,17 @@ const withTimeout = async (task, timeoutMs, name) => {
     clearTimeout(timer);
   }
 };
+
+const withTimeout = (task, timeoutMs, name) =>
+  raceAgainstTimer(task, timeoutMs, `${name} : pas de reponse en ${timeoutMs} ms`);
+
+/**
+ * Budget de temps global d'une etape facultative. Un depassement du timeout du
+ * job GitHub n'est pas une exception : aucun try/catch ne le rattrape, et
+ * l'etape de commit ne tourne plus. Ce budget le transforme en erreur ordinaire.
+ */
+export const withDeadline = (task, budgetMs, label) =>
+  raceAgainstTimer(task, budgetMs, `${label} : budget de temps depasse`);
 
 /**
  * Interroge toutes les sources en parallele et fusionne leurs positions.

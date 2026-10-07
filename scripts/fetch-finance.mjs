@@ -16,7 +16,7 @@ import { dirname, resolve } from 'node:path';
 
 import { anonymize } from './finance/anonymize.mjs';
 import { EVM_CHAINS, readBitcoin, readDogecoin, readEvm, readSolana } from './finance/chains.mjs';
-import { collectAll, CollectError } from './finance/collect.mjs';
+import { collectAll, CollectError, withDeadline } from './finance/collect.mjs';
 import { measureCryptoPerformance } from './finance/crypto-performance.mjs';
 import { mergeHoldings, toCryptoPositions } from './finance/holdings.mjs';
 import { fetchPrices, priceKey } from './finance/prices.mjs';
@@ -29,6 +29,11 @@ const OUTPUT_PATH = resolve('public/data/finance.json');
 // deux appels. Par defaut on s'en tient a Ethereum ; EVM_CHAINS elargit sans
 // toucher au code.
 const DEFAULT_EVM_CHAINS = ['ethereum'];
+
+// L'historique Solana peut demander des centaines d'appels lents. Au-dela de
+// ce budget, la perf crypto est abandonnee pour cette fois : mieux vaut publier
+// les repartitions sans elle que depasser le timeout du job et ne rien publier.
+const CRYPTO_PERFORMANCE_BUDGET_MS = 10 * 60 * 1000;
 
 const warn = (label) => (error) =>
   console.warn(`  repli ${label} : ${error?.message ?? error}`);
@@ -267,15 +272,20 @@ if (process.env.TRADING212_API_KEY) {
 
 let cryptoPerformance = null;
 try {
-  cryptoPerformance = await measureCryptoPerformance({
-    targets: buildTargets(process.env),
-    holdings: chains.positions,
-    prices,
-    vaults,
-    apiKey: process.env.COINGECKO_API_KEY,
-    onWarn: warn('performance crypto'),
-  });
+  cryptoPerformance = await withDeadline(
+    () => measureCryptoPerformance({
+      targets: buildTargets(process.env),
+      holdings: chains.positions,
+      prices,
+      vaults,
+      apiKey: process.env.COINGECKO_API_KEY,
+      onWarn: warn('performance crypto'),
+    }),
+    CRYPTO_PERFORMANCE_BUDGET_MS,
+    'performance crypto',
+  );
 } catch (error) {
+  // Un budget depasse arrive ici avec un message fixe, sans montant ni adresse.
   warn('performance crypto')(error);
 }
 
@@ -316,3 +326,7 @@ const performance = payload.performance;
 console.log(`  performance : ${performance
   ? ['overall', 'stocks', 'crypto'].map((key) => `${key} ${performance[key] ?? '-'} %`).join(' · ')
   : 'indisponible'}`);
+
+// Apres un budget depasse, des lectures Solana peuvent encore etre en vol :
+// elles garderaient le processus en vie jusqu'au timeout du job.
+process.exit(0);
