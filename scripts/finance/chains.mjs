@@ -191,11 +191,11 @@ const WORD_HEX_LENGTH = 64;
 // jetons suivants est negligeable.
 const MAX_TOKEN_PAGES = 10;
 
-const SOLANA_RPC = 'https://api.mainnet.solana.com';
+export const SOLANA_RPC = 'https://api.mainnet.solana.com';
 const SOLANA_RPC_FALLBACK = 'https://api.mainnet-beta.solana.com';
 // Deux programmes de jetons coexistent sur Solana : le classique et Token-2022.
 // Interroger un seul des deux ferait disparaitre la moitie des jetons.
-const SOLANA_TOKEN_PROGRAMS = [
+export const SOLANA_TOKEN_PROGRAMS = [
   'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
   'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb',
 ];
