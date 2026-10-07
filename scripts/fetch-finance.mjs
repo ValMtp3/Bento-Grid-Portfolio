@@ -189,8 +189,7 @@ const prices = holdings.length > 0
 // sait les convertir en jeton sous-jacent, qui lui est cote. Sans cette etape,
 // l'argent place sur un protocole de rendement disparait du total.
 const unpriced = holdings.filter((holding) => holding.contract && !prices[priceKey(holding)]);
-const resolved = [];
-const vaults = {};
+const resolvedVaults = [];
 
 for (const holding of unpriced) {
   const chain = EVM_CHAINS[holding.platform];
@@ -198,33 +197,36 @@ for (const holding of unpriced) {
 
   try {
     const vault = await readVault(chain.rpc, holding.contract, holding.amount);
-    if (vault) {
-      // Taux part -> sous-jacent, reutilise pour valoriser les depots passes.
-      vaults[priceKey(holding)] = {
-        underlyingKey: priceKey(vault),
-        rate: vault.amount / holding.amount,
-        underlying: {
-          key: priceKey(vault),
-          symbol: vault.contract,
-          contract: vault.contract,
-          platform: holding.platform,
-        },
-      };
-
-      resolved.push({
-        ...holding,
-        contract: vault.contract,
-        amount: vault.amount,
-        // Un depot sur un coffre de rendement travaille, par definition.
-        staked: true,
-      });
-    }
+    if (vault) resolvedVaults.push({ holding, vault });
   } catch (error) {
     // Un jeton ordinaire repond une donnee vide a ces appels : ce n'est pas un
     // echec de collecte, seulement "ce contrat n'est pas un coffre".
     warn('coffre')(error);
   }
 }
+
+// Taux part -> sous-jacent, reutilise pour valoriser les depots passes.
+const vaults = Object.fromEntries(resolvedVaults.map(({ holding, vault }) => [
+  priceKey(holding),
+  {
+    underlyingKey: priceKey(vault),
+    rate: vault.amount / holding.amount,
+    underlying: {
+      key: priceKey(vault),
+      symbol: vault.contract,
+      contract: vault.contract,
+      platform: holding.platform,
+    },
+  },
+]));
+
+const resolved = resolvedVaults.map(({ holding, vault }) => ({
+  ...holding,
+  contract: vault.contract,
+  amount: vault.amount,
+  // Un depot sur un coffre de rendement travaille, par definition.
+  staked: true,
+}));
 
 if (resolved.length > 0) {
   console.log(`  coffres de depot resolus : ${resolved.length}`);
