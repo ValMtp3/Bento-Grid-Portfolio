@@ -13,6 +13,7 @@ import { HttpError } from './http.mjs';
 const BASE_URL = 'https://live.trading212.com/api/v0';
 const POSITIONS_PATH = '/equity/positions';
 const ORDERS_PATH = '/equity/history/orders';
+const SUMMARY_PATH = '/equity/account/summary';
 
 // Fenetre suffisante pour les metriques de rythme sur trente jours, sans
 // pagination : l'endpoint est limite a six requetes par minute.
@@ -198,4 +199,41 @@ export const fetchOrders = async ({ apiKey, apiSecret, fetchImpl = fetch, timeou
   }
 
   return parseOrders(payload);
+};
+
+/**
+ * Reduit le resume de compte au couple cout / plus-value latente. Le cash et le
+ * numero de compte n'ont rien a faire hors de ce module.
+ */
+export const parseAccountSummary = (payload) => {
+  const cost = Number(payload?.investments?.totalCost);
+  const gain = Number(payload?.investments?.unrealizedProfitLoss);
+  if (!Number.isFinite(cost) || !Number.isFinite(gain) || cost <= 0) return null;
+
+  return { cost, gain };
+};
+
+/**
+ * Plus-value latente du compte, deja convertie dans la devise du compte par le
+ * courtier : la recalculer ligne a ligne obligerait a gerer les taux de change.
+ */
+export const fetchAccountSummary = async ({ apiKey, apiSecret, fetchImpl = fetch, timeoutMs = 15000 }) => {
+  const url = `${BASE_URL}${SUMMARY_PATH}`;
+  const response = await fetchImpl(url, {
+    headers: {
+      Authorization: authHeader(apiKey, apiSecret),
+      Accept: 'application/json',
+      'User-Agent': 'Bento-Grid-Portfolio/1.0',
+    },
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+
+  if (!response.ok) throw new HttpError(response.status, url);
+
+  const payload = await response.json();
+  if (payload?.context?.type === 'TooManyRequests') {
+    throw new Error('Trading 212 : quota depasse sur le resume de compte');
+  }
+
+  return parseAccountSummary(payload);
 };
