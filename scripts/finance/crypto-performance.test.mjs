@@ -49,7 +49,7 @@ describe('measureCryptoPerformance', () => {
   // peser dans les apports.
   it('ne demande l historique que des jetons cotes', async () => {
     const asked = [];
-    await measureCryptoPerformance(baseOptions({
+    const result = await measureCryptoPerformance(baseOptions({
       readers: {
         evm: async () => ({
           flows: [flow('ETH', 2), flow('0xspam', 1e9, { contract: '0xSPAM', platform: 'ethereum' })],
@@ -60,6 +60,7 @@ describe('measureCryptoPerformance', () => {
       fetchHistories: async (assets) => { asked.push(...assets.map((asset) => asset.key)); return { ETH: [[T0, 100]] }; },
     }));
     assert.deepEqual(asked, ['ETH']);
+    assert.deepEqual(result, { cost: 200, gain: 100 });
   });
 
   // Une cotation en panne ferait ignorer un vrai jeton : le resultat serait
@@ -89,5 +90,99 @@ describe('measureCryptoPerformance', () => {
 
   it('rend null sans cible mesurable', async () => {
     assert.equal(await measureCryptoPerformance(baseOptions({ targets: [{ family: 'evm', network: 'bnb', address: '0x' }] })), null);
+  });
+
+  // Le premier appel de cours (plus large, hors de ce module) peut omettre un
+  // jeton detenu alors que ses mouvements sont bien listes ensuite : sans
+  // controle, l'apport compterait et la valeur actuelle vaudrait zero.
+  it('masque la mesure si un jeton detenu manque dans les cours actuels', async () => {
+    const result = await measureCryptoPerformance(baseOptions({
+      holdings: [{ symbol: 'USDC', amount: 100, contract: '0xUSDC', platform: 'ethereum', network: 'ethereum' }],
+      prices: {},
+      readers: {
+        evm: async () => ({
+          flows: [flow('0xusdc', 100, { contract: '0xUSDC', platform: 'ethereum' })],
+          truncated: false,
+        }),
+      },
+      listPrices: async () => ({ '0xusdc': 1 }),
+      fetchHistories: async () => ({ '0xusdc': [[T0, 1]] }),
+    }));
+    assert.equal(result, null);
+  });
+
+  // Le cours du sous-jacent peut echouer independamment du cours de la part :
+  // sans controle, la part de coffre compterait dans les apports et vaudrait
+  // zero dans la valeur actuelle.
+  it('masque la mesure si le cours du sous-jacent d un coffre manque', async () => {
+    const vaults = {
+      '0xvault': {
+        underlyingKey: '0xunderlying',
+        rate: 1,
+        underlying: { key: '0xunderlying', symbol: '0xunderlying', contract: '0xUNDERLYING', platform: 'ethereum' },
+      },
+    };
+    const result = await measureCryptoPerformance(baseOptions({
+      holdings: [{ symbol: 'VAULT', amount: 10, contract: '0xVAULT', platform: 'ethereum', network: 'ethereum' }],
+      prices: {},
+      vaults,
+      readers: {
+        evm: async () => ({
+          flows: [flow('0xvault', 10, { contract: '0xVAULT', platform: 'ethereum' })],
+          truncated: false,
+        }),
+      },
+      listPrices: async () => ({}),
+      fetchHistories: async () => ({ '0xunderlying': [[T0, 2]] }),
+    }));
+    assert.equal(result, null);
+  });
+
+  // Un historique vide pour un actif demande ferait compter ses apports pour
+  // zero alors qu'il pese dans la valeur actuelle : le gain serait gonfle.
+  it('masque la mesure si l historique d un actif demande est vide', async () => {
+    const result = await measureCryptoPerformance(baseOptions({
+      fetchHistories: async () => ({ ETH: [] }),
+    }));
+    assert.equal(result, null);
+  });
+
+  // Un solde detenu et cote sans le moindre mouvement signale un historique
+  // incomplet, pas un portefeuille sans apport.
+  it('masque la mesure si un solde cote n a aucun mouvement connu', async () => {
+    const result = await measureCryptoPerformance(baseOptions({
+      readers: { evm: async () => ({ flows: [], truncated: false }) },
+    }));
+    assert.equal(result, null);
+  });
+
+  it('rejette si une source leve une erreur', async () => {
+    await assert.rejects(measureCryptoPerformance(baseOptions({
+      readers: { evm: async () => { throw new Error('boom'); } },
+    })));
+  });
+
+  it('valorise une part de coffre par son sous-jacent et son taux', async () => {
+    const vaults = {
+      '0xvault': {
+        underlyingKey: '0xunderlying',
+        rate: 2,
+        underlying: { key: '0xunderlying', symbol: '0xunderlying', contract: '0xUNDERLYING', platform: 'ethereum' },
+      },
+    };
+    const result = await measureCryptoPerformance(baseOptions({
+      holdings: [{ symbol: 'VAULT', amount: 10, contract: '0xVAULT', platform: 'ethereum', network: 'ethereum' }],
+      prices: { '0xunderlying': 3 },
+      vaults,
+      readers: {
+        evm: async () => ({
+          flows: [flow('0xvault', 10, { contract: '0xVAULT', platform: 'ethereum' })],
+          truncated: false,
+        }),
+      },
+      listPrices: async () => ({}),
+      fetchHistories: async () => ({ '0xunderlying': [[T0, 1]] }),
+    }));
+    assert.deepEqual(result, { cost: 20, gain: 40 });
   });
 });
