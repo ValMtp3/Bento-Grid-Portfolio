@@ -6,7 +6,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { CollectError, collectAll, withRetry } from './collect.mjs';
+import { CollectError, collectAll, withDeadline, withRetry } from './collect.mjs';
 
 const position = (kind, value) => ({ kind, value, openedAt: '2025-01-01' });
 const source = (name, collect) => ({ name, collect });
@@ -139,5 +139,29 @@ describe('withRetry face aux erreurs definitives', () => {
 
     await assert.rejects(withRetry(flaky, { attempts: 3, delayMs: 0 }));
     assert.equal(calls, 3);
+  });
+});
+
+describe('withDeadline', () => {
+  // Un historique Solana tres long peut depasser le timeout du job GitHub :
+  // l'etape de commit ne tournerait plus et les repartitions vieilliraient.
+  it('rejette une tache qui depasse son budget', async () => {
+    await assert.rejects(
+      withDeadline(() => new Promise(() => {}), 20, 'performance crypto'),
+      /budget de temps depasse/,
+    );
+  });
+
+  // Un budget long et une tache rapide : si le minuteur n'etait pas nettoye,
+  // le processus de test resterait en vie jusqu'a son echeance.
+  it('rend le resultat d une tache finie avant le budget', async () => {
+    assert.equal(await withDeadline(async () => 'ok', 60_000, 'performance crypto'), 'ok');
+  });
+
+  it('propage l erreur d une tache qui echoue avant le budget', async () => {
+    await assert.rejects(
+      withDeadline(async () => { throw new Error('boom'); }, 60_000, 'performance crypto'),
+      /boom/,
+    );
   });
 });

@@ -46,6 +46,27 @@ const currentPriceOf = (holding, prices, vaults) => {
   return Number.isFinite(price) && price > 0 ? price : null;
 };
 
+// Le RPC Solana public limite le debit par IP : deux adresses lues en meme
+// temps cumuleraient les refus et les reprises. Les autres reseaux, servis par
+// des explorateurs differents, restent lus en parallele.
+const readAllFlows = async (targets, readers) => {
+  const read = (target) => readers[target.family](target.address, target.network);
+  const solana = targets.filter((target) => target.family === 'solana');
+  const others = targets.filter((target) => target.family !== 'solana');
+
+  const readSolanaInSequence = async () => {
+    const results = [];
+    for (const target of solana) results.push(await read(target));
+    return results;
+  };
+
+  const [otherResults, solanaResults] = await Promise.all([
+    Promise.all(others.map(read)),
+    readSolanaInSequence(),
+  ]);
+  return [...otherResults, ...solanaResults];
+};
+
 export const measureCryptoPerformance = async ({
   targets,
   holdings,
@@ -60,9 +81,7 @@ export const measureCryptoPerformance = async ({
   const included = (targets ?? []).filter((target) => !EXCLUDED_NETWORKS.has(target.network));
   if (included.length === 0) return null;
 
-  const results = await Promise.all(
-    included.map((target) => readers[target.family](target.address, target.network)),
-  );
+  const results = await readAllFlows(included, readers);
   if (results.some((result) => result.truncated)) {
     onWarn?.('historique trop long ou coupe');
     return null;

@@ -185,4 +185,45 @@ describe('measureCryptoPerformance', () => {
     }));
     assert.deepEqual(result, { cost: 20, gain: 40 });
   });
+
+  // Le RPC Solana public limite le debit par IP : deux adresses lues en meme
+  // temps cumuleraient les 429 et les reprises.
+  it('lit les adresses Solana l une apres l autre', async () => {
+    const events = [];
+    const solanaReader = async (address) => {
+      events.push(`debut ${address}`);
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      events.push(`fin ${address}`);
+      return { flows: [flow('SOL', 1)], truncated: false };
+    };
+    await measureCryptoPerformance(baseOptions({
+      targets: [
+        { family: 'solana', network: 'solana', address: 'A' },
+        { family: 'solana', network: 'solana', address: 'B' },
+      ],
+      holdings: [{ symbol: 'SOL', amount: 2, network: 'solana' }],
+      prices: { SOL: 150 },
+      readers: { solana: solanaReader },
+      fetchHistories: async () => ({ SOL: [[T0, 100]] }),
+    }));
+    assert.deepEqual(events, ['debut A', 'fin A', 'debut B', 'fin B']);
+  });
+
+  it('lit les autres reseaux en parallele des adresses Solana', async () => {
+    const events = [];
+    const slow = (name) => async () => {
+      events.push(`debut ${name}`);
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      events.push(`fin ${name}`);
+      return { flows: [flow('ETH', 1)], truncated: false };
+    };
+    await measureCryptoPerformance(baseOptions({
+      targets: [
+        { family: 'solana', network: 'solana', address: 'A' },
+        { family: 'evm', network: 'ethereum', address: '0xme' },
+      ],
+      readers: { solana: slow('solana'), evm: slow('evm') },
+    }));
+    assert.deepEqual(events.slice(0, 2).sort(), ['debut evm', 'debut solana']);
+  });
 });
