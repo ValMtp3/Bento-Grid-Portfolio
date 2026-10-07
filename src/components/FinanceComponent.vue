@@ -27,7 +27,7 @@ const performanceTiles = computed(() => {
   if (!financePerformance.value) return [];
 
   return [
-    { key: 'overall', percent: financePerformance.value.overall, label: 'Global', hint: 'bourse et crypto réunies' },
+    { key: 'overall', percent: financePerformance.value.overall, label: 'Global', hint: 'bourse et crypto, hors BNB Chain' },
     { key: 'stocks', percent: financePerformance.value.stocks, label: 'Bourse', hint: 'plus-value latente' },
     { key: 'crypto', percent: financePerformance.value.crypto, label: 'Crypto', hint: 'face aux dépôts, hors BNB Chain' },
   ]
