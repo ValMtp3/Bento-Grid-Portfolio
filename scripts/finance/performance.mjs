@@ -13,21 +13,21 @@ import { priceKey } from './prices.mjs';
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 /**
- * Cours d'un actif a une date, dans une serie [[ms, cours]] triee.
- * Rend null quand le flux precede la serie de plus d'un jour : il est plus
- * ancien que l'historique disponible, et l'estimer serait inventer.
+ * Cours d'un actif a une date, dans une serie [[ms, cours]] : celui du point
+ * le plus proche, avant ou apres, car la source rend le cours le plus proche
+ * du moment demande. Rend null quand ce point est a plus d'un jour : ce n'est
+ * plus le cours du mouvement, et l'utiliser serait inventer.
  */
 export const priceAt = (series, time) => {
   if (!Array.isArray(series) || series.length === 0 || !Number.isFinite(time)) return null;
-  if (time < series[0][0] - MS_PER_DAY) return null;
 
-  let price = series[0][1];
+  let nearest = null;
   for (const [pointTime, pointPrice] of series) {
-    if (pointTime > time) break;
-    price = pointPrice;
+    const gap = Math.abs(pointTime - time);
+    if (nearest === null || gap < nearest.gap) nearest = { gap, price: pointPrice };
   }
 
-  return price;
+  return nearest.gap <= MS_PER_DAY ? nearest.price : null;
 };
 
 /**

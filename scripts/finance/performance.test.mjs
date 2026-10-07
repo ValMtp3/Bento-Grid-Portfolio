@@ -13,13 +13,29 @@ const series = [[T0, 100], [T0 + DAY, 110], [T0 + 2 * DAY, 120]];
 const flow = (time, key, amount) => ({ time, key, symbol: key, contract: null, platform: null, amount });
 
 describe('priceAt', () => {
-  it('prend le dernier cours connu a la date du flux', () => {
+  it('prend le point le plus proche du flux', () => {
     assert.equal(priceAt(series, T0 + DAY + 3600_000), 110);
-    assert.equal(priceAt(series, T0 + 10 * DAY), 120);
+    assert.equal(priceAt(series, T0 + 2 * DAY - 3600_000), 120);
+  });
+
+  // DefiLlama rend le cours le plus proche du moment demande, parfois juste
+  // apres le mouvement.
+  it('prend un point juste apres le flux, dans le rayon d un jour', () => {
+    assert.equal(priceAt([[T0 + 6 * 3600_000, 100]], T0), 100);
   });
 
   it('tolere un flux le jour precedant le premier point', () => {
     assert.equal(priceAt(series, T0 - 3600_000), 100);
+  });
+
+  // Un cours vieux de plusieurs jours n'est plus celui du mouvement.
+  it('rend null quand le point le plus proche est a plus d un jour', () => {
+    assert.equal(priceAt(series, T0 + 10 * DAY), null);
+    assert.equal(priceAt(series, T0 + 3 * DAY + 1), null);
+  });
+
+  it('accepte un point a exactement un jour', () => {
+    assert.equal(priceAt(series, T0 + 3 * DAY), 120);
   });
 
   // Un flux plus vieux que l'historique ne peut pas etre valorise : l'estimer
