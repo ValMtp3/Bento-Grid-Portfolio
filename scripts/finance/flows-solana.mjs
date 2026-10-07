@@ -99,7 +99,11 @@ const tokenAccounts = async (address, call) => {
   const accounts = [];
   for (const programId of SOLANA_TOKEN_PROGRAMS) {
     const result = await call('getTokenAccountsByOwner', [address, { programId }, { encoding: 'jsonParsed' }]);
-    accounts.push(...(result?.value ?? []).map((entry) => entry?.pubkey).filter(Boolean));
+    // Une reponse sans tableau value ne doit jamais se lire comme "aucun
+    // compte de jetons" : ce serait un historique tronque sans le moindre
+    // signal.
+    if (!Array.isArray(result?.value)) throw new Error('Solana getTokenAccountsByOwner : reponse inattendue');
+    accounts.push(...result.value.map((entry) => entry?.pubkey).filter(Boolean));
   }
   return accounts;
 };
@@ -118,14 +122,17 @@ export const readSolanaFlows = async (
         account,
         { limit: SIGNATURES_PAGE, ...(before ? { before } : {}) },
       ]);
-      const list = Array.isArray(page) ? page : [];
-      for (const entry of list) {
+      // Une reponse qui n'est pas un tableau ne doit jamais se lire comme une
+      // derniere page vide : ce serait un historique tronque sans le moindre
+      // signal.
+      if (!Array.isArray(page)) throw new Error('Solana getSignaturesForAddress : reponse inattendue');
+      for (const entry of page) {
         if (entry?.signature && entry.err === null) signatures.add(entry.signature);
       }
 
       if (signatures.size > maxTransactions) return { flows: [], truncated: true };
-      if (list.length < SIGNATURES_PAGE) break;
-      before = list.at(-1).signature;
+      if (page.length < SIGNATURES_PAGE) break;
+      before = page.at(-1).signature;
     }
   }
 
@@ -136,6 +143,10 @@ export const readSolanaFlows = async (
       signature,
       { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0, commitment: 'finalized' },
     ]);
+    // Une transaction signalee par getSignaturesForAddress mais introuvable
+    // ici signifie que le noeud ne peut pas la servir : l'historique est
+    // incomplet, ce n'est pas une transaction sans mouvement.
+    if (result === null || result === undefined) throw new Error('Solana getTransaction : transaction indisponible');
     flows.push(...parseSolanaTransaction(result, address));
   }
 
