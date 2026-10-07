@@ -118,6 +118,26 @@ describe('toPerformance', () => {
     );
   });
 
+  // Un apport net minuscule (gains deja sortis vers une plateforme) donnerait
+  // un % absurde, a quatre chiffres.
+  it('masque la crypto quand l apport net pese moins de 10 % de la valeur actuelle', () => {
+    assert.deepEqual(
+      toPerformance({ stocks: { cost: 1000, gain: 100 }, crypto: { cost: 50, gain: 950 } }),
+      { overall: null, stocks: 10, crypto: null },
+    );
+  });
+
+  it('publie la crypto quand l apport net pese pile 10 % de la valeur actuelle', () => {
+    assert.deepEqual(
+      toPerformance({ stocks: null, crypto: { cost: 100, gain: 900 } }),
+      { overall: null, stocks: null, crypto: 900 },
+    );
+  });
+
+  it('n applique pas ce plancher a la bourse', () => {
+    assert.equal(toPerformance({ stocks: { cost: 50, gain: 950 } }).stocks, 1900);
+  });
+
   it('ne rend jamais -0', () => {
     assert.equal(Object.is(toPerformance({ stocks: { cost: 1000, gain: -1 } }).stocks, 0), true);
   });
