@@ -282,7 +282,6 @@ try {
       holdings: chains.positions,
       prices,
       vaults,
-      apiKey: process.env.COINGECKO_API_KEY,
       onWarn: warn('performance crypto'),
     }),
     CRYPTO_PERFORMANCE_BUDGET_MS,
