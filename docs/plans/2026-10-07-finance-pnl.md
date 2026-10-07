@@ -77,6 +77,15 @@ Limites connues, non testables hors réseau et à observer au premier vrai lance
 - Mémoire de 24 h : la date retenue est celle de la dernière **publication**
   d'une valeur. Une valeur restée stable plus de 24 h (écart < 2 points), puis
   suivie d'une panne de mesure, est donc masquée au lieu d'être reportée.
+- Cours historiques : DefiLlama (en dollars, sans limite d'ancienneté),
+  convertis en euros au taux BCE du jour publié par Frankfurter. La valeur
+  actuelle reste en cours CoinGecko en euros : l'écart entre les deux sources
+  est faible devant un pourcentage arrondi à l'entier.
+- Jetons sans cours DefiLlama (spam, jetons obscurs) : ignorés **des deux
+  côtés**, apports et valeur actuelle. Un solde sans mouvement est sondé à la
+  date du jour : coté chez DefiLlama, il masque la perf (historique incomplet) ;
+  non coté, il est ignoré. Un actif coté chez DefiLlama mais sans cours actuel
+  CoinGecko masque la perf.
 
 ## Fichiers
 
@@ -84,7 +93,7 @@ Limites connues, non testables hors réseau et à observer au premier vrai lance
 | --- | --- |
 | `scripts/finance/trading212.mjs` (modif.) | + `parseAccountSummary`, `fetchAccountSummary` |
 | `scripts/finance/performance.mjs` (nouveau) | calcul pur : `priceAt`, `sumContributions`, `valueHoldings`, `toPerformance` |
-| `scripts/finance/price-history.mjs` (nouveau) | cours historiques CoinGecko |
+| `scripts/finance/historical-prices.mjs` (nouveau) | cours historiques DefiLlama (USD) convertis au taux BCE (Frankfurter) |
 | `scripts/finance/flows-evm.mjs` (nouveau) | flux EVM via Blockscout |
 | `scripts/finance/flows-utxo.mjs` (nouveau) | flux Bitcoin (Esplora) et Dogecoin (BlockCypher) |
 | `scripts/finance/flows-solana.mjs` (nouveau) | flux Solana via RPC |
