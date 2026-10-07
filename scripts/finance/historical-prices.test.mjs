@@ -213,7 +213,7 @@ describe('fetchFlowPrices', () => {
     );
     const url = new URL(calls.find((call) => call.startsWith('https://coins.llama.fi/')));
     assert.equal(url.pathname, '/batchHistorical');
-    assert.equal(url.searchParams.get('searchWidth'), '600');
+    assert.equal(url.searchParams.get('searchWidth'), '86400');
     assert.deepEqual(JSON.parse(url.searchParams.get('coins')), { 'coingecko:ethereum': [MONDAY / 1000 + 1] });
   });
 
