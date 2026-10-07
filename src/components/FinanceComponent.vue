@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 
 import ShareBar from '@/components/ShareBar.vue';
-import { formatHolding, loadFinance } from '@/data/finance';
+import { formatHolding, formatPerformance, loadFinance } from '@/data/finance';
 import { formatRelative } from '@/data/pulse';
 
 const finance = ref(null);
@@ -16,6 +16,30 @@ const behaviour = computed(() => finance.value?.behaviour ?? null);
 
 const refreshedAt = computed(() => formatRelative(finance.value?.generatedAt));
 const hasCrypto = computed(() => mix.value.some((part) => part.label === 'Crypto'));
+
+const performance = computed(() => finance.value?.performance ?? null);
+
+// Le global n'existe que si bourse et crypto sont toutes deux mesurees : sinon
+// seule la ligne disponible s'affiche, avec un libelle qui dit son perimetre.
+const performanceTiles = computed(() => {
+  if (!performance.value) return [];
+
+  return [
+    { key: 'overall', percent: performance.value.overall, label: 'Global', hint: 'bourse et crypto réunies' },
+    { key: 'stocks', percent: performance.value.stocks, label: 'Bourse', hint: 'plus-value latente' },
+    { key: 'crypto', percent: performance.value.crypto, label: 'Crypto', hint: 'face aux dépôts, hors BNB Chain' },
+  ]
+    .map((tile) => ({ ...tile, value: formatPerformance(tile.percent) }))
+    .filter((tile) => tile.value !== null);
+});
+
+// Classes ecrites en entier : Tailwind ne detecte pas une classe construite.
+const PERFORMANCE_COLUMNS = { 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3' };
+
+const performanceTone = (percent) =>
+  percent < 0
+    ? 'text-spicy-paprika-600 dark:text-spicy-paprika-400'
+    : 'text-regal-navy-700 dark:text-regal-navy-300';
 
 const percent = (share) => (Number.isFinite(share) ? `${share} %` : null);
 
@@ -118,13 +142,41 @@ onMounted(async () => {
         <!-- Dire tout de suite ce que la carte ne montre pas evite la question
              que tout visiteur se pose devant des chiffres d'investissement. -->
         <p class="mt-0.5 text-xs text-coffee-bean-600 dark:text-soft-blush-300">
-          Répartitions et rythme — jamais de montant
+          Performance, répartitions et rythme — jamais de montant
         </p>
       </div>
       <span v-if="refreshedAt" class="tag tag-navy shrink-0">{{ refreshedAt }}</span>
     </div>
 
     <template v-if="finance">
+      <dl
+        v-if="performanceTiles.length"
+        class="grid gap-2.5"
+        :class="PERFORMANCE_COLUMNS[performanceTiles.length]"
+      >
+        <div
+          v-for="(tile, index) in performanceTiles"
+          :key="tile.key"
+          class="stat-reveal rounded-lg border border-coffee-bean-100 bg-soft-blush-50/60 px-3 py-2.5 dark:border-soft-blush-50/10 dark:bg-soft-blush-50/[0.04]"
+          :style="{ '--stat-delay': `${index * 50}ms` }"
+        >
+          <dd
+            class="font-heading text-2xl font-bold leading-none tabular-nums"
+            :class="performanceTone(tile.percent)"
+          >
+            {{ tile.value }}
+          </dd>
+          <dt class="mt-1.5">
+            <span class="block text-xs font-semibold leading-tight text-coffee-bean-800 dark:text-soft-blush-100">
+              {{ tile.label }}
+            </span>
+            <span class="mt-0.5 block text-[11px] leading-snug text-pretty text-coffee-bean-500 dark:text-soft-blush-400">
+              {{ tile.hint }}
+            </span>
+          </dt>
+        </div>
+      </dl>
+
       <div class="flex flex-col gap-4">
         <ShareBar caption="Composition" :parts="mix" :delay="0" />
         <ShareBar v-if="regions.length" caption="Mes actions par zone" :parts="regions" :delay="120" />
