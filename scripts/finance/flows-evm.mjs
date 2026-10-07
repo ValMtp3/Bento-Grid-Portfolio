@@ -6,7 +6,12 @@
 // passer chaque swap pour un depot ou un retrait.
 
 import { EVM_CHAINS, fromBaseUnits } from './chains.mjs';
+import { withRetry } from './collect.mjs';
 import { fetchJson } from './http.mjs';
+
+// Les explorateurs gratuits repondent 429 ou 502 de temps en temps : un hoquet
+// ne doit pas masquer la performance crypto pour six heures.
+const retryingFetch = (url) => withRetry(() => fetchJson(url));
 
 // Au-dela, l'historique est juge incomplet : mieux vaut masquer la performance
 // crypto que la calculer sur une partie des mouvements.
@@ -93,7 +98,7 @@ const readPages = async (url, fetch, maxPages) => {
  * Tous les mouvements d'une adresse sur une chaine. Une erreur reseau est
  * propagee : un historique partiel ne se distingue pas d'un historique court.
  */
-export const readEvmFlows = async (address, chainName, { fetch = fetchJson, maxPages = MAX_PAGES } = {}) => {
+export const readEvmFlows = async (address, chainName, { fetch = retryingFetch, maxPages = MAX_PAGES } = {}) => {
   const host = EVM_CHAINS[chainName]?.host;
   if (!host) throw new Error(`${chainName} : pas d'explorateur pour lire l'historique`);
 

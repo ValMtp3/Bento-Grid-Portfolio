@@ -3,7 +3,12 @@
 // ce qu'elle verse a l'adresse moins ce qu'elle y depense, monnaie rendue
 // comprise.
 
+import { withRetry } from './collect.mjs';
 import { fetchJson } from './http.mjs';
+
+// Les explorateurs gratuits repondent 429 ou 502 de temps en temps : un hoquet
+// ne doit pas masquer la performance crypto pour six heures.
+const retryingFetch = (url) => withRetry(() => fetchJson(url));
 
 const UNITS_PER_COIN = 100_000_000;
 const ESPLORA = 'https://blockstream.info/api';
@@ -39,7 +44,7 @@ export const parseBitcoinTransactions = (txs, address) =>
     })
     .filter((flow) => flow.amount !== 0);
 
-export const readBitcoinFlows = async (address, { fetch = fetchJson, maxPages = MAX_BITCOIN_PAGES } = {}) => {
+export const readBitcoinFlows = async (address, { fetch = retryingFetch, maxPages = MAX_BITCOIN_PAGES } = {}) => {
   const txs = [];
   let url = `${ESPLORA}/address/${address}/txs/chain`;
 
@@ -81,7 +86,7 @@ export const parseDogecoinTxrefs = (payload) => {
  * Un seul appel : BlockCypher rend jusqu'a 2000 lignes et signale la suite
  * par hasMore. Le secours BitPay ne fournit pas d'historique comparable.
  */
-export const readDogecoinFlows = async (address, { fetch = fetchJson } = {}) => {
+export const readDogecoinFlows = async (address, { fetch = retryingFetch } = {}) => {
   const payload = await fetch(`${BLOCKCYPHER}/addrs/${address}?limit=${BLOCKCYPHER_LIMIT}`);
   if (Array.isArray(payload) || typeof payload !== 'object' || payload === null) {
     throw new Error('BlockCypher : reponse inattendue pour l historique');
