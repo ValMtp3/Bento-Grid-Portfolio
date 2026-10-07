@@ -16,7 +16,7 @@ import { dirname, resolve } from 'node:path';
 
 import { anonymize } from './finance/anonymize.mjs';
 import { EVM_CHAINS, readBitcoin, readDogecoin, readEvm, readSolana } from './finance/chains.mjs';
-import { collectAll, CollectError, withDeadline } from './finance/collect.mjs';
+import { collectAll, CollectError, withDeadline, withRetry } from './finance/collect.mjs';
 import { measureCryptoPerformance } from './finance/crypto-performance.mjs';
 import { mergeHoldings, toCryptoPositions } from './finance/holdings.mjs';
 import { fetchPrices, priceKey } from './finance/prices.mjs';
@@ -261,10 +261,11 @@ console.log(`  ordres lus : ${orders ? orders.length : 'permission absente'}`);
 let stocksPerformance = null;
 if (process.env.TRADING212_API_KEY) {
   try {
-    stocksPerformance = await fetchAccountSummary({
+    // Un hoquet du courtier masquerait la bourse jusqu'au prochain passage.
+    stocksPerformance = await withRetry(() => fetchAccountSummary({
       apiKey: process.env.TRADING212_API_KEY,
       apiSecret: process.env.TRADING212_API_SECRET,
-    });
+    }));
   } catch (error) {
     warn('resume de compte')(error);
   }
