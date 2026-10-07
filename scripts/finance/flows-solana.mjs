@@ -108,46 +108,88 @@ const tokenAccounts = async (address, call) => {
   return accounts;
 };
 
+// Ajoute a `signatures` toutes les signatures reussies d'un compte.
+const readSignatures = async (account, call, signatures) => {
+  let before;
+  for (;;) {
+    const page = await call('getSignaturesForAddress', [
+      account,
+      { limit: SIGNATURES_PAGE, ...(before ? { before } : {}) },
+    ]);
+    // Une reponse qui n'est pas un tableau ne doit jamais se lire comme une
+    // derniere page vide : ce serait un historique tronque sans le moindre
+    // signal.
+    if (!Array.isArray(page)) throw new Error('Solana getSignaturesForAddress : reponse inattendue');
+    for (const entry of page) {
+      if (entry?.signature && entry.err === null) signatures.add(entry.signature);
+    }
+
+    if (page.length < SIGNATURES_PAGE) return;
+    before = page.at(-1).signature;
+  }
+};
+
+/**
+ * Comptes de jetons du wallet cites par une transaction. getTokenAccountsByOwner
+ * ne rend que les comptes encore ouverts : un compte ferme depuis n'apparait
+ * qu'ici, et un depot recu dessus ne cite pas forcement le wallet.
+ */
+export const ownedTokenAccounts = (result, address) => {
+  const keys = (result?.transaction?.message?.accountKeys ?? [])
+    .map((key) => (typeof key === 'string' ? key : key?.pubkey));
+  const balances = [...(result?.meta?.preTokenBalances ?? []), ...(result?.meta?.postTokenBalances ?? [])];
+  return [...new Set(
+    balances
+      .filter((balance) => balance?.owner === address)
+      .map((balance) => keys[balance.accountIndex])
+      .filter(Boolean),
+  )];
+};
+
+const readTransaction = async (signature, call) => {
+  const result = await call('getTransaction', [
+    signature,
+    { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0, commitment: 'finalized' },
+  ]);
+  // Une transaction signalee par getSignaturesForAddress mais introuvable
+  // ici signifie que le noeud ne peut pas la servir : l'historique est
+  // incomplet, ce n'est pas une transaction sans mouvement.
+  if (result === null || result === undefined) throw new Error('Solana getTransaction : transaction indisponible');
+  return result;
+};
+
+// Liste de travail : chaque vague lit les signatures des comptes nouveaux, puis
+// les transactions encore jamais lues, qui peuvent reveler d'autres comptes.
+// Elle s'arrete quand plus aucun compte n'apparait ; le plafond porte sur le
+// total des transactions, comptes decouverts compris.
 export const readSolanaFlows = async (
   address,
   { call = defaultCall, pauseMs = PAUSE_MS, maxTransactions = MAX_TRANSACTIONS } = {},
 ) => {
-  const accounts = [address, ...(await tokenAccounts(address, call))];
+  const visited = new Set();
   const signatures = new Set();
-
-  for (const account of accounts) {
-    let before;
-    for (;;) {
-      const page = await call('getSignaturesForAddress', [
-        account,
-        { limit: SIGNATURES_PAGE, ...(before ? { before } : {}) },
-      ]);
-      // Une reponse qui n'est pas un tableau ne doit jamais se lire comme une
-      // derniere page vide : ce serait un historique tronque sans le moindre
-      // signal.
-      if (!Array.isArray(page)) throw new Error('Solana getSignaturesForAddress : reponse inattendue');
-      for (const entry of page) {
-        if (entry?.signature && entry.err === null) signatures.add(entry.signature);
-      }
-
-      if (signatures.size > maxTransactions) return { flows: [], truncated: true };
-      if (page.length < SIGNATURES_PAGE) break;
-      before = page.at(-1).signature;
-    }
-  }
-
+  const read = new Set();
   const flows = [];
-  for (const signature of signatures) {
-    if (pauseMs > 0) await wait(pauseMs);
-    const result = await call('getTransaction', [
-      signature,
-      { encoding: 'jsonParsed', maxSupportedTransactionVersion: 0, commitment: 'finalized' },
-    ]);
-    // Une transaction signalee par getSignaturesForAddress mais introuvable
-    // ici signifie que le noeud ne peut pas la servir : l'historique est
-    // incomplet, ce n'est pas une transaction sans mouvement.
-    if (result === null || result === undefined) throw new Error('Solana getTransaction : transaction indisponible');
-    flows.push(...parseSolanaTransaction(result, address));
+  let pending = [address, ...(await tokenAccounts(address, call))];
+
+  while (pending.length > 0) {
+    for (const account of pending) {
+      visited.add(account);
+      await readSignatures(account, call, signatures);
+      if (signatures.size > maxTransactions) return { flows: [], truncated: true };
+    }
+
+    const discovered = new Set();
+    for (const signature of [...signatures].filter((entry) => !read.has(entry))) {
+      if (pauseMs > 0) await wait(pauseMs);
+      read.add(signature);
+      const result = await readTransaction(signature, call);
+      flows.push(...parseSolanaTransaction(result, address));
+      for (const account of ownedTokenAccounts(result, address)) {
+        if (!visited.has(account)) discovered.add(account);
+      }
+    }
+    pending = [...discovered];
   }
 
   return { flows, truncated: false };
