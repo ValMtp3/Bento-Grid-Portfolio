@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T17:44:47.317Z",
+  "generatedAt": "2026-10-07T17:58:49.350Z",
   "mix": [
     {
       "label": "Crypto",
@@ -17,11 +17,11 @@
   "regions": [
     {
       "label": "Europe",
-      "share": 65
+      "share": 70
     },
     {
       "label": "Amerique du Nord",
-      "share": 30
+      "share": 25
     },
     {
       "label": "Autres",
@@ -39,19 +39,19 @@
     }
   ],
   "structure": {
-    "positions": 61,
+    "positions": 65,
     "topThreeShare": 60,
-    "countries": 8,
+    "countries": 9,
     "currencies": 2,
     "networks": 9,
-    "workingShare": 15
+    "workingShare": 10
   },
   "behaviour": {
-    "avgHoldingDays": 144,
+    "avgHoldingDays": 150,
     "oldestPositionMonths": 7,
-    "ordersLast30d": 14,
-    "buyRatio": 100,
-    "favouriteDay": "jeudi"
+    "ordersLast30d": 22,
+    "buyRatio": 95,
+    "favouriteDay": "samedi"
   },
   "sources": [
     "Trading 212",
