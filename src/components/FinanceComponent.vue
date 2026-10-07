@@ -17,17 +17,19 @@ const behaviour = computed(() => finance.value?.behaviour ?? null);
 const refreshedAt = computed(() => formatRelative(finance.value?.generatedAt));
 const hasCrypto = computed(() => mix.value.some((part) => part.label === 'Crypto'));
 
-const performance = computed(() => finance.value?.performance ?? null);
+// Nom distinct de performanceTiles ci-dessous : "performance" tout court
+// masquerait window.performance (API native du navigateur).
+const financePerformance = computed(() => finance.value?.performance ?? null);
 
 // Le global n'existe que si bourse et crypto sont toutes deux mesurees : sinon
 // seule la ligne disponible s'affiche, avec un libelle qui dit son perimetre.
 const performanceTiles = computed(() => {
-  if (!performance.value) return [];
+  if (!financePerformance.value) return [];
 
   return [
-    { key: 'overall', percent: performance.value.overall, label: 'Global', hint: 'bourse et crypto réunies' },
-    { key: 'stocks', percent: performance.value.stocks, label: 'Bourse', hint: 'plus-value latente' },
-    { key: 'crypto', percent: performance.value.crypto, label: 'Crypto', hint: 'face aux dépôts, hors BNB Chain' },
+    { key: 'overall', percent: financePerformance.value.overall, label: 'Global', hint: 'bourse et crypto réunies' },
+    { key: 'stocks', percent: financePerformance.value.stocks, label: 'Bourse', hint: 'plus-value latente' },
+    { key: 'crypto', percent: financePerformance.value.crypto, label: 'Crypto', hint: 'face aux dépôts, hors BNB Chain' },
   ]
     .map((tile) => ({ ...tile, value: formatPerformance(tile.percent) }))
     .filter((tile) => tile.value !== null);
@@ -40,6 +42,14 @@ const performanceTone = (percent) =>
   percent < 0
     ? 'text-spicy-paprika-600 dark:text-spicy-paprika-400'
     : 'text-regal-navy-700 dark:text-regal-navy-300';
+
+// Le sous-titre ne promet "Performance" que si au moins une tuile s'affiche :
+// sinon la carte annoncerait une donnee qu'elle ne montre pas.
+const subtitle = computed(() =>
+  performanceTiles.value.length
+    ? 'Performance, répartitions et rythme — jamais de montant'
+    : 'Répartitions et rythme — jamais de montant',
+);
 
 const percent = (share) => (Number.isFinite(share) ? `${share} %` : null);
 
@@ -142,7 +152,7 @@ onMounted(async () => {
         <!-- Dire tout de suite ce que la carte ne montre pas evite la question
              que tout visiteur se pose devant des chiffres d'investissement. -->
         <p class="mt-0.5 text-xs text-coffee-bean-600 dark:text-soft-blush-300">
-          Performance, répartitions et rythme — jamais de montant
+          {{ subtitle }}
         </p>
       </div>
       <span v-if="refreshedAt" class="tag tag-navy shrink-0">{{ refreshedAt }}</span>
