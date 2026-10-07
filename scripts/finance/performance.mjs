@@ -76,8 +76,20 @@ export const valueHoldings = (holdings, prices, vaults = {}) =>
     return sum;
   }, 0);
 
+// Un apport net minuscule face a la valeur actuelle (gains deja sortis vers
+// une plateforme, puis revenus) donnerait un % absurde a quatre chiffres.
+const MIN_CONTRIBUTION_SHARE = 0.1;
+
 const usable = (part) =>
   part && Number.isFinite(part.cost) && Number.isFinite(part.gain) && part.cost > 0 ? part : null;
+
+// Plancher propre a la crypto : en bourse, le cout vient du courtier et reste
+// le prix d'achat reel des titres detenus.
+const usableCrypto = (part) => {
+  const candidate = usable(part);
+  if (!candidate) return null;
+  return candidate.cost < MIN_CONTRIBUTION_SHARE * (candidate.cost + candidate.gain) ? null : candidate;
+};
 
 // "|| 0" : Math.round(-0.4) vaut -0, qui s'afficherait "-0 %".
 const percent = (gain, cost) => Math.round((gain / cost) * 100) || 0;
@@ -89,7 +101,7 @@ const percent = (gain, cost) => Math.round((gain / cost) * 100) || 0;
  */
 export const toPerformance = ({ stocks, crypto } = {}) => {
   const stocksPart = usable(stocks);
-  const cryptoPart = usable(crypto);
+  const cryptoPart = usableCrypto(crypto);
   if (!stocksPart && !cryptoPart) return null;
 
   return {
