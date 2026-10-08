@@ -4,8 +4,9 @@
 // raw.githubusercontent.com, pas du build, parce que le site est deploye a la
 // main. Un commit du collecteur suffit a rafraichir la carte.
 //
-// Le fichier distant ne contient que des parts et des compteurs. Aucun montant,
-// aucun nom de position, aucune adresse : voir scripts/finance/anonymize.mjs.
+// Le fichier distant ne contient que des parts, des compteurs et des
+// rendements en pourcentage. Aucun montant, aucun nom de position, aucune
+// adresse : voir scripts/finance/anonymize.mjs.
 
 const FINANCE_URL =
   'https://raw.githubusercontent.com/ValMtp3/Bento-Grid-Portfolio/main/public/data/finance.json';
@@ -66,4 +67,13 @@ export const formatHolding = (days) => {
   const yearsLabel = plural(years, 'an');
 
   return remainder === 0 ? yearsLabel : `${yearsLabel} et ${plural(remainder, 'mois', 'mois')}`;
+};
+
+// Le signe est toujours ecrit : la couleur seule ne doit pas porter le sens,
+// un daltonien ou un lecteur d'ecran ne la voit pas.
+export const formatPerformance = (percent) => {
+  if (!Number.isInteger(percent)) return null;
+  if (percent > 0) return `+${percent} %`;
+  if (percent < 0) return `−${Math.abs(percent)} %`;
+  return '0 %';
 };

@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 
 import ShareBar from '@/components/ShareBar.vue';
-import { formatHolding, loadFinance } from '@/data/finance';
+import { formatHolding, formatPerformance, loadFinance } from '@/data/finance';
 import { formatRelative } from '@/data/pulse';
 
 const finance = ref(null);
@@ -10,12 +10,42 @@ const loaded = ref(false);
 
 const mix = computed(() => finance.value?.mix ?? []);
 const regions = computed(() => finance.value?.regions ?? []);
-const currencies = computed(() => finance.value?.currencies ?? []);
 const structure = computed(() => finance.value?.structure ?? null);
 const behaviour = computed(() => finance.value?.behaviour ?? null);
 
 const refreshedAt = computed(() => formatRelative(finance.value?.generatedAt));
 const hasCrypto = computed(() => mix.value.some((part) => part.label === 'Crypto'));
+
+// Nom distinct de performanceTiles ci-dessous : "performance" tout court
+// masquerait window.performance (API native du navigateur).
+const financePerformance = computed(() => finance.value?.performance ?? null);
+
+// Le global n'existe que si bourse et crypto sont toutes deux mesurees : sinon
+// seule la ligne disponible s'affiche, avec un libelle qui dit son perimetre.
+const performanceTiles = computed(() => {
+  if (!financePerformance.value) return [];
+
+  return [
+    { key: 'overall', percent: financePerformance.value.overall, label: 'global' },
+    { key: 'stocks', percent: financePerformance.value.stocks, label: 'bourse' },
+    { key: 'crypto', percent: financePerformance.value.crypto, label: 'crypto' },
+  ]
+    .map((tile) => ({ ...tile, value: formatPerformance(tile.percent) }))
+    .filter((tile) => tile.value !== null);
+});
+
+const performanceTone = (percent) =>
+  percent < 0
+    ? 'text-spicy-paprika-600 dark:text-spicy-paprika-400'
+    : 'text-regal-navy-700 dark:text-regal-navy-300';
+
+// Le sous-titre ne promet "Performance" que si au moins une tuile s'affiche :
+// sinon la carte annoncerait une donnee qu'elle ne montre pas.
+const subtitle = computed(() =>
+  performanceTiles.value.length
+    ? 'Performance, répartitions et rythme — jamais de montant'
+    : 'Répartitions et rythme — jamais de montant',
+);
 
 const percent = (share) => (Number.isFinite(share) ? `${share} %` : null);
 
@@ -118,17 +148,35 @@ onMounted(async () => {
         <!-- Dire tout de suite ce que la carte ne montre pas evite la question
              que tout visiteur se pose devant des chiffres d'investissement. -->
         <p class="mt-0.5 text-xs text-coffee-bean-600 dark:text-soft-blush-300">
-          Répartitions et rythme — jamais de montant
+          {{ subtitle }}
         </p>
       </div>
       <span v-if="refreshedAt" class="tag tag-navy shrink-0">{{ refreshedAt }}</span>
     </div>
 
     <template v-if="finance">
+      <!-- Une seule ligne compacte : le signe (+/−) porte le sens, la couleur
+           ne fait que l'appuyer. -->
+      <div
+        v-if="performanceTiles.length"
+        class="stat-reveal"
+        :style="{ '--stat-delay': '0ms' }"
+      >
+        <p class="flex flex-wrap items-baseline justify-center gap-x-1.5 gap-y-0.5 text-sm">
+          <span class="text-xs font-semibold text-coffee-bean-800 dark:text-soft-blush-100">Performance</span>
+          <template v-for="(tile, index) in performanceTiles" :key="tile.key">
+            <span v-if="index > 0" aria-hidden="true" class="text-coffee-bean-400 dark:text-soft-blush-400">·</span>
+            <span class="whitespace-nowrap">
+              <span class="font-bold tabular-nums" :class="performanceTone(tile.percent)">{{ tile.value }}</span>
+              <span class="text-coffee-bean-600 dark:text-soft-blush-300"> {{ tile.label }}</span>
+            </span>
+          </template>
+        </p>
+      </div>
+
       <div class="flex flex-col gap-4">
         <ShareBar caption="Composition" :parts="mix" :delay="0" />
         <ShareBar v-if="regions.length" caption="Mes actions par zone" :parts="regions" :delay="120" />
-        <ShareBar v-if="currencies.length" caption="Devises de cotation" :parts="currencies" :delay="240" />
       </div>
 
       <dl v-if="tiles.length" class="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
