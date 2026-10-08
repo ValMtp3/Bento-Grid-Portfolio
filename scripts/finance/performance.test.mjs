@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { currentPrice, priceAt, sumContributions, toPerformance, valueHoldings } from './performance.mjs';
+import { currentPrice, hideWeakPerformance, priceAt, sumContributions, toPerformance, valueHoldings } from './performance.mjs';
 
 const DAY = 24 * 60 * 60 * 1000;
 const T0 = Date.UTC(2026, 0, 1);
@@ -179,5 +179,56 @@ describe('toPerformance', () => {
   it('rend null sans aucune mesure', () => {
     assert.equal(toPerformance({}), null);
     assert.equal(toPerformance(undefined), null);
+  });
+});
+
+describe('hideWeakPerformance', () => {
+  const perf = (overall, stocks, crypto) => ({
+    overall,
+    stocks,
+    crypto,
+    publishedAt: { stocks: '2026-01-01T00:00:00.000Z', crypto: null },
+  });
+
+  it('garde un global de 12 %', () => {
+    const input = perf(12, 8, 20);
+    assert.deepEqual(hideWeakPerformance(input), input);
+  });
+
+  it('masque un global de 9 %', () => {
+    assert.equal(hideWeakPerformance(perf(9, 8, 20)), null);
+  });
+
+  it('masque un global negatif', () => {
+    assert.equal(hideWeakPerformance(perf(-1, 8, 20)), null);
+  });
+
+  it('garde exactement 10 %', () => {
+    const input = perf(10, 8, 20);
+    assert.deepEqual(hideWeakPerformance(input), input);
+  });
+
+  it('sans global, garde la bourse seule a 15 %', () => {
+    const input = perf(null, 15, null);
+    assert.deepEqual(hideWeakPerformance(input), input);
+  });
+
+  it('sans global, masque la bourse seule a 3 %', () => {
+    assert.equal(hideWeakPerformance(perf(null, 3, null)), null);
+  });
+
+  it('sans global, garde la crypto seule a 20 %', () => {
+    const input = perf(null, null, 20);
+    assert.deepEqual(hideWeakPerformance(input), input);
+  });
+
+  it('sans rien a montrer, rend null', () => {
+    assert.equal(hideWeakPerformance(null), null);
+    assert.equal(hideWeakPerformance(perf(null, null, null)), null);
+  });
+
+  it('conserve publishedAt quand la performance est gardee', () => {
+    const input = perf(12, 8, 20);
+    assert.deepEqual(hideWeakPerformance(input).publishedAt, input.publishedAt);
   });
 });

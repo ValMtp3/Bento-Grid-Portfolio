@@ -21,6 +21,7 @@ import { measureCryptoPerformance } from './finance/crypto-performance.mjs';
 import { mergeHoldings, toCryptoPositions } from './finance/holdings.mjs';
 import { fetchPrices, priceKey } from './finance/prices.mjs';
 import { fetchAccountSummary, fetchOrders, fetchPositions } from './finance/trading212.mjs';
+import { hideWeakPerformance } from './finance/performance.mjs';
 import { stabilizePerformance } from './finance/stabilize.mjs';
 import { readVault } from './finance/vaults.mjs';
 
@@ -314,7 +315,9 @@ if (!anonymized) {
 // publie, ils doivent subir le meme controle que le reste.
 const payload = assertSafe({
   ...anonymized,
-  performance: stabilizePerformance(previous?.performance, anonymized.performance, now),
+  performance: hideWeakPerformance(
+    stabilizePerformance(previous?.performance, anonymized.performance, now),
+  ),
 });
 
 // Le workflow tourne toutes les 6 h alors que des parts arrondies a 5 % bougent
