@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T17:58:49.350Z",
+  "generatedAt": "2026-10-08T06:36:31.255Z",
   "mix": [
     {
       "label": "Crypto",
@@ -47,12 +47,13 @@
     "workingShare": 10
   },
   "behaviour": {
-    "avgHoldingDays": 150,
+    "avgHoldingDays": 151,
     "oldestPositionMonths": 7,
     "ordersLast30d": 22,
     "buyRatio": 95,
     "favouriteDay": "samedi"
   },
+  "performance": null,
   "sources": [
     "Trading 212",
     "EVM ethereum",
