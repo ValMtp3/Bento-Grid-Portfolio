@@ -4,6 +4,8 @@
 //
 // Le principe tient en une phrase : on publie des formes, jamais des sommes.
 
+import { toPerformance } from './performance.mjs';
+
 // Pas d'arrondi des parts. Une precision au pourcent pres permettrait, croisee
 // avec le cours public d'un actif, de remonter a des montants.
 const SHARE_STEP = 5;
@@ -236,6 +238,9 @@ export const anonymize = (portfolio, now = new Date()) => {
       buyRatio: recentOrders?.length ? roundToStep((buyCount / recentOrders.length) * 100) : null,
       favouriteDay: recentOrders ? favouriteDay(recentOrders) : null,
     },
+    // Pourcentages entiers seulement : sans montant publie a cote, un rendement
+    // ne permet de remonter a aucune somme.
+    performance: toPerformance(portfolio?.performance),
     sources: portfolio?.sources ?? [],
   };
 

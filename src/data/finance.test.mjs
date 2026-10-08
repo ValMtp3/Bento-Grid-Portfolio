@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { formatHolding, segmentColor } from './finance.js';
+import { formatHolding, formatPerformance, segmentColor } from './finance.js';
 
 describe('formatHolding', () => {
   it('reste en jours sous le mois', () => {
@@ -43,5 +43,23 @@ describe('segmentColor', () => {
 
   it('retombe sur une teinte neutre au dela de la palette', () => {
     assert.equal(segmentColor(99), segmentColor(100));
+  });
+});
+
+describe('formatPerformance', () => {
+  it('signe toujours le resultat', () => {
+    assert.equal(formatPerformance(12), '+12 %');
+    assert.equal(formatPerformance(0), '0 %');
+  });
+
+  // Vrai signe moins (U+2212) : le tiret court se lit mal a cote d'un chiffre.
+  it('utilise le vrai signe moins', () => {
+    assert.equal(formatPerformance(-3), '−3 %');
+  });
+
+  it('rend null hors entier', () => {
+    for (const input of [null, undefined, Number.NaN, 1.5, '12']) {
+      assert.equal(formatPerformance(input), null, String(input));
+    }
   });
 });
