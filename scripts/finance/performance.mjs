@@ -126,3 +126,28 @@ export const toPerformance = ({ stocks, crypto } = {}) => {
     crypto: cryptoPart ? percent(cryptoPart.gain, cryptoPart.cost) : null,
   };
 };
+
+// Le site ne montre une performance que si elle vaut d'etre montree : choix de
+// Valentin. Appliquee avant la publication, pour que le chiffre ne soit pas
+// lisible non plus dans le JSON public du depot.
+export const MIN_PUBLISHED_PERCENT = 10;
+
+// Chiffre qui fait le titre : le global, sinon la seule mesure disponible.
+// Rend null quand rien n'est montrable.
+const headlinePercent = (performance) => {
+  if (Number.isFinite(performance.overall)) return performance.overall;
+
+  const parts = [performance.stocks, performance.crypto].filter(Number.isFinite);
+  return parts.length === 1 ? parts[0] : null;
+};
+
+/**
+ * Rend la performance telle quelle si son chiffre principal atteint le seuil,
+ * sinon null. N'altere pas l'argument.
+ */
+export const hideWeakPerformance = (performance, minPercent = MIN_PUBLISHED_PERCENT) => {
+  if (!performance) return null;
+
+  const headline = headlinePercent(performance);
+  return headline !== null && headline >= minPercent ? performance : null;
+};
