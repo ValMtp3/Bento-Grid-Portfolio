@@ -10,7 +10,6 @@ const loaded = ref(false);
 
 const mix = computed(() => finance.value?.mix ?? []);
 const regions = computed(() => finance.value?.regions ?? []);
-const currencies = computed(() => finance.value?.currencies ?? []);
 const structure = computed(() => finance.value?.structure ?? null);
 const behaviour = computed(() => finance.value?.behaviour ?? null);
 
@@ -27,16 +26,17 @@ const performanceTiles = computed(() => {
   if (!financePerformance.value) return [];
 
   return [
-    { key: 'overall', percent: financePerformance.value.overall, label: 'Global', hint: 'bourse et crypto, hors BNB Chain' },
-    { key: 'stocks', percent: financePerformance.value.stocks, label: 'Bourse', hint: 'plus-value latente' },
-    { key: 'crypto', percent: financePerformance.value.crypto, label: 'Crypto', hint: 'face aux dépôts, hors BNB Chain' },
+    { key: 'overall', percent: financePerformance.value.overall, label: 'global' },
+    { key: 'stocks', percent: financePerformance.value.stocks, label: 'bourse' },
+    { key: 'crypto', percent: financePerformance.value.crypto, label: 'crypto' },
   ]
     .map((tile) => ({ ...tile, value: formatPerformance(tile.percent) }))
     .filter((tile) => tile.value !== null);
 });
 
-// Classes ecrites en entier : Tailwind ne detecte pas une classe construite.
-const PERFORMANCE_COLUMNS = { 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3' };
+// "hors BNB Chain" ne concerne que la crypto : inutile de le dire si elle
+// n'est pas affichee.
+const showsCrypto = computed(() => performanceTiles.value.some((tile) => tile.key === 'crypto'));
 
 const performanceTone = (percent) =>
   percent < 0
@@ -159,38 +159,31 @@ onMounted(async () => {
     </div>
 
     <template v-if="finance">
-      <dl
+      <!-- Une seule ligne compacte : le signe (+/−) porte le sens, la couleur
+           ne fait que l'appuyer. -->
+      <div
         v-if="performanceTiles.length"
-        class="grid gap-2.5"
-        :class="PERFORMANCE_COLUMNS[performanceTiles.length]"
+        class="stat-reveal -my-1.5"
+        :style="{ '--stat-delay': '0ms' }"
       >
-        <div
-          v-for="(tile, index) in performanceTiles"
-          :key="tile.key"
-          class="stat-reveal rounded-lg border border-coffee-bean-100 bg-soft-blush-50/60 px-3 py-2.5 dark:border-soft-blush-50/10 dark:bg-soft-blush-50/[0.04]"
-          :style="{ '--stat-delay': `${index * 50}ms` }"
-        >
-          <dd
-            class="font-heading text-2xl font-bold leading-none tabular-nums"
-            :class="performanceTone(tile.percent)"
-          >
-            {{ tile.value }}
-          </dd>
-          <dt class="mt-1.5">
-            <span class="block text-xs font-semibold leading-tight text-coffee-bean-800 dark:text-soft-blush-100">
-              {{ tile.label }}
+        <p class="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 text-sm">
+          <span class="text-xs font-semibold text-coffee-bean-800 dark:text-soft-blush-100">Performance</span>
+          <template v-for="(tile, index) in performanceTiles" :key="tile.key">
+            <span v-if="index > 0" aria-hidden="true" class="text-coffee-bean-400 dark:text-soft-blush-400">·</span>
+            <span class="whitespace-nowrap">
+              <span class="font-bold tabular-nums" :class="performanceTone(tile.percent)">{{ tile.value }}</span>
+              <span class="text-coffee-bean-600 dark:text-soft-blush-300"> {{ tile.label }}</span>
             </span>
-            <span class="mt-0.5 block text-[11px] leading-snug text-pretty text-coffee-bean-500 dark:text-soft-blush-400">
-              {{ tile.hint }}
-            </span>
-          </dt>
-        </div>
-      </dl>
+          </template>
+        </p>
+        <p v-if="showsCrypto" class="mt-0.5 text-[11px] text-coffee-bean-500 dark:text-soft-blush-400">
+          hors BNB Chain
+        </p>
+      </div>
 
       <div class="flex flex-col gap-4">
         <ShareBar caption="Composition" :parts="mix" :delay="0" />
         <ShareBar v-if="regions.length" caption="Mes actions par zone" :parts="regions" :delay="120" />
-        <ShareBar v-if="currencies.length" caption="Devises de cotation" :parts="currencies" :delay="240" />
       </div>
 
       <dl v-if="tiles.length" class="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
