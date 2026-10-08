@@ -1,25 +1,29 @@
 {
-  "generatedAt": "2026-10-07T22:23:38.909Z",
+  "generatedAt": "2026-10-08T12:24:25.363Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "414705017dfe53c1785ab5e2bac61bfc44cab958",
-      "date": "2026-10-07T17:58:00Z",
-      "message": "fix(finance): en-tetes navigateur pour passer le defi Cloudflare de Blockscout",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/414705017dfe53c1785ab5e2bac61bfc44cab958"
+      "sha": "31901fc96971cd0e2c81f9c76c0c28d9549b244e",
+      "date": "2026-10-08T05:59:30Z",
+      "message": "style(finance): ligne de performance centree, sans mention BNB",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/31901fc96971cd0e2c81f9c76c0c28d9549b244e"
     },
     "week": {
       "days": 7,
-      "commits": 5,
+      "commits": 38,
       "repos": 1,
       "languages": [
         {
           "name": "JavaScript",
-          "share": 98
+          "share": 95
         },
         {
-          "name": "Config",
-          "share": 2
+          "name": "Vue",
+          "share": 4
+        },
+        {
+          "name": "Docs",
+          "share": 1
         }
       ]
     }
