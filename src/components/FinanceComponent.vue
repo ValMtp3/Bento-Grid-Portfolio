@@ -34,10 +34,6 @@ const performanceTiles = computed(() => {
     .filter((tile) => tile.value !== null);
 });
 
-// "hors BNB Chain" ne concerne que la crypto : inutile de le dire si elle
-// n'est pas affichee.
-const showsCrypto = computed(() => performanceTiles.value.some((tile) => tile.key === 'crypto'));
-
 const performanceTone = (percent) =>
   percent < 0
     ? 'text-spicy-paprika-600 dark:text-spicy-paprika-400'
@@ -163,10 +159,10 @@ onMounted(async () => {
            ne fait que l'appuyer. -->
       <div
         v-if="performanceTiles.length"
-        class="stat-reveal -my-1.5"
+        class="stat-reveal"
         :style="{ '--stat-delay': '0ms' }"
       >
-        <p class="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 text-sm">
+        <p class="flex flex-wrap items-baseline justify-center gap-x-1.5 gap-y-0.5 text-sm">
           <span class="text-xs font-semibold text-coffee-bean-800 dark:text-soft-blush-100">Performance</span>
           <template v-for="(tile, index) in performanceTiles" :key="tile.key">
             <span v-if="index > 0" aria-hidden="true" class="text-coffee-bean-400 dark:text-soft-blush-400">·</span>
@@ -175,9 +171,6 @@ onMounted(async () => {
               <span class="text-coffee-bean-600 dark:text-soft-blush-300"> {{ tile.label }}</span>
             </span>
           </template>
-        </p>
-        <p v-if="showsCrypto" class="mt-0.5 text-[11px] text-coffee-bean-500 dark:text-soft-blush-400">
-          hors BNB Chain
         </p>
       </div>
 
