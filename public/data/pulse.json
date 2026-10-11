@@ -1,29 +1,33 @@
 {
-  "generatedAt": "2026-10-08T12:24:25.363Z",
+  "generatedAt": "2026-10-11T11:45:03.885Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "31901fc96971cd0e2c81f9c76c0c28d9549b244e",
-      "date": "2026-10-08T05:59:30Z",
-      "message": "style(finance): ligne de performance centree, sans mention BNB",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/31901fc96971cd0e2c81f9c76c0c28d9549b244e"
+      "repo": "ValMtp3/chiffremento-go-cli",
+      "sha": "2fa591effbf1dc9e15ec69dc582afee8c13ae8b3",
+      "date": "2026-10-11T10:15:18Z",
+      "message": "docs: règle de légèreté et repères de performance du projet",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/2fa591effbf1dc9e15ec69dc582afee8c13ae8b3"
     },
     "week": {
       "days": 7,
-      "commits": 38,
-      "repos": 1,
+      "commits": 49,
+      "repos": 2,
       "languages": [
         {
           "name": "JavaScript",
-          "share": 95
+          "share": 58
+        },
+        {
+          "name": "Go",
+          "share": 36
         },
         {
           "name": "Vue",
-          "share": 4
+          "share": 2
         },
         {
           "name": "Docs",
-          "share": 1
+          "share": 2
         }
       ]
     }
