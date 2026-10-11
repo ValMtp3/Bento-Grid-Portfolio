@@ -1,32 +1,28 @@
 {
-  "generatedAt": "2026-10-11T11:45:03.885Z",
+  "generatedAt": "2026-10-11T16:56:33.311Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "2fa591effbf1dc9e15ec69dc582afee8c13ae8b3",
-      "date": "2026-10-11T10:15:18Z",
-      "message": "docs: règle de légèreté et repères de performance du projet",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/2fa591effbf1dc9e15ec69dc582afee8c13ae8b3"
+      "sha": "e4a0d5aa9c9cf22b4111b5cd54419d514ba6157b",
+      "date": "2026-10-11T14:07:47Z",
+      "message": "docs: le titre d'une release reste le numéro de version",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/e4a0d5aa9c9cf22b4111b5cd54419d514ba6157b"
     },
     "week": {
       "days": 7,
-      "commits": 49,
+      "commits": 67,
       "repos": 2,
       "languages": [
         {
-          "name": "JavaScript",
-          "share": 58
-        },
-        {
           "name": "Go",
-          "share": 36
-        },
-        {
-          "name": "Vue",
-          "share": 2
+          "share": 85
         },
         {
           "name": "Docs",
+          "share": 12
+        },
+        {
+          "name": "Config",
           "share": 2
         }
       ]
