@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T16:56:33.311Z",
+  "generatedAt": "2026-10-11T21:10:53.240Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
@@ -30,32 +30,6 @@
   },
   "om": {
     "last": {
-      "date": "2026-09-20T18:45:00Z",
-      "competition": "Ligue 1",
-      "matchday": 5,
-      "home": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "away": {
-        "name": "PSG",
-        "tla": "PSG",
-        "colors": [
-          "#042753",
-          "#034f8d"
-        ]
-      },
-      "outcome": "loss",
-      "score": {
-        "home": 1,
-        "away": 2
-      }
-    },
-    "next": {
       "date": "2026-10-11T18:45:00Z",
       "competition": "Ligue 1",
       "matchday": 6,
@@ -74,13 +48,39 @@
           "#fefefe",
           "#0d61ab"
         ]
+      },
+      "outcome": "win",
+      "score": {
+        "home": 0,
+        "away": 2
+      }
+    },
+    "next": {
+      "date": "2026-10-18T13:00:00Z",
+      "competition": "Ligue 1",
+      "matchday": 7,
+      "home": {
+        "name": "Angers SCO",
+        "tla": "ANG",
+        "colors": [
+          "#fefefe",
+          "#110b08"
+        ]
+      },
+      "away": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
       }
     },
     "standing": {
-      "position": 17,
-      "points": 3,
-      "played": 5,
-      "won": 1,
+      "position": 13,
+      "points": 6,
+      "played": 6,
+      "won": 2,
       "draw": 0,
       "lost": 4
     }
