@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T10:30:39.187Z",
+  "generatedAt": "2026-10-16T20:11:53.187Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
@@ -77,7 +77,7 @@
       }
     },
     "standing": {
-      "position": 13,
+      "position": 14,
       "points": 6,
       "played": 6,
       "won": 2,
