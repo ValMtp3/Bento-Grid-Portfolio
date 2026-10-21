@@ -16,7 +16,7 @@ Internet → conteneur npm (Nginx Proxy Manager, HTTPS)
 |---|---|
 | Dossier du site (hôte) | `/srv/www/valentin-fiess.fr` |
 | Même dossier vu du conteneur | `/usr/share/nginx/html` |
-| Config nginx du site | `/home/debian/static-site/nginx.conf` |
+| Config nginx du site | `/home/debian/static-site/nginx.conf` (source : `scripts/deploy/nginx.conf`, voir étape 7) |
 | Fichier compose | `/home/debian/static-site/docker-compose.yml` |
 
 ## Comment le déploiement fonctionne
@@ -247,6 +247,68 @@ Onglet **Actions → Deploy to VPS → Run workflow** (sans rien pousser).
 2. `Verify build output` annonce un nombre de fichiers cohérent.
 3. `Deploy to VPS` affiche `[deploy] Release en ligne : ...`.
 4. `Smoke test` affiche `Site en ligne (HTTP 200)`.
+
+---
+
+## Étape 7 — Appliquer la config nginx du dépôt
+
+`scripts/deploy/nginx.conf` porte les en-têtes de sécurité, la négociation
+Markdown pour les agents, les 404 en JSON et le cache. Le déploiement GitHub
+n'envoie que `dist/` : **ce fichier se recopie à la main**, à refaire à chaque
+modification. Le tester d'abord en local (`AGENTS.md`, « Tester la config nginx
+en local »).
+
+`public/.htaccess` n'a aucun effet ici : nginx ne le lit pas.
+
+Sur ton Mac, envoyer le fichier :
+
+```bash
+scp -P 61457 scripts/deploy/nginx.conf debian@<adresse-du-vps>:/tmp/nginx.conf.new
+```
+
+Sur le VPS :
+
+```bash
+# 1. Sauvegarde, pour revenir en arrière. Le nom ne finit pas par .conf.
+sudo cp /home/debian/static-site/nginx.conf /home/debian/static-site/nginx.conf.bak-$(date +%Y%m%d)
+
+# 2. Tester le nouveau fichier dans un conteneur jetable, sans toucher au site.
+docker run --rm -v /tmp/nginx.conf.new:/etc/nginx/conf.d/default.conf:ro nginx:alpine nginx -t
+
+# 3. Réécrire le fichier en place (tee, jamais sed -i ni mv : voir étape 5).
+sudo tee /home/debian/static-site/nginx.conf < /tmp/nginx.conf.new > /dev/null
+
+# 4. Valider dans le vrai conteneur, puis recharger sans coupure.
+docker exec static-site nginx -t && docker exec static-site nginx -s reload
+
+# 5. Ce que voit le CONTENEUR : doit afficher 1.
+docker exec static-site grep -c 'add_header Content-Security-Policy ' /etc/nginx/conf.d/default.conf
+```
+
+Vérifier depuis n'importe où :
+
+```bash
+curl -sI https://valentin-fiess.fr/ | grep -iE 'content-security|x-content-type|permissions'
+curl -s -o /dev/null -w '%{http_code} %{content_type}\n' -H 'Accept: text/markdown' https://valentin-fiess.fr/about
+# Attendu : 200 text/markdown; charset=utf-8
+curl -s -o /dev/null -w '%{http_code} %{content_type}\n' https://valentin-fiess.fr/.well-known/nexiste-pas
+# Attendu : 404 application/json; charset=utf-8
+```
+
+Retour arrière si quelque chose casse :
+
+```bash
+sudo tee /home/debian/static-site/nginx.conf < /home/debian/static-site/nginx.conf.bak-AAAAMMJJ > /dev/null
+docker exec static-site nginx -t && docker exec static-site nginx -s reload
+```
+
+**La CSP est bloquante.** Si une fonction du site cesse de marcher après un
+changement (icônes, météo, chatbot, formulaire), ouvrir la console du
+navigateur : une ligne `violates the following Content Security Policy
+directive` donne le domaine à ajouter. Pour tester un nouveau domaine sans
+risque, renommer temporairement `Content-Security-Policy` en
+`Content-Security-Policy-Report-Only` : le navigateur signale alors sans
+bloquer.
 
 ---
 
