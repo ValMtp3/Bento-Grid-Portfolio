@@ -1,12 +1,35 @@
 {
-  "generatedAt": "2026-10-18T19:48:54.866Z",
+  "generatedAt": "2026-10-21T20:59:14.064Z",
   "github": {
-    "lastCommit": null,
+    "lastCommit": {
+      "repo": "ValMtp3/Bento-Grid-Portfolio",
+      "sha": "1e848c29229f9edac793b999f179e2f47d864e17",
+      "date": "2026-10-21T20:35:12Z",
+      "message": "feat: titres en 0xProto (#83)",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/1e848c29229f9edac793b999f179e2f47d864e17"
+    },
     "week": {
       "days": 7,
-      "commits": 0,
-      "repos": 0,
-      "languages": []
+      "commits": 4,
+      "repos": 1,
+      "languages": [
+        {
+          "name": "JavaScript",
+          "share": 45
+        },
+        {
+          "name": "Docs",
+          "share": 28
+        },
+        {
+          "name": "Vue",
+          "share": 18
+        },
+        {
+          "name": "HTML",
+          "share": 5
+        }
+      ]
     }
   },
   "om": {
