@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import emailjs from '@emailjs/browser';
 import Cookies from 'js-cookie';
 import { renderTurnstile } from '@/turnstile';
+import { CONTACT_LIMITS, validateContact } from '@/contactForm';
 import SectionHeading from './SectionHeading.vue';
 
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -20,27 +21,19 @@ const message = ref('');
 const errors = ref({});
 const turnstileToken = ref(null);
 const turnstileContainer = ref(null);
+const successMessage = ref(null);
 
-// Champs du formulaire indexes par nom : sert a la fois a la validation, a la
-// persistance en cookie et au payload EmailJS, pour n'avoir qu'une seule liste.
-const isFilled = (value) => Boolean(value);
-const fields = {
-  name: { model: name, error: 'Le nom est requis.', isValid: isFilled },
-  email: {
-    model: email,
-    error: 'Un email valide est requis.',
-    isValid: (value) => Boolean(value) && /\S[^\s@]*@\S+\.\S+/.test(value),
-  },
-  subject: { model: subject, error: 'Le sujet est requis.', isValid: isFilled },
-  message: { model: message, error: 'Le message est requis.', isValid: isFilled },
-};
+// Champs du formulaire indexes par nom : sert a la fois a la persistance en
+// cookie et au payload EmailJS. Les regles de validation vivent dans
+// src/contactForm.js, testees a part.
+const fields = { name, email, subject, message };
 const cookieKey = (field) => `form_${field}`;
 
+const readValues = () =>
+  Object.fromEntries(Object.entries(fields).map(([field, model]) => [field, model.value.trim()]));
+
 const validateForm = () => {
-  errors.value = {};
-  for (const [field, { model, error, isValid }] of Object.entries(fields)) {
-    if (!isValid(model.value)) errors.value[field] = error;
-  }
+  errors.value = validateContact(readValues());
   return Object.keys(errors.value).length === 0;
 };
 
@@ -49,7 +42,7 @@ const clearFormCookies = () => {
 };
 
 onMounted(() => {
-  for (const [field, { model }] of Object.entries(fields)) {
+  for (const [field, model] of Object.entries(fields)) {
     model.value = Cookies.get(cookieKey(field)) || '';
     watch(model, (value) => {
       Cookies.set(cookieKey(field), value, {
@@ -63,10 +56,9 @@ onMounted(() => {
 });
 
 const onSubmit = async () => {
-  if (!turnstileToken.value) {
-    alert('Veuillez compléter la vérification de sécurité.');
-    return;
-  }
+  // Le bouton est desactive sans jeton : ce garde ne sert que si on contourne
+  // l'interface, l'explication au visiteur est portee par le texte d'aide.
+  if (!turnstileToken.value) return;
   if (!validateForm()) {
     requestAnimationFrame(() => document.querySelector('[aria-invalid="true"]')?.focus());
     return;
@@ -74,14 +66,14 @@ const onSubmit = async () => {
   errorMessage.value = '';
   isSubmitting.value = true;
 
-  const variables = Object.fromEntries(
-    Object.entries(fields).map(([field, { model }]) => [field, model.value.trim()]),
-  );
-
   try {
-    await emailjs.send(serviceId, templateId, variables, apikey);
+    await emailjs.send(serviceId, templateId, readValues(), apikey);
     formSubmitted.value = true;
     clearFormCookies();
+    // Le formulaire disparait : sans ce deplacement, le focus clavier serait
+    // perdu et un lecteur d'ecran n'annoncerait pas le succes.
+    await nextTick();
+    successMessage.value?.focus();
   } catch (err) {
     console.error("Erreur d'envoi EmailJS", err);
     errorMessage.value = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
@@ -94,16 +86,18 @@ const onSubmit = async () => {
 <template>
   <section class="bento-cell p-6">
     <SectionHeading index="06" label="Contact" title="Me contacter" />
-    <form v-if="!formSubmitted" ref="form" @submit.prevent="onSubmit">
+    <form v-if="!formSubmitted" ref="form" novalidate @submit.prevent="onSubmit">
       <div class="grid grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2">
         <div>
           <label class="form-label" for="name">Prénom Nom</label>
           <input
             id="name"
             v-model="name"
-            :required="name === ''"
+            required
+            :maxlength="CONTACT_LIMITS.name"
             class="form-field"
             name="name"
+            autocomplete="name"
             placeholder="Prénom Nom"
             type="text"
             :aria-invalid="Boolean(errors.name)"
@@ -118,9 +112,11 @@ const onSubmit = async () => {
           <input
             id="email"
             v-model="email"
-            :required="email === ''"
+            required
+            :maxlength="CONTACT_LIMITS.email"
             class="form-field"
             name="email"
+            autocomplete="email"
             placeholder="example@domain.com"
             type="email"
             :aria-invalid="Boolean(errors.email)"
@@ -135,7 +131,8 @@ const onSubmit = async () => {
           <input
             id="subject"
             v-model="subject"
-            :required="subject === ''"
+            required
+            :maxlength="CONTACT_LIMITS.subject"
             class="form-field"
             name="subject"
             placeholder="Entrer votre sujet"
@@ -152,7 +149,8 @@ const onSubmit = async () => {
           <textarea
             id="message"
             v-model="message"
-            :required="message === ''"
+            required
+            :maxlength="CONTACT_LIMITS.message"
             class="form-field resize-none"
             name="message"
             placeholder="Entrer votre message"
@@ -172,17 +170,28 @@ const onSubmit = async () => {
       >
         <div ref="turnstileContainer" v-show="!turnstileToken" class="min-h-[50px]"></div>
         <button
-          class="w-full rounded-none bg-spicy-paprika-500 px-8 py-3 font-code text-base font-semibold text-soft-blush-50 outline-none transition-colors duration-300 hover:bg-spicy-paprika-600 disabled:cursor-not-allowed disabled:opacity-50 sm:ml-auto sm:w-auto"
+          class="w-full rounded-none bg-spicy-paprika-700 px-8 py-3 font-code text-base font-semibold text-soft-blush-50 outline-none transition-colors duration-300 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 disabled:cursor-not-allowed disabled:opacity-50 sm:ml-auto sm:w-auto"
           type="submit"
           :disabled="!turnstileToken || isSubmitting"
           :aria-busy="isSubmitting"
+          aria-describedby="contact-turnstile-hint"
         >
           {{ isSubmitting ? 'Envoi en cours…' : 'Envoyer' }}
         </button>
+        <p id="contact-turnstile-hint" class="sr-only" aria-live="polite">
+          {{
+            turnstileToken
+              ? 'Vérification anti-robot réussie, le message peut être envoyé.'
+              : 'Complétez la vérification anti-robot pour activer l’envoi.'
+          }}
+        </p>
       </div>
     </form>
     <div
       v-else
+      ref="successMessage"
+      role="status"
+      tabindex="-1"
       class="flex flex-col items-center justify-center p-8 bg-spicy-paprika-50 dark:bg-spicy-paprika-950/20 rounded-xl border border-spicy-paprika-100 dark:border-spicy-paprika-900/30"
     >
       <div class="text-4xl mb-3 select-none">🦞</div>

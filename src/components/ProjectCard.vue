@@ -54,7 +54,7 @@ defineProps({
         @click="
           trackMatomoEvent('portfolio_project', getProjectAnalyticsAction(project), project.name)
         "
-        class="inline-flex bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-600 hover:shadow-lg"
+        class="inline-flex bg-spicy-paprika-700 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 hover:shadow-lg"
       >
         {{ getProjectLinkLabel(project) }}
       </a>

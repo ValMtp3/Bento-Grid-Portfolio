@@ -124,7 +124,7 @@ const maskStyle = (icon) => ({
           href="/assets/assets_index/CV_Valentin_Fiess.pdf"
           download="CV_Valentin_Fiess.pdf"
           @click="trackMatomoEvent('portfolio_cta', 'download_cv', 'hero')"
-          class="inline-flex items-center justify-center bg-spicy-paprika-500 px-6 py-2.5 font-code text-sm text-soft-blush-50 shadow-sm shadow-spicy-paprika-500/25 transition-colors hover:bg-spicy-paprika-600"
+          class="inline-flex items-center justify-center bg-spicy-paprika-700 px-6 py-2.5 font-code text-sm text-soft-blush-50 shadow-sm shadow-spicy-paprika-500/25 transition-colors hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400"
         >
           Télécharger mon CV
         </a>
