@@ -15,16 +15,19 @@ pas de base de données, pas d'API.
 | Style | Tailwind CSS 4 via `@tailwindcss/vite` | Thème dans `tailwind.css`. |
 | Routage | vue-router 5, mode history | Routes dans `src/router/index.js`. |
 | Paquets | **pnpm** | N'utilisez ni npm ni yarn : le lockfile est `pnpm-lock.yaml`. |
-| Hébergement | Apache mutualisé, derrière Cloudflare | Config dans `public/.htaccess`. |
+| Hébergement | nginx (Docker) sur un VPS, derrière Nginx Proxy Manager et Cloudflare | Config dans `scripts/deploy/nginx.conf`, voir `DEPLOIEMENT_VPS.md`. |
 
-Le dark mode vient de `prefers-color-scheme`. Il n'y a **pas** de classe `.dark`
-sur `<html>` : un sélecteur CSS `.dark ...` ne s'appliquera jamais.
+Le dark mode passe par une classe `.dark` sur `<html>`, posée avant le premier
+affichage par le script en ligne de `index.html` (choix enregistré dans
+`localStorage`, sinon `prefers-color-scheme`). La variante `dark:` de Tailwind
+suit cette classe (`tailwind.css`), et la bascule vit dans `src/theme.js`.
 
 ## Commandes
 
 ```bash
 pnpm install
 pnpm dev                # serveur de développement
+pnpm test               # tests (node --test)
 pnpm build              # chaîne complète, voir ci-dessous
 pnpm verify:agents      # vérifie dist/ pour les agents (sans réseau)
 pnpm agent-manifests    # régénère les manifestes seuls
@@ -69,42 +72,46 @@ qui n'a rien trouvé.
 
 ### Fichiers sensibles
 
-`public/.htaccess` porte la sécurité du site (CSP, en-têtes, réécritures). Une
-erreur de syntaxe y provoque un 500 sur l'ensemble du site : validez toute
-modification avant de déployer, voir « Tester le .htaccess en local » ci-dessous.
+`scripts/deploy/nginx.conf` porte la sécurité du site (CSP, en-têtes,
+négociation Markdown, 404 JSON, cache). Il n'est **pas** déployé par GitHub
+Actions : il se recopie à la main sur le VPS (`DEPLOIEMENT_VPS.md`, étape 7).
+Une erreur de syntaxe empêche nginx de recharger : validez toute modification
+avant de l'appliquer, voir « Tester la config nginx en local » ci-dessous.
+
+`public/.htaccess` n'est lu que par Apache, que la production n'utilise plus.
+Il est gardé comme référence : une règle qui n'y figure que là ne s'applique pas.
+
 `.env` contient des secrets et n'est jamais commité.
 
-## Tester le .htaccess en local
+## Tester la config nginx en local
 
-`public/.htaccess` porte le routage, les en-têtes et la sécurité. Une erreur de
-syntaxe y provoque un 500 sur tout le site, et rien dans `pnpm build` ne la
-détecte. macOS embarque Apache 2.4, ce qui permet de valider avant de déployer.
+Le VPS sert le site avec l'image `nginx:alpine`. La même image tourne en local
+avec Docker (OrbStack), sur le `dist/` produit par `pnpm build`.
 
 ```bash
-# 1. Syntaxe seule : charge le .htaccess dans un contexte Apache reel.
-cat > /tmp/dir.conf <<EOF
-LoadModule rewrite_module libexec/apache2/mod_rewrite.so
-LoadModule deflate_module libexec/apache2/mod_deflate.so
-LoadModule expires_module libexec/apache2/mod_expires.so
-<Directory "$PWD/dist">
-    AllowOverride All
-    Require all granted
-    Include "$PWD/public/.htaccess"
-</Directory>
-EOF
-/usr/sbin/httpd -t -f /etc/apache2/httpd.conf -c "Include /tmp/dir.conf"
-# Attendu : "Syntax OK"
+# 1. Syntaxe.
+docker run --rm \
+  -v "$PWD/scripts/deploy/nginx.conf":/etc/nginx/conf.d/default.conf:ro \
+  -v "$PWD/dist":/usr/share/nginx/html/current:ro \
+  nginx:alpine nginx -t
+# Attendu : "syntax is ok" et "test is successful"
+
+# 2. Comportement : serveur sur http://localhost:8099
+docker run -d --name nginx-test -p 8099:8099 \
+  -v "$PWD/scripts/deploy/nginx.conf":/etc/nginx/conf.d/default.conf:ro \
+  -v "$PWD/dist":/usr/share/nginx/html/current:ro \
+  nginx:alpine
 ```
 
-Pour un test de comportement complet, copier `/etc/apache2/httpd.conf`, y
-pointer `DocumentRoot` sur `dist/`, décommenter `mod_rewrite`, `mod_deflate` et
-`mod_expires`, neutraliser les `CustomLog` et `ErrorLog` qui écrivent dans
-`/private/var/log/apache2/` (non accessibles sans root), puis démarrer avec
-`httpd -f <config> -k start`. Vérifier ensuite : pages internes en 200 **sans**
-redirection, `Accept: text/markdown` renvoyant `text/markdown`, manifestes en
-`application/json`, chemin `.well-known` inexistant renvoyant du JSON, et
-non-régression sur les assets et le repli SPA. **Arrêter le serveur ensuite**
-(`httpd -f <config> -k stop`).
+Vérifier ensuite : pages internes en 200 **sans** redirection (`/projets`),
+`Accept: text/markdown` et `?mode=agent` renvoyant `text/markdown`, manifestes
+en `application/json`, chemin `.well-known` inexistant en 404 JSON, en-têtes de
+sécurité présents (y compris sur les 404), et non-régression sur les assets et
+le repli SPA. **Arrêter le serveur ensuite** (`docker rm -f nginx-test`).
+
+Piège nginx : un `add_header` placé dans un bloc `location` efface tous ceux du
+bloc `server`. Les en-têtes restent au niveau `server` ; ce qui varie selon le
+fichier passe par des `map`.
 
 ## Conventions de code
 
@@ -118,9 +125,12 @@ non-régression sur les assets et le repli SPA. **Arrêter le serveur ensuite**
 
 - ESLint est configuré (`eslint.config.js`) mais ses paquets ne sont pas dans
   les dépendances : `pnpm lint` n'existe pas encore.
-- `vitest.config.js` existe mais `vitest` n'est pas installé et aucun test
-  n'est écrit. La vérification automatisée actuelle est
-  `scripts/verify-agent-manifests.mjs`.
+- Les tests utilisent le lanceur intégré à Node (`node --test`), via
+  `pnpm test` : fichiers `*.test.mjs` sous `src/` et `scripts/`. `vitest`
+  n'est pas installé, `vitest.config.js` n'est pas utilisé.
+- La CSP (`scripts/deploy/nginx.conf`) est bloquante. Tout nouveau domaine
+  appelé par le site (fetch, script, iframe) doit y être ajouté, sinon il est
+  bloqué en production sans erreur visible ailleurs que dans la console.
 
 ## Contact
 
