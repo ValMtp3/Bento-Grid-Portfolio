@@ -9,6 +9,24 @@
    de poids face aux regles ecrites a la main plus bas dans ce fichier. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* 0xProto n'est pas publiee sur Fontsource : les fichiers sont servis depuis
+   src/assets pour que Vite les empreinte comme le reste. Seules deux graisses
+   existent, le 500 et le 600 des titres retombent sur l'une ou l'autre. */
+@font-face {
+  font-family: '0xProto';
+  src: url('./src/assets/fonts/0xproto/0xProto-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: '0xProto';
+  src: url('./src/assets/fonts/0xproto/0xProto-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Custom colors */
   --color-spicy-paprika-50: #fff1ea;
@@ -60,7 +78,7 @@
   --color-soft-blush-950: #120602;
 
   /* Custom fonts */
-  --font-heading: 'Space Grotesk', sans-serif;
+  --font-heading: '0xProto', 'Intel One Mono', monospace;
   --font-body: 'Space Grotesk', sans-serif;
   --font-code: 'Intel One Mono', monospace;
 }
