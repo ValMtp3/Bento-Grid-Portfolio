@@ -1,3 +1,5 @@
+import { isHostOf } from '../urlHost.js';
+
 export const projets = [
   {
     alt: 'Seed Generator - Générateur de phrases BIP-39 hors ligne en Go avec tableau de bord de transparence',
@@ -261,16 +263,18 @@ export const projets = [
 
 // Libelle du lien et action Matomo deduits de l'hebergeur du projet, partages
 // entre le carrousel de la page d'accueil et la page /projets.
+const isRepository = (src) => isHostOf(src, 'github.com') || isHostOf(src, 'gitlab.com');
+
 export const getProjectLinkLabel = (project) => {
   if (project.linkLabel) return project.linkLabel;
-  if (project.src.includes('github.com') || project.src.includes('gitlab.com')) return 'Voir le dépôt';
-  if (project.src.includes('huggingface.co')) return 'Tester la démo';
+  if (isRepository(project.src)) return 'Voir le dépôt';
+  if (isHostOf(project.src, 'huggingface.co')) return 'Tester la démo';
   return 'Découvrir le projet';
 };
 
 export const getProjectAnalyticsAction = (project) => {
-  if (project.src.includes('github.com') || project.src.includes('gitlab.com')) return 'open_repository';
-  if (project.src.includes('huggingface.co')) return 'open_demo';
+  if (isRepository(project.src)) return 'open_repository';
+  if (isHostOf(project.src, 'huggingface.co')) return 'open_demo';
   return 'open_project';
 };
 
