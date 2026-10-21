@@ -42,7 +42,7 @@ const PALETTE = {
   white: '#ffffff',
 };
 
-const HEADING_FONT = "'Space Grotesk', sans-serif";
+const HEADING_FONT = "'0xProto', 'Intel One Mono', monospace";
 const CODE_FONT = "'Intel One Mono', monospace";
 
 // La courbe d'animation du site. Une seule pour tout le portfolio : c'est ce qui
