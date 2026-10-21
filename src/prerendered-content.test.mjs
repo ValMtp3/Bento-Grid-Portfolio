@@ -21,10 +21,15 @@ const INDEX_PATH = fileURLToPath(new URL('../index.html', import.meta.url));
 const html = readFileSync(INDEX_PATH, 'utf8');
 
 // Le script d'amorçage est le premier <script> en ligne du document.
+// Recherche de texte plutot qu'une regex : on lit notre propre index.html, pas
+// du HTML arbitraire, et une regex de balise est signalee par CodeQL comme un
+// filtre HTML contournable.
 const extractBootScript = () => {
-  const match = html.match(/<script>([\s\S]*?)<\/script>/);
-  assert.ok(match, 'aucun script en ligne trouve dans index.html');
-  return match[1];
+  const OPEN = '<script>';
+  const start = html.indexOf(OPEN);
+  const end = html.indexOf('</script>', start);
+  assert.ok(start >= 0 && end > start, 'aucun script en ligne trouve dans index.html');
+  return html.slice(start + OPEN.length, end);
 };
 
 // Doublures minimales : uniquement ce que le script d'amorçage manipule.
