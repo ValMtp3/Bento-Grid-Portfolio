@@ -1,61 +1,16 @@
 {
-  "generatedAt": "2026-10-11T21:10:53.240Z",
+  "generatedAt": "2026-10-18T19:48:54.866Z",
   "github": {
-    "lastCommit": {
-      "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "e4a0d5aa9c9cf22b4111b5cd54419d514ba6157b",
-      "date": "2026-10-11T14:07:47Z",
-      "message": "docs: le titre d'une release reste le numéro de version",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/e4a0d5aa9c9cf22b4111b5cd54419d514ba6157b"
-    },
+    "lastCommit": null,
     "week": {
       "days": 7,
-      "commits": 67,
-      "repos": 2,
-      "languages": [
-        {
-          "name": "Go",
-          "share": 85
-        },
-        {
-          "name": "Docs",
-          "share": 12
-        },
-        {
-          "name": "Config",
-          "share": 2
-        }
-      ]
+      "commits": 0,
+      "repos": 0,
+      "languages": []
     }
   },
   "om": {
     "last": {
-      "date": "2026-10-11T18:45:00Z",
-      "competition": "Ligue 1",
-      "matchday": 6,
-      "home": {
-        "name": "Troyes",
-        "tla": "ETR",
-        "colors": [
-          "#016db2",
-          "#fdfefe"
-        ]
-      },
-      "away": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#fefefe",
-          "#0d61ab"
-        ]
-      },
-      "outcome": "win",
-      "score": {
-        "home": 0,
-        "away": 2
-      }
-    },
-    "next": {
       "date": "2026-10-18T13:00:00Z",
       "competition": "Ligue 1",
       "matchday": 7,
@@ -74,13 +29,39 @@
           "#0d61ab",
           "#fefefe"
         ]
+      },
+      "outcome": "win",
+      "score": {
+        "home": 2,
+        "away": 5
+      }
+    },
+    "next": {
+      "date": "2026-10-25T16:15:00Z",
+      "competition": "Ligue 1",
+      "matchday": 8,
+      "home": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
+      },
+      "away": {
+        "name": "Le Havre",
+        "tla": "HAC",
+        "colors": [
+          "#1d305c",
+          "#8bc0e8"
+        ]
       }
     },
     "standing": {
-      "position": 13,
-      "points": 6,
-      "played": 6,
-      "won": 2,
+      "position": 9,
+      "points": 9,
+      "played": 7,
+      "won": 3,
       "draw": 0,
       "lost": 4
     }
