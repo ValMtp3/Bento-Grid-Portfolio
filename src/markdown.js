@@ -1,3 +1,5 @@
+import { isHostOf } from './urlHost.js';
+
 // Convertisseur Markdown -> HTML minimal, sans dependance.
 //
 // Pourquoi maison plutot qu'une librairie : l'entree est exclusivement le
@@ -41,7 +43,7 @@ const renderLink = (label, href) => {
     return `${label} (lien ignoré)`;
   }
 
-  const isExternal = /^https?:\/\//i.test(href) && !href.startsWith('https://valentin-fiess.fr');
+  const isExternal = /^https?:\/\//i.test(href) && !isHostOf(href, 'valentin-fiess.fr');
   const attributes = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
   return `<a href="${href}"${attributes}>${label}</a>`;
 };
