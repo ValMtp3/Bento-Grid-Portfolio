@@ -110,7 +110,7 @@ const updateFadeEdges = (swiper) => {
     <div class="flex justify-center mt-2">
       <router-link
         to="/projets"
-        class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-6 py-2.5 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300"
+        class="font-code bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 px-6 py-2.5 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300"
       >
         Voir tous les projets
       </router-link>

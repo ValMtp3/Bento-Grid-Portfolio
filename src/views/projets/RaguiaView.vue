@@ -170,7 +170,7 @@ const stack = ['FastAPI', 'PostgreSQL / PGVector', 'React', 'Docker', 'Mistral A
       target="_blank"
       rel="noopener noreferrer"
       @click="trackMatomoEvent('portfolio_project', 'open_project', 'Raguia — case study')"
-      class="mt-10 inline-flex bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-600 hover:shadow-lg"
+      class="mt-10 inline-flex bg-spicy-paprika-700 px-5 py-2.5 font-code text-sm font-medium text-soft-blush-50 shadow-md shadow-spicy-paprika-500/30 transition-all duration-300 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 hover:shadow-lg"
     >
       Voir Raguia en ligne
     </a>

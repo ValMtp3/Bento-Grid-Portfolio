@@ -63,7 +63,7 @@ const navLinks = [
           <ThemeToggle />
           <router-link
             to="/#contact"
-            class="font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-sm"
+            class="font-code bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-sm"
           >
             CONTACT
           </router-link>
@@ -131,7 +131,7 @@ const navLinks = [
         <router-link
           to="/#contact"
           @click="closeMenu"
-          class="block text-center font-code bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 px-4 py-3 shadow-md shadow-spicy-paprika-500/20 transition-all rounded-none text-base mx-3"
+          class="block text-center font-code bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 px-4 py-3 shadow-md shadow-spicy-paprika-500/20 transition-all rounded-none text-base mx-3"
         >
           CONTACT
         </router-link>

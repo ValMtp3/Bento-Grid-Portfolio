@@ -56,7 +56,7 @@ const scrollToTop = () => {
             besoins métier en outils concrets.
           </p>
           <router-link
-            class="mt-5 inline-flex items-center bg-spicy-paprika-500 px-5 py-2.5 font-code text-sm text-soft-blush-50 transition-colors hover:bg-spicy-paprika-600"
+            class="mt-5 inline-flex items-center bg-spicy-paprika-700 px-5 py-2.5 font-code text-sm text-soft-blush-50 transition-colors hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400"
             to="/#contact"
           >
             Me contacter →

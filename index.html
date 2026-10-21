@@ -79,15 +79,13 @@
     </script>
 
     <!-- Favicon -->
-    <link href="/assets/assets_index/val.ico" rel="icon" type="image/ico" />
-    <link href="/assets/assets_index/Profile2.jpeg" rel="apple-touch-icon" sizes="180x180" />
+    <link href="/assets/assets_index/val.ico" rel="icon" type="image/x-icon" />
+    <link href="/assets/assets_index/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <!-- L'accueil lit sur GitHub le graphique de contributions et les donnees
+         Finance et Pulse, rafraichis par des robots sans redeploiement. Pas de
+         preload : il telechargerait le graphique sur chaque page, y compris
+         celles qui ne l'affichent pas. -->
     <link href="https://raw.githubusercontent.com" rel="preconnect" />
-    <link
-      href="https://raw.githubusercontent.com/ValMtp3/Bento-Grid-Portfolio/main/public/assets/assets_index/github-contributions.svg"
-      rel="preload"
-      as="image"
-      fetchpriority="high"
-    />
 
     <!-- Open Graph -->
     <meta content="website" property="og:type" />
@@ -116,9 +114,6 @@
     />
     <meta content="https://valentin-fiess.fr/assets/og/home.png" name="twitter:image" />
     <meta content="Valentin Fiess — Ingénieur IA / Data" name="twitter:image:alt" />
-
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <style>
       /* Contenu pose par scripts/prerender.mjs dans #app, remplace des que Vue
@@ -165,13 +160,6 @@
         .prerendered-content a {
           color: #7aa7ef;
         }
-      }
-
-      @font-face {
-        font-family: '0xProto';
-        src: url('/assets/Font/0xProto-Regular.woff2') format('woff2');
-        font-weight: 400;
-        font-display: swap;
       }
     </style>
   </head>

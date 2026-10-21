@@ -51,7 +51,7 @@ function declineCookies() {
       <div class="flex gap-2">
         <button
           id="accept-cookies"
-          class="min-h-11 bg-spicy-paprika-500 hover:bg-spicy-paprika-600 text-soft-blush-50 font-bold font-code py-2 px-4 rounded-none"
+          class="min-h-11 bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 font-bold font-code py-2 px-4 rounded-none"
           @click="acceptCookies"
         >
           Accepter
