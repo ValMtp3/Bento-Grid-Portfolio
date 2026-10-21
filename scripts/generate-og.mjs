@@ -75,9 +75,10 @@ const layout = ({ kicker, heading, sub }) => ({
                     type: 'div',
                     props: {
                       style: {
-                        fontFamily: 'Space Grotesk',
+                        fontFamily: '0xProto',
                         fontWeight: 700,
-                        fontSize: heading.length > 22 ? '76px' : '96px',
+                        // 0xProto est a chasse fixe : a 96px, une ligne tient 17 caracteres.
+                        fontSize: heading.length > 16 ? '76px' : '96px',
                         lineHeight: 1.05,
                         color: COLORS.title,
                       },
@@ -129,16 +130,16 @@ const layout = ({ kicker, heading, sub }) => ({
 });
 
 const main = async () => {
-  const [grotesk400, grotesk700, mono400] = await Promise.all([
+  const [grotesk400, mono400, proto700] = await Promise.all([
     loadFont('node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2'),
-    loadFont('node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2'),
     loadFont('node_modules/@fontsource/intel-one-mono/files/intel-one-mono-latin-400-normal.woff2'),
+    loadFont('src/assets/fonts/0xproto/0xProto-Bold.woff2'),
   ]);
 
   const fonts = [
     { name: 'Space Grotesk', data: grotesk400, weight: 400, style: 'normal' },
-    { name: 'Space Grotesk', data: grotesk700, weight: 700, style: 'normal' },
     { name: 'Intel One Mono', data: mono400, weight: 400, style: 'normal' },
+    { name: '0xProto', data: proto700, weight: 700, style: 'normal' },
   ];
 
   await mkdir(outDir, { recursive: true });
