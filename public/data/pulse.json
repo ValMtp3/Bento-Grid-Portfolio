@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-10-21T20:59:14.064Z",
+  "generatedAt": "2026-10-23T20:45:09.576Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "1e848c29229f9edac793b999f179e2f47d864e17",
-      "date": "2026-10-21T20:35:12Z",
-      "message": "feat: titres en 0xProto (#83)",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/1e848c29229f9edac793b999f179e2f47d864e17"
+      "repo": "ValMtp3/chiffremento-go-cli",
+      "sha": "bbd2a6658a4d4537bf1b8f2b15bd154c9347e76d",
+      "date": "2026-10-23T17:35:10Z",
+      "message": "test: retire le tripwire du format, remplacé par TestFormatV4Fige",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/bbd2a6658a4d4537bf1b8f2b15bd154c9347e76d"
     },
     "week": {
       "days": 7,
-      "commits": 4,
-      "repos": 1,
+      "commits": 25,
+      "repos": 2,
       "languages": [
         {
-          "name": "JavaScript",
-          "share": 45
+          "name": "Go",
+          "share": 52
         },
         {
           "name": "Docs",
-          "share": 28
+          "share": 33
         },
         {
-          "name": "Vue",
-          "share": 18
+          "name": "JavaScript",
+          "share": 6
         },
         {
-          "name": "HTML",
-          "share": 5
+          "name": "Config",
+          "share": 4
         }
       ]
     }
@@ -81,7 +81,7 @@
       }
     },
     "standing": {
-      "position": 9,
+      "position": 10,
       "points": 9,
       "played": 7,
       "won": 3,
