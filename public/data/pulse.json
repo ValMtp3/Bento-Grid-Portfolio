@@ -1,32 +1,28 @@
 {
-  "generatedAt": "2026-10-23T20:45:09.576Z",
+  "generatedAt": "2026-10-24T19:56:26.891Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "bbd2a6658a4d4537bf1b8f2b15bd154c9347e76d",
-      "date": "2026-10-23T17:35:10Z",
-      "message": "test: retire le tripwire du format, remplacé par TestFormatV4Fige",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/bbd2a6658a4d4537bf1b8f2b15bd154c9347e76d"
+      "sha": "417c9ed027399981896278a6f2cce9e46e4b5cd1",
+      "date": "2026-10-23T20:33:23Z",
+      "message": "fix: plus de mot de passe accentué estimé à 0 essai",
+      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/417c9ed027399981896278a6f2cce9e46e4b5cd1"
     },
     "week": {
       "days": 7,
-      "commits": 25,
+      "commits": 45,
       "repos": 2,
       "languages": [
         {
           "name": "Go",
-          "share": 52
-        },
-        {
-          "name": "Docs",
-          "share": 33
-        },
-        {
-          "name": "JavaScript",
-          "share": 6
+          "share": 83
         },
         {
           "name": "Config",
+          "share": 12
+        },
+        {
+          "name": "Docs",
           "share": 4
         }
       ]
