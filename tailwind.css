@@ -27,6 +27,38 @@
   font-display: swap;
 }
 
+/* Nordwand Mono n'est pas publiee sur Fontsource : les fichiers viennent de la
+   release GitHub 1.4.0 (tywr/Nordwand-Mono, licence OFL 1.1, voir OFL.txt).
+   Quatre graisses seulement : celles que le site utilise reellement. */
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Custom colors */
   --color-spicy-paprika-50: #fff1ea;
@@ -79,7 +111,7 @@
 
   /* Custom fonts */
   --font-heading: '0xProto', 'Intel One Mono', monospace;
-  --font-body: 'Space Grotesk', sans-serif;
+  --font-body: 'Nordwand Mono', monospace;
   --font-code: 'Intel One Mono', monospace;
 }
 

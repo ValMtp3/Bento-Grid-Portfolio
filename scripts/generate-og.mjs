@@ -90,7 +90,7 @@ const layout = ({ kicker, heading, sub }) => ({
                     props: {
                       style: {
                         marginTop: '24px',
-                        fontFamily: 'Space Grotesk',
+                        fontFamily: 'Nordwand Mono',
                         fontSize: '36px',
                         color: COLORS.sub,
                       },
@@ -130,14 +130,14 @@ const layout = ({ kicker, heading, sub }) => ({
 });
 
 const main = async () => {
-  const [grotesk400, mono400, proto700] = await Promise.all([
-    loadFont('node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2'),
+  const [body400, mono400, proto700] = await Promise.all([
+    loadFont('src/assets/fonts/nordwand/NordwandMono-Regular.woff2'),
     loadFont('node_modules/@fontsource/intel-one-mono/files/intel-one-mono-latin-400-normal.woff2'),
     loadFont('src/assets/fonts/0xproto/0xProto-Bold.woff2'),
   ]);
 
   const fonts = [
-    { name: 'Space Grotesk', data: grotesk400, weight: 400, style: 'normal' },
+    { name: 'Nordwand Mono', data: body400, weight: 400, style: 'normal' },
     { name: 'Intel One Mono', data: mono400, weight: 400, style: 'normal' },
     { name: '0xProto', data: proto700, weight: 700, style: 'normal' },
   ];
