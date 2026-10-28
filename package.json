@@ -21,7 +21,6 @@
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
     "@fontsource/intel-one-mono": "^5.3.0",
-    "@fontsource/space-grotesk": "^5.3.0",
     "@iconify/vue": "^5.0.3",
     "deep-chat": "2.5.1",
     "js-cookie": "^3.0.8",
