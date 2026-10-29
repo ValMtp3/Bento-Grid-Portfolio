@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-10-29T17:44:25.283Z",
+  "generatedAt": "2026-10-29T22:10:13.394Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "e1811c115f5617ed3c4ce5171a07ffce8d09b10d",
-      "date": "2026-10-25T21:18:55Z",
-      "message": "docs: aligne la documentation sur la version 2.4.0",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/e1811c115f5617ed3c4ce5171a07ffce8d09b10d"
+      "repo": "ValMtp3/Bento-Grid-Portfolio",
+      "sha": "11c1ac13de9e8fa7b4e455cf8fd9c3dd16246570",
+      "date": "2026-10-28T19:14:01Z",
+      "message": "chore: retirer Space Grotesk et mettre la typographie a jour",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/11c1ac13de9e8fa7b4e455cf8fd9c3dd16246570"
     },
     "week": {
       "days": 7,
-      "commits": 81,
+      "commits": 83,
       "repos": 2,
       "languages": [
         {
           "name": "Go",
-          "share": 56
+          "share": 52
         },
         {
           "name": "Docs",
-          "share": 24
+          "share": 26
         },
         {
           "name": "Config",
