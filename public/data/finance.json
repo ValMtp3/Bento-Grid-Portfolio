@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T06:09:49.566Z",
+  "generatedAt": "2026-10-31T22:01:05.513Z",
   "mix": [
     {
       "label": "Crypto",
@@ -44,7 +44,7 @@
     "countries": 9,
     "currencies": 2,
     "networks": 9,
-    "workingShare": 10
+    "workingShare": 5
   },
   "behaviour": {
     "avgHoldingDays": 174,
