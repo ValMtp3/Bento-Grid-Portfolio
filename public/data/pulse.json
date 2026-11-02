@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-11-02T03:09:06.330Z",
+  "generatedAt": "2026-11-02T14:04:24.045Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "11c1ac13de9e8fa7b4e455cf8fd9c3dd16246570",
-      "date": "2026-10-28T19:14:01Z",
-      "message": "chore: retirer Space Grotesk et mettre la typographie a jour",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/11c1ac13de9e8fa7b4e455cf8fd9c3dd16246570"
+      "repo": "ValMtp3/investia",
+      "sha": "3112541d803b0f6e26f5601bfa57552ac972d4ec",
+      "date": "2026-11-01T18:56:32Z",
+      "message": "feat(4.4c-4.4d): vrais cours dans le graphique Marché + cascade de sources (D46) (#2)",
+      "url": "https://github.com/ValMtp3/investia/commit/3112541d803b0f6e26f5601bfa57552ac972d4ec"
     },
     "week": {
       "days": 7,
-      "commits": 2,
-      "repos": 1,
+      "commits": 47,
+      "repos": 2,
       "languages": [
         {
-          "name": "CSS",
-          "share": 44
+          "name": "Python",
+          "share": 65
+        },
+        {
+          "name": "TypeScript",
+          "share": 23
         },
         {
           "name": "Docs",
-          "share": 37
+          "share": 10
         },
         {
-          "name": "JavaScript",
-          "share": 15
-        },
-        {
-          "name": "HTML",
-          "share": 3
+          "name": "Config",
+          "share": 2
         }
       ]
     }
