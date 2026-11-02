@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T21:27:26.794Z",
+  "generatedAt": "2026-11-02T03:09:06.330Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
@@ -34,32 +34,6 @@
   },
   "om": {
     "last": {
-      "date": "2026-10-25T16:15:00Z",
-      "competition": "Ligue 1",
-      "matchday": 8,
-      "home": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "away": {
-        "name": "Le Havre",
-        "tla": "HAC",
-        "colors": [
-          "#1d305c",
-          "#8bc0e8"
-        ]
-      },
-      "outcome": "win",
-      "score": {
-        "home": 4,
-        "away": 3
-      }
-    },
-    "next": {
       "date": "2026-11-01T19:45:00Z",
       "competition": "Ligue 1",
       "matchday": 9,
@@ -77,6 +51,32 @@
         "colors": [
           "#37274f",
           "#fcfbfc"
+        ]
+      },
+      "outcome": "win",
+      "score": {
+        "home": 2,
+        "away": 0
+      }
+    },
+    "next": {
+      "date": "2026-11-08T19:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 10,
+      "home": {
+        "name": "RC Lens",
+        "tla": "RCL",
+        "colors": [
+          "#ed1c24",
+          "#fff300"
+        ]
+      },
+      "away": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
         ]
       }
     },
