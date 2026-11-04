@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-04T07:00:56.777Z",
+  "generatedAt": "2026-11-04T20:06:45.745Z",
   "mix": [
     {
       "label": "Crypto",
-      "share": 65
+      "share": 70
     },
     {
       "label": "Actions",
@@ -11,7 +11,7 @@
     },
     {
       "label": "ETF",
-      "share": 10
+      "share": 5
     }
   ],
   "regions": [
@@ -49,7 +49,7 @@
   "behaviour": {
     "avgHoldingDays": 148,
     "oldestPositionMonths": 8,
-    "ordersLast30d": 26,
+    "ordersLast30d": 25,
     "buyRatio": 95,
     "favouriteDay": "mardi"
   },
