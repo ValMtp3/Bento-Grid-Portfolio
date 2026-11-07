@@ -1,65 +1,39 @@
 {
-  "generatedAt": "2026-10-26T02:08:31.926Z",
+  "generatedAt": "2026-11-04T22:58:21.036Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/chiffremento-go-cli",
-      "sha": "e1811c115f5617ed3c4ce5171a07ffce8d09b10d",
-      "date": "2026-10-25T21:18:55Z",
-      "message": "docs: aligne la documentation sur la version 2.4.0",
-      "url": "https://github.com/ValMtp3/chiffremento-go-cli/commit/e1811c115f5617ed3c4ce5171a07ffce8d09b10d"
+      "repo": "ValMtp3/investia",
+      "sha": "3112541d803b0f6e26f5601bfa57552ac972d4ec",
+      "date": "2026-11-01T18:56:32Z",
+      "message": "feat(4.4c-4.4d): vrais cours dans le graphique Marché + cascade de sources (D46) (#2)",
+      "url": "https://github.com/ValMtp3/investia/commit/3112541d803b0f6e26f5601bfa57552ac972d4ec"
     },
     "week": {
       "days": 7,
-      "commits": 104,
-      "repos": 2,
+      "commits": 45,
+      "repos": 1,
       "languages": [
         {
-          "name": "Go",
-          "share": 56
+          "name": "Python",
+          "share": 65
+        },
+        {
+          "name": "TypeScript",
+          "share": 23
         },
         {
           "name": "Docs",
-          "share": 24
+          "share": 10
         },
         {
           "name": "Config",
-          "share": 13
-        },
-        {
-          "name": "Shell",
-          "share": 7
+          "share": 2
         }
       ]
     }
   },
   "om": {
     "last": {
-      "date": "2026-10-25T16:15:00Z",
-      "competition": "Ligue 1",
-      "matchday": 8,
-      "home": {
-        "name": "Marseille",
-        "tla": "MAR",
-        "colors": [
-          "#0d61ab",
-          "#fefefe"
-        ]
-      },
-      "away": {
-        "name": "Le Havre",
-        "tla": "HAC",
-        "colors": [
-          "#1d305c",
-          "#8bc0e8"
-        ]
-      },
-      "outcome": "win",
-      "score": {
-        "home": 4,
-        "away": 3
-      }
-    },
-    "next": {
       "date": "2026-11-01T19:45:00Z",
       "competition": "Ligue 1",
       "matchday": 9,
@@ -78,13 +52,39 @@
           "#37274f",
           "#fcfbfc"
         ]
+      },
+      "outcome": "win",
+      "score": {
+        "home": 2,
+        "away": 0
+      }
+    },
+    "next": {
+      "date": "2026-11-08T19:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 10,
+      "home": {
+        "name": "RC Lens",
+        "tla": "RCL",
+        "colors": [
+          "#ed1c24",
+          "#fff300"
+        ]
+      },
+      "away": {
+        "name": "Marseille",
+        "tla": "MAR",
+        "colors": [
+          "#0d61ab",
+          "#fefefe"
+        ]
       }
     },
     "standing": {
-      "position": 8,
-      "points": 12,
-      "played": 8,
-      "won": 4,
+      "position": 6,
+      "points": 15,
+      "played": 9,
+      "won": 5,
       "draw": 0,
       "lost": 4
     }
