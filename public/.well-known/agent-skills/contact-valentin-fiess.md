@@ -16,7 +16,7 @@ de sécurité concernant son site.
 
 | Situation | Canal | Adresse |
 | --- | --- | --- |
-| Mission, poste, question technique | Email | `sobre.05.statue@icloud.com` |
+| Mission, poste, question technique | Email | `6.rare.kudzu@icloud.com` |
 | Mise en relation professionnelle | LinkedIn | `https://www.linkedin.com/in/valentin-fiess/` |
 | Sujet lié au code | GitHub | `https://github.com/ValMtp3` |
 | Vulnérabilité sur le site | Email sécurité | voir `https://valentin-fiess.fr/.well-known/security.txt` |

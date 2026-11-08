@@ -39,6 +39,30 @@ describe('renderMarkdown, liens externes', () => {
   });
 });
 
+describe('renderMarkdown, obfuscation des emails', () => {
+  it('ne laisse aucun email en clair dans le HTML rendu', () => {
+    const html = renderMarkdown('Ecrivez a `6.rare.kudzu@icloud.com` pour toute question.');
+    assert.doesNotMatch(html, /6\.rare\.kudzu@icloud\.com/);
+    assert.match(html, /6\.rare\.kudzu \[at\] icloud \[point\] com/);
+  });
+
+  it('obfusque aussi un email hors code literal', () => {
+    const html = renderMarkdown('Contact : contact@ancelade.com.');
+    assert.doesNotMatch(html, /contact@ancelade\.com/);
+    assert.match(html, /contact \[at\] ancelade \[point\] com/);
+  });
+
+  it('ne touche pas aux liens qui ne sont pas des emails', () => {
+    const html = renderMarkdown('[LinkedIn](https://linkedin.com/in/valentin-fiess)');
+    assert.match(html, /<a href="https:\/\/linkedin\.com\/in\/valentin-fiess"/);
+  });
+
+  it('ne fait pas fuiter un email place dans un lien mailto', () => {
+    const html = renderMarkdown('[contact](mailto:6.rare.kudzu@icloud.com)');
+    assert.doesNotMatch(html, /6\.rare\.kudzu@icloud\.com/);
+  });
+});
+
 describe('projets, classement par hebergeur', () => {
   it('garde les libelles des vrais hebergeurs', () => {
     assert.equal(getProjectLinkLabel({ src: 'https://github.com/ValMtp3/Damso' }), 'Voir le dépôt');
