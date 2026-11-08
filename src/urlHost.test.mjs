@@ -41,9 +41,9 @@ describe('renderMarkdown, liens externes', () => {
 
 describe('renderMarkdown, obfuscation des emails', () => {
   it('ne laisse aucun email en clair dans le HTML rendu', () => {
-    const html = renderMarkdown('Ecrivez a `6.rare.kudzu@icloud.com` pour toute question.');
-    assert.doesNotMatch(html, /6\.rare\.kudzu@icloud\.com/);
-    assert.match(html, /6\.rare\.kudzu \[at\] icloud \[point\] com/);
+    const html = renderMarkdown('Ecrivez a `contact@exemple.fr` pour toute question.');
+    assert.doesNotMatch(html, /contact@exemple\.fr/);
+    assert.match(html, /contact \[at\] exemple \[point\] fr/);
   });
 
   it('obfusque aussi un email hors code literal', () => {
@@ -58,8 +58,8 @@ describe('renderMarkdown, obfuscation des emails', () => {
   });
 
   it('ne fait pas fuiter un email place dans un lien mailto', () => {
-    const html = renderMarkdown('[contact](mailto:6.rare.kudzu@icloud.com)');
-    assert.doesNotMatch(html, /6\.rare\.kudzu@icloud\.com/);
+    const html = renderMarkdown('[contact](mailto:contact@exemple.fr)');
+    assert.doesNotMatch(html, /contact@exemple\.fr/);
   });
 });
 
