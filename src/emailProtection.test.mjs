@@ -36,3 +36,44 @@ describe('EmailProtection.vue, protection de l email', () => {
     assert.match(source, /window\.location\.href = `mailto:\$\{email\}`/);
   });
 });
+
+// Visiteur sans application mail (Gmail dans le navigateur) : le clic ne fait
+// rien et le texte « [at] » n'est pas copiable. Le bouton « Copier » comble ce
+// trou sans remettre l'email dans le DOM avant le clic.
+describe('EmailProtection.vue, copie et accessibilite', () => {
+  const template = source.split('<template>')[1] ?? '';
+
+  it('propose un bouton Copier qui ne soumet rien', () => {
+    assert.match(template, /<button[^>]*type="button"/);
+    assert.match(template, /@click="copyEmail"/);
+  });
+
+  it("copie l'adresse via l'API presse-papiers, au clic seulement", () => {
+    assert.match(source, /navigator\.clipboard\.writeText\(email\)/);
+    assert.ok(
+      !template.includes('navigator.clipboard'),
+      'la copie ne doit pas se declencher au rendu',
+    );
+  });
+
+  it("gere l'echec de la copie (contexte non securise, permission refusee)", () => {
+    assert.match(source, /try\s*\{[\s\S]*clipboard[\s\S]*\}\s*catch/);
+  });
+
+  it('annonce le resultat aux lecteurs d ecran via une zone aria-live', () => {
+    assert.match(template, /aria-live="polite"/);
+  });
+
+  it('nettoie le minuteur au demontage du composant', () => {
+    assert.match(source, /onUnmounted\(/);
+    assert.match(source, /clearTimeout\(/);
+  });
+
+  it("donne au lien un aria-label qui lit l'adresse (pas « at » / « point »)", () => {
+    assert.match(template, /:aria-label="spokenEmail"/);
+  });
+
+  it('applique les attributs du parent au lien seulement (wrapper inline)', () => {
+    assert.match(source, /defineOptions\(\{\s*inheritAttrs:\s*false\s*\}\)/);
+  });
+});
