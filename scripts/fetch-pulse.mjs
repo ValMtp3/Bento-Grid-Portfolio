@@ -5,7 +5,9 @@
 // fait deja le graphe de contributions. Un commit de ce JSON suffit a mettre le
 // site a jour, sans redeploiement.
 //
-// Sources : activite GitHub publique + actualite de l'OM (football-data.org).
+// Sources : activite GitHub publique + actualite de l'OM (football-data.org
+// pour la Ligue 1 et la Ligue des champions, apifootball.com pour la Coupe de
+// France et l'Europe quand l'OM n'est pas en C1).
 // La meteo et l'heure restent cote client, elles doivent etre vraies a la
 // seconde ou la page se charge.
 //
@@ -15,6 +17,10 @@
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+
+import { collectApifootballOm } from './pulse-apifootball.mjs';
+import { knownClubColors } from './pulse-club-colors.mjs';
+import { dedupeMatches, footballDataToMatch } from './pulse-cups.mjs';
 
 const GITHUB_USER = 'ValMtp3';
 const OM_TEAM_ID = 516;
@@ -254,9 +260,14 @@ const dominantColors = (pixels) => {
     buckets.set(key, bucket);
   }
 
-  const ranked = [...buckets.values()]
+  // Le blanc d'un ecusson (fond, cercle interieur) est souvent le plus
+  // frequent sans etre la couleur du club : il passe apres les autres, et ne
+  // sert que s'il ne reste rien d'autre.
+  const isWhite = ([r, g, b]) => r > 225 && g > 225 && b > 225;
+  const byCount = [...buckets.values()]
     .sort((a, b) => b.count - a.count)
     .map(({ count, r, g, b }) => [r / count, g / count, b / count]);
+  const ranked = [...byCount.filter((c) => !isWhite(c)), ...byCount.filter(isWhite)];
 
   if (!ranked.length) return null;
 
@@ -283,6 +294,26 @@ const colorsFromPng = async (buffer) => {
   return dominantColors(pixels);
 };
 
+// Les badges apifootball.com sont des .jpg, sans transparence : le fond blanc
+// de l'image dominerait toutes les moyennes. On ignore donc les pixels presque
+// blancs ; un club a maillot blanc garde alors sa vraie couleur principale.
+const NEAR_WHITE = 225;
+
+const colorsFromJpeg = async (buffer) => {
+  const jpeg = await import('jpeg-js');
+  const { data, width, height } = (jpeg.default ?? jpeg).decode(buffer, { useTArray: true });
+
+  const pixels = [];
+  for (let index = 0; index < width * height; index += 1) {
+    const offset = index * 4;
+    const [r, g, b] = [data[offset], data[offset + 1], data[offset + 2]];
+    if (r > NEAR_WHITE && g > NEAR_WHITE && b > NEAR_WHITE) continue;
+    pixels.push([r, g, b]);
+  }
+
+  return dominantColors(pixels);
+};
+
 const colorsFromSvg = (source) => {
   const found = [...source.matchAll(/(?:fill|stop-color)\s*[:=]\s*"?(#[0-9a-f]{3,6})/gi)].map(
     (match) => fromHex(match[1]),
@@ -302,9 +333,15 @@ const crestColors = async (crestUrl) => {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const buffer = Buffer.from(await response.arrayBuffer());
-    const colors = crestUrl.endsWith('.svg')
-      ? colorsFromSvg(buffer.toString('utf8'))
-      : await colorsFromPng(buffer);
+    // Le format se lit dans les premiers octets, pas dans l'extension :
+    // apifootball sert des PNG sous une URL en .jpg.
+    const isPng = buffer.subarray(0, 4).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47]));
+    const isJpeg = buffer[0] === 0xff && buffer[1] === 0xd8;
+
+    let colors;
+    if (isPng) colors = await colorsFromPng(buffer);
+    else if (isJpeg) colors = await colorsFromJpeg(buffer);
+    else colors = colorsFromSvg(buffer.toString('utf8'));
 
     if (!colors) throw new Error('aucune couleur dominante exploitable');
     return colors.map(toHex);
@@ -327,33 +364,53 @@ const separate = (home, away) => {
   return [toHex(darkened), away[1]];
 };
 
-// L'ecusson lui-meme n'est pas publie : la direction artistique impose une
-// iconographie monochrome, et on evite au passage 4 images externes par page.
-const teamOf = (team) => ({ name: team.shortName || team.name, tla: team.tla });
+// --- apifootball.com (cle gratuite apifootball.com) ----------------------------
+// Couvre ce que le tier gratuit de football-data.org ne voit pas : la Coupe de
+// France, et l'Europe quand l'OM n'est pas en Ligue des champions (Europa
+// League / Conference League). football-data.org reste la source de la Ligue 1
+// et de la C1. Authentification par parametre APIkey (voir leur documentation).
+// Le workflow tourne 4 fois par jour et ce collecteur fait ~6 requetes par run.
+// La logique vit dans pulse-apifootball.mjs (testee avec get injecte) ; ici
+// seul le transport.
+const APIFOOTBALL_BASE = 'https://apiv3.apifootball.com/';
+
+const apifootballGet = async (action, params = {}) => {
+  const key = process.env.APIFOOTBALL_API_KEY;
+  if (!key) throw new Error('APIFOOTBALL_API_KEY manquante');
+  const query = new URLSearchParams({ action, ...params, APIkey: key });
+  const response = await fetch(`${APIFOOTBALL_BASE}?${query}`);
+  if (!response.ok) {
+    throw new Error(`apifootball ${action} -> ${response.status} ${response.statusText}`);
+  }
+  const body = await response.json();
+  if (body && !Array.isArray(body) && body.error) {
+    throw new Error(`apifootball ${action} -> ${String(body.error).slice(0, 200)}`);
+  }
+  return Array.isArray(body) ? body : [];
+};
 
 // "outcome" est calcule du point de vue de l'OM : la cellule doit assumer les
 // defaites autant que les victoires.
-const outcomeFor = (match) => {
-  const winner = match.score?.winner;
-  if (!winner) return 'unknown';
-  if (winner === 'DRAW') return 'draw';
-  const omIsHome = match.homeTeam.id === OM_TEAM_ID;
-  const omWon = (winner === 'HOME_TEAM' && omIsHome) || (winner === 'AWAY_TEAM' && !omIsHome);
-  return omWon ? 'win' : 'loss';
+const outcomeOf = (match) => {
+  if (!match.winner) return 'unknown';
+  if (match.winner === 'DRAW') return 'draw';
+  return (match.winner === 'HOME') === match.home.om ? 'win' : 'loss';
 };
 
-const shapeMatch = async (match) => {
-  const [homeColors, awayColors] = await Promise.all([
-    crestColors(match.homeTeam.crest),
-    crestColors(match.awayTeam.crest),
-  ]);
+// L'ecusson lui-meme n'est pas publie : la direction artistique impose une
+// iconographie monochrome, et on evite au passage 4 images externes par page.
+const shapeCanonical = async (match) => {
+  // Table de reference d'abord (l'OM y est toujours bleu ciel et blanc),
+  // extraction de l'ecusson seulement pour un club inconnu.
+  const colorsOf = async (team) => knownClubColors(team) ?? crestColors(team.crest);
+  const [homeColors, awayColors] = await Promise.all([colorsOf(match.home), colorsOf(match.away)]);
 
   return {
-    date: match.utcDate,
+    date: match.date,
     competition: match.competition?.name ?? null,
     matchday: match.matchday ?? null,
-    home: { ...teamOf(match.homeTeam), colors: homeColors },
-    away: { ...teamOf(match.awayTeam), colors: separate(homeColors, awayColors) },
+    home: { name: match.home.name, tla: match.home.tla, colors: homeColors },
+    away: { name: match.away.name, tla: match.away.tla, colors: separate(homeColors, awayColors) },
   };
 };
 
@@ -362,17 +419,35 @@ const collectOm = async () => {
   const iso = (offset) => new Date(Date.now() + offset).toISOString().slice(0, 10);
 
   // Une seule requete couvre passe et futur : le filtre "status" de l'API n'est
-  // pas fiable, on tranche nous-memes sur les dates.
-  const { matches = [] } = await footballGet(
-    `/teams/${OM_TEAM_ID}/matches?dateFrom=${iso(-45 * day)}&dateTo=${iso(45 * day)}`,
+  // pas fiable, on tranche nous-memes sur les dates. Fenetre large : entre deux
+  // tours de coupe, le prochain match peut etre a plus de 45 jours.
+  const { matches: fdRaw = [] } = await footballGet(
+    `/teams/${OM_TEAM_ID}/matches?dateFrom=${iso(-120 * day)}&dateTo=${iso(120 * day)}`,
   );
 
-  const byDate = (a, b) => new Date(a.utcDate) - new Date(b.utcDate);
-  const finished = matches.filter((match) => match.status === 'FINISHED').sort(byDate);
-  const upcoming = matches.filter((match) => match.status !== 'FINISHED').sort(byDate);
+  // apifootball.com peut manquer (cle absente, quota atteint) : on degrade sur
+  // football-data.org seul, comme avant, et les coupes gardent leur ancienne
+  // valeur via le mecanisme "settle" global.
+  let afMatches = [];
+  let cups = { france: null, europe: null };
+  try {
+    const collected = await collectApifootballOm(apifootballGet);
+    afMatches = collected.matches;
+    cups = collected.cups;
+  } catch (error) {
+    console.error(`[pulse] apifootball indisponible : ${error.message} — dernier/prochain = football-data.org seul`);
+  }
 
-  const last = finished.at(-1);
-  const next = upcoming[0];
+  // Les deux sources renvoient les memes matchs : on deduplique, football-data
+  // d'abord (ses abreviations et noms courts sont meilleurs pour l'affichage).
+  const all = dedupeMatches(
+    [...fdRaw.map(footballDataToMatch), ...afMatches].filter(
+      (match) => match.status !== 'CANCELED' && match.competition.code !== 'FRIENDLY',
+    ),
+  ).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const last = all.filter((match) => match.status === 'FINISHED').at(-1);
+  const next = all.find((match) => match.status !== 'FINISHED');
 
   let standing = null;
   try {
@@ -396,13 +471,14 @@ const collectOm = async () => {
   return {
     last: last
       ? {
-          ...(await shapeMatch(last)),
-          outcome: outcomeFor(last),
-          score: { home: last.score.fullTime.home, away: last.score.fullTime.away },
+          ...(await shapeCanonical(last)),
+          outcome: outcomeOf(last),
+          score: { home: last.score?.home ?? null, away: last.score?.away ?? null },
         }
       : null,
-    next: next ? await shapeMatch(next) : null,
+    next: next ? await shapeCanonical(next) : null,
     standing,
+    cups,
   };
 };
 
@@ -496,4 +572,8 @@ await writeFile(OUTPUT_PATH, `${JSON.stringify(pulse, null, 2)}\n`);
 console.log(`Pulse ecrit : ${OUTPUT_PATH}`);
 console.log(`  github : ${github ? `${github.week.commits} commits / ${github.week.repos} repos` : 'indisponible'}`);
 console.log(`  om     : ${om?.last ? `dernier ${om.last.score.home}-${om.last.score.away} (${om.last.outcome})` : 'indisponible'}`);
+const cups = om?.cups;
+console.log(
+  `  coupes : CDF ${cups?.france?.text ?? 'pas commencee'} | Europe ${cups?.europe ? `${cups.europe.competition} ${cups.europe.text}` : 'aucune'}`,
+);
 console.log(`  favoris: ${favoris ? `${favoris.series.length} series / ${favoris.films.length} films` : 'indisponible'}`);
