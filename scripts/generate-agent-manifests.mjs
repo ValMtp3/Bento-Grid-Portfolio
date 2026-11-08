@@ -267,7 +267,9 @@ const buildArd = () => ({
     language: 'fr',
     license: 'https://creativecommons.org/licenses/by/4.0/',
   },
-  contact: { email: IDENTITY.email, url: `${SITE_URL}/contact` },
+  // Pas d'email en clair dans les manifestes : un harvester les scanne comme
+  // le HTML. Le contact passe par le formulaire /contact.
+  contact: { url: `${SITE_URL}/contact` },
   // Ce que le site sait faire, en clair : un agent doit pouvoir arbitrer sans
   // ouvrir une seule page.
   capabilities: [
@@ -313,7 +315,7 @@ const buildAiCatalog = () => ({
     name: IDENTITY.name,
     type: 'Person',
     url: `${SITE_URL}/`,
-    email: IDENTITY.email,
+    // idem : pas d'email en clair (voir contact dans buildArd).
     sameAs: IDENTITY.sameAs,
   },
   content: publicRoutes.map((route) => ({

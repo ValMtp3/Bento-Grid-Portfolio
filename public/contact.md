@@ -11,16 +11,16 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
 
-- **Email** — `6.rare.kudzu@icloud.com`. C'est le canal principal et le
-  plus fiable. C'est aussi l'adresse de contact publiée dans
-  [/.well-known/security.txt](/.well-known/security.txt) pour les rapports de
-  sécurité concernant ce site.
+- **Formulaire de contact** — [/contact](/contact). C'est le canal principal et
+  le plus fiable, protégé par Cloudflare Turnstile contre les envois
+  automatisés. L'adresse email directe n'est pas publiée en clair sur le site
+  (protection anti-spam) : le lien « Email » des pages Mentions légales et
+  Confidentialité la reconstruit au clic. Pour les rapports de sécurité
+  concernant ce site, voir aussi [/.well-known/security.txt](/.well-known/security.txt).
 - **LinkedIn** — [linkedin.com/in/valentin-fiess](https://www.linkedin.com/in/valentin-fiess/),
   pour les échanges professionnels et les mises en relation.
 - **GitHub** — [github.com/ValMtp3](https://github.com/ValMtp3), pour tout ce
   qui concerne le code, y compris le code source de ce site.
-- **Formulaire** — la page d'accueil comporte un formulaire de contact, protégé
-  par Cloudflare Turnstile contre les envois automatisés.
 
 ## Localisation et disponibilité
 

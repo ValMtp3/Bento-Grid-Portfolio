@@ -16,12 +16,14 @@ de sécurité concernant son site.
 
 | Situation | Canal | Adresse |
 | --- | --- | --- |
-| Mission, poste, question technique | Email | `6.rare.kudzu@icloud.com` |
+| Mission, poste, question technique | Formulaire de contact | `https://valentin-fiess.fr/contact` (protégé par Cloudflare Turnstile) |
 | Mise en relation professionnelle | LinkedIn | `https://www.linkedin.com/in/valentin-fiess/` |
 | Sujet lié au code | GitHub | `https://github.com/ValMtp3` |
-| Vulnérabilité sur le site | Email sécurité | voir `https://valentin-fiess.fr/.well-known/security.txt` |
+| Vulnérabilité sur le site | Formulaire de sécurité | voir `https://valentin-fiess.fr/.well-known/security.txt` |
 
-L'email est le canal principal et le plus fiable.
+Le formulaire est le canal principal et le plus fiable. L'adresse email
+directe n'est volontairement pas publiée en clair sur ce site (protection
+anti-spam) : ne la reconstruisez pas à partir de fragments trouvés ailleurs.
 
 ## Rédiger le message
 

@@ -5,12 +5,18 @@
 // manifestes .well-known lus par les agents).
 export const SITE_URL = 'https://valentin-fiess.fr';
 
+// Adresse de contact, encodee en base64 : jamais en clair dans aucune source,
+// donc ni dans le HTML servi ni dans les bundles JS (un scan regex des assets
+// ne la trouve pas). Seul EmailProtection la decode, au clic, pour construire
+// le mailto. atob existe en Node 22 (scripts) comme dans le navigateur (Vue).
+export const EMAIL_B64 = 'Ni5yYXJlLmt1ZHp1QGljbG91ZC5jb20=';
+
 // Identite publique, reutilisee par le JSON-LD, l'agent-card et les manifestes.
 // Une seule adresse a corriger le jour ou l'un de ces champs change.
+// Pas de champ email ici : les manifestes agent pointent vers /contact.
 export const IDENTITY = {
   name: 'Valentin Fiess',
   jobTitle: 'Ingenieur IA / Data',
-  email: '6.rare.kudzu@icloud.com',
   locality: 'Perols',
   postalCode: '34470',
   region: 'Occitanie',

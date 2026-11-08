@@ -2,6 +2,7 @@
 // Les balises meta de la page sont appliquees par App.vue depuis router/index.js.
 import DocSection from '@/components/include/DocSection.vue';
 import EmailProtection from '@/components/include/EmailProtection.vue';
+import { EMAIL_B64 } from '@/data/seo.js';
 </script>
 
 <template>
@@ -68,8 +69,7 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
           aux demandes futures. Vous avez toutefois le droit de demander la suppression de vos
           données à tout moment en me contactant à l'adresse suivante :
           <EmailProtection
-            user="6.rare.kudzu"
-            domain="icloud.com"
+            :value="EMAIL_B64"
             class="text-blue-600 dark:text-regal-navy-300"
           />.
         </p>
@@ -124,8 +124,7 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
         <p>
           Pour exercer ces droits, vous pouvez me contacter par email à l'adresse suivante :
           <EmailProtection
-            user="6.rare.kudzu"
-            domain="icloud.com"
+            :value="EMAIL_B64"
             class="text-blue-600 dark:text-regal-navy-300"
           />.
         </p>
