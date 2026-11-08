@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T20:06:45.745Z",
+  "generatedAt": "2026-11-08T06:39:25.447Z",
   "mix": [
     {
       "label": "Crypto",
@@ -47,8 +47,8 @@
     "workingShare": 5
   },
   "behaviour": {
-    "avgHoldingDays": 148,
-    "oldestPositionMonths": 8,
+    "avgHoldingDays": 152,
+    "oldestPositionMonths": 9,
     "ordersLast30d": 25,
     "buyRatio": 95,
     "favouriteDay": "mardi"
