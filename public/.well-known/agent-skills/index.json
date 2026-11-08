@@ -12,7 +12,7 @@
       "description": "Préparer une prise de contact pertinente avec Valentin Fiess, ingénieur IA/Data, en choisissant le bon canal et en rédigeant un message que son destinataire peut traiter rapidement.",
       "type": "skill-md",
       "url": "https://valentin-fiess.fr/.well-known/agent-skills/contact-valentin-fiess.md",
-      "digest": "sha256:8a726342fa93730cbb5c63b8159928beb016af25af42e608b8544e38884cbfe3",
+      "digest": "sha256:6fd03fcc0b8b31f7212b87a88a2c08440e21b95e9de04c1a8f1c70e1297b14b1",
       "license": "CC-BY-4.0"
     },
     {

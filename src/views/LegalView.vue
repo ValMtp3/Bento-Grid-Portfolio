@@ -2,6 +2,7 @@
 // Les balises meta de la page sont appliquees par App.vue depuis router/index.js.
 import DocSection from '@/components/include/DocSection.vue';
 import EmailProtection from '@/components/include/EmailProtection.vue';
+import { EMAIL_B64 } from '@/data/seo.js';
 </script>
 
 <template>
@@ -14,7 +15,7 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
         <p><strong>Adresse :</strong> 34470 Pérols</p>
         <p>
           <strong>Email :</strong>
-          <EmailProtection user="6.rare.kudzu" domain="icloud.com" class="text-regal-navy-500" />
+          <EmailProtection :value="EMAIL_B64" class="text-regal-navy-500" />
         </p>
       </DocSection>
 

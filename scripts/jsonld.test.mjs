@@ -6,8 +6,10 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { IDENTITY, seoRoutes } from '../src/data/seo.js';
+import { EMAIL_B64, IDENTITY, seoRoutes } from '../src/data/seo.js';
 import { buildJsonLd } from './generate-agent-manifests.mjs';
+
+const EMAIL = atob(EMAIL_B64);
 
 describe('buildJsonLd, protection de l email', () => {
   it('ne contient aucune adresse email en clair, sur toutes les routes', () => {
@@ -17,7 +19,7 @@ describe('buildJsonLd, protection de l email', () => {
     for (const route of prerendered) {
       const json = JSON.stringify(buildJsonLd(route));
       assert.ok(
-        !json.includes(IDENTITY.email),
+        !json.includes(EMAIL),
         `la route ${route.path} fuit l'email dans son JSON-LD`,
       );
       assert.doesNotMatch(json, /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);

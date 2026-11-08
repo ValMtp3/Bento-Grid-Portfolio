@@ -19,8 +19,7 @@ nécessaire pour mesurer l'audience et permettre une prise de contact.
 
 ## Responsable du traitement
 
-Valentin Fiess, 34470 Pérols, France. Contact :
-`6.rare.kudzu@icloud.com`.
+Valentin Fiess, 34470 Pérols, France. Contact : [formulaire de contact](/contact).
 
 ## Ce qui est collecté
 
@@ -58,7 +57,7 @@ demander la suppression à tout moment, à l'adresse indiquée ci-dessous.
 
 Conformément au RGPD, vous disposez d'un droit d'accès, de rectification,
 d'effacement, de limitation et d'opposition sur vos données. Pour l'exercer,
-écrivez à `6.rare.kudzu@icloud.com`. Vous pouvez également introduire une
+utilisez le [formulaire de contact](/contact). Vous pouvez également introduire une
 réclamation auprès de la CNIL.
 
 ## Sécurité
