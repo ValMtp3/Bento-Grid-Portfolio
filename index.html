@@ -21,6 +21,14 @@
         // JavaScript, la marque n'existe pas et le contenu reste visible.
         racine.classList.add('js');
 
+        // Filet de securite : si l'application ne monte pas (script principal
+        // bloque, reseau coupe, erreur de chargement), le contenu de secours
+        // reapparait au lieu de laisser une page blanche. src/main.js pose
+        // `app-ready` une fois Vue monte.
+        window.setTimeout(function () {
+          if (!racine.classList.contains('app-ready')) racine.classList.remove('js');
+        }, 3000);
+
         var systemeSombre =
           typeof window.matchMedia === 'function' &&
           window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -132,7 +140,7 @@
         max-width: 46rem;
         margin: 0 auto;
         padding: 2.5rem 1.25rem;
-        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-family: 'Nordwand Mono', system-ui, monospace;
         line-height: 1.7;
         color: #3b2a24;
       }

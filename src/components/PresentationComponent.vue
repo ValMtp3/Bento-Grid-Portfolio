@@ -1,9 +1,38 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import ResponsiveImage from './ResponsiveImage.vue';
 import LobsterParade from './LobsterParade.vue';
 import { trackMatomoEvent } from '@/matomo';
+import { createTerminalPlayer } from '@/terminal';
+
+// Nom de la cellule hero, tape façon terminal au chargement : le texte se
+// frappe caractere par caractere puis le curseur bloc clignote en continu.
+// Valeur par defaut = texte complet, donc le rendu pre-rendu et le sans-JS
+// l'affichent tel quel ; l'animation ne fait que le retaper cote client.
+// prefers-reduced-motion : on ne retape pas.
+const NAME = 'Valentin Fiess';
+const nameVisible = ref(NAME);
+let namePlayer = null;
+
+onMounted(() => {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  nameVisible.value = '';
+  namePlayer = createTerminalPlayer({
+    lines: [NAME],
+    loop: false,
+    // ~1 s de curseur seul avant la premiere frappe (rythme par defaut) :
+    // assez pour voir le curseur, assez court pour que le nom ne reste pas
+    // vide longtemps (lecteurs d'ecran, robots qui executent le JS).
+    blinkMs: 1100,
+    onUpdate: (visible) => {
+      nameVisible.value = visible[0] ?? '';
+    },
+  });
+  namePlayer.play();
+});
+
+onBeforeUnmount(() => namePlayer?.stop());
 
 // Cinq clics sur la pastille lachent la file de homards. Le compteur se remet a
 // zero a la fin du passage, l'oeuf de Paques est donc rejouable.
@@ -93,8 +122,11 @@ const maskStyle = (icon) => ({
           </p>
           <h1
             class="text-2xl sm:text-3xl font-bold font-heading text-coffee-bean-950 dark:text-soft-blush-50 mb-1"
+            :aria-label="NAME"
           >
-            Valentin Fiess
+            <span aria-hidden="true"
+              >{{ nameVisible }}<span class="terminal-caret"></span
+            ></span>
           </h1>
           <h2
             class="text-lg sm:text-xl font-heading text-regal-navy-600 dark:text-regal-navy-400 font-semibold mb-3"

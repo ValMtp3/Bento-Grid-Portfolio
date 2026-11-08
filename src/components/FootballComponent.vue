@@ -10,6 +10,20 @@ const last = computed(() => om.value?.last ?? null);
 const next = computed(() => om.value?.next ?? null);
 const standing = computed(() => om.value?.standing ?? null);
 
+// Coupes suivies en plus de la Ligue 1, en statique (l'animation terminal vit
+// sur le nom du hero, pas ici) : absentes tant que la competition n'a pas
+// commence pour l'OM (ex. Coupe de France avant les 32es de janvier).
+const cupFrance = computed(() => om.value?.cups?.france ?? null);
+const cupEurope = computed(() => om.value?.cups?.europe ?? null);
+
+// Meme grammaire que la pastille de resultat : elimine reste neutre (coffee),
+// en lice en navy, victoire en vert.
+const cupClass = (run) => {
+  if (run?.state === 'eliminated') return 'text-coffee-bean-500 dark:text-soft-blush-400';
+  if (run?.state === 'winner') return 'text-emerald-600 dark:text-emerald-400';
+  return 'text-regal-navy-600 dark:text-regal-navy-400';
+};
+
 const lastAge = computed(() => formatRelative(last.value?.date));
 const nextDate = computed(() => formatMatchDate(next.value?.date));
 
@@ -54,7 +68,9 @@ onMounted(() => {
 <template>
   <!-- OM cell -->
   <div class="md:col-span-2 bento-cell p-5 sm:p-6 flex flex-col gap-4">
-    <div class="flex items-start justify-between gap-3">
+    <!-- Mobile : le classement passe sous le titre, sinon le nom du club est
+         ecrase dans une colonne etroite et se coupe sur trois lignes. -->
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
       <div>
         <p
           class="mb-1 font-code text-[10px] font-semibold uppercase tracking-[0.18em] text-spicy-paprika-600 dark:text-spicy-paprika-400"
@@ -68,41 +84,53 @@ onMounted(() => {
         </h3>
       </div>
 
-      <p
-        v-if="standing"
-        class="shrink-0 text-right font-code text-[10px] text-coffee-bean-600 dark:text-soft-blush-300"
-      >
-        <span class="font-heading text-lg font-bold text-coffee-bean-950 dark:text-soft-blush-50">
-          {{ standing.position }}<sup>e</sup>
-        </span>
-        <br />
-        {{ standing.points }} pts · {{ standing.played }} j
-      </p>
+      <div class="sm:shrink-0 sm:text-right">
+        <p
+          v-if="standing"
+          class="flex items-baseline gap-2 font-code text-[10px] text-coffee-bean-600 sm:flex-col sm:items-end sm:gap-0 dark:text-soft-blush-300"
+        >
+          <span class="font-heading text-lg font-bold text-coffee-bean-950 dark:text-soft-blush-50">
+            {{ standing.position }}<sup>e</sup>
+          </span>
+          <span>{{ standing.points }} pts · {{ standing.played }} j</span>
+        </p>
+        <p v-if="cupFrance" class="mt-1 font-code text-[10px]" :class="cupClass(cupFrance)">
+          CDF · {{ cupFrance.text }}
+        </p>
+        <p v-if="cupEurope" class="mt-0.5 font-code text-[10px]" :class="cupClass(cupEurope)">
+          {{ cupEurope.competition }} · {{ cupEurope.text }}
+        </p>
+      </div>
     </div>
 
     <!-- Dernier resultat -->
-    <div v-if="last" class="border-t border-coffee-bean-200/60 pt-4 dark:border-soft-blush-50/10">
+    <!-- flex-1 + justify-center : quand la grille etire la cellule, le surplus
+         de hauteur se repartit autour du score au lieu de former un trou. -->
+    <div
+      v-if="last"
+      class="flex flex-1 flex-col justify-center border-t border-coffee-bean-200/60 py-4 dark:border-soft-blush-50/10"
+    >
       <div class="mb-2 flex items-center gap-2">
         <span v-if="outcome" class="tag" :class="outcome.classes">{{ outcome.label }}</span>
         <span class="font-code text-[10px] text-coffee-bean-600 dark:text-soft-blush-400">
           {{ lastAge }}
         </span>
       </div>
-      <p class="flex items-center gap-2.5 font-code text-base text-coffee-bean-800 dark:text-soft-blush-200">
+      <p class="flex items-center gap-2 font-code text-base text-coffee-bean-800 sm:gap-4 sm:text-xl dark:text-soft-blush-200">
         <span
-          class="h-6 w-6 shrink-0 rounded team-chip"
+          class="h-7 w-7 shrink-0 rounded team-chip sm:h-9 sm:w-9"
           :style="chipStyle(last.home)"
           aria-hidden="true"
         />
         <span class="font-semibold">{{ last.home.tla }}</span>
         <span
-          class="font-heading text-3xl font-bold leading-none text-coffee-bean-950 dark:text-soft-blush-50"
+          class="font-heading text-3xl font-bold leading-none sm:text-5xl text-coffee-bean-950 dark:text-soft-blush-50"
         >
           {{ last.score.home }} – {{ last.score.away }}
         </span>
         <span class="font-semibold">{{ last.away.tla }}</span>
         <span
-          class="h-6 w-6 shrink-0 rounded team-chip"
+          class="h-7 w-7 shrink-0 rounded team-chip sm:h-9 sm:w-9"
           :style="chipStyle(last.away)"
           aria-hidden="true"
         />
