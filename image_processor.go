@@ -74,8 +74,13 @@ type result struct {
 	filename  string
 	width     int
 	fileSize  int64
-	path      string
 	bgRemoved bool
+}
+
+// Réponse du worker Python, sur une ligne de stdout (handshake et requêtes).
+type workerResponse struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
 }
 
 type rembgWorker struct {
@@ -146,7 +151,7 @@ func main() {
 		}
 		defer worker.stop()
 		if !*quiet {
-			fmt.Println("✅ Worker rembg prêt\n")
+			fmt.Println("✅ Worker rembg prêt")
 		}
 	}
 
@@ -346,10 +351,7 @@ func startRembgWorker(model string) (*rembgWorker, error) {
 		cmd.Process.Kill()
 		return nil, fmt.Errorf("le worker n'a pas envoyé de signal ready")
 	}
-	var resp struct {
-		Status  string `json:"status"`
-		Message string `json:"message"`
-	}
+	var resp workerResponse
 	if err := json.Unmarshal(scanner.Bytes(), &resp); err != nil {
 		cmd.Process.Kill()
 		return nil, fmt.Errorf("réponse worker invalide: %v", err)
@@ -379,10 +381,7 @@ func (w *rembgWorker) remove(input, output string) error {
 	if !w.stdout.Scan() {
 		return fmt.Errorf("worker fermé")
 	}
-	var resp struct {
-		Status  string `json:"status"`
-		Message string `json:"message"`
-	}
+	var resp workerResponse
 	if err := json.Unmarshal(w.stdout.Bytes(), &resp); err != nil {
 		return err
 	}
@@ -532,7 +531,6 @@ func processImage(t task, worker *rembgWorker) (*result, error) {
 		filename:  stem + ".webp",
 		width:     t.width,
 		fileSize:  info.Size(),
-		path:      t.inputPath,
 		bgRemoved: t.bgRemoved,
 	}, nil
 }
