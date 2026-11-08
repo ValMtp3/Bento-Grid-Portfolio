@@ -1,13 +1,11 @@
 // Genere une image Open Graph 1200x630 par route, dans public/assets/og/.
-// satori compose le SVG (texte converti en paths, donc aucune police requise a
-// la rasterisation), resvg produit le PNG attendu par les crawlers sociaux.
+// takumi (moteur Rust) rend le PNG directement a partir de l'arbre de nodes,
+// et lit les polices woff2 nativement : ni decompression ni conversion SVG.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import wawoff2 from 'wawoff2';
+import { render } from 'takumi-js';
 
 import { seoRoutes } from '../src/data/seo.js';
 
@@ -23,19 +21,16 @@ const COLORS = {
   rule: '#35130c', // coffee-bean-700
 };
 
-// Fontsource ne livre que du woff/woff2 ; satori n'accepte ni l'un ni l'autre en
-// woff2, on decompresse donc vers du TTF a la volee.
-const loadFont = async (relativePath) => {
-  const woff2 = await readFile(resolve(root, relativePath));
-  return Buffer.from(await wawoff2.decompress(woff2));
-};
+// takumi accepte le woff2 tel quel : on passe les octets directement.
+const loadFont = (relativePath) => readFile(resolve(root, relativePath));
 
 const layout = ({ kicker, heading, sub }) => ({
   type: 'div',
   props: {
     style: {
-      width: '1200px',
-      height: '630px',
+      // takumi ne remplit pas le canvas tout seul : le root prend 100%.
+      width: '100%',
+      height: '100%',
       display: 'flex',
       backgroundColor: COLORS.bg,
     },
@@ -57,7 +52,9 @@ const layout = ({ kicker, heading, sub }) => ({
               props: {
                 style: {
                   display: 'flex',
-                  fontFamily: 'Intel One Mono',
+                  // takumi parse fontFamily comme du CSS : les noms avec espaces
+                  // ou commençant par un chiffre doivent etre quotes.
+                  fontFamily: '"Intel One Mono"',
                   fontSize: '24px',
                   letterSpacing: '4px',
                   textTransform: 'uppercase',
@@ -75,7 +72,7 @@ const layout = ({ kicker, heading, sub }) => ({
                     type: 'div',
                     props: {
                       style: {
-                        fontFamily: '0xProto',
+                        fontFamily: '"0xProto"',
                         fontWeight: 700,
                         // 0xProto est a chasse fixe : a 96px, une ligne tient 17 caracteres.
                         fontSize: heading.length > 16 ? '76px' : '96px',
@@ -90,7 +87,7 @@ const layout = ({ kicker, heading, sub }) => ({
                     props: {
                       style: {
                         marginTop: '24px',
-                        fontFamily: 'Nordwand Mono',
+                        fontFamily: '"Nordwand Mono"',
                         fontSize: '36px',
                         color: COLORS.sub,
                       },
@@ -109,7 +106,9 @@ const layout = ({ kicker, heading, sub }) => ({
                   justifyContent: 'space-between',
                   borderTop: `2px solid ${COLORS.rule}`,
                   paddingTop: '28px',
-                  fontFamily: 'Intel One Mono',
+                  // takumi parse fontFamily comme du CSS : les noms avec espaces
+                  // ou commençant par un chiffre doivent etre quotes.
+                  fontFamily: '"Intel One Mono"',
                   fontSize: '26px',
                   color: COLORS.sub,
                 },
@@ -130,14 +129,13 @@ const layout = ({ kicker, heading, sub }) => ({
 });
 
 const main = async () => {
-  // En serie, pas en parallele : wawoff2 partage sa memoire WebAssembly entre
-  // appels, deux decompressions simultanees se corrompent (erreur satori
-  // "Unsupported OpenType signature" avec une valeur differente a chaque run).
-  const body400 = await loadFont('src/assets/fonts/nordwand/NordwandMono-Regular.woff2');
-  const mono400 = await loadFont(
-    'node_modules/@fontsource/intel-one-mono/files/intel-one-mono-latin-400-normal.woff2',
-  );
-  const proto700 = await loadFont('src/assets/fonts/0xproto/0xProto-Bold.woff2');
+  // Plus de contrainte de serie : sans wawoff2, les lectures peuvent tourner
+  // en parallele.
+  const [body400, mono400, proto700] = await Promise.all([
+    loadFont('src/assets/fonts/nordwand/NordwandMono-Regular.woff2'),
+    loadFont('node_modules/@fontsource/intel-one-mono/files/intel-one-mono-latin-400-normal.woff2'),
+    loadFont('src/assets/fonts/0xproto/0xProto-Bold.woff2'),
+  ]);
 
   const fonts = [
     { name: 'Nordwand Mono', data: body400, weight: 400, style: 'normal' },
@@ -149,8 +147,7 @@ const main = async () => {
 
   const targets = seoRoutes.filter((route) => route.og);
   for (const route of targets) {
-    const svg = await satori(layout(route.og), { width: 1200, height: 630, fonts });
-    const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
+    const png = await render(layout(route.og), { width: 1200, height: 630, fonts });
     const file = resolve(outDir, `${route.slug}.png`);
     await writeFile(file, png);
     console.log(`og: ${route.slug}.png (${(png.length / 1024).toFixed(0)} Ko)`);
