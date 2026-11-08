@@ -35,9 +35,11 @@ const extractBootScript = () => {
 // Doublures minimales : uniquement ce que le script d'amorçage manipule.
 const runBootScript = ({ storageThrows = false, storedTheme = null } = {}) => {
   const classes = new Set();
+  const timers = [];
 
   const sandbox = {
     window: {
+      setTimeout: (callback) => timers.push(callback),
       matchMedia: () => ({ matches: false }),
       localStorage: {
         getItem: () => {
@@ -50,6 +52,8 @@ const runBootScript = ({ storageThrows = false, storedTheme = null } = {}) => {
       documentElement: {
         classList: {
           add: (name) => classes.add(name),
+          remove: (name) => classes.delete(name),
+          contains: (name) => classes.has(name),
           toggle: (name, force) => (force ? classes.add(name) : classes.delete(name)),
         },
         style: {},
@@ -58,6 +62,8 @@ const runBootScript = ({ storageThrows = false, storedTheme = null } = {}) => {
   };
 
   runInContext(extractBootScript(), createContext(sandbox));
+  // Les minuteurs ne tournent pas seuls : le test decide quand ils expirent.
+  classes.runTimers = () => timers.forEach((callback) => callback());
   return classes;
 };
 
@@ -77,6 +83,24 @@ describe('amorçage de index.html', () => {
       runBootScript({ storageThrows: true }).has('js'),
       "la classe 'js' ne doit pas dependre de l'acces au stockage",
     );
+  });
+});
+
+describe('filet de securite si Vue ne monte pas', () => {
+  it('rend le contenu de secours quand app-ready n\'arrive jamais', () => {
+    // Script principal bloque : sans ce filet, `js` reste pose et la page est blanche.
+    const classes = runBootScript();
+    classes.runTimers();
+
+    assert.equal(classes.has('js'), false);
+  });
+
+  it('garde le contenu cache quand Vue a monte', () => {
+    const classes = runBootScript();
+    classes.add('app-ready');
+    classes.runTimers();
+
+    assert.equal(classes.has('js'), true);
   });
 });
 

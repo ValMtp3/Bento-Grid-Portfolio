@@ -48,14 +48,29 @@ Dans l'interface, les roles sont stabilises ainsi :
 
 ## Typographie
 
-### Space Grotesk
+Trois familles, chacune avec un role unique. Aucune ne doit empieter sur les
+autres.
 
-Police principale et editoriale :
+### Nordwand Mono
 
-- titres et sous-titres ;
-- navigation ;
+Police du texte courant, servie depuis `src/assets/fonts/nordwand/` (quatre
+graisses : 400, 500, 600 et 700 ; licence OFL 1.1). Elle remplace Space Grotesk.
+
 - paragraphes et contenus longs ;
-- libelles qui doivent rester humains et immediatement lisibles.
+- navigation ;
+- explications et libelles courants.
+
+Sa chasse fixe donne au texte courant une lecture d'atelier, proche du terminal.
+Elle est plus large que l'ancienne Space Grotesk : les blocs de texte prennent
+plus de hauteur, donc on ne serre ni les interlignes ni les largeurs de colonne.
+
+### 0xProto
+
+Police des titres, servie depuis `src/assets/fonts/0xproto/` (deux graisses :
+400 et 700).
+
+- titres de section et titres de carte ;
+- accroches courtes qui portent la hierarchie.
 
 ### Intel One Mono
 
@@ -128,7 +143,7 @@ Les signes `~`, `>`, `$`, `/`, crochets et numerotations peuvent servir de ponct
 
 ### Equilibre humain et technique
 
-- Space Grotesk raconte : elle porte les phrases, explications et benefices concrets.
+- Nordwand Mono raconte : elle porte les phrases, explications et benefices concrets.
 - Intel One Mono structure : elle porte les donnees, statuts, dates et reperes techniques.
 - Le homard humanise l'ensemble et evite une interface froide ou interchangeable.
 - Les references geek restent un second niveau de lecture : elles enrichissent l'experience d'un profil technique sans empecher un RH de comprendre le contenu principal.
@@ -192,7 +207,7 @@ Chaque etape est implementee puis soumise a validation avant de commencer la sui
 Les sections editoriales utilisent toutes une structure a deux niveaux :
 
 - un index et une categorie en Intel One Mono, par exemple `02 / PARCOURS` ;
-- un titre principal francais en Space Grotesk, par exemple `Experience professionnelle`.
+- un titre principal francais en 0xProto, par exemple `Experience professionnelle`.
 
 Les index suivent l'ordre de lecture de la page, de `01` a `06`. Le repere est en Spicy Paprika et le titre en Regal Navy afin de conserver les roles de couleur etablis a l'etape 3.
 

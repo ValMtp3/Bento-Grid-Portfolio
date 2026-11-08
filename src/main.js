@@ -1,8 +1,4 @@
 import '../tailwind.css';
-import '@fontsource/space-grotesk/latin-400.css';
-import '@fontsource/space-grotesk/latin-500.css';
-import '@fontsource/space-grotesk/latin-600.css';
-import '@fontsource/space-grotesk/latin-700.css';
 import '@fontsource/intel-one-mono/latin-400.css';
 import '@fontsource/intel-one-mono/latin-500.css';
 import { createApp } from 'vue';
@@ -29,5 +25,8 @@ import('./matomo')
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {
   app.mount('#app');
+  // Signale a index.html que l'application est montee : le contenu de secours
+  // pre-rendu peut rester cache.
+  document.documentElement.classList.add('app-ready');
   printConsoleSignature();
 });

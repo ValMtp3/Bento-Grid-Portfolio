@@ -27,6 +27,38 @@
   font-display: swap;
 }
 
+/* Nordwand Mono n'est pas publiee sur Fontsource : les fichiers viennent de la
+   release GitHub 1.4.0 (tywr/Nordwand-Mono, licence OFL 1.1, voir OFL.txt).
+   Quatre graisses seulement : celles que le site utilise reellement. */
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nordwand Mono';
+  src: url('./src/assets/fonts/nordwand/NordwandMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Custom colors */
   --color-spicy-paprika-50: #fff1ea;
@@ -79,7 +111,7 @@
 
   /* Custom fonts */
   --font-heading: '0xProto', 'Intel One Mono', monospace;
-  --font-body: 'Space Grotesk', sans-serif;
+  --font-body: 'Nordwand Mono', monospace;
   --font-code: 'Intel One Mono', monospace;
 }
 
@@ -348,5 +380,32 @@
      l'impression que le club changeait de couleurs d'un theme a l'autre. */
   .team-chip {
     box-shadow: 0 0 0 1px var(--color-coffee-bean-400);
+  }
+
+  /* Curseur des effets terminal : une barre verticale fine (pas un bloc),
+     alignee sur la ligne de base grace a un decalage en em — elle suit la
+     taille de police, donc elle reste alignee a tous les ecrans. CSS basique
+     uniquement (inline-block + opacity), donc tous les navigateurs. Le bloc
+     prefers-reduced-motion de la couche base la neutralise automatiquement. */
+  .terminal-caret {
+    display: inline-block;
+    width: 0.09em;
+    min-width: 2px;
+    height: 0.95em;
+    margin-left: 0.1em;
+    vertical-align: -0.12em;
+    background: currentColor;
+    animation: terminal-caret-blink 1.1s steps(1, end) infinite;
+  }
+
+  @keyframes terminal-caret-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
   }
 }
