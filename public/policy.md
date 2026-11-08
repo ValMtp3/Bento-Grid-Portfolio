@@ -32,7 +32,7 @@ sections. Une version résumée et plus lisible est disponible sur
 
 ## Exercer ses droits
 
-Écrire à `sobre.05.statue@icloud.com`.
+Écrire à `6.rare.kudzu@icloud.com`.
 
 ## Voir aussi
 

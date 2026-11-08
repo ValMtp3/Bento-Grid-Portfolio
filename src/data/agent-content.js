@@ -139,7 +139,7 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
 
-- **Email** — \`sobre.05.statue@icloud.com\`. C'est le canal principal et le
+- **Email** — \`6.rare.kudzu@icloud.com\`. C'est le canal principal et le
   plus fiable. C'est aussi l'adresse de contact publiée dans
   [/.well-known/security.txt](/.well-known/security.txt) pour les rapports de
   sécurité concernant ce site.
@@ -191,7 +191,7 @@ nécessaire pour mesurer l'audience et permettre une prise de contact.
 ## Responsable du traitement
 
 Valentin Fiess, 34470 Pérols, France. Contact :
-\`sobre.05.statue@icloud.com\`.
+\`6.rare.kudzu@icloud.com\`.
 
 ## Ce qui est collecté
 
@@ -229,7 +229,7 @@ demander la suppression à tout moment, à l'adresse indiquée ci-dessous.
 
 Conformément au RGPD, vous disposez d'un droit d'accès, de rectification,
 d'effacement, de limitation et d'opposition sur vos données. Pour l'exercer,
-écrivez à \`sobre.05.statue@icloud.com\`. Vous pouvez également introduire une
+écrivez à \`6.rare.kudzu@icloud.com\`. Vous pouvez également introduire une
 réclamation auprès de la CNIL.
 
 ## Sécurité
@@ -295,7 +295,7 @@ valentin-fiess.fr.
 ## Éditeur du site
 
 **Valentin Fiess**, 34470 Pérols, France. Contact :
-\`sobre.05.statue@icloud.com\`. Il est également responsable de la
+\`6.rare.kudzu@icloud.com\`. Il est également responsable de la
 publication.
 
 ## Hébergeur
@@ -359,7 +359,7 @@ sections. Une version résumée et plus lisible est disponible sur
 
 ## Exercer ses droits
 
-Écrire à \`sobre.05.statue@icloud.com\`.
+Écrire à \`6.rare.kudzu@icloud.com\`.
 
 ## Voir aussi
 
@@ -384,7 +384,7 @@ export const faq = [
   {
     question: 'Comment le contacter ?',
     answer:
-      "Par email à sobre.05.statue@icloud.com, qui est le canal principal, ou via LinkedIn à linkedin.com/in/valentin-fiess. La page /contact détaille les moyens de contact et les types de missions étudiées.",
+      "Par email à 6.rare.kudzu@icloud.com, qui est le canal principal, ou via LinkedIn à linkedin.com/in/valentin-fiess. La page /contact détaille les moyens de contact et les types de missions étudiées.",
   },
   {
     question: 'Le site propose-t-il une API publique ?',

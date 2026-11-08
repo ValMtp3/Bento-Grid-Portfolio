@@ -26,6 +26,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { agentContent, AGENT_INSTRUCTIONS, faq } from '../src/data/agent-content.js';
+import { obfuscateEmails } from '../src/markdown.js';
 import { IDENTITY, SITE_URL, seoRoutes } from '../src/data/seo.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -495,7 +496,9 @@ export const buildJsonLd = (route) => {
       jobTitle: IDENTITY.jobTitle,
       description: `${IDENTITY.jobTitle} à Montpellier : RAG, LLM, MLOps, Python et applications web.`,
       url: `${SITE_URL}/`,
-      email: `mailto:${IDENTITY.email}`,
+      // Pas de champ email ici : le JSON-LD est injecte en clair dans chaque
+      // coquille HTML, exactement ce que scannent les harvesters de spam.
+      // Le contact reste trouvable via /contact et les manifestes agent.
       image: `${SITE_URL}/assets/assets_index/Valentin_Fiess.webp`,
       sameAs: IDENTITY.sameAs,
       address: {
@@ -508,7 +511,7 @@ export const buildJsonLd = (route) => {
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'professional',
-        email: IDENTITY.email,
+        // idem : pas d'email en clair dans le JSON-LD (voir champ Person ci-dessus).
         url: `${SITE_URL}/contact`,
         availableLanguage: ['fr', 'en'],
       },
@@ -582,8 +585,10 @@ export const buildJsonLd = (route) => {
       '@id': `${SITE_URL}/#faq`,
       mainEntity: faq.map(({ question, answer }) => ({
         '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
+        // Le JSON-LD finit en clair dans le HTML de la page : les emails y
+        // sont obfusses, comme dans le contenu pre-rendu.
+        name: obfuscateEmails(question),
+        acceptedAnswer: { '@type': 'Answer', text: obfuscateEmails(answer) },
       })),
     });
   }
