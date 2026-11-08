@@ -10,7 +10,7 @@ export const SITE_URL = 'https://valentin-fiess.fr';
 export const IDENTITY = {
   name: 'Valentin Fiess',
   jobTitle: 'Ingenieur IA / Data',
-  email: 'sobre.05.statue@icloud.com',
+  email: '6.rare.kudzu@icloud.com',
   locality: 'Perols',
   postalCode: '34470',
   region: 'Occitanie',

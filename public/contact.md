@@ -11,7 +11,7 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
 
-- **Email** — `sobre.05.statue@icloud.com`. C'est le canal principal et le
+- **Email** — `6.rare.kudzu@icloud.com`. C'est le canal principal et le
   plus fiable. C'est aussi l'adresse de contact publiée dans
   [/.well-known/security.txt](/.well-known/security.txt) pour les rapports de
   sécurité concernant ce site.

@@ -68,7 +68,7 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
           aux demandes futures. Vous avez toutefois le droit de demander la suppression de vos
           données à tout moment en me contactant à l'adresse suivante :
           <EmailProtection
-            user="sobre.05.statue"
+            user="6.rare.kudzu"
             domain="icloud.com"
             class="text-blue-600 dark:text-regal-navy-300"
           />.
@@ -124,7 +124,7 @@ import EmailProtection from '@/components/include/EmailProtection.vue';
         <p>
           Pour exercer ces droits, vous pouvez me contacter par email à l'adresse suivante :
           <EmailProtection
-            user="sobre.05.statue"
+            user="6.rare.kudzu"
             domain="icloud.com"
             class="text-blue-600 dark:text-regal-navy-300"
           />.
