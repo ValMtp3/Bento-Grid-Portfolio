@@ -23,6 +23,23 @@ const escapeHtml = (value) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
+// Les adresses email ne sortent jamais en clair dans le HTML : les harvesters
+// de spam les recuperent telles quelles dans les pages. Forme affichee :
+// « x [at] y [point] z », lisible par un humain, inutilisable par un bot.
+// Les jumeaux Markdown servis aux agents (llms.txt, *.md, .well-known) ne
+// passent pas par renderMarkdown : ils gardent l'adresse en clair, c'est le
+// choix de design du site pour les agents IA.
+const EMAIL_PATTERN = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+
+export const obfuscateEmails = (text) =>
+  text.replace(EMAIL_PATTERN, (email) => {
+    const [local, domain] = email.split('@');
+    const dot = domain.lastIndexOf('.');
+    // Seul le point du TLD est masque : la partie locale garde ses points,
+    // l'adresse reconstituee reste lisible pour un humain.
+    return `${local} [at] ${domain.slice(0, dot)} [point] ${domain.slice(dot + 1)}`;
+  });
+
 // Schemas autorises dans un href. Tout le reste -- javascript:, data:, vbscript:
 // -- est refuse et rendu comme du texte.
 //
@@ -49,9 +66,12 @@ const renderLink = (label, href) => {
 };
 
 // Applique les marques de niveau ligne. L'ordre compte : le code littéral est
-// traite en dernier pour que son contenu ne soit pas re-interprete.
+// traite en dernier pour que son contenu ne soit pas re-interprete. Les emails
+// sont obfusses juste apres l'echappement, avant les liens : un éventuel
+// [label](mailto:x@y.z) voit son href casse par les espaces et tombe en texte
+// brut au lieu de fuiter l'adresse dans un attribut href.
 const renderInline = (text) => {
-  let html = escapeHtml(text);
+  let html = obfuscateEmails(escapeHtml(text));
   html = html.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, href) => renderLink(label, href));
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');

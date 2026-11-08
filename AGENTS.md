@@ -134,5 +134,5 @@ fichier passe par des `map`.
 
 ## Contact
 
-Valentin Fiess — `sobre.05.statue@icloud.com` ·
+Valentin Fiess — `6.rare.kudzu@icloud.com` ·
 [github.com/ValMtp3](https://github.com/ValMtp3)

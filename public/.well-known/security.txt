@@ -2,7 +2,7 @@
 # https://www.valentin-fiess.fr/.well-known/security.txt
 
 # Point de contact pour les rapports de sécurité
-Contact: mailto:sobre.05.statue@icloud.com
+Contact: mailto:6.rare.kudzu@icloud.com
 
 # Date d'expiration du fichier (à renouveler annuellement)
 Expires: 2026-12-31T23:59:59.000Z

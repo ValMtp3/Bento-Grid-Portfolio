@@ -12,7 +12,7 @@ valentin-fiess.fr.
 ## Éditeur du site
 
 **Valentin Fiess**, 34470 Pérols, France. Contact :
-`sobre.05.statue@icloud.com`. Il est également responsable de la
+`6.rare.kudzu@icloud.com`. Il est également responsable de la
 publication.
 
 ## Hébergeur
