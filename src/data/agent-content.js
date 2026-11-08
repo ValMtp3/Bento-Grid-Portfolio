@@ -12,6 +12,9 @@
 //
 // Regle : ce qui est ecrit ici doit etre vrai et verifiable sur le site. Un
 // agent qui lit ces fichiers puis visite la page ne doit trouver aucun ecart.
+//
+// L'adresse email n'apparait volontairement nulle part ici : ce fichier alimente
+// les jumeaux .md et llms.txt servis en clair, et alimente le bundle JS du site.
 
 // Prefixe commun a toutes les reponses de la FAQ et aux resumes : evite de
 // repeter l'identite dans chaque bloc.
@@ -139,16 +142,16 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
 
-- **Email** — \`6.rare.kudzu@icloud.com\`. C'est le canal principal et le
-  plus fiable. C'est aussi l'adresse de contact publiée dans
-  [/.well-known/security.txt](/.well-known/security.txt) pour les rapports de
-  sécurité concernant ce site.
+- **Formulaire de contact** — [/contact](/contact). C'est le canal principal et
+  le plus fiable, protégé par Cloudflare Turnstile contre les envois
+  automatisés. L'adresse email directe n'est pas publiée en clair sur le site
+  (protection anti-spam) : le lien « Email » des pages Mentions légales et
+  Confidentialité la reconstruit au clic. Pour les rapports de sécurité
+  concernant ce site, voir aussi [/.well-known/security.txt](/.well-known/security.txt).
 - **LinkedIn** — [linkedin.com/in/valentin-fiess](https://www.linkedin.com/in/valentin-fiess/),
   pour les échanges professionnels et les mises en relation.
 - **GitHub** — [github.com/ValMtp3](https://github.com/ValMtp3), pour tout ce
   qui concerne le code, y compris le code source de ce site.
-- **Formulaire** — la page d'accueil comporte un formulaire de contact, protégé
-  par Cloudflare Turnstile contre les envois automatisés.
 
 ## Localisation et disponibilité
 
@@ -190,8 +193,7 @@ nécessaire pour mesurer l'audience et permettre une prise de contact.
 
 ## Responsable du traitement
 
-Valentin Fiess, 34470 Pérols, France. Contact :
-\`6.rare.kudzu@icloud.com\`.
+Valentin Fiess, 34470 Pérols, France. Contact : [formulaire de contact](/contact).
 
 ## Ce qui est collecté
 
@@ -229,7 +231,7 @@ demander la suppression à tout moment, à l'adresse indiquée ci-dessous.
 
 Conformément au RGPD, vous disposez d'un droit d'accès, de rectification,
 d'effacement, de limitation et d'opposition sur vos données. Pour l'exercer,
-écrivez à \`6.rare.kudzu@icloud.com\`. Vous pouvez également introduire une
+utilisez le [formulaire de contact](/contact). Vous pouvez également introduire une
 réclamation auprès de la CNIL.
 
 ## Sécurité
@@ -294,8 +296,8 @@ valentin-fiess.fr.
 
 ## Éditeur du site
 
-**Valentin Fiess**, 34470 Pérols, France. Contact :
-\`6.rare.kudzu@icloud.com\`. Il est également responsable de la
+**Valentin Fiess**, 34470 Pérols, France. Contact : [formulaire de contact](/contact).
+Il est également responsable de la
 publication.
 
 ## Hébergeur
@@ -359,7 +361,7 @@ sections. Une version résumée et plus lisible est disponible sur
 
 ## Exercer ses droits
 
-Écrire à \`6.rare.kudzu@icloud.com\`.
+Utilisez le [formulaire de contact](/contact).
 
 ## Voir aussi
 
@@ -384,7 +386,7 @@ export const faq = [
   {
     question: 'Comment le contacter ?',
     answer:
-      "Par email à 6.rare.kudzu@icloud.com, qui est le canal principal, ou via LinkedIn à linkedin.com/in/valentin-fiess. La page /contact détaille les moyens de contact et les types de missions étudiées.",
+      `Via le formulaire de contact sur /contact (canal principal, protégé contre les envois automatisés), ou via LinkedIn à linkedin.com/in/valentin-fiess. La page /contact détaille les moyens de contact et les types de missions étudiées.`,
   },
   {
     question: 'Le site propose-t-il une API publique ?',

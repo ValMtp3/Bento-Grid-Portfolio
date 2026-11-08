@@ -1,8 +1,10 @@
 # Security.txt pour Valentin Fiess
 # https://www.valentin-fiess.fr/.well-known/security.txt
 
-# Point de contact pour les rapports de sécurité
-Contact: mailto:6.rare.kudzu@icloud.com
+# Point de contact pour les rapports de sécurité.
+# Pas de mailto ici : un harvester scanne ce fichier comme le HTML.
+# RFC 9116 accepte une URL ; le formulaire est protégé par Cloudflare Turnstile.
+Contact: https://valentin-fiess.fr/contact
 
 # Date d'expiration du fichier (à renouveler annuellement)
 Expires: 2026-12-31T23:59:59.000Z
