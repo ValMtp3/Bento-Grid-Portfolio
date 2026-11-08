@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-11-08T14:36:35.815Z",
+  "generatedAt": "2026-11-08T21:26:57.549Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/investia",
-      "sha": "6af03b0d183dfc1adc47dd78835e38a99ebb62c0",
-      "date": "2026-11-08T14:14:13Z",
-      "message": "docs: checklist complète du prochain déploiement VPS (08/11/2026) (#18)",
-      "url": "https://github.com/ValMtp3/investia/commit/6af03b0d183dfc1adc47dd78835e38a99ebb62c0"
+      "repo": "ValMtp3/Bento-Grid-Portfolio",
+      "sha": "5944d765e97fb04195c56e97bee18accc4d0f997",
+      "date": "2026-11-08T21:04:55Z",
+      "message": "feat: protege l'email des harvesters et change l'adresse de contact",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/5944d765e97fb04195c56e97bee18accc4d0f997"
     },
     "week": {
       "days": 7,
       "commits": 31,
-      "repos": 1,
+      "repos": 2,
       "languages": [
         {
           "name": "Python",
-          "share": 59
+          "share": 52
         },
         {
           "name": "TypeScript",
-          "share": 22
+          "share": 20
         },
         {
           "name": "Docs",
           "share": 12
         },
         {
-          "name": "Config",
-          "share": 4
+          "name": "JavaScript",
+          "share": 7
         }
       ]
     }
@@ -82,10 +82,10 @@
     },
     "standing": {
       "position": 6,
-      "points": 15,
-      "played": 9,
+      "points": 16,
+      "played": 10,
       "won": 5,
-      "draw": 0,
+      "draw": 1,
       "lost": 4
     },
     "cups": {
