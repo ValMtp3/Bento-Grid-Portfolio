@@ -25,5 +25,8 @@ import('./matomo')
 // Attendre que le routeur soit prêt avant de monter l'application
 router.isReady().then(() => {
   app.mount('#app');
+  // Signale a index.html que l'application est montee : le contenu de secours
+  // pre-rendu peut rester cache.
+  document.documentElement.classList.add('app-ready');
   printConsoleSignature();
 });
