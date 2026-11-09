@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-08T21:26:57.549Z",
+  "generatedAt": "2026-11-09T03:28:46.331Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "5944d765e97fb04195c56e97bee18accc4d0f997",
-      "date": "2026-11-08T21:04:55Z",
-      "message": "feat: protege l'email des harvesters et change l'adresse de contact",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/5944d765e97fb04195c56e97bee18accc4d0f997"
+      "sha": "32ca079aa3cf62a2c4ba68857e70be7ae005817b",
+      "date": "2026-11-08T21:49:07Z",
+      "message": "feat: bouton Copier et aria-label lisible sur l'email protege",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/32ca079aa3cf62a2c4ba68857e70be7ae005817b"
     },
     "week": {
       "days": 7,
-      "commits": 31,
+      "commits": 33,
       "repos": 2,
       "languages": [
         {
@@ -19,7 +19,7 @@
         },
         {
           "name": "TypeScript",
-          "share": 20
+          "share": 19
         },
         {
           "name": "Docs",
@@ -27,45 +27,19 @@
         },
         {
           "name": "JavaScript",
-          "share": 7
+          "share": 8
         }
       ]
     }
   },
   "om": {
     "last": {
-      "date": "2026-11-05T20:00:00Z",
-      "competition": "UEFA Europa League - League Phase",
-      "matchday": 4,
-      "home": {
-        "name": "Bayer Leverkusen",
-        "tla": "BAY",
-        "colors": [
-          "#e32221",
-          "#000000"
-        ]
-      },
-      "away": {
-        "name": "Marseille",
-        "tla": "OM",
-        "colors": [
-          "#2faee0",
-          "#ffffff"
-        ]
-      },
-      "outcome": "win",
-      "score": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    "next": {
       "date": "2026-11-08T19:45:00Z",
       "competition": "Ligue 1",
       "matchday": 10,
       "home": {
-        "name": "RC Lens",
-        "tla": "RCL",
+        "name": "Lens",
+        "tla": "LEN",
         "colors": [
           "#ed1c24",
           "#fff300"
@@ -78,14 +52,40 @@
           "#2faee0",
           "#ffffff"
         ]
+      },
+      "outcome": "win",
+      "score": {
+        "home": 1,
+        "away": 2
+      }
+    },
+    "next": {
+      "date": "2026-11-22T19:45:00Z",
+      "competition": "Ligue 1",
+      "matchday": 11,
+      "home": {
+        "name": "Marseille",
+        "tla": "OM",
+        "colors": [
+          "#2faee0",
+          "#ffffff"
+        ]
+      },
+      "away": {
+        "name": "Le Mans",
+        "tla": "LMF",
+        "colors": [
+          "#020101",
+          "#e60018"
+        ]
       }
     },
     "standing": {
-      "position": 6,
-      "points": 16,
+      "position": 4,
+      "points": 18,
       "played": 10,
-      "won": 5,
-      "draw": 1,
+      "won": 6,
+      "draw": 0,
       "lost": 4
     },
     "cups": {
