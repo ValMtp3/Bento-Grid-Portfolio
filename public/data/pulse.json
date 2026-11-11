@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-11-11T13:08:03.189Z",
+  "generatedAt": "2026-11-11T23:48:09.108Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "28552cb4126f31316526dc16748ec8adb93ef312",
-      "date": "2026-11-11T10:38:52Z",
-      "message": "feat: durcit la CSP servie par nginx",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/28552cb4126f31316526dc16748ec8adb93ef312"
+      "sha": "b9ca71da4203b05f7b603b1af444e4f72681939c",
+      "date": "2026-11-11T21:19:50Z",
+      "message": "feat: declare la photo de profil pour le SEO image",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/b9ca71da4203b05f7b603b1af444e4f72681939c"
     },
     "week": {
       "days": 7,
-      "commits": 34,
+      "commits": 35,
       "repos": 2,
       "languages": [
         {
           "name": "Python",
-          "share": 52
+          "share": 51
         },
         {
           "name": "TypeScript",
