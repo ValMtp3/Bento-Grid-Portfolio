@@ -27,7 +27,7 @@ import { fileURLToPath } from 'node:url';
 
 import { agentContent, AGENT_INSTRUCTIONS, faq } from '../src/data/agent-content.js';
 import { obfuscateEmails } from '../src/markdown.js';
-import { IDENTITY, SITE_URL, seoRoutes } from '../src/data/seo.js';
+import { IDENTITY, PROFILE_IMAGE, SITE_URL, seoRoutes } from '../src/data/seo.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = resolve(root, 'public');
@@ -108,7 +108,7 @@ const extraSitemapUrls = [
   { loc: '/assets/assets_index/CV_Valentin_Fiess.pdf', lastmod: '2026-07-11' },
 ];
 
-const buildSitemap = () => {
+export const buildSitemap = () => {
   const entries = [
     ...publicRoutes.map((route) => ({
       loc: route.path,
@@ -116,23 +116,29 @@ const buildSitemap = () => {
       // Declare le jumeau Markdown comme representation alternative : un agent
       // qui lit le sitemap trouve la version machine sans la deviner.
       alternate: markdownPath(route),
+      image: PROFILE_IMAGE.slugs.includes(route.slug) ? PROFILE_IMAGE.path : undefined,
     })),
     ...extraSitemapUrls,
   ];
 
   const body = entries
-    .map(({ loc, lastmod, alternate }) => {
+    .map(({ loc, lastmod, alternate, image }) => {
       const alternateTag = alternate
         ? `\n    <xhtml:link rel="alternate" type="text/markdown" href="${escapeXml(absoluteUrl(alternate))}" />`
         : '';
       const lastmodTag = lastmod ? `\n    <lastmod>${escapeXml(lastmod)}</lastmod>` : '';
-      return `  <url>\n    <loc>${escapeXml(absoluteUrl(loc))}</loc>${lastmodTag}${alternateTag}\n  </url>`;
+      // Sans cette balise, Google ne decouvre l'image qu'en executant le
+      // JavaScript de la page, donc plus tard et pas toujours.
+      const imageTag = image
+        ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(image))}</image:loc>\n    </image:image>`
+        : '';
+      return `  <url>\n    <loc>${escapeXml(absoluteUrl(loc))}</loc>${lastmodTag}${alternateTag}${imageTag}\n  </url>`;
     })
     .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Genere par scripts/generate-agent-manifests.mjs. Ne pas editer a la main. -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${body}
 </urlset>
 `;
@@ -501,7 +507,15 @@ export const buildJsonLd = (route) => {
       // Pas de champ email ici : le JSON-LD est injecte en clair dans chaque
       // coquille HTML, exactement ce que scannent les harvesters de spam.
       // Le contact reste trouvable via /contact et les manifestes agent.
-      image: `${SITE_URL}/assets/assets_index/Valentin_Fiess.webp`,
+      image: {
+        '@type': 'ImageObject',
+        '@id': `${SITE_URL}/#person-image`,
+        url: `${SITE_URL}${PROFILE_IMAGE.path}`,
+        contentUrl: `${SITE_URL}${PROFILE_IMAGE.path}`,
+        width: PROFILE_IMAGE.width,
+        height: PROFILE_IMAGE.height,
+        caption: PROFILE_IMAGE.alt,
+      },
       sameAs: IDENTITY.sameAs,
       address: {
         '@type': 'PostalAddress',
@@ -541,7 +555,9 @@ export const buildJsonLd = (route) => {
       license: 'https://creativecommons.org/licenses/by/4.0/',
     },
     {
-      '@type': 'WebPage',
+      // /about est la page dont le sujet est la personne : ProfilePage le dit
+      // explicitement a Google, qui peut alors lier le visage au nom.
+      '@type': route.slug === 'about' ? ['WebPage', 'ProfilePage'] : 'WebPage',
       '@id': `${absoluteUrl(route.path)}#webpage`,
       url: absoluteUrl(route.path),
       name: route.title,
@@ -549,6 +565,7 @@ export const buildJsonLd = (route) => {
       inLanguage: 'fr-FR',
       isPartOf: { '@id': websiteId },
       about: { '@id': personId },
+      ...(route.slug === 'about' ? { mainEntity: { '@id': personId } } : {}),
       dateModified: route.lastmod,
       primaryImageOfPage: `${SITE_URL}/assets/og/${route.slug}.png`,
       // Declare le jumeau Markdown au niveau de la page : c'est le signal que

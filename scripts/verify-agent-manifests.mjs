@@ -232,7 +232,8 @@ const verifyJsonLd = async () => {
 
     try {
       const data = JSON.parse(match[1].replace(/\\u003c/g, '<'));
-      const types = (data['@graph'] || []).map((node) => node['@type']);
+      // Un noeud peut porter plusieurs types (/about : WebPage + ProfilePage).
+      const types = (data['@graph'] || []).flatMap((node) => node['@type']);
       for (const required of ['Person', 'WebSite', 'WebPage']) {
         if (!types.includes(required)) {
           fail(`${relativePath} : le JSON-LD ne contient pas de noeud ${required}.`);

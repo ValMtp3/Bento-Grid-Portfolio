@@ -16,7 +16,7 @@ export const EMAIL_B64 = 'Ni5yYXJlLmt1ZHp1QGljbG91ZC5jb20=';
 // Pas de champ email ici : les manifestes agent pointent vers /contact.
 export const IDENTITY = {
   name: 'Valentin Fiess',
-  jobTitle: 'Ingenieur IA / Data',
+  jobTitle: 'Ingénieur IA / Data',
   locality: 'Perols',
   postalCode: '34470',
   region: 'Occitanie',
@@ -26,6 +26,17 @@ export const IDENTITY = {
     'https://www.linkedin.com/in/valentin-fiess/',
     'https://x.com/WyqBzm',
   ],
+};
+
+// Photo de profil, declaree au meme endroit pour le JSON-LD, le sitemap et la
+// coquille HTML prerendue. `slugs` liste les pages ou elle apparait vraiment :
+// la declarer ailleurs dirait a Google qu'une page contient une image absente.
+export const PROFILE_IMAGE = {
+  path: '/assets/assets_index/Valentin_Fiess.webp',
+  alt: 'Photo de Valentin Fiess',
+  width: 1024,
+  height: 1024,
+  slugs: ['home', 'about'],
 };
 
 export const seoRoutes = [
