@@ -1,6 +1,6 @@
 # Valentin Fiess — Portfolio
 
-> Portfolio de Valentin Fiess, Ingenieur IA / Data à Montpellier : RAG, LLM, MLOps, Python et applications web.
+> Portfolio de Valentin Fiess, Ingénieur IA / Data à Montpellier : RAG, LLM, MLOps, Python et applications web.
 
 Langue principale : français
 URL canonique : https://valentin-fiess.fr/
