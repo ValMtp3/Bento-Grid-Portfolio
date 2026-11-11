@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-09T03:28:46.331Z",
+  "generatedAt": "2026-11-11T13:08:03.189Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "32ca079aa3cf62a2c4ba68857e70be7ae005817b",
-      "date": "2026-11-08T21:49:07Z",
-      "message": "feat: bouton Copier et aria-label lisible sur l'email protege",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/32ca079aa3cf62a2c4ba68857e70be7ae005817b"
+      "sha": "28552cb4126f31316526dc16748ec8adb93ef312",
+      "date": "2026-11-11T10:38:52Z",
+      "message": "feat: durcit la CSP servie par nginx",
+      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/28552cb4126f31316526dc16748ec8adb93ef312"
     },
     "week": {
       "days": 7,
-      "commits": 33,
+      "commits": 34,
       "repos": 2,
       "languages": [
         {
