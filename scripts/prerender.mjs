@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 import { agentContent } from '../src/data/agent-content.js';
 import { renderMarkdown } from '../src/markdown.js';
-import { SITE_URL, ogImagePath, seoRoutes } from '../src/data/seo.js';
+import { PROFILE_IMAGE, SITE_URL, ogImagePath, seoRoutes } from '../src/data/seo.js';
 import { buildJsonLd } from './generate-agent-manifests.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -35,6 +35,14 @@ const serializeJsonLd = (data) => JSON.stringify(data, null, 2).replace(/</g, '\
 // (app.mount efface les enfants existants, il n'y a pas d'hydratation ici),
 // donc ce bloc ne survit pas a l'arrivee du JavaScript : il ne sert qu'aux
 // clients qui ne l'executent pas, agents inclus.
+// Photo de profil lisible sans JavaScript. Sans elle, la coquille ne contient
+// aucun <img> et Google ne voit le visage qu'apres le rendu JS. Les dimensions
+// evitent un decalage de mise en page ; Vue efface ce bloc au montage.
+export const buildProfileImageHtml = (route) => {
+  if (!PROFILE_IMAGE.slugs.includes(route.slug)) return '';
+  return `        <img src="${SITE_URL}${PROFILE_IMAGE.path}" alt="${escapeHtml(PROFILE_IMAGE.alt)}" width="${PROFILE_IMAGE.width}" height="${PROFILE_IMAGE.height}" style="width:8rem;height:8rem;border-radius:0.75rem;object-fit:cover" />\n`;
+};
+
 const buildStaticContent = (route) => {
   const entry = agentContent[route.slug];
   if (!entry) return '';
@@ -43,7 +51,7 @@ const buildStaticContent = (route) => {
 
   return `
       <div class="prerendered-content">
-        <h1>${escapeHtml(entry.heading)}</h1>
+${buildProfileImageHtml(route)}        <h1>${escapeHtml(entry.heading)}</h1>
         <p><strong>${escapeHtml(route.description)}</strong></p>
 ${renderMarkdown(entry.body)
   .split('\n')
@@ -128,7 +136,10 @@ const main = async () => {
   }
 };
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+// Importe par les tests : ne generer les coquilles que si lance directement.
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

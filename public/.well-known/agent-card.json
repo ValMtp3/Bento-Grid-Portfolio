@@ -2,7 +2,7 @@
   "specification": "https://a2a-protocol.org/",
   "protocolVersion": "0.3.0",
   "name": "valentin-fiess-portfolio",
-  "description": "Ressource documentaire sur Valentin Fiess, Ingenieur IA / Data. Répond aux questions sur son parcours, ses compétences et ses projets à partir de documents Markdown publics.",
+  "description": "Ressource documentaire sur Valentin Fiess, Ingénieur IA / Data. Répond aux questions sur son parcours, ses compétences et ses projets à partir de documents Markdown publics.",
   "version": "1.0.0",
   "url": "https://valentin-fiess.fr/",
   "documentationUrl": "https://valentin-fiess.fr/llms.txt",
