@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-08T06:39:25.447Z",
+  "generatedAt": "2026-11-12T20:27:22.274Z",
   "mix": [
     {
       "label": "Crypto",
-      "share": 70
+      "share": 65
     },
     {
       "label": "Actions",
@@ -11,17 +11,17 @@
     },
     {
       "label": "ETF",
-      "share": 5
+      "share": 10
     }
   ],
   "regions": [
     {
       "label": "Europe",
-      "share": 65
+      "share": 70
     },
     {
       "label": "Amerique du Nord",
-      "share": 30
+      "share": 25
     },
     {
       "label": "Autres",
@@ -31,25 +31,25 @@
   "currencies": [
     {
       "label": "EUR",
-      "share": 80
+      "share": 85
     },
     {
       "label": "USD",
-      "share": 20
+      "share": 15
     }
   ],
   "structure": {
     "positions": 72,
-    "topThreeShare": 60,
+    "topThreeShare": 55,
     "countries": 9,
     "currencies": 2,
     "networks": 9,
     "workingShare": 5
   },
   "behaviour": {
-    "avgHoldingDays": 152,
+    "avgHoldingDays": 156,
     "oldestPositionMonths": 9,
-    "ordersLast30d": 25,
+    "ordersLast30d": 21,
     "buyRatio": 95,
     "favouriteDay": "mardi"
   },
