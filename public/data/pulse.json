@@ -1,33 +1,33 @@
 {
-  "generatedAt": "2026-11-15T03:37:47.388Z",
+  "generatedAt": "2026-11-15T13:05:43.861Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/investia",
-      "sha": "da271178903c3b032ca90579499ce2ed547d0126",
-      "date": "2026-11-14T23:36:09Z",
-      "message": "feat(20c): streaming A2A intermédiaire — steps des sous-agents forwardés jusqu'au SSE (a2a_event) (#36)",
-      "url": "https://github.com/ValMtp3/investia/commit/da271178903c3b032ca90579499ce2ed547d0126"
+      "sha": "57f98d480d6675219a3c9c288d72aabc919c83ac",
+      "date": "2026-11-15T12:55:06Z",
+      "message": "feat(23b): boucle durcie — egress pinné anti-DNS-rebinding, canary tokens par run, guard ONNX pinné (TDD) (#43)",
+      "url": "https://github.com/ValMtp3/investia/commit/57f98d480d6675219a3c9c288d72aabc919c83ac"
     },
     "week": {
       "days": 7,
-      "commits": 82,
+      "commits": 83,
       "repos": 2,
       "languages": [
         {
           "name": "Python",
-          "share": 74
+          "share": 70
         },
         {
           "name": "Docs",
-          "share": 21
+          "share": 22
         },
         {
           "name": "Config",
           "share": 4
         },
         {
-          "name": "JavaScript",
-          "share": 1
+          "name": "TypeScript",
+          "share": 2
         }
       ]
     }
