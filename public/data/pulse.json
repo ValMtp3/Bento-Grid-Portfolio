@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-15T13:05:43.861Z",
+  "generatedAt": "2026-11-15T22:14:37.552Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/investia",
-      "sha": "57f98d480d6675219a3c9c288d72aabc919c83ac",
-      "date": "2026-11-15T12:55:06Z",
-      "message": "feat(23b): boucle durcie — egress pinné anti-DNS-rebinding, canary tokens par run, guard ONNX pinné (TDD) (#43)",
-      "url": "https://github.com/ValMtp3/investia/commit/57f98d480d6675219a3c9c288d72aabc919c83ac"
+      "sha": "fd9cfbf242eea426d500a5d7497b56d294652f41",
+      "date": "2026-11-15T16:40:48Z",
+      "message": "feat(23h): dataset pinning sha256 (migration 0015, verify CLI, changelog) + projet benchmarks/ pinné type Harbor/TB 4.1 (#49)",
+      "url": "https://github.com/ValMtp3/investia/commit/fd9cfbf242eea426d500a5d7497b56d294652f41"
     },
     "week": {
       "days": 7,
-      "commits": 83,
+      "commits": 78,
       "repos": 2,
       "languages": [
         {
@@ -19,15 +19,15 @@
         },
         {
           "name": "Docs",
-          "share": 22
+          "share": 21
+        },
+        {
+          "name": "TypeScript",
+          "share": 5
         },
         {
           "name": "Config",
           "share": 4
-        },
-        {
-          "name": "TypeScript",
-          "share": 2
         }
       ]
     }
