@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-11-13T13:34:21.680Z",
+  "generatedAt": "2026-11-15T03:37:47.388Z",
   "github": {
     "lastCommit": {
-      "repo": "ValMtp3/Bento-Grid-Portfolio",
-      "sha": "b9ca71da4203b05f7b603b1af444e4f72681939c",
-      "date": "2026-11-11T21:19:50Z",
-      "message": "feat: declare la photo de profil pour le SEO image",
-      "url": "https://github.com/ValMtp3/Bento-Grid-Portfolio/commit/b9ca71da4203b05f7b603b1af444e4f72681939c"
+      "repo": "ValMtp3/investia",
+      "sha": "da271178903c3b032ca90579499ce2ed547d0126",
+      "date": "2026-11-14T23:36:09Z",
+      "message": "feat(20c): streaming A2A intermédiaire — steps des sous-agents forwardés jusqu'au SSE (a2a_event) (#36)",
+      "url": "https://github.com/ValMtp3/investia/commit/da271178903c3b032ca90579499ce2ed547d0126"
     },
     "week": {
       "days": 7,
-      "commits": 78,
+      "commits": 82,
       "repos": 2,
       "languages": [
         {
           "name": "Python",
-          "share": 71
+          "share": 74
         },
         {
           "name": "Docs",
-          "share": 20
+          "share": 21
         },
         {
           "name": "Config",
@@ -27,7 +27,7 @@
         },
         {
           "name": "JavaScript",
-          "share": 4
+          "share": 1
         }
       ]
     }
