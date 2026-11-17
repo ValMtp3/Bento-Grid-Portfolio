@@ -8,14 +8,14 @@ Dernière génération : 2026-11-17
 
 ## Quand utiliser cette ressource
 
-Ce site est le portfolio professionnel de Valentin Fiess, ingénieur IA/Data
-basé à Montpellier (France). C'est une source de première main, publiée et
-maintenue par la personne elle-même.
+Ce site est mon portfolio professionnel : je suis ingénieur IA/Data
+basé à Montpellier (France). C'est une source de première main, publié et
+maintenu par moi-même.
 
 Un agent devrait consulter ce site pour :
 
-- répondre à une question sur le parcours, les compétences, les diplômes ou les
-  expériences professionnelles de Valentin Fiess ;
+- répondre à une question sur mon parcours, mes compétences, mes diplômes ou mes
+  expériences professionnelles ;
 - vérifier la nature et le contenu d'un de ses projets techniques (RAG, vision
   par ordinateur, pipelines de données, applications web) ;
 - trouver un moyen de contact fiable pour une opportunité professionnelle ;
@@ -52,6 +52,7 @@ ou comme entrée d'un système d'IA, et servir à l'entraînement de modèles.
 - [Seed Generator — étude de cas](https://valentin-fiess.fr/projets/seed-generator) : Étude de cas Seed Generator : un générateur de phrases BIP-39 hors ligne en Go, zéro dépendance, vérifiable plutôt que cru sur parole. Version Markdown : https://valentin-fiess.fr/projets/seed-generator.md
 - [Juste Recrute Moi — étude de cas](https://valentin-fiess.fr/projets/juste-recrute-moi) : Étude de cas Juste Recrute Moi : un agrégateur local-first d'offres d'emploi pour le marché français, fork de JustHireMe adapté aux sources hexagonales. Version Markdown : https://valentin-fiess.fr/projets/juste-recrute-moi.md
 - [Chiffremento CLI — étude de cas](https://valentin-fiess.fr/projets/chiffremento-cli) : Étude de cas Chiffremento CLI : chiffrement authentifié de fichiers en Go, format v4 à enveloppe DEK/KEK, Argon2id et releases signées. Version Markdown : https://valentin-fiess.fr/projets/chiffremento-cli.md
+- [Investia — étude de cas](https://valentin-fiess.fr/projets/investia) : Étude de cas Investia : le harness d'agent IA que je construis à la main — portefeuille simulé de 10 000 €, décisions par modèle de décision (Jev), exécution par Mistral Large 4, données de marché temps réel. Version Markdown : https://valentin-fiess.fr/projets/investia.md
 
 ## Blog
 

@@ -1,5 +1,21 @@
 import { isHostOf } from '../urlHost.js';
 
+// Tri chronologique decroissant : le champ date est un libelle francais
+// ("Aout 2026"), transforme en cle annee * 12 + mois pour un tri fiable.
+const MONTHS = {
+  janvier: 0, fevrier: 1, mars: 2, avril: 3, mai: 4, juin: 5,
+  juillet: 6, aout: 7, septembre: 8, octobre: 9, novembre: 10, decembre: 11,
+};
+const dateKey = (date) => {
+  const [mois, annee] = String(date)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .split(/\s+/);
+  return Number(annee) * 12 + (MONTHS[mois] ?? -1);
+};
+
 export const projets = [
   {
     alt: 'Investia - Harnais d’agent IA écrit à la main, conseil en investissement avec portefeuille simulé de 10 000 €',
@@ -7,11 +23,12 @@ export const projets = [
     date: 'Novembre 2026',
     team: 'Valentin Fiess',
     description:
-      "Harnais d'agent IA écrit à la main : conseil en investissement avec portefeuille simulé de 10 000 €",
+      "Mon harness d'agent IA écrit à la main : conseil en investissement avec portefeuille simulé de 10 000 €",
     descriptionlongue:
-      "Projet d'apprentissage : construire à la main un harness d'agent IA (outils, mémoire, règles, tests, traces) en prenant le conseil en investissement comme terrain d'entraînement. L'agent lit des données de marché quasi temps réel (actions, ETF, crypto via Finnhub, Stooq, CoinGecko et Binance), produit des analyses sourcées et gère un portefeuille simulé de 10 000 € — aucun ordre réel, donc aucun conseil financier. Backend FastAPI en Python, modèles derrière le gateway LiteLLM, PostgreSQL 17 avec pgvector, cache Redis, dashboard React, déployé sur le VPS OVH derrière Nginx Proxy Manager avec Authelia.",
+      "Mon projet d'apprentissage, mené en parallèle de mon poste : je construis à la main un harness d'agent IA (outils, mémoire, règles, tests, traces), avec le conseil en investissement comme terrain d'entraînement. Mon agent lit des données de marché quasi temps réel (actions, ETF, crypto via Finnhub, Stooq, CoinGecko et Binance), produit des analyses sourcées et gère un portefeuille simulé de 10 000 € — aucun ordre réel, donc aucun conseil financier. Backend FastAPI en Python, modèles derrière la gateway LiteLLM (Jev pour les décisions, Mistral Large 4 pour le raisonnement), PostgreSQL 17 avec pgvector, cache Redis, dashboard React, déployé sur mon VPS OVH derrière Nginx Proxy Manager avec Authelia.",
     src: 'https://github.com/ValMtp3/investia',
     name: 'Investia',
+    caseStudy: '/projets/investia',
     technos: ['Python', 'FastAPI', 'LiteLLM', 'React', 'PostgreSQL', 'Redis', 'Docker', 'Paper trading'],
   },
   {
@@ -21,7 +38,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Générateur de phrases BIP-39 hors ligne en Go, sans dépendance tierce',
     descriptionlongue:
-      "Générateur de mnémoniques BIP-39 conçu pour être vérifié plutôt que cru sur parole. La racine de confiance reste crypto/rand : les sources auxiliaires (gigue CPU, télémétrie du runtime, souris, micro, caméra) sont mélangées comme diversifiants via HKDF-SHA-512, jamais en remplacement du CSPRNG, donc l'entropie ne peut que monter. Au démarrage, le binaire rejoue les 96 vecteurs de test officiels contre ses quatre dictionnaires embarqués (en, fr, es, ja) et refuse de démarrer si un seul échoue. L'interface web est liée au loopback, vérifie l'en-tête Host contre le DNS rebinding, sert les flux SSE par tickets à usage unique et applique une CSP stricte. Go standard library, zéro dépendance externe.",
+      "Mon générateur de mnémoniques BIP-39, conçu pour être vérifié plutôt que cru sur parole. La racine de confiance reste crypto/rand : les sources auxiliaires (gigue CPU, télémétrie du runtime, souris, micro, caméra) sont mélangées comme diversifiants via HKDF-SHA-512, jamais en remplacement du CSPRNG, donc l'entropie ne peut que monter. Au démarrage, le binaire rejoue les 96 vecteurs de test officiels contre ses quatre dictionnaires embarqués (en, fr, es, ja) et refuse de démarrer si un seul échoue. L'interface web est liée au loopback, vérifie l'en-tête Host contre le DNS rebinding, sert les flux SSE par tickets à usage unique et applique une CSP stricte. Go standard library, zéro dépendance externe.",
     src: 'https://gitlab.com/ValMtp3/seed-generator',
     name: 'Seed Generator',
     caseStudy: '/projets/seed-generator',
@@ -34,7 +51,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Agrégateur local-first d'offres d'emploi pour le marché français",
     descriptionlongue:
-      "Fork de : Just Hire Me pour l'adapter au marché francais. JRM est un agrégateur d'offres d'emploi local-first dédié au marché français. L'outil centralise les offres, les nettoie, les déduplique et génère des dossiers de candidature sur mesure, le tout en gardant tes données 100% locales et privées par défaut.",
+      "Je forke Just Hire Me pour l'adapter au marché français : un agrégateur d'offres d'emploi local-first dédié au marché français. L'outil centralise les offres, les nettoie, les déduplique et génère des dossiers de candidature sur mesure, le tout en gardant tes données 100% locales et privées par défaut.",
     src: 'https://github.com/ValMtp3/Juste-Recrute-Moi',
     name: 'Juste Recrute Moi',
     linkLabel: 'Accéder au GitHub',
@@ -62,7 +79,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Application de chiffrement de fichiers avec fonctionnalités avancées',
     descriptionlongue:
-      'Application de chiffrement de fichiers sécurisée développée en TypeScript, offrant des fonctionnalités avancées telles que le chiffrement AES-256, un mode paranoïaque pour une sécurité maximale, de la stéganographie pour cacher des données, un déni plausible et un chiffrement temporisé.',
+      'J\'ai développé en TypeScript une application de chiffrement de fichiers sécurisée, offrant des fonctionnalités avancées telles que le chiffrement AES-256, un mode paranoïaque pour une sécurité maximale, de la stéganographie pour cacher des données, un déni plausible et un chiffrement temporisé.',
     src: 'https://chiffremento-app.vercel.app/',
     name: 'chiffremento-app',
     technos: ['TypeScript'],
@@ -74,7 +91,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Implémentation d'une couche de raisonnement autour d'un LLM Mistral.",
     descriptionlongue:
-      "Implémentation d'une couche de raisonnement autour d'un LLM Mistral pour résoudre des problèmes complexes en plusieurs étapes (ReAct, CoT, RAG)",
+      "J'ai implémenté une couche de raisonnement autour d'un LLM Mistral pour résoudre des problèmes complexes en plusieurs étapes (ReAct, CoT, RAG)",
     src: 'https://github.com/ValMtp3/Raisonnement_IA',
     name: 'Raisonnement_IA',
     technos: ['Jupyter Notebook', 'Python', 'Mistral LLM', 'ReAct', 'CoT', 'RAG'],
@@ -85,7 +102,7 @@ export const projets = [
     date: 'Novembre 2025',
     team: 'Valentin Fiess',
     description:
-      "Projet RAG utilisant l'API de Brave Search pour connecter un LLM léger à internet",
+      "Mon projet RAG utilise l'API de Brave Search pour connecter un LLM léger à internet",
     descriptionlongue:
       "Intégration de l'API Brave Search pour permettre à un modèle de langage léger (Mistral-small) d'accéder à des informations en temps réel sur internet. Utilisation de techniques de RAG (Retrieval-Augmented Generation) pour améliorer la pertinence des réponses fournies par le chatbot.",
     src: 'https://huggingface.co/spaces/ValMtp3/Brave_RAG',
@@ -99,7 +116,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Application de gestion de tâches cli en go',
     descriptionlongue:
-      "Application de gestion de tâches simple avec fonctionnalités d'ajout, suppression et marquage comme terminée. Premier projet GO.",
+      "Ma première application en Go : une gestion de tâches simple avec ajout, suppression et marquage comme terminée.",
     src: 'https://github.com/ValMtp3/todo-go',
     name: 'To-do-go',
     technos: ['Go'],
@@ -111,7 +128,7 @@ export const projets = [
     team: 'Dunvael Le Roux, Robin Peyraud, Quentin Richard, Gaëtan Faucher',
     description: 'Escape-game éducatif en ligne simulant une cyber-attaque dans un hôpital',
     descriptionlongue:
-      'Escape-game éducatif en ligne simulant une cyber-attaque dans un hôpital avec la résolution de plusieurs salles. Projet réalisé avec HTML/Tailwind CSS et Vue.js.',
+      'Escape-game éducatif en ligne simulant une cyber-attaque dans un hôpital avec la résolution de plusieurs salles. Projet réalisé en équipe avec HTML/Tailwind CSS et Vue.js.',
     src: 'https://github.com/Workshop-M1-CyberHopital/Escape-game-numerique',
     name: 'Cyber-Hopital',
     technos: ['Html', 'Tailwind', 'VueJS'],
@@ -123,7 +140,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "RAG d'un chatbot IA connecté au CV destiné aux recruteurs",
     descriptionlongue:
-      "Création d'un chatbot CV intelligent utilisant un RAG avec Mistral-small et des données stockées en JSON pour des réponses personnalisées.",
+      "J'ai créé un chatbot CV intelligent utilisant un RAG avec Mistral-small et des données stockées en JSON pour des réponses personnalisées.",
     src: 'https://huggingface.co/spaces/ValMtp3/Chatbot_IA_CV',
     name: 'Chatbot IA CV',
     technos: ['Jupyter Notebook', 'Python', 'Mistral'],
@@ -136,7 +153,7 @@ export const projets = [
     description:
       "Application de reconnaissance de traces d'animaux avec pipeline ETL et intelligence artificielle.",
     descriptionlongue:
-      "Application complète de reconnaissance de traces d'animaux sauvages. Pipeline ETL pour le traitement d'images, génération de métadonnées enrichies avec IA (Mistral et Gemini), puis entraînement d'un modèle de classification basé sur MobileNetV3Small.",
+      "Nous avons construit une application complète de reconnaissance de traces d'animaux sauvages. Pipeline ETL pour le traitement d'images, génération de métadonnées enrichies avec IA (Mistral et Gemini), puis entraînement d'un modèle de classification basé sur MobileNetV3Small.",
     src: 'https://github.com/CedricSanchezGithub/ETL',
     name: 'WildLens',
     technos: ['Python', 'MobileNetV3Small', 'Mistral', 'Gemini', 'ETL'],
@@ -148,7 +165,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Pipeline de détection de fake news avec machine learning en Python.',
     descriptionlongue:
-      'Pipeline complet de détection de fake news utilisant le machine learning pour classifier automatiquement les textes. Projet réalisé en Jupyter Notebook avec Python, scikit-learn et autres bibliothèques de data science.',
+      'Mon pipeline de détection de fake news utilise le machine learning pour classifier automatiquement les textes. Projet réalisé en Jupyter Notebook avec Python, scikit-learn et autres bibliothèques de data science.',
     src: 'https://github.com/ValMtp3/Fakenews-detection',
     name: 'Fakenews Detection',
     technos: ['Jupyter Notebook', 'Python', 'scikit-learn', 'NLP', 'Machine Learning'],
@@ -160,7 +177,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Analyse de sentiment des critiques cinéma avec machine learning.',
     descriptionlongue:
-      'Analyse de sentiment automatisée sur les critiques de films du dataset IMDB/Allociné. Utilisation de modèles de machine learning et transformers pour classifier positivement ou négativement les avis des spectateurs. Réalisé en Jupyter Notebook avec Python.',
+      'J\'ai réalisé une analyse de sentiment automatisée sur les critiques de films du dataset IMDB/Allociné. Utilisation de modèles de machine learning et transformers pour classifier positivement ou négativement les avis des spectateurs. Réalisé en Jupyter Notebook avec Python.',
     src: 'https://github.com/ValMtp3/sentiment-analysis-allocine',
     name: 'Sentiment Analysis Allociné',
     technos: ['Python', 'NLP', 'Gradio', 'Scikit-learn'],
@@ -172,7 +189,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Outil Go de chiffrement de fichiers et de dossiers en ligne de commande',
     descriptionlongue:
-      "Chiffrement authentifié AES-256-GCM ou ChaCha20-Poly1305 en streaming, avec des clés dérivées en Argon2id dont les paramètres sont inscrits dans le fichier : un chiffré ancien reste lisible après un durcissement du coût. Un dossier est empaqueté en tar au fil du chiffrement, sans archive intermédiaire sur le disque. Compression zstd, remplissage optionnel pour masquer la taille réelle, écriture atomique, et un mot de passe qui n'est jamais passé en argument. Interface guidée sans argument, flags pour les scripts. Distribué en cask Homebrew via GoReleaser.",
+      "Mon outil CLI en Go : chiffrement authentifié AES-256-GCM ou ChaCha20-Poly1305 en streaming, avec des clés dérivées en Argon2id dont les paramètres sont inscrits dans le fichier : un chiffré ancien reste lisible après un durcissement du coût. Un dossier est empaqueté en tar au fil du chiffrement, sans archive intermédiaire sur le disque. Compression zstd, remplissage optionnel pour masquer la taille réelle, écriture atomique, et un mot de passe qui n'est jamais passé en argument. Interface guidée sans argument, flags pour les scripts. Distribué en cask Homebrew via GoReleaser.",
     src: 'https://github.com/ValMtp3/chiffremento-go-cli',
     name: 'Chiffremento CLI',
     caseStudy: '/projets/chiffremento-cli',
@@ -185,7 +202,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Portfolio personnel avec un style moderne',
     descriptionlongue:
-      "Création de mon portfolio moderne avec un syle Bento Grid. Intégration d'animations fluides, design responsive pour une expérience optimale sur tous les appareils.",
+      "J'ai créé mon portfolio moderne avec un style Bento Grid. Intégration d'animations fluides, design responsive pour une expérience optimale sur tous les appareils.",
     src: '',
     name: 'Portfolio Bento-Grids',
     technos: ['VueJS', 'JavaScript', 'HTML', 'Tailwind'],
@@ -198,7 +215,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Découverte de Vue.js : routage, webhooks et consommation d'API",
     descriptionlongue:
-      "Premier projet avec Vue.js : implémentation du routage pour la navigation, connexion à des webhooks pour les interactions temps réel, et consommation d'APIs REST pour afficher des données dynamiques.",
+      "Mon premier projet avec Vue.js : implémentation du routage pour la navigation, connexion à des webhooks pour les interactions temps réel, et consommation d'APIs REST pour afficher des données dynamiques.",
     src: 'https://github.com/ValMtp3/TD-Site',
     name: 'TD Site',
     technos: ['VueJS', 'JavaScript', 'HTML', 'CSS'],
@@ -210,7 +227,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: "Application de gestion de portefeuille d'investissements",
     descriptionlongue:
-      "Application web de gestion de portefeuille d'investissements développée avec Python. Fonctionnalités : ajout/suppression d'investissements, suivi des performances, interface utilisateur interactive et responsive.",
+      "J'ai développé avec Python une application web de gestion de portefeuille d'investissements. Fonctionnalités : ajout/suppression d'investissements, suivi des performances, interface utilisateur interactive et responsive.",
     src: 'https://github.com/ValMtp3/InvestManagment/tree/main',
     name: 'InvestManagment',
     technos: ['Python', 'Tkinter', 'MySQL'],
@@ -222,7 +239,7 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Bibliothèque musicale avec Symfony : CRUD, authentification et API REST',
     descriptionlongue:
-      "Application web de gestion de bibliothèque musicale développée avec PHP Symfony. Fonctionnalités complètes : CRUD pour les albums/morceaux, système d'authentification, API REST, tests unitaires automatisés et base de données MySQL.",
+      "J'ai développé avec PHP Symfony une application web de gestion de bibliothèque musicale. Fonctionnalités complètes : CRUD pour les albums/morceaux, système d'authentification, API REST, tests unitaires automatisés et base de données MySQL.",
     src: 'https://github.com/ValMtp3/HarmoniSound',
     name: 'HarmoniSound',
     technos: ['PHP', 'Symfony', 'MySQL', 'API REST'],
@@ -234,7 +251,7 @@ export const projets = [
     team: 'Groupe de classe',
     description: 'Plateforme de mise en relation étudiants-professionnels avec système de swipe',
     descriptionlongue:
-      "Développement d'une plateforme web fictive de mise en relation entre étudiants et professionnels, inspirée de Tinder avec un système de swipe. Technologies : PHP, HTML, CSS. Méthodologie : gestion de projet Kanban avec Trello.",
+      "Nous avons développé une plateforme web fictive de mise en relation entre étudiants et professionnels, inspirée de Tinder avec un système de swipe. Technologies : PHP, HTML, CSS. Méthodologie : gestion de projet Kanban avec Trello.",
     src: 'https://github.com/ProSwipe/Application',
     name: 'ProSwipe',
     technos: ['PHP', 'HTML', 'CSS'],
@@ -246,7 +263,7 @@ export const projets = [
     team: 'Groupe de classe',
     description: 'Site web complet pour pizzeria avec stratégie digitale intégrée',
     descriptionlongue:
-      'Projet complet de création de site web pour pizzeria à plusieurs développeurs. Inclut : site responsive, conception MCD, optimisation SEO, campagne emailing et stratégie SMO. Technologies : HTML, CSS, JavaScript, PHP.',
+      'Nous avons mené un projet complet de création de site web pour une pizzeria, à plusieurs développeurs. Inclut : site responsive, conception MCD, optimisation SEO, campagne emailing et stratégie SMO. Technologies : HTML, CSS, JavaScript, PHP.',
     src: 'https://www.pizzaoplomo.gaetandev.fr',
     name: "Pizza O'Plomo",
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP'],
@@ -258,7 +275,7 @@ export const projets = [
     team: 'Groupe de classe',
     description: "Refonte complète du site web d'un hôtel avec système de réservation",
     descriptionlongue:
-      "Refonte totale du site web d'un hôtel avec système de réservation en ligne. Intégration d'une base de données MySQL pour la gestion des chambres et réservations. Technologies : HTML, CSS, JavaScript, PHP et MySQL.",
+      "Nous avons effectué la refonte totale du site web d'un hôtel avec système de réservation en ligne. Intégration d'une base de données MySQL pour la gestion des chambres et réservations. Technologies : HTML, CSS, JavaScript, PHP et MySQL.",
     src: 'https://github.com/HotelNeptune/Application/tree/dev',
     name: 'Neptune',
     technos: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
@@ -270,12 +287,12 @@ export const projets = [
     team: 'Valentin Fiess',
     description: 'Première page web artiste : présentation de Damso en HTML/CSS',
     descriptionlongue:
-      "Premier projet web personnel : création d'une page de présentation pour l'artiste Damso. Technologies de base : HTML et CSS pour la mise en page et le style.",
+      "Mon premier projet web personnel : création d'une page de présentation pour l'artiste Damso. Technologies de base : HTML et CSS pour la mise en page et le style.",
     src: 'https://github.com/ValMtp3/Damso',
     name: 'Damso',
     technos: ['HTML', 'CSS'],
   },
-];
+].sort((a, b) => dateKey(b.date) - dateKey(a.date));
 
 // Libelle du lien et action Matomo deduits de l'hebergeur du projet, partages
 // entre le carrousel de la page d'accueil et la page /projets.
@@ -311,6 +328,6 @@ const FEATURED = [
 
 export const projetsFeatured = FEATURED.map((name) =>
   projets.find((project) => project.name === name),
-).filter(Boolean);
+).filter(Boolean).sort((a, b) => dateKey(b.date) - dateKey(a.date));
 
 export const projetsArchives = projets.filter((project) => !FEATURED.includes(project.name));

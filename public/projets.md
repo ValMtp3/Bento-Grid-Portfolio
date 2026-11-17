@@ -20,7 +20,8 @@ le [blog](/blog) :
 - [Raguia](/projets/raguia) — architecture d'un RAG multi-tenant sécurisé ;
 - [Seed Generator](/projets/seed-generator) — BIP-39 hors ligne en Go, zéro dépendance ;
 - [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi ;
-- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.
+- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go ;
+- [Investia](/projets/investia) — harness d'agent IA écrit à la main, portefeuille simulé.
 
 ---
 

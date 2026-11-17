@@ -10,6 +10,7 @@ const RaguiaView = () => import('@/views/projets/RaguiaView.vue');
 const SeedGeneratorView = () => import('@/views/projets/SeedGeneratorView.vue');
 const JusteRecruteMoiView = () => import('@/views/projets/JusteRecruteMoiView.vue');
 const ChiffrementoCliView = () => import('@/views/projets/ChiffrementoCliView.vue');
+const InvestiaView = () => import('@/views/projets/InvestiaView.vue');
 const BlogView = () => import('@/views/BlogView.vue');
 const BlogArticleView = () => import('@/views/BlogArticleView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
@@ -52,6 +53,12 @@ const router = createRouter({
       name: 'projet-chiffremento-cli',
       component: ChiffrementoCliView,
       meta: routeMeta('projets-chiffremento-cli'),
+    },
+    {
+      path: '/projets/investia',
+      name: 'projet-investia',
+      component: InvestiaView,
+      meta: routeMeta('projets-investia'),
     },
     { path: '/blog', name: 'blog', component: BlogView, meta: routeMeta('blog') },
     // Le nom de la route est le slug de l'article : BlogArticleView lit

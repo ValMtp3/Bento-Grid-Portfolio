@@ -35,6 +35,11 @@
     <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/chiffremento-cli.md" />
   </url>
   <url>
+    <loc>https://valentin-fiess.fr/projets/investia</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/investia.md" />
+  </url>
+  <url>
     <loc>https://valentin-fiess.fr/blog</loc>
     <lastmod>2026-11-17</lastmod>
     <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/blog.md" />

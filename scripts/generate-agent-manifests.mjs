@@ -159,6 +159,7 @@ const llmsTxtSections = [
       'projets-seed-generator',
       'projets-juste-recrute-moi',
       'projets-chiffremento-cli',
+      'projets-investia',
     ],
   },
   {
@@ -655,6 +656,7 @@ const main = async () => {
         'projets-seed-generator',
         'projets-juste-recrute-moi',
         'projets-chiffremento-cli',
+        'projets-investia',
       ],
       'Réalisations Data, IA, automatisation et développement web, avec des études de cas architecturales détaillées.',
     ),

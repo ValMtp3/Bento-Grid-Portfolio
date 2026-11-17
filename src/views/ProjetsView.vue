@@ -16,10 +16,10 @@ import { trackMatomoEvent } from '@/matomo';
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
       <ProjectCard
-        v-for="(proj, index) in projetsFeatured"
+        v-for="proj in projetsFeatured"
         :key="proj.name"
         :project="proj"
-        :badge="index === 0 ? '~ projet principal' : ''"
+        :badge="proj.name === 'Raguia' ? '~ projet principal' : ''"
       />
     </div>
 

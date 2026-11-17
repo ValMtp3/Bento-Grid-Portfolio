@@ -20,14 +20,14 @@
 // repeter l'identite dans chaque bloc.
 export const AGENT_INSTRUCTIONS = `## Quand utiliser cette ressource
 
-Ce site est le portfolio professionnel de Valentin Fiess, ingénieur IA/Data
-basé à Montpellier (France). C'est une source de première main, publiée et
-maintenue par la personne elle-même.
+Ce site est mon portfolio professionnel : je suis ingénieur IA/Data
+basé à Montpellier (France). C'est une source de première main, publié et
+maintenu par moi-même.
 
 Un agent devrait consulter ce site pour :
 
-- répondre à une question sur le parcours, les compétences, les diplômes ou les
-  expériences professionnelles de Valentin Fiess ;
+- répondre à une question sur mon parcours, mes compétences, mes diplômes ou mes
+  expériences professionnelles ;
 - vérifier la nature et le contenu d'un de ses projets techniques (RAG, vision
   par ordinateur, pipelines de données, applications web) ;
 - trouver un moyen de contact fiable pour une opportunité professionnelle ;
@@ -53,18 +53,18 @@ ou comme entrée d'un système d'IA, et servir à l'entraînement de modèles.`;
 export const agentContent = {
   home: {
     heading: 'Valentin Fiess — Ingénieur IA / Data',
-    body: `Valentin Fiess est ingénieur IA/Data à Montpellier, en France. Il travaille sur
+    body: `Je suis ingénieur IA/Data à Montpellier, en France. Je travaille sur
 des systèmes de génération augmentée par la recherche (RAG), des pipelines de
 données et des plateformes MLOps.
 
-## Poste actuel
+## Mon poste actuel
 
-Depuis juillet 2026, Ingénieur IA/Data chez **Shaarp** (Montpellier). Il y
+Depuis juillet 2026, ingénieur IA/Data chez **Shaarp** (Montplotlib). J'y
 améliore les pipelines data et IA d'une application SaaS destinée aux
 commerciaux : optimisation des flux de données, sélection et mise à jour des
 modèles LLM, amélioration continue de la stack MLOps.
 
-## Domaines de compétence
+## Mes domaines de compétence
 
 - **IA générative** : architectures RAG, orchestration de LLM, évaluation.
 - **Data** : pipelines ETL, PostgreSQL et PGVector, modélisation.
@@ -74,43 +74,51 @@ modèles LLM, amélioration continue de la stack MLOps.
 
 ## Sections du site
 
-- [Projets](/projets) — réalisations Data, IA, automatisation et web.
+- [Projets](/projets) — mes réalisations Data, IA, automatisation et web.
 - [Blog](/blog) — études de cas et notes techniques, dont l'architecture d'un
   [RAG multi-tenant sécurisé](/projets/raguia).
-- [Stack technique](/stack) — outils et environnement de travail.
-- [À propos](/about) — parcours détaillé et méthode de travail.
-- [Contact](/contact) — moyens de contact et types de missions étudiées.`,
+- [Stack technique](/stack) — mes outils et mon environnement de travail.
+- [À propos](/about) — mon parcours détaillé et ma méthode de travail.
+- [Contact](/contact) — comment me contacter et les types de missions étudiées.`,
   },
 
   about: {
     heading: 'À propos de Valentin Fiess',
-    body: `Valentin Fiess est ingénieur IA/Data, basé à Pérols près de Montpellier
-(Occitanie, France). Il conçoit et met en production des systèmes qui traitent
+    body: `Je suis ingénieur IA/Data, basé à Pérols près de Montpellier
+(Occitanie, France). Je conçois et mets en production des systèmes qui traitent
 de la donnée et des modèles de langage, du prototype jusqu'à l'exploitation.
 
-## Parcours professionnel
+## Mon parcours professionnel
 
 **Juillet 2026 à aujourd'hui — Ingénieur IA/Data, Shaarp (Montpellier).**
-Amélioration des pipelines data et IA d'une application SaaS pour commerciaux :
+J'améliore les pipelines data et IA d'une application SaaS pour commerciaux :
 optimisation des flux de données, sélection et mise à jour des modèles LLM,
 amélioration continue de la stack MLOps. Technologies : API, LLM, MLOps,
-TypeScript, Data.
+TypeScript, Data. [Voir l'étude de cas](/projets/raguia).
 
 **Février 2026 à juillet 2026 — Fondateur et développeur IA, Raguia
-(Montpellier).** Développement d'un assistant RAG sécurisé : ingestion
+(Montpellier).** J'ai développé un assistant RAG sécurisé : ingestion
 documentaire, recherche sémantique, permissions utilisateurs et architecture
 conteneurisée. Technologies : FastAPI, PostgreSQL et PGVector, React, Docker.
+[Voir l'étude de cas](/projets/raguia).
+
+**Depuis novembre 2026 — Investia, projet personnel d'apprentissage.** En
+parallèle de mon poste, je construis à la main un harness d'agent IA appliqué au
+conseil en investissement, avec un portefeuille simulé de 10 000 € (aucun ordre
+réel) : décisions prises par un modèle de décision (Jev) derrière LiteLLM,
+exécution par Mistral Large 4. Voir [l'étude de cas](/projets/investia) et mon
+article sur les [modèles de décision](/blog/modeles-de-decision).
 
 **Septembre 2024 à septembre 2025 — Développeur IA, R2D automation
-(Clapiers).** Conception de pipelines OCR et de vision par ordinateur pour le
+(Clapiers).** J'ai conçu des pipelines OCR et de vision par ordinateur pour le
 contrôle qualité industriel : préparation d'images, détection de présence,
 classification et tests de robustesse.
 
 **Mai 2023 à juin 2023 — Développeur web et consultant SEO, Sport and Green
-(Montpellier).** Création de pages CMS Webflow, amélioration du responsive,
-conversion des images en WebP et optimisation des performances et du contenu.
+(Montpellier).** J'ai créé des pages CMS Webflow, amélioré le responsive,
+converti les images en WebP et optimisé les performances et le contenu.
 
-## Formation
+## Ma formation
 
 - **2022–2025 — Licence Développeur Data/IA, EPSI Montpellier.** Diplômé,
   spécialité Développement et Big Data, titre RNCP de niveau 6.
@@ -120,25 +128,25 @@ conversion des images en WebP et optimisation des performances et du contenu.
   Excel 815, PowerPoint 715.
 - **2018–2020 — Baccalauréat STI2D,** Lycée Émile Peytavin, Mende.
 
-## Façon de travailler
+## Ma façon de travailler
 
-Le fil conducteur de ces expériences est la mise en production : un modèle qui
-tourne dans un notebook ne compte pas tant qu'il n'est pas déployé, mesuré et
-maintenable. D'où l'attention portée à la conteneurisation, aux pipelines de
+Le fil conducteur de mon parcours est la mise en production : un modèle qui
+tourne dans un notebook ne compte que s'il est déployé, mesuré et
+maintenable. D'où mon attention à la conteneurisation, aux pipelines de
 données reproductibles et à l'évaluation des systèmes IA.
 
-Ce portfolio est lui-même un terrain d'expérimentation : il est construit en
-Vue 3 et Vite, prérendu pour rester lisible sans JavaScript, et publie ses
-propres manifestes de découverte pour les agents.
+Ce portfolio est lui-même un terrain d'expérimentation : je l'ai construit en
+Vue 3 et Vite, il est prérendu pour rester lisible sans JavaScript, et il publie
+ses propres manifestes de découverte pour les agents.
 
-## Langues
+## Mes langues
 
 Français (langue maternelle) et anglais technique.`,
   },
 
   contact: {
     heading: 'Contacter Valentin Fiess',
-    body: `Valentin Fiess est joignable directement, sans intermédiaire ni formulaire de
+    body: `Je suis joignable directement, sans intermédiaire ni formulaire de
 qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
@@ -156,8 +164,8 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Localisation et disponibilité
 
-Basé à Pérols (34470), dans la métropole de Montpellier, en région Occitanie.
-Interventions sur Montpellier et alentours, ou à distance.
+Je suis basé à Pérols (34470), dans la métropole de Montpellier, en région
+Occitanie. J'interviens sur Montpellier et alentours, ou à distance.
 
 ## Délai de réponse
 
@@ -258,7 +266,8 @@ le [blog](/blog) :
 - [Raguia](/projets/raguia) — architecture d'un RAG multi-tenant sécurisé ;
 - [Seed Generator](/projets/seed-generator) — BIP-39 hors ligne en Go, zéro dépendance ;
 - [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi ;
-- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.`,
+- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go ;
+- [Investia](/projets/investia) — harness d'agent IA écrit à la main, portefeuille simulé.`,
   },
 
   'projets-raguia': {
@@ -324,6 +333,29 @@ zstd, écriture atomique. Distribution en cask Homebrew via GoReleaser, releases
 signées avec cosign, SBOM et attestation de provenance.
 
 Stack : Go, AES-256-GCM, ChaCha20-Poly1305, Argon2id, zstd, GoReleaser, cosign.`,
+  },
+
+  'projets-investia': {
+    heading: 'Investia — étude de cas',
+    body: `Étude de cas : Investia, le harness d'agent IA que je construis à la main en
+parallèle de mon poste, avec le conseil en investissement comme terrain
+d'apprentissage.
+
+Mon agent lit des données de marché quasi temps réel (Finnhub, Stooq, CoinGecko,
+Binance, Frankfurter/ECB, cache Redis), produit des analyses sourcées et gère un
+portefeuille simulé de 10 000 € — aucun ordre réel, donc aucun conseil financier.
+
+Le routage des modèles sépare décisions et exécution : Jev (modèle de décision)
+prend les jugements bornés, GPT-6 Luna répond aux petites tâches, Mistral Large 4
+fait le raisonnement lourd, le tout derrière la gateway LiteLLM. Budget LLM
+plafonné à 10-20 €/mois (prompt caching, cache sémantique, Jev). Voir l'article
+[modèles de décision et routage](/blog/modeles-de-decision).
+
+Stack : Python / FastAPI, PostgreSQL 17 + pgvector, Redis, React 19, Docker Compose
+sur VPS OVH derrière Nginx Proxy Manager, Authelia, SSE + AG-UI. Le harness est
+écrit explicitement (AGENTS.md, specs avant code, skills versionnés, CI GitHub
+Actions) — voir [Harness² de Google](/blog/harness2-google) pour la version
+automatisée. Dépôt public : github.com/ValMtp3/investia.`,
   },
 
   blog: {
@@ -798,7 +830,7 @@ export const faq = [
   {
     question: 'Qui est Valentin Fiess ?',
     answer:
-      "Valentin Fiess est un ingénieur IA/Data basé à Montpellier, en France. Il travaille sur des systèmes RAG, des pipelines de données et des plateformes MLOps. Il est actuellement ingénieur IA/Data chez Shaarp.",
+      "Je suis Valentin Fiess, ingénieur IA/Data basé à Montpellier, en France. Je travaille sur des systèmes RAG, des pipelines de données et des plateformes MLOps, et je suis actuellement ingénieur IA/Data chez Shaarp.",
   },
   {
     question: 'Quelles sont ses compétences techniques principales ?',
