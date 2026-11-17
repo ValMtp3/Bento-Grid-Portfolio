@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-11-15T22:14:37.552Z",
+  "generatedAt": "2026-11-17T01:15:12.363Z",
   "github": {
     "lastCommit": {
       "repo": "ValMtp3/investia",
-      "sha": "fd9cfbf242eea426d500a5d7497b56d294652f41",
-      "date": "2026-11-15T16:40:48Z",
-      "message": "feat(23h): dataset pinning sha256 (migration 0015, verify CLI, changelog) + projet benchmarks/ pinné type Harbor/TB 4.1 (#49)",
-      "url": "https://github.com/ValMtp3/investia/commit/fd9cfbf242eea426d500a5d7497b56d294652f41"
+      "sha": "d25470c455ce852754b0fb537b73c50910278684",
+      "date": "2026-11-16T19:09:08Z",
+      "message": "docs: checklist VPS à jour — main 9b730ad, alembic head 0015, sections 23g-23k (cache, LinUCB, replay/live-attach, pinning, sidecar Go, garak VPS) (#53)",
+      "url": "https://github.com/ValMtp3/investia/commit/d25470c455ce852754b0fb537b73c50910278684"
     },
     "week": {
       "days": 7,
-      "commits": 78,
+      "commits": 82,
       "repos": 2,
       "languages": [
         {
           "name": "Python",
-          "share": 70
+          "share": 68
         },
         {
           "name": "Docs",
-          "share": 21
+          "share": 20
         },
         {
           "name": "TypeScript",
-          "share": 5
+          "share": 4
         },
         {
           "name": "Config",
