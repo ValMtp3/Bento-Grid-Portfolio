@@ -21,6 +21,7 @@ const navLinks = [
   { name: 'Maitrise', to: '/#competences' },
   { name: 'Projets', to: '/projets' },
   { name: 'Chatbot', to: '/chatbot' },
+  { name: 'À propos', to: '/about' },
 ];
 </script>
 
