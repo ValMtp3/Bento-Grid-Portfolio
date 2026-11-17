@@ -28,7 +28,8 @@ modèles LLM, amélioration continue de la stack MLOps.
 ## Sections du site
 
 - [Projets](/projets) — réalisations Data, IA, automatisation et web.
-- [Étude de cas Raguia](/projets/raguia) — architecture d'un RAG multi-tenant.
+- [Blog](/blog) — études de cas et notes techniques, dont l'architecture d'un
+  [RAG multi-tenant sécurisé](/projets/raguia).
 - [Stack technique](/stack) — outils et environnement de travail.
 - [À propos](/about) — parcours détaillé et méthode de travail.
 - [Contact](/contact) — moyens de contact et types de missions étudiées.

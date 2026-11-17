@@ -4,7 +4,7 @@
 
 Langue principale : français
 URL canonique : https://valentin-fiess.fr/
-Dernière génération : 2026-09-10
+Dernière génération : 2026-11-17
 
 ## Quand utiliser cette ressource
 
@@ -41,10 +41,17 @@ ou comme entrée d'un système d'IA, et servir à l'entraînement de modèles.
 - [Valentin Fiess — Ingénieur IA / Data](https://valentin-fiess.fr/) : Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours. Version Markdown : https://valentin-fiess.fr/index.md
 - [À propos de Valentin Fiess](https://valentin-fiess.fr/about) : Qui est Valentin Fiess : parcours d'ingénieur IA/Data à Montpellier, expériences chez Shaarp, Raguia et R2D automation, formation EPSI et façon de travailler. Version Markdown : https://valentin-fiess.fr/about.md
 - [Projets Data, IA et Web](https://valentin-fiess.fr/projets) : Projets Data et IA : RAG, agents, vision par ordinateur, pipelines ETL et applications web. Code source et démos. Version Markdown : https://valentin-fiess.fr/projets.md
-- [Raguia — étude de cas](https://valentin-fiess.fr/projets/raguia) : Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval. Version Markdown : https://valentin-fiess.fr/projets/raguia.md
+- [Blog — notes et études de cas](https://valentin-fiess.fr/blog) : Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations. Version Markdown : https://valentin-fiess.fr/blog.md
 - [Stack technique](https://valentin-fiess.fr/stack) : Stack technique complète : développement agentique avec OpenCode, MCP et lean-ctx, ZED, VPS OVH, Docker et Cloudflare. Version Markdown : https://valentin-fiess.fr/stack.md
 - [Contacter Valentin Fiess](https://valentin-fiess.fr/contact) : Contacter Valentin Fiess, ingénieur IA/Data à Montpellier : email, LinkedIn, GitHub, délai de réponse et types de missions étudiées. Version Markdown : https://valentin-fiess.fr/contact.md
 - [Assistant IA](https://valentin-fiess.fr/chatbot) : Chatbot RAG connecté au parcours de Valentin Fiess : expériences, compétences et projets, sourcés depuis son CV. Version Markdown : https://valentin-fiess.fr/chatbot.md
+
+## Études de cas de projets
+
+- [Raguia — étude de cas](https://valentin-fiess.fr/projets/raguia) : Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval. Version Markdown : https://valentin-fiess.fr/projets/raguia.md
+- [Seed Generator — étude de cas](https://valentin-fiess.fr/projets/seed-generator) : Étude de cas Seed Generator : un générateur de phrases BIP-39 hors ligne en Go, zéro dépendance, vérifiable plutôt que cru sur parole. Version Markdown : https://valentin-fiess.fr/projets/seed-generator.md
+- [Juste Recrute Moi — étude de cas](https://valentin-fiess.fr/projets/juste-recrute-moi) : Étude de cas Juste Recrute Moi : un agrégateur local-first d'offres d'emploi pour le marché français, fork de JustHireMe adapté aux sources hexagonales. Version Markdown : https://valentin-fiess.fr/projets/juste-recrute-moi.md
+- [Chiffremento CLI — étude de cas](https://valentin-fiess.fr/projets/chiffremento-cli) : Étude de cas Chiffremento CLI : chiffrement authentifié de fichiers en Go, format v4 à enveloppe DEK/KEK, Argon2id et releases signées. Version Markdown : https://valentin-fiess.fr/projets/chiffremento-cli.md
 
 ## Informations légales
 

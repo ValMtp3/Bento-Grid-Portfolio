@@ -14,8 +14,13 @@ Les projets couvrent quatre familles : les systèmes RAG et agents conversationn
 la vision par ordinateur et l'OCR, les pipelines de données et l'automatisation,
 et les applications web complètes.
 
-L'étude de cas la plus détaillée est [Raguia](/projets/raguia), qui documente
-l'architecture d'un RAG multi-tenant sécurisé.
+Chaque projet qui le mérite a son étude de cas détaillée, également listée sur
+le [blog](/blog) :
+
+- [Raguia](/projets/raguia) — architecture d'un RAG multi-tenant sécurisé ;
+- [Seed Generator](/projets/seed-generator) — BIP-39 hors ligne en Go, zéro dépendance ;
+- [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi ;
+- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.
 
 ---
 

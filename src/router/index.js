@@ -7,6 +7,10 @@ const LegalView = () => import('@/views/LegalView.vue');
 const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
 const RaguiaView = () => import('@/views/projets/RaguiaView.vue');
+const SeedGeneratorView = () => import('@/views/projets/SeedGeneratorView.vue');
+const JusteRecruteMoiView = () => import('@/views/projets/JusteRecruteMoiView.vue');
+const ChiffrementoCliView = () => import('@/views/projets/ChiffrementoCliView.vue');
+const BlogView = () => import('@/views/BlogView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const AboutView = () => import('@/views/AboutView.vue');
 const ContactView = () => import('@/views/ContactView.vue');
@@ -30,6 +34,25 @@ const router = createRouter({
       component: RaguiaView,
       meta: routeMeta('projets-raguia'),
     },
+    {
+      path: '/projets/seed-generator',
+      name: 'projet-seed-generator',
+      component: SeedGeneratorView,
+      meta: routeMeta('projets-seed-generator'),
+    },
+    {
+      path: '/projets/juste-recrute-moi',
+      name: 'projet-juste-recrute-moi',
+      component: JusteRecruteMoiView,
+      meta: routeMeta('projets-juste-recrute-moi'),
+    },
+    {
+      path: '/projets/chiffremento-cli',
+      name: 'projet-chiffremento-cli',
+      component: ChiffrementoCliView,
+      meta: routeMeta('projets-chiffremento-cli'),
+    },
+    { path: '/blog', name: 'blog', component: BlogView, meta: routeMeta('blog') },
     { path: '/policy', name: 'policy', component: PolicyView, meta: routeMeta('policy') },
     { path: '/chatbot', name: 'chatbot', component: ChatbotView, meta: routeMeta('chatbot') },
     // /about, /contact et /privacy sont les pages que les agents consultent pour

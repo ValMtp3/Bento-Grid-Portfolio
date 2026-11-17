@@ -20,6 +20,26 @@
     <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/raguia.md" />
   </url>
   <url>
+    <loc>https://valentin-fiess.fr/projets/seed-generator</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/seed-generator.md" />
+  </url>
+  <url>
+    <loc>https://valentin-fiess.fr/projets/juste-recrute-moi</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/juste-recrute-moi.md" />
+  </url>
+  <url>
+    <loc>https://valentin-fiess.fr/projets/chiffremento-cli</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/projets/chiffremento-cli.md" />
+  </url>
+  <url>
+    <loc>https://valentin-fiess.fr/blog</loc>
+    <lastmod>2026-11-17</lastmod>
+    <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/blog.md" />
+  </url>
+  <url>
     <loc>https://valentin-fiess.fr/stack</loc>
     <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" type="text/markdown" href="https://valentin-fiess.fr/stack.md" />
