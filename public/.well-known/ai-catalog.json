@@ -68,6 +68,13 @@
       "updated": "2026-11-17"
     },
     {
+      "title": "Investia — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/investia",
+      "markdown": "https://valentin-fiess.fr/projets/investia.md",
+      "description": "Étude de cas Investia : le harness d'agent IA que je construis à la main — portefeuille simulé de 10 000 €, décisions par modèle de décision (Jev), exécution par Mistral Large 4, données de marché temps réel.",
+      "updated": "2026-11-17"
+    },
+    {
       "title": "Blog — notes et études de cas",
       "url": "https://valentin-fiess.fr/blog",
       "markdown": "https://valentin-fiess.fr/blog.md",
