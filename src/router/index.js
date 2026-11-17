@@ -7,6 +7,12 @@ const LegalView = () => import('@/views/LegalView.vue');
 const StackView = () => import('@/views/StackView.vue');
 const ProjetsView = () => import('@/views/ProjetsView.vue');
 const RaguiaView = () => import('@/views/projets/RaguiaView.vue');
+const SeedGeneratorView = () => import('@/views/projets/SeedGeneratorView.vue');
+const JusteRecruteMoiView = () => import('@/views/projets/JusteRecruteMoiView.vue');
+const ChiffrementoCliView = () => import('@/views/projets/ChiffrementoCliView.vue');
+const InvestiaView = () => import('@/views/projets/InvestiaView.vue');
+const BlogView = () => import('@/views/BlogView.vue');
+const BlogArticleView = () => import('@/views/BlogArticleView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const AboutView = () => import('@/views/AboutView.vue');
 const ContactView = () => import('@/views/ContactView.vue');
@@ -29,6 +35,57 @@ const router = createRouter({
       name: 'projet-raguia',
       component: RaguiaView,
       meta: routeMeta('projets-raguia'),
+    },
+    {
+      path: '/projets/seed-generator',
+      name: 'projet-seed-generator',
+      component: SeedGeneratorView,
+      meta: routeMeta('projets-seed-generator'),
+    },
+    {
+      path: '/projets/juste-recrute-moi',
+      name: 'projet-juste-recrute-moi',
+      component: JusteRecruteMoiView,
+      meta: routeMeta('projets-juste-recrute-moi'),
+    },
+    {
+      path: '/projets/chiffremento-cli',
+      name: 'projet-chiffremento-cli',
+      component: ChiffrementoCliView,
+      meta: routeMeta('projets-chiffremento-cli'),
+    },
+    {
+      path: '/projets/investia',
+      name: 'projet-investia',
+      component: InvestiaView,
+      meta: routeMeta('projets-investia'),
+    },
+    { path: '/blog', name: 'blog', component: BlogView, meta: routeMeta('blog') },
+    // Le nom de la route est le slug de l'article : BlogArticleView lit
+    // agent-content.js avec, une seule source pour la page et le jumeau .md.
+    {
+      path: '/blog/modeles-de-decision',
+      name: 'blog-modeles-de-decision',
+      component: BlogArticleView,
+      meta: routeMeta('blog-modeles-de-decision'),
+    },
+    {
+      path: '/blog/harness2-google',
+      name: 'blog-harness2-google',
+      component: BlogArticleView,
+      meta: routeMeta('blog-harness2-google'),
+    },
+    {
+      path: '/blog/olala-ovh',
+      name: 'blog-olala-ovh',
+      component: BlogArticleView,
+      meta: routeMeta('blog-olala-ovh'),
+    },
+    {
+      path: '/blog/mistral-automne-2026',
+      name: 'blog-mistral-automne-2026',
+      component: BlogArticleView,
+      meta: routeMeta('blog-mistral-automne-2026'),
     },
     { path: '/policy', name: 'policy', component: PolicyView, meta: routeMeta('policy') },
     { path: '/chatbot', name: 'chatbot', component: ChatbotView, meta: routeMeta('chatbot') },

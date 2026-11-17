@@ -21,6 +21,7 @@ const navLinks = [
   { name: 'Maitrise', to: '/#competences' },
   { name: 'Projets', to: '/projets' },
   { name: 'Chatbot', to: '/chatbot' },
+  { name: 'À propos', to: '/about' },
 ];
 </script>
 
@@ -33,19 +34,19 @@ const navLinks = [
         <!-- Logo -->
         <router-link
           to="/"
-          class="font-heading font-bold text-xl sm:text-2xl text-coffee-bean-950 dark:text-soft-blush-50 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-colors"
+          class="font-heading font-bold text-lg sm:text-xl text-coffee-bean-950 dark:text-soft-blush-50 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-colors"
           @click="closeMenu"
         >
           VALENTIN FIESS 🦞
         </router-link>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+        <nav class="hidden md:flex items-center space-x-4 lg:space-x-5">
           <router-link
             v-for="link in navLinks"
             :key="link.name"
             :to="link.to"
-            class="text-sm font-heading font-medium text-coffee-bean-700 dark:text-soft-blush-200 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-colors relative py-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-spicy-paprika-500 dark:after:bg-spicy-paprika-400 after:transition-all after:duration-300 hover:after:w-full"
+            class="text-xs font-heading font-medium text-coffee-bean-700 dark:text-soft-blush-200 hover:text-spicy-paprika-500 dark:hover:text-spicy-paprika-400 transition-colors relative py-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-spicy-paprika-500 dark:after:bg-spicy-paprika-400 after:transition-all after:duration-300 hover:after:w-full"
             :class="{
               'text-spicy-paprika-500 dark:text-spicy-paprika-400':
                 route.path === link.to.split('#')[0] &&
@@ -63,7 +64,7 @@ const navLinks = [
           <ThemeToggle />
           <router-link
             to="/#contact"
-            class="font-code bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 px-5 py-2 sm:px-6 sm:py-2.5 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-sm"
+            class="font-code bg-spicy-paprika-700 hover:bg-spicy-paprika-800 dark:bg-spicy-paprika-500 dark:text-coffee-bean-950 dark:hover:bg-spicy-paprika-400 text-soft-blush-50 px-4 py-2 sm:px-5 sm:py-2 shadow-md shadow-spicy-paprika-500/20 hover:shadow-spicy-paprika-500/30 transition-all duration-300 rounded-none text-xs"
           >
             CONTACT
           </router-link>

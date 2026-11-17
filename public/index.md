@@ -6,18 +6,18 @@
 - Dernière mise à jour : 2026-07-11
 - Auteur : Valentin Fiess
 
-Valentin Fiess est ingénieur IA/Data à Montpellier, en France. Il travaille sur
+Je suis ingénieur IA/Data à Montpellier, en France. Je travaille sur
 des systèmes de génération augmentée par la recherche (RAG), des pipelines de
 données et des plateformes MLOps.
 
-## Poste actuel
+## Mon poste actuel
 
-Depuis juillet 2026, Ingénieur IA/Data chez **Shaarp** (Montpellier). Il y
+Depuis juillet 2026, ingénieur IA/Data chez **Shaarp** (Montplotlib). J'y
 améliore les pipelines data et IA d'une application SaaS destinée aux
 commerciaux : optimisation des flux de données, sélection et mise à jour des
 modèles LLM, amélioration continue de la stack MLOps.
 
-## Domaines de compétence
+## Mes domaines de compétence
 
 - **IA générative** : architectures RAG, orchestration de LLM, évaluation.
 - **Data** : pipelines ETL, PostgreSQL et PGVector, modélisation.
@@ -27,11 +27,12 @@ modèles LLM, amélioration continue de la stack MLOps.
 
 ## Sections du site
 
-- [Projets](/projets) — réalisations Data, IA, automatisation et web.
-- [Étude de cas Raguia](/projets/raguia) — architecture d'un RAG multi-tenant.
-- [Stack technique](/stack) — outils et environnement de travail.
-- [À propos](/about) — parcours détaillé et méthode de travail.
-- [Contact](/contact) — moyens de contact et types de missions étudiées.
+- [Projets](/projets) — mes réalisations Data, IA, automatisation et web.
+- [Blog](/blog) — études de cas et notes techniques, dont l'architecture d'un
+  [RAG multi-tenant sécurisé](/projets/raguia).
+- [Stack technique](/stack) — mes outils et mon environnement de travail.
+- [À propos](/about) — mon parcours détaillé et ma méthode de travail.
+- [Contact](/contact) — comment me contacter et les types de missions étudiées.
 
 ---
 

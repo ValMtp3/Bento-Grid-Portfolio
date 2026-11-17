@@ -150,7 +150,27 @@ ${body}
 const llmsTxtSections = [
   {
     title: 'Pages principales',
-    slugs: ['home', 'about', 'projets', 'projets-raguia', 'stack', 'contact', 'chatbot'],
+    slugs: ['home', 'about', 'projets', 'blog', 'stack', 'contact', 'chatbot'],
+  },
+  {
+    title: 'Études de cas de projets',
+    slugs: [
+      'projets-raguia',
+      'projets-seed-generator',
+      'projets-juste-recrute-moi',
+      'projets-chiffremento-cli',
+      'projets-investia',
+    ],
+  },
+  {
+    title: 'Blog',
+    slugs: [
+      'blog',
+      'blog-modeles-de-decision',
+      'blog-harness2-google',
+      'blog-olala-ovh',
+      'blog-mistral-automne-2026',
+    ],
   },
   { title: 'Informations légales', slugs: ['privacy', 'policy', 'legal'] },
 ];
@@ -630,8 +650,30 @@ const main = async () => {
     resolve(publicDir, 'projets/llms.txt'),
     buildSectionLlmsTxt(
       'Projets — Valentin Fiess',
-      ['projets', 'projets-raguia'],
-      'Réalisations Data, IA, automatisation et développement web, avec une étude de cas architecturale détaillée.',
+      [
+        'projets',
+        'projets-raguia',
+        'projets-seed-generator',
+        'projets-juste-recrute-moi',
+        'projets-chiffremento-cli',
+        'projets-investia',
+      ],
+      'Réalisations Data, IA, automatisation et développement web, avec des études de cas architecturales détaillées.',
+    ),
+  );
+
+  await write(
+    resolve(publicDir, 'blog/llms.txt'),
+    buildSectionLlmsTxt(
+      'Blog — Valentin Fiess',
+      [
+        'blog',
+        'blog-modeles-de-decision',
+        'blog-harness2-google',
+        'blog-olala-ovh',
+        'blog-mistral-automne-2026',
+      ],
+      'Notes techniques (modèles de décision, agents, souveraineté IA) et études de cas publiées par Valentin Fiess.',
     ),
   );
 

@@ -4,6 +4,6 @@
     "apis": "none",
     "reason": "valentin-fiess.fr est un site statique de portfolio. Il n'expose aucune API HTTP publique, donc aucune description de service à cataloguer.",
     "machineReadableAlternative": "https://valentin-fiess.fr/llms.txt",
-    "updated": "2026-09-10T00:00:00.000Z"
+    "updated": "2026-11-17T00:00:00.000Z"
   }
 }

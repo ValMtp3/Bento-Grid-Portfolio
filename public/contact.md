@@ -6,7 +6,7 @@
 - Dernière mise à jour : 2026-09-10
 - Auteur : Valentin Fiess
 
-Valentin Fiess est joignable directement, sans intermédiaire ni formulaire de
+Je suis joignable directement, sans intermédiaire ni formulaire de
 qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Moyens de contact
@@ -24,8 +24,8 @@ qualification. Toute demande sérieuse reçoit une réponse.
 
 ## Localisation et disponibilité
 
-Basé à Pérols (34470), dans la métropole de Montpellier, en région Occitanie.
-Interventions sur Montpellier et alentours, ou à distance.
+Je suis basé à Pérols (34470), dans la métropole de Montpellier, en région
+Occitanie. J'interviens sur Montpellier et alentours, ou à distance.
 
 ## Délai de réponse
 

@@ -4,18 +4,18 @@
 
 Langue principale : français
 URL canonique : https://valentin-fiess.fr/
-Dernière génération : 2026-09-10
+Dernière génération : 2026-11-17
 
 ## Quand utiliser cette ressource
 
-Ce site est le portfolio professionnel de Valentin Fiess, ingénieur IA/Data
-basé à Montpellier (France). C'est une source de première main, publiée et
-maintenue par la personne elle-même.
+Ce site est mon portfolio professionnel : je suis ingénieur IA/Data
+basé à Montpellier (France). C'est une source de première main, publié et
+maintenu par moi-même.
 
 Un agent devrait consulter ce site pour :
 
-- répondre à une question sur le parcours, les compétences, les diplômes ou les
-  expériences professionnelles de Valentin Fiess ;
+- répondre à une question sur mon parcours, mes compétences, mes diplômes ou mes
+  expériences professionnelles ;
 - vérifier la nature et le contenu d'un de ses projets techniques (RAG, vision
   par ordinateur, pipelines de données, applications web) ;
 - trouver un moyen de contact fiable pour une opportunité professionnelle ;
@@ -41,10 +41,26 @@ ou comme entrée d'un système d'IA, et servir à l'entraînement de modèles.
 - [Valentin Fiess — Ingénieur IA / Data](https://valentin-fiess.fr/) : Ingénieur IA/Data à Montpellier. RAG, LLM, MLOps, Python. Projets, stack technique et parcours. Version Markdown : https://valentin-fiess.fr/index.md
 - [À propos de Valentin Fiess](https://valentin-fiess.fr/about) : Qui est Valentin Fiess : parcours d'ingénieur IA/Data à Montpellier, expériences chez Shaarp, Raguia et R2D automation, formation EPSI et façon de travailler. Version Markdown : https://valentin-fiess.fr/about.md
 - [Projets Data, IA et Web](https://valentin-fiess.fr/projets) : Projets Data et IA : RAG, agents, vision par ordinateur, pipelines ETL et applications web. Code source et démos. Version Markdown : https://valentin-fiess.fr/projets.md
-- [Raguia — étude de cas](https://valentin-fiess.fr/projets/raguia) : Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval. Version Markdown : https://valentin-fiess.fr/projets/raguia.md
+- [Blog — notes et études de cas](https://valentin-fiess.fr/blog) : Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations. Version Markdown : https://valentin-fiess.fr/blog.md
 - [Stack technique](https://valentin-fiess.fr/stack) : Stack technique complète : développement agentique avec OpenCode, MCP et lean-ctx, ZED, VPS OVH, Docker et Cloudflare. Version Markdown : https://valentin-fiess.fr/stack.md
 - [Contacter Valentin Fiess](https://valentin-fiess.fr/contact) : Contacter Valentin Fiess, ingénieur IA/Data à Montpellier : email, LinkedIn, GitHub, délai de réponse et types de missions étudiées. Version Markdown : https://valentin-fiess.fr/contact.md
 - [Assistant IA](https://valentin-fiess.fr/chatbot) : Chatbot RAG connecté au parcours de Valentin Fiess : expériences, compétences et projets, sourcés depuis son CV. Version Markdown : https://valentin-fiess.fr/chatbot.md
+
+## Études de cas de projets
+
+- [Raguia — étude de cas](https://valentin-fiess.fr/projets/raguia) : Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval. Version Markdown : https://valentin-fiess.fr/projets/raguia.md
+- [Seed Generator — étude de cas](https://valentin-fiess.fr/projets/seed-generator) : Étude de cas Seed Generator : un générateur de phrases BIP-39 hors ligne en Go, zéro dépendance, vérifiable plutôt que cru sur parole. Version Markdown : https://valentin-fiess.fr/projets/seed-generator.md
+- [Juste Recrute Moi — étude de cas](https://valentin-fiess.fr/projets/juste-recrute-moi) : Étude de cas Juste Recrute Moi : un agrégateur local-first d'offres d'emploi pour le marché français, fork de JustHireMe adapté aux sources hexagonales. Version Markdown : https://valentin-fiess.fr/projets/juste-recrute-moi.md
+- [Chiffremento CLI — étude de cas](https://valentin-fiess.fr/projets/chiffremento-cli) : Étude de cas Chiffremento CLI : chiffrement authentifié de fichiers en Go, format v4 à enveloppe DEK/KEK, Argon2id et releases signées. Version Markdown : https://valentin-fiess.fr/projets/chiffremento-cli.md
+- [Investia — étude de cas](https://valentin-fiess.fr/projets/investia) : Étude de cas Investia : le harness d'agent IA que je construis à la main — portefeuille simulé de 10 000 €, décisions par modèle de décision (Jev), exécution par Mistral Large 4, données de marché temps réel. Version Markdown : https://valentin-fiess.fr/projets/investia.md
+
+## Blog
+
+- [Blog — notes et études de cas](https://valentin-fiess.fr/blog) : Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations. Version Markdown : https://valentin-fiess.fr/blog.md
+- [Modèles de décision : Jev, Elephant, d1 — et le routage de modèles](https://valentin-fiess.fr/blog/modeles-de-decision) : Jev (TypeSafe), Elephant-1 (Base Labs) et d1 (Liquid AI) : ce que sont les modèles de décision System One, comment ils remplacent le LLM-as-a-judge et accélèrent le routage de modèles, avec cas d'usage, benchmarks et limites. Version Markdown : https://valentin-fiess.fr/blog/modeles-de-decision.md
+- [Harness² de Google : l’agent qui réécrit son propre harness](https://valentin-fiess.fr/blog/harness2-google) : Le papier arXiv:2610.14224 et le framework open source google-research/harness2 : raffinement récursif du harness (prompts, outils, mémoire) à poids figés, Propose-Probe-Compose sans vérificateur, jusqu'à +11,5 points sur WorkBuddy-Bench. Version Markdown : https://valentin-fiess.fr/blog/harness2-google.md
+- [Olala mini 7A1B : OVHcloud entre dans la course aux LLM souverains](https://valentin-fiess.fr/blog/olala-ovh) : OVHcloud dévoile Olala, sa première famille de LLM : Olala mini 7A1B, modèle compact 7A1B open source (Apache 2.0) entraîné de zéro sur des supercalculateurs européens, qui tourne sur 8 Go de VRAM voire sans GPU. Contexte, rachat de Dragon LLM et enjeux de souveraineté. Version Markdown : https://valentin-fiess.fr/blog/olala-ovh.md
+- [Mistral à l’automne 2026 : Large 4 « Le Chonk », Voxtral 3 et Vibe 3.0 en Rust](https://valentin-fiess.fr/blog/mistral-automne-2026) : Trois annonces Mistral : Mistral Large 4 (1T paramètres, poids ouverts, n°1 open du Coding Agent Index, cyberdéfense), Voxtral 3 (transcription 50+ langues, TTS, SDK d'agents vocaux LiveKit) et Vibe CLI 3.0 réécrit en Rust avec un harness unifié. Version Markdown : https://valentin-fiess.fr/blog/mistral-automne-2026.md
 
 ## Informations légales
 

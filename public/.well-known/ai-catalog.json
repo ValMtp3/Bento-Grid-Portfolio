@@ -1,7 +1,7 @@
 {
   "specification": "https://ai-catalog.io/",
   "version": "1.0",
-  "updated": "2026-09-10T00:00:00.000Z",
+  "updated": "2026-11-17T00:00:00.000Z",
   "name": "Valentin Fiess — Portfolio",
   "description": "Site personnel et portfolio de Valentin Fiess, Ingénieur IA / Data basé à Montpellier (France).",
   "url": "https://valentin-fiess.fr/",
@@ -45,6 +45,69 @@
       "markdown": "https://valentin-fiess.fr/projets/raguia.md",
       "description": "Étude de cas Raguia : un RAG multi-tenant sécurisé. Pourquoi PGVector plutôt qu'une base vectorielle dédiée, et pourquoi le filtrage des permissions se fait au retrieval.",
       "updated": "2026-09-01"
+    },
+    {
+      "title": "Seed Generator — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/seed-generator",
+      "markdown": "https://valentin-fiess.fr/projets/seed-generator.md",
+      "description": "Étude de cas Seed Generator : un générateur de phrases BIP-39 hors ligne en Go, zéro dépendance, vérifiable plutôt que cru sur parole.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Juste Recrute Moi — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/juste-recrute-moi",
+      "markdown": "https://valentin-fiess.fr/projets/juste-recrute-moi.md",
+      "description": "Étude de cas Juste Recrute Moi : un agrégateur local-first d'offres d'emploi pour le marché français, fork de JustHireMe adapté aux sources hexagonales.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Chiffremento CLI — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/chiffremento-cli",
+      "markdown": "https://valentin-fiess.fr/projets/chiffremento-cli.md",
+      "description": "Étude de cas Chiffremento CLI : chiffrement authentifié de fichiers en Go, format v4 à enveloppe DEK/KEK, Argon2id et releases signées.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Investia — étude de cas",
+      "url": "https://valentin-fiess.fr/projets/investia",
+      "markdown": "https://valentin-fiess.fr/projets/investia.md",
+      "description": "Étude de cas Investia : le harness d'agent IA que je construis à la main — portefeuille simulé de 10 000 €, décisions par modèle de décision (Jev), exécution par Mistral Large 4, données de marché temps réel.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Blog — notes et études de cas",
+      "url": "https://valentin-fiess.fr/blog",
+      "markdown": "https://valentin-fiess.fr/blog.md",
+      "description": "Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Modèles de décision : Jev, Elephant, d1 — et le routage de modèles",
+      "url": "https://valentin-fiess.fr/blog/modeles-de-decision",
+      "markdown": "https://valentin-fiess.fr/blog/modeles-de-decision.md",
+      "description": "Jev (TypeSafe), Elephant-1 (Base Labs) et d1 (Liquid AI) : ce que sont les modèles de décision System One, comment ils remplacent le LLM-as-a-judge et accélèrent le routage de modèles, avec cas d'usage, benchmarks et limites.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Harness² de Google : l’agent qui réécrit son propre harness",
+      "url": "https://valentin-fiess.fr/blog/harness2-google",
+      "markdown": "https://valentin-fiess.fr/blog/harness2-google.md",
+      "description": "Le papier arXiv:2610.14224 et le framework open source google-research/harness2 : raffinement récursif du harness (prompts, outils, mémoire) à poids figés, Propose-Probe-Compose sans vérificateur, jusqu'à +11,5 points sur WorkBuddy-Bench.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Olala mini 7A1B : OVHcloud entre dans la course aux LLM souverains",
+      "url": "https://valentin-fiess.fr/blog/olala-ovh",
+      "markdown": "https://valentin-fiess.fr/blog/olala-ovh.md",
+      "description": "OVHcloud dévoile Olala, sa première famille de LLM : Olala mini 7A1B, modèle compact 7A1B open source (Apache 2.0) entraîné de zéro sur des supercalculateurs européens, qui tourne sur 8 Go de VRAM voire sans GPU. Contexte, rachat de Dragon LLM et enjeux de souveraineté.",
+      "updated": "2026-11-17"
+    },
+    {
+      "title": "Mistral à l’automne 2026 : Large 4 « Le Chonk », Voxtral 3 et Vibe 3.0 en Rust",
+      "url": "https://valentin-fiess.fr/blog/mistral-automne-2026",
+      "markdown": "https://valentin-fiess.fr/blog/mistral-automne-2026.md",
+      "description": "Trois annonces Mistral : Mistral Large 4 (1T paramètres, poids ouverts, n°1 open du Coding Agent Index, cyberdéfense), Voxtral 3 (transcription 50+ langues, TTS, SDK d'agents vocaux LiveKit) et Vibe CLI 3.0 réécrit en Rust avec un harness unifié.",
+      "updated": "2026-11-17"
     },
     {
       "title": "Stack technique",
