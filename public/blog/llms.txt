@@ -1,0 +1,11 @@
+# Blog — Valentin Fiess
+
+> Notes techniques (modèles de décision, agents, souveraineté IA) et études de cas publiées par Valentin Fiess.
+
+- [Blog — notes et études de cas](https://valentin-fiess.fr/blog) : Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations. Markdown : https://valentin-fiess.fr/blog.md
+- [Modèles de décision : Jev, Elephant, d1 — et le routage de modèles](https://valentin-fiess.fr/blog/modeles-de-decision) : Jev (TypeSafe), Elephant-1 (Base Labs) et d1 (Liquid AI) : ce que sont les modèles de décision System One, comment ils remplacent le LLM-as-a-judge et accélèrent le routage de modèles, avec cas d'usage, benchmarks et limites. Markdown : https://valentin-fiess.fr/blog/modeles-de-decision.md
+- [Harness² de Google : l’agent qui réécrit son propre harness](https://valentin-fiess.fr/blog/harness2-google) : Le papier arXiv:2610.14224 et le framework open source google-research/harness2 : raffinement récursif du harness (prompts, outils, mémoire) à poids figés, Propose-Probe-Compose sans vérificateur, jusqu'à +11,5 points sur WorkBuddy-Bench. Markdown : https://valentin-fiess.fr/blog/harness2-google.md
+- [Olala mini 7A1B : OVHcloud entre dans la course aux LLM souverains](https://valentin-fiess.fr/blog/olala-ovh) : OVHcloud dévoile Olala, sa première famille de LLM : Olala mini 7A1B, modèle compact 7A1B open source (Apache 2.0) entraîné de zéro sur des supercalculateurs européens, qui tourne sur 8 Go de VRAM voire sans GPU. Contexte, rachat de Dragon LLM et enjeux de souveraineté. Markdown : https://valentin-fiess.fr/blog/olala-ovh.md
+- [Mistral à l’automne 2026 : Large 4 « Le Chonk », Voxtral 3 et Vibe 3.0 en Rust](https://valentin-fiess.fr/blog/mistral-automne-2026) : Trois annonces Mistral : Mistral Large 4 (1T paramètres, poids ouverts, n°1 open du Coding Agent Index, cyberdéfense), Voxtral 3 (transcription 50+ langues, TTS, SDK d'agents vocaux LiveKit) et Vibe CLI 3.0 réécrit en Rust avec un harness unifié. Markdown : https://valentin-fiess.fr/blog/mistral-automne-2026.md
+
+Index complet du site : https://valentin-fiess.fr/llms.txt

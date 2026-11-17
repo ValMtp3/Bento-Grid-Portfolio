@@ -161,6 +161,16 @@ const llmsTxtSections = [
       'projets-chiffremento-cli',
     ],
   },
+  {
+    title: 'Blog',
+    slugs: [
+      'blog',
+      'blog-modeles-de-decision',
+      'blog-harness2-google',
+      'blog-olala-ovh',
+      'blog-mistral-automne-2026',
+    ],
+  },
   { title: 'Informations légales', slugs: ['privacy', 'policy', 'legal'] },
 ];
 
@@ -647,6 +657,21 @@ const main = async () => {
         'projets-chiffremento-cli',
       ],
       'Réalisations Data, IA, automatisation et développement web, avec des études de cas architecturales détaillées.',
+    ),
+  );
+
+  await write(
+    resolve(publicDir, 'blog/llms.txt'),
+    buildSectionLlmsTxt(
+      'Blog — Valentin Fiess',
+      [
+        'blog',
+        'blog-modeles-de-decision',
+        'blog-harness2-google',
+        'blog-olala-ovh',
+        'blog-mistral-automne-2026',
+      ],
+      'Notes techniques (modèles de décision, agents, souveraineté IA) et études de cas publiées par Valentin Fiess.',
     ),
   );
 
