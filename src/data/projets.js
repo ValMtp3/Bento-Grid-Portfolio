@@ -2,6 +2,19 @@ import { isHostOf } from '../urlHost.js';
 
 export const projets = [
   {
+    alt: 'Investia - Harnais d’agent IA écrit à la main, conseil en investissement avec portefeuille simulé de 10 000 €',
+    image: '/assets/assets_index/Investia.webp',
+    date: 'Novembre 2026',
+    team: 'Valentin Fiess',
+    description:
+      "Harnais d'agent IA écrit à la main : conseil en investissement avec portefeuille simulé de 10 000 €",
+    descriptionlongue:
+      "Projet d'apprentissage : construire à la main un harness d'agent IA (outils, mémoire, règles, tests, traces) en prenant le conseil en investissement comme terrain d'entraînement. L'agent lit des données de marché quasi temps réel (actions, ETF, crypto via Finnhub, Stooq, CoinGecko et Binance), produit des analyses sourcées et gère un portefeuille simulé de 10 000 € — aucun ordre réel, donc aucun conseil financier. Backend FastAPI en Python, modèles derrière le gateway LiteLLM, PostgreSQL 17 avec pgvector, cache Redis, dashboard React, déployé sur le VPS OVH derrière Nginx Proxy Manager avec Authelia.",
+    src: 'https://github.com/ValMtp3/investia',
+    name: 'Investia',
+    technos: ['Python', 'FastAPI', 'LiteLLM', 'React', 'PostgreSQL', 'Redis', 'Docker', 'Paper trading'],
+  },
+  {
     alt: 'Seed Generator - Générateur de phrases BIP-39 hors ligne en Go avec tableau de bord de transparence',
     image: '/assets/assets_index/Go.png',
     date: 'Août 2026',
@@ -11,11 +24,12 @@ export const projets = [
       "Générateur de mnémoniques BIP-39 conçu pour être vérifié plutôt que cru sur parole. La racine de confiance reste crypto/rand : les sources auxiliaires (gigue CPU, télémétrie du runtime, souris, micro, caméra) sont mélangées comme diversifiants via HKDF-SHA-512, jamais en remplacement du CSPRNG, donc l'entropie ne peut que monter. Au démarrage, le binaire rejoue les 96 vecteurs de test officiels contre ses quatre dictionnaires embarqués (en, fr, es, ja) et refuse de démarrer si un seul échoue. L'interface web est liée au loopback, vérifie l'en-tête Host contre le DNS rebinding, sert les flux SSE par tickets à usage unique et applique une CSP stricte. Go standard library, zéro dépendance externe.",
     src: 'https://gitlab.com/ValMtp3/seed-generator',
     name: 'Seed Generator',
+    caseStudy: '/projets/seed-generator',
     technos: ['Go', 'BIP-39', 'HKDF-SHA-512', 'Cryptographie', 'SSE', 'Zero-dep'],
   },
   {
     alt: "Juste Recrute Moi - Plateforme d'agregation d'offre d'emploi",
-    image: 'https://v2.tauri.app/_astro/logo_light.C7Zm2ZoX.svg',
+    image: '/assets/assets_index/JusteRecruteMoi.webp',
     date: 'Juin 2026',
     team: 'Valentin Fiess',
     description: "Agrégateur local-first d'offres d'emploi pour le marché français",
@@ -24,6 +38,7 @@ export const projets = [
     src: 'https://github.com/ValMtp3/Juste-Recrute-Moi',
     name: 'Juste Recrute Moi',
     linkLabel: 'Accéder au GitHub',
+    caseStudy: '/projets/juste-recrute-moi',
     technos: ['Tauri', 'Rust', 'Python', 'React', 'API', 'IA Local', 'ETL'],
   },
   {
@@ -160,6 +175,7 @@ export const projets = [
       "Chiffrement authentifié AES-256-GCM ou ChaCha20-Poly1305 en streaming, avec des clés dérivées en Argon2id dont les paramètres sont inscrits dans le fichier : un chiffré ancien reste lisible après un durcissement du coût. Un dossier est empaqueté en tar au fil du chiffrement, sans archive intermédiaire sur le disque. Compression zstd, remplissage optionnel pour masquer la taille réelle, écriture atomique, et un mot de passe qui n'est jamais passé en argument. Interface guidée sans argument, flags pour les scripts. Distribué en cask Homebrew via GoReleaser.",
     src: 'https://github.com/ValMtp3/chiffremento-go-cli',
     name: 'Chiffremento CLI',
+    caseStudy: '/projets/chiffremento-cli',
     technos: ['Go', 'AES-256-GCM', 'ChaCha20-Poly1305', 'Argon2id', 'zstd', 'GoReleaser'],
   },
   {
@@ -283,6 +299,7 @@ export const getProjectAnalyticsAction = (project) => {
 // dilues par les travaux d'ecole de 2022.
 const FEATURED = [
   'Raguia',
+  'Investia',
   'Seed Generator',
   'Chiffremento CLI',
   'Juste Recrute Moi',

@@ -75,7 +75,8 @@ modèles LLM, amélioration continue de la stack MLOps.
 ## Sections du site
 
 - [Projets](/projets) — réalisations Data, IA, automatisation et web.
-- [Étude de cas Raguia](/projets/raguia) — architecture d'un RAG multi-tenant.
+- [Blog](/blog) — études de cas et notes techniques, dont l'architecture d'un
+  [RAG multi-tenant sécurisé](/projets/raguia).
 - [Stack technique](/stack) — outils et environnement de travail.
 - [À propos](/about) — parcours détaillé et méthode de travail.
 - [Contact](/contact) — moyens de contact et types de missions étudiées.`,
@@ -251,8 +252,13 @@ Les projets couvrent quatre familles : les systèmes RAG et agents conversationn
 la vision par ordinateur et l'OCR, les pipelines de données et l'automatisation,
 et les applications web complètes.
 
-L'étude de cas la plus détaillée est [Raguia](/projets/raguia), qui documente
-l'architecture d'un RAG multi-tenant sécurisé.`,
+Chaque projet qui le mérite a son étude de cas détaillée, également listée sur
+le [blog](/blog) :
+
+- [Raguia](/projets/raguia) — architecture d'un RAG multi-tenant sécurisé ;
+- [Seed Generator](/projets/seed-generator) — BIP-39 hors ligne en Go, zéro dépendance ;
+- [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi ;
+- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.`,
   },
 
   'projets-raguia': {
@@ -265,6 +271,75 @@ permissions est appliqué au moment du retrieval plutôt qu'après génération.
 
 Stack du projet : FastAPI, PostgreSQL avec l'extension PGVector, React et
 Docker.`,
+  },
+
+  'projets-seed-generator': {
+    heading: 'Seed Generator — étude de cas',
+    body: `Étude de cas : Seed Generator, un générateur de phrases BIP-39 hors ligne écrit en Go,
+avec zéro dépendance externe.
+
+Le parti pris est la vérifiabilité plutôt que la confiance : la racine d'entropie
+reste crypto/rand, les sources auxiliaires (jitter CPU, télémétrie du runtime,
+souris, micro, caméra) ne sont mélangées que comme diversifiants via
+HKDF-SHA-512, jamais en remplacement du CSPRNG. Au démarrage, le binaire rejoue
+les 96 vecteurs de test officiels contre ses quatre dictionnaires embarqués et
+refuse de démarrer si un seul échoue. L'interface web locale est liée au
+loopback, vérifie l'en-tête Host contre le DNS rebinding et sert ses flux SSE
+par tickets à usage unique.
+
+Stack : Go standard library, crypto/rand, HKDF-SHA-512, SSE, CSP stricte.`,
+  },
+
+  'projets-juste-recrute-moi': {
+    heading: 'Juste Recrute Moi — étude de cas',
+    body: `Étude de cas : Juste Recrute Moi, un agrégateur local-first d'offres d'emploi pour le
+marché français, fork de JustHireMe.
+
+L'application récupère les offres depuis plusieurs sources (API France Travail,
+ATS directs comme Greenhouse, Lever, Ashby, Workable, SmartRecruiters et
+Teamtailor, JobSpy pour Indeed et Google Jobs en best effort, import d'URL en
+JSON-LD), les normalise, filtre les lignes faibles, déduplique les doublons,
+puis les classe dans un pipeline local. Profil, offres, scores et documents
+générés restent stockés localement par défaut ; aucune dépendance payante
+n'est obligatoire. Licence AGPL-3.0.
+
+Stack : Tauri, Rust, React, Python / FastAPI.`,
+  },
+
+  'projets-chiffremento-cli': {
+    heading: 'Chiffremento CLI — étude de cas',
+    body: `Étude de cas : Chiffremento CLI, un outil en ligne de commande en Go pour chiffrer et
+déchiffrer des fichiers et des dossiers, utilisable via une interface guidée
+plein écran ou des flags pour les scripts.
+
+Le format v4 apporte un engagement de clé (témoin de 32 octets sur la clé
+maîtresse, comparé avant tout déchiffrement, ce qui ferme l'attaque par oracle
+de partitionnement) et une enveloppe DEK/KEK : la clé de contenu est scellée
+dans l'en-tête, donc changer de mot de passe ne réécrit que 117 octets
+d'en-tête sans relire le fichier. Chiffrement authentifié AES-256-GCM ou
+ChaCha20-Poly1305 en streaming, clés dérivées en Argon2id dont les paramètres
+sont inscrits dans le fichier pour qu'un chiffrement ancien reste lisible après
+durcissement. Dossiers empaquetés en tar au fil du chiffrement, compression
+zstd, écriture atomique. Distribution en cask Homebrew via GoReleaser, releases
+signées avec cosign, SBOM et attestation de provenance.
+
+Stack : Go, AES-256-GCM, ChaCha20-Poly1305, Argon2id, zstd, GoReleaser, cosign.`,
+  },
+
+  blog: {
+    heading: 'Blog — notes et études de cas',
+    body: `Le blog rassemble les écrits publiés au fil des projets : des études de cas
+détaillées (architecture, arbitrages, points durs) et des notes techniques.
+
+Articles publiés :
+
+- [Raguia](/projets/raguia) — RAG multi-tenant sécurisé : PGVector plutôt
+  qu'une base vectorielle dédiée, filtrage des permissions au retrieval.
+- [Seed Generator](/projets/seed-generator) — BIP-39 hors ligne en Go, zéro dépendance.
+- [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi.
+- [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.
+
+De nouveaux articles paraissent à chaque projet qui le mérite.`,
   },
 
   stack: {

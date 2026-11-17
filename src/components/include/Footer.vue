@@ -5,6 +5,8 @@ const navLinks = [
   { to: '/', label: 'Accueil' },
   { to: '/stack', label: 'Stack' },
   { to: '/projets', label: 'Projets' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/about', label: 'À propos' },
   { to: '/chatbot', label: 'Chatbot' },
 ];
 

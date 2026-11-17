@@ -150,7 +150,16 @@ ${body}
 const llmsTxtSections = [
   {
     title: 'Pages principales',
-    slugs: ['home', 'about', 'projets', 'projets-raguia', 'stack', 'contact', 'chatbot'],
+    slugs: ['home', 'about', 'projets', 'blog', 'stack', 'contact', 'chatbot'],
+  },
+  {
+    title: 'Études de cas de projets',
+    slugs: [
+      'projets-raguia',
+      'projets-seed-generator',
+      'projets-juste-recrute-moi',
+      'projets-chiffremento-cli',
+    ],
   },
   { title: 'Informations légales', slugs: ['privacy', 'policy', 'legal'] },
 ];
@@ -630,8 +639,14 @@ const main = async () => {
     resolve(publicDir, 'projets/llms.txt'),
     buildSectionLlmsTxt(
       'Projets — Valentin Fiess',
-      ['projets', 'projets-raguia'],
-      'Réalisations Data, IA, automatisation et développement web, avec une étude de cas architecturale détaillée.',
+      [
+        'projets',
+        'projets-raguia',
+        'projets-seed-generator',
+        'projets-juste-recrute-moi',
+        'projets-chiffremento-cli',
+      ],
+      'Réalisations Data, IA, automatisation et développement web, avec des études de cas architecturales détaillées.',
     ),
   );
 

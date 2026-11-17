@@ -72,6 +72,54 @@ export const seoRoutes = [
     },
   },
   {
+    path: '/projets/seed-generator',
+    slug: 'projets-seed-generator',
+    lastmod: '2026-11-17',
+    title: 'Seed Generator, étude de cas | Valentin Fiess',
+    description:
+      "Étude de cas Seed Generator : un générateur de phrases BIP-39 hors ligne en Go, zéro dépendance, vérifiable plutôt que cru sur parole.",
+    og: {
+      kicker: 'valentin-fiess.fr/projets/seed-generator',
+      heading: 'Seed Generator',
+      sub: 'Étude de cas — BIP-39 hors ligne, zero-dep',
+    },
+  },
+  {
+    path: '/projets/juste-recrute-moi',
+    slug: 'projets-juste-recrute-moi',
+    lastmod: '2026-11-17',
+    title: 'Juste Recrute Moi, étude de cas | Valentin Fiess',
+    description:
+      "Étude de cas Juste Recrute Moi : un agrégateur local-first d'offres d'emploi pour le marché français, fork de JustHireMe adapté aux sources hexagonales.",
+    og: {
+      kicker: 'valentin-fiess.fr/projets/juste-recrute-moi',
+      heading: 'Juste Recrute Moi',
+      sub: "Étude de cas — agrégateur local-first d'offres",
+    },
+  },
+  {
+    path: '/projets/chiffremento-cli',
+    slug: 'projets-chiffremento-cli',
+    lastmod: '2026-11-17',
+    title: 'Chiffremento CLI, étude de cas | Valentin Fiess',
+    description:
+      "Étude de cas Chiffremento CLI : chiffrement authentifié de fichiers en Go, format v4 à enveloppe DEK/KEK, Argon2id et releases signées.",
+    og: {
+      kicker: 'valentin-fiess.fr/projets/chiffremento-cli',
+      heading: 'Chiffremento CLI',
+      sub: 'Étude de cas — chiffrement authentifié en Go',
+    },
+  },
+  {
+    path: '/blog',
+    slug: 'blog',
+    lastmod: '2026-11-17',
+    title: 'Blog — notes et études de cas | Valentin Fiess',
+    description:
+      "Blog de Valentin Fiess : études de cas de projets Data et IA (RAG, chiffrement, agrégation d'offres) et notes techniques, publiées au fil des réalisations.",
+    og: { kicker: 'valentin-fiess.fr/blog', heading: 'Blog', sub: 'Études de cas · notes Data & IA' },
+  },
+  {
     path: '/stack',
     slug: 'stack',
     lastmod: '2026-07-11',

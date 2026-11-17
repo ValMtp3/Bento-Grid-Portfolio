@@ -30,3 +30,5 @@ vue-js
 api
 capgemini
 Brave
+JusteRecruteMoi
+Investia
