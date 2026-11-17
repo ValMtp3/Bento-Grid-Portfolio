@@ -11,6 +11,7 @@ const SeedGeneratorView = () => import('@/views/projets/SeedGeneratorView.vue');
 const JusteRecruteMoiView = () => import('@/views/projets/JusteRecruteMoiView.vue');
 const ChiffrementoCliView = () => import('@/views/projets/ChiffrementoCliView.vue');
 const BlogView = () => import('@/views/BlogView.vue');
+const BlogArticleView = () => import('@/views/BlogArticleView.vue');
 const PolicyView = () => import('@/views/PolicyView.vue');
 const AboutView = () => import('@/views/AboutView.vue');
 const ContactView = () => import('@/views/ContactView.vue');
@@ -53,6 +54,32 @@ const router = createRouter({
       meta: routeMeta('projets-chiffremento-cli'),
     },
     { path: '/blog', name: 'blog', component: BlogView, meta: routeMeta('blog') },
+    // Le nom de la route est le slug de l'article : BlogArticleView lit
+    // agent-content.js avec, une seule source pour la page et le jumeau .md.
+    {
+      path: '/blog/modeles-de-decision',
+      name: 'blog-modeles-de-decision',
+      component: BlogArticleView,
+      meta: routeMeta('blog-modeles-de-decision'),
+    },
+    {
+      path: '/blog/harness2-google',
+      name: 'blog-harness2-google',
+      component: BlogArticleView,
+      meta: routeMeta('blog-harness2-google'),
+    },
+    {
+      path: '/blog/olala-ovh',
+      name: 'blog-olala-ovh',
+      component: BlogArticleView,
+      meta: routeMeta('blog-olala-ovh'),
+    },
+    {
+      path: '/blog/mistral-automne-2026',
+      name: 'blog-mistral-automne-2026',
+      component: BlogArticleView,
+      meta: routeMeta('blog-mistral-automne-2026'),
+    },
     { path: '/policy', name: 'policy', component: PolicyView, meta: routeMeta('policy') },
     { path: '/chatbot', name: 'chatbot', component: ChatbotView, meta: routeMeta('chatbot') },
     // /about, /contact et /privacy sont les pages que les agents consultent pour

@@ -120,6 +120,60 @@ export const seoRoutes = [
     og: { kicker: 'valentin-fiess.fr/blog', heading: 'Blog', sub: 'Études de cas · notes Data & IA' },
   },
   {
+    path: '/blog/modeles-de-decision',
+    slug: 'blog-modeles-de-decision',
+    lastmod: '2026-11-17',
+    title:
+      'Modèles de décision (Jev, Elephant, d1 de Liquid AI) et routage de modèles | Valentin Fiess',
+    description:
+      "Jev (TypeSafe), Elephant-1 (Base Labs) et d1 (Liquid AI) : ce que sont les modèles de décision System One, comment ils remplacent le LLM-as-a-judge et accélèrent le routage de modèles, avec cas d'usage, benchmarks et limites.",
+    og: {
+      kicker: 'valentin-fiess.fr/blog/modeles-de-decision',
+      heading: 'Modèles de décision & routage',
+      sub: 'Jev · Elephant-1 · d1 — System One en production',
+    },
+  },
+  {
+    path: '/blog/harness2-google',
+    slug: 'blog-harness2-google',
+    lastmod: '2026-11-17',
+    title: 'Harness² de Google : l’agent qui réécrit son propre harness | Valentin Fiess',
+    description:
+      "Le papier arXiv:2610.14224 et le framework open source google-research/harness2 : raffinement récursif du harness (prompts, outils, mémoire) à poids figés, Propose-Probe-Compose sans vérificateur, jusqu'à +11,5 points sur WorkBuddy-Bench.",
+    og: {
+      kicker: 'valentin-fiess.fr/blog/harness2-google',
+      heading: 'Harness² de Google',
+      sub: 'Recursive agent harnessing — arXiv:2610.14224',
+    },
+  },
+  {
+    path: '/blog/olala-ovh',
+    slug: 'blog-olala-ovh',
+    lastmod: '2026-11-17',
+    title: 'Olala mini 7A1B : le premier LLM souverain d’OVHcloud | Valentin Fiess',
+    description:
+      "OVHcloud dévoile Olala, sa première famille de LLM : Olala mini 7A1B, modèle compact 7A1B open source (Apache 2.0) entraîné de zéro sur des supercalculateurs européens, qui tourne sur 8 Go de VRAM voire sans GPU. Contexte, rachat de Dragon LLM et enjeux de souveraineté.",
+    og: {
+      kicker: 'valentin-fiess.fr/blog/olala-ovh',
+      heading: 'Olala mini 7A1B — OVHcloud',
+      sub: 'Premier LLM souverain d’OVHcloud, open source',
+    },
+  },
+  {
+    path: '/blog/mistral-automne-2026',
+    slug: 'blog-mistral-automne-2026',
+    lastmod: '2026-11-17',
+    title:
+      'Mistral à l’automne 2026 : Large 4 « Le Chonk », Voxtral 3 et Vibe 3.0 en Rust | Valentin Fiess',
+    description:
+      "Trois annonces Mistral : Mistral Large 4 (1T paramètres, poids ouverts, n°1 open du Coding Agent Index, cyberdéfense), Voxtral 3 (transcription 50+ langues, TTS, SDK d'agents vocaux LiveKit) et Vibe CLI 3.0 réécrit en Rust avec un harness unifié.",
+    og: {
+      kicker: 'valentin-fiess.fr/blog/mistral-automne-2026',
+      heading: 'Mistral — automne 2026',
+      sub: 'Large 4 · Voxtral 3 · Vibe 3.0 en Rust',
+    },
+  },
+  {
     path: '/stack',
     slug: 'stack',
     lastmod: '2026-07-11',

@@ -6,10 +6,18 @@
 - Dernière mise à jour : 2026-11-17
 - Auteur : Valentin Fiess
 
-Le blog rassemble les écrits publiés au fil des projets : des études de cas
-détaillées (architecture, arbitrages, points durs) et des notes techniques.
+Le blog rassemble les écrits publiés au fil des projets et de la veille :
+des notes techniques (modèles, agents, souveraineté) et des études de cas
+détaillées (architecture, arbitrages, points durs).
 
-Articles publiés :
+## Articles
+
+- [Modèles de décision (Jev, Elephant, d1) et routage de modèles](/blog/modeles-de-decision)
+- [Harness² de Google : l'agent qui réécrit son propre harness](/blog/harness2-google)
+- [Olala mini 7A1B : le premier LLM souverain d'OVHcloud](/blog/olala-ovh)
+- [Mistral à l'automne 2026 : Large 4, Voxtral 3 et Vibe 3.0 en Rust](/blog/mistral-automne-2026)
+
+## Études de cas de projets
 
 - [Raguia](/projets/raguia) — RAG multi-tenant sécurisé : PGVector plutôt
   qu'une base vectorielle dédiée, filtrage des permissions au retrieval.
@@ -17,7 +25,7 @@ Articles publiés :
 - [Juste Recrute Moi](/projets/juste-recrute-moi) — agrégateur local-first d'offres d'emploi.
 - [Chiffremento CLI](/projets/chiffremento-cli) — chiffrement authentifié de fichiers en Go.
 
-De nouveaux articles paraissent à chaque projet qui le mérite.
+De nouveaux articles paraissent au fil des réalisations et de la veille.
 
 ---
 
