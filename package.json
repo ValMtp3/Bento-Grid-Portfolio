@@ -25,7 +25,7 @@
     "deep-chat": "2.5.1",
     "js-cookie": "^3.0.8",
     "swiper": "^14.4.0",
-    "vue": "^3.5.44",
+    "vue": "^3.5.45",
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
