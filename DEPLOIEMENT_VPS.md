@@ -3,6 +3,11 @@
 À chaque push sur `main`, GitHub Actions construit le site et l'installe sur le VPS.
 Ce document est la référence ; la mise en place se fait **une seule fois**.
 
+> **Confidentialité :** ce document ne contient aucune valeur réelle
+> d'infrastructure (hôte, port SSH, compte administrateur). Ces valeurs vivent
+> uniquement dans les secrets GitHub (`VPS_HOST`, `VPS_USER`, `VPS_SSH_PORT`,
+> `VPS_KNOWN_HOSTS`, ...) et dans tes notes locales — jamais dans ce dépôt.
+
 ## L'infrastructure en place
 
 ```

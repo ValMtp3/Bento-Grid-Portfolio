@@ -1,194 +1,89 @@
 # Audit — Bento Grid Portfolio
 
-État mis à jour après application complète des corrections.
+Dernière mise à jour : analyse de sécurité complète du dépôt (code client, CI GitHub
+Actions, config nginx du VPS, scripts de déploiement, historique git) suivie des
+corrections. Les anciennes entrées dont la cible a disparu du code (`marked`/`dompurify`,
+`vue-meta`, `src/stores/theme.js`) sont reprises en section « Historique ».
 
 ---
 
-## ✅ Corrections appliquées
+## Correction la plus récente
 
-### 1. XSS via `v-html` + `marked` sans sanitisation — corrigé
+### 15. Divulgation d'infrastructure dans `DEPLOIEMENT_VPS.md` — corrigé
 
-**Fichier :** `src/components/ChatInterface.vue`
+**Fichiers :** `DEPLOIEMENT_VPS.md`, `scripts/deploy/nginx.conf`, historique git complet.
 
-Le rendu Markdown du chatbot utilisait `marked.parse()` puis injectait le résultat avec `v-html`.
+La procédure de déploiement publique révélait le **port SSH du VPS** (`61457`, dans le
+corps du document et dans un message de commit) et le **compte administrateur**
+(`debian@…`, `/home/debian/…`).
 
-**Correction appliquée :**
-- Ajout de `dompurify` aux dépendances.
-- Sanitisation du HTML généré par `marked` avec `DOMPurify.sanitize()`.
-- Sanitisation également dans le fallback du `catch`.
+**Corrections appliquées :**
+- Valeurs remplacées par des placeholders (`<port-ssh>`, `<user-vps>@`,
+  `/home/<user-vps>/`) dans le document et dans le commentaire de
+  `scripts/deploy/nginx.conf`.
+- **Historique réécrit sur toutes les branches** avec `git filter-repo`
+  (`--replace-text` + `--replace-message`), puis force-push. Vérification :
+  `git log --all -p` ne contient plus `61457`, `debian@`, ni `/home/debian`.
+  Aucune adresse IP du VPS n'a jamais été committée (les seules chaînes ressemblant
+  à des IP dans l'historique sont un User-Agent Chrome et un path SVG), et aucune clé
+  SSH réelle n'y figure.
+- Note de confidentialité ajoutée en tête de `DEPLOIEMENT_VPS.md` : les vraies valeurs
+  ne vivent que dans les secrets GitHub et les notes locales.
+
+**Caveat :** GitHub conserve côté serveur les anciens commits via les refs
+`refs/pull/*` (ex. PR #79) même après un force-push ; une purge complète côté serveur
+passe par le support GitHub. Par précaution : faire tourner `VPS_SSH_KEY` et envisager
+de changer le port SSH, puisqu'il a été rendu public.
 
 **État :** corrigé.
 
 ---
 
-### 2. Cookies du formulaire sans `Secure` ni `SameSite` — corrigé
+## Posture de sécurité vérifiée lors de l'analyse
 
-**Fichier :** `src/components/ContactFormsComponent.vue`
+| Domaine | Résultat |
+|---|---|
+| Dépendances | `pnpm audit` (prod + dev) : aucune vulnérabilité connue ; Dependabot actif ; `pnpm install --frozen-lockfile` en CI |
+| Secrets | `.env` gitignoré et jamais commité (scan de tout l'historique) ; secrets CI via l'environnement `production` ; clé SSH de déploiement écrite en `chmod 600` puis supprimée, `StrictHostKeyChecking=yes` avec `known_hosts` épinglé, actions tierces épinglées par SHA |
+| XSS | un seul `v-html` (`src/components/include/DocArticle.vue`), alimenté par le convertisseur maison `src/markdown.js` qui échappe le HTML avant de générer la moindre balise, avec allowlist de schémas d'URL (`isSafeHref`) et `rel="noopener noreferrer"` ; chatbot : HTML échappé par deep-chat, liens neutralisés (`src/chatbot/safeLinks.js`, entités décodées avant test), `textContent` pour toute donnée venant du serveur ; aucun `eval`/`innerHTML`/`document.write` dans `src/` |
+| En-têtes HTTP | CSP bloquante (`scripts/deploy/nginx.conf`) : le seul script inline autorisé par hash sha256, `object-src 'none'`, `frame-ancestors 'none'`, plus `nosniff`, `X-Frame-Options`, COOP, `Referrer-Policy`, `Permissions-Policy`, `server_tokens off` ; HSTS ajouté par Cloudflare |
+| Cookies | brouillon du formulaire en `SameSite=Strict` + `Secure` si HTTPS (`src/components/ContactFormsComponent.vue`) |
+| Chaîne de déploiement | clé SSH verrouillée sur une seule commande (`command="..."`) ; archive tar inspectée avant extraction (liens symboliques, fichiers spéciaux et chemins absolus/`..` rejetés), bascule atomique du lien `current`, 5 releases conservées ; tests + smoke test HTTP 200 en CI avant/après déploiement |
+| Fichiers sensibles servis | nginx renvoie 404 sur `.git`, `.env`, `.htaccess`, `.htpasswd`, `.log`, `.sh`, `.conf`, `.sql`, `.bak`, `.DS_Store` |
+| Données publiées | `public/data/*.json` : pourcentages uniquement — aucune adresse de wallet, aucune clé ; `public/.well-known/security.txt` présent |
+| Divers | email obfusqué (base64 dans le bundle, `[at]`/`[point]` dans le HTML), Matomo auto-hébergé avec consentement requis et paramètres d'URL filtrés, `window.open` toujours avec `noopener,noreferrer`, aucun listener `postMessage` |
 
-Les données temporaires du formulaire étaient stockées en cookies sans attributs de sécurité.
+## Recommandations ouvertes
 
-**Correction appliquée :**
-- Ajout de `sameSite: 'Strict'`.
-- Ajout de `secure` uniquement quand le site est servi en HTTPS.
-
-**État :** corrigé.
-
----
-
-### 3. `.env` pas explicitement ignoré — corrigé
-
-**Fichier :** `.gitignore`
-
-Le pattern `*.env` ne couvre pas forcément le fichier `.env` placé à la racine.
-
-**Correction appliquée :**
-- Ajout de `.env`.
-- Ajout de `.env.*` et `.env.local`.
-
-**État :** corrigé.
-
----
-
-### 4. Boucle infinie potentielle sur Turnstile — corrigé
-
-**Fichiers :**
-- `src/components/ChatInterface.vue`
-- `src/components/ContactFormsComponent.vue`
-
-Si Cloudflare Turnstile ne se chargeait jamais, le code relançait `setTimeout(renderWidget, 200)` indéfiniment.
-
-**Correction appliquée :**
-- Ajout d'un compteur de tentatives.
-- Arrêt après 20 tentatives.
-- Ajout d'un `console.warn()` explicite pour le debug.
-
-**État :** corrigé.
+1. **EmailJS** : la clé publique (`VITE_EMAILJS_API`) est embarquée dans le bundle par
+   design. Restreindre le service/template aux origines autorisées et activer le rate
+   limiting dans le dashboard EmailJS ; à terme, passer par un endpoint serveur.
+2. **Rotation** : `VPS_SSH_KEY` et port SSH (voir caveat de l'item 15) ; vérifier sur le
+   VPS que le port 8099 du conteneur nginx n'est publié que sur localhost.
+3. **DNS** : vérifier SPF/DKIM/DMARC pour `valentin-fiess.fr` (le domaine envoie des mails).
+4. **CSP** : `style-src 'unsafe-inline'` reste nécessaire (Vue/Tailwind) — acceptable tant
+   qu'aucune injection HTML n'existe dans le code.
+5. **CORS `*`** sur les manifestes `.well-known` : acceptable, ce sont des données
+   publiques sans credentials.
+6. **Accessibilité** : modales sans focus trap ni touche Escape (hérité de l'ancien item 13).
+7. **Purge serveur** : faire nettoyer les refs `refs/pull/*` par le support GitHub si l'on
+   vise une suppression totale de l'historique ancien.
 
 ---
 
-### 5. `formSubmitted` passé à `true` avant succès EmailJS — corrigé
+## Historique des corrections (items 1–14 de la version précédente, revérifiés)
 
-**Fichier :** `src/components/ContactFormsComponent.vue`
-
-Le formulaire affichait le message de succès avant de savoir si l'envoi EmailJS avait réellement réussi.
-
-**Correction appliquée :**
-- `formSubmitted.value = true` est maintenant déclenché uniquement dans le `.then()` d'EmailJS.
-- Ajout d'un `errorMessage` visible en cas d'échec d'envoi.
-
-**État :** corrigé.
-
----
-
-### 6. `vue-eslint-parser` dans les dépendances de production — corrigé
-
-**Fichier :** `package.json`
-
-`vue-eslint-parser` n'est plus présent dans les dépendances.
-
-**État :** corrigé.
-
----
-
-### 7. Scroll listener non passif — corrigé
-
-**Fichier :** `src/components/include/Footer.vue`
-
-Le listener de scroll n'était pas déclaré passif. Le composant a été simplifié pour utiliser `window.scrollTo()` sans listener.
-
-**État :** corrigé.
-
----
-
-### 8. Commentaire dupliqué dans `App.vue` — corrigé
-
-**Fichier :** `src/App.vue`
-
-Le commentaire dupliqué a été supprimé.
-
-**État :** corrigé.
-
----
-
-### 9. `HomeView` importée statiquement — corrigé
-
-**Fichier :** `src/router/index.js`
-
-`HomeView` est maintenant importée en lazy-load comme les autres vues.
-
-**État :** corrigé.
-
----
-
-### 10. `sanitizeInput()` ne fait qu'un `.trim()` — corrigé
-
-**Fichier :** `src/components/ContactFormsComponent.vue`
-
-La fonction reste minimaliste mais le risque est faible (données envoyées via EmailJS, pas réinjectées en HTML).
-
-**État :** corrigé.
-
----
-
-### 11. Valeur `system` dans le store de thème — corrigé
-
-**Fichier :** `src/stores/theme.js`
-
-`applyTheme()` gère maintenant `'system'` explicitement en résolvant via `prefers-color-scheme`.
-
-**État :** corrigé.
-
----
-
-### 12. `vue-meta` en version alpha — non corrigé
-
-**Fichier :** `package.json`
-
-`vue-meta` est utilisé en version `3.0.0-alpha.10`.
-
-**Analyse :** La migration vers `@unhead/vue` nécessite de modifier toutes les pages qui utilisent `useMeta`. Gardé en l'état.
-
-**État :** non corrigé volontairement.
-
----
-
-### 13. Modales sans trap focus ni touche Escape — non corrigé
-
-**Fichier :** `src/views/HomeView.vue`
-
-Les modales peuvent être améliorées côté accessibilité.
-
-**Analyse :** Nécessite une passe dédiée accessibilité.
-
-**État :** non corrigé volontairement.
-
----
-
-### 14. `manualChunks` partiel — corrigé
-
-**Fichier :** `vite.config.js`
-
-Ajout d'une stratégie de chunks qui isole Vue, marked/dompurify, et swiper dans des chunks dédiés.
-
-**État :** corrigé.
-
----
-
-## Récapitulatif
-
-| # | Statut | Sévérité initiale | Sujet |
-|---|---|---|---|
-| 1 | ✅ Corrigé | Critique | XSS via `v-html` + `marked` |
-| 2 | ✅ Corrigé | Critique | Cookies sans `Secure` / `SameSite` |
-| 3 | ✅ Corrigé | Critique | `.env` pas explicitement ignoré |
-| 4 | ✅ Corrigé | Bug | Boucle infinie Turnstile |
-| 5 | ✅ Corrigé | Bug | Succès formulaire affiché trop tôt |
-| 6 | ✅ Corrigé | Qualité | `vue-eslint-parser` dans `dependencies` |
-| 7 | ✅ Corrigé | Perf | Scroll listener non passif |
-| 8 | ✅ Corrigé | Cosmétique | Commentaire dupliqué |
-| 9 | ✅ Corrigé | Info | `HomeView` non lazy-loadée |
-| 10 | ✅ Corrigé | Qualité | `sanitizeInput()` minimal |
-| 11 | ✅ Corrigé | Qualité | Valeur `system` partiellement gérée |
-| 12 | ⚠️ Non corrigé | Qualité | `vue-meta` en alpha |
-| 13 | ⚠️ Non corrigé | A11y | Modales sans trap focus |
-| 14 | ✅ Corrigé | Perf | `manualChunks` partiel |
+- **1, 10 (XSS / sanitizeInput)** : refondu — le rendu Markdown est le convertisseur maison
+  `src/markdown.js` ; `marked`/`dompurify` ne sont plus des dépendances.
+- **2 (cookies)** : en place — `SameSite=Strict` + `Secure` conditionnel (`ContactFormsComponent.vue`).
+- **3 (.env)** : en place — `.env`, `.env.*`, `.env.local` gitignorés ; aucun secret dans l'historique.
+- **4 (boucle Turnstile)** : refondu — chargement par promesse mise en cache dans `src/turnstile.js`, plus de boucle infinie.
+- **5 (succès formulaire)** : en place — `formSubmitted` posé après `await emailjs.send(...)`.
+- **6 (vue-eslint-parser)** : sans objet — plus dans les dépendances.
+- **7 (scroll listener)** : en place — `Footer.vue` utilise `window.scrollTo()` sans listener.
+- **8 (commentaire dupliqué)** : cosmétique, sans objet.
+- **9 (HomeView lazy)** : en place — `src/router/index.js` importe toutes les vues en lazy.
+- **11 (thème `system`)** : en place — `src/theme.js` (`SYSTEM = 'system'` résolu via `prefers-color-scheme`).
+- **12 (vue-meta alpha)** : sans objet — `vue-meta` n'est plus une dépendance.
+- **13 (modales)** : toujours ouvert — voir recommandation 6.
+- **14 (manualChunks)** : sans objet — retiré de `vite.config.js`.
