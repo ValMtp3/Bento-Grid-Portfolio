@@ -1,35 +1,12 @@
 {
-  "generatedAt": "2026-11-18T23:40:34.249Z",
+  "generatedAt": "2026-11-20T23:28:02.693Z",
   "github": {
-    "lastCommit": {
-      "repo": "ValMtp3/investia",
-      "sha": "d25470c455ce852754b0fb537b73c50910278684",
-      "date": "2026-11-16T19:09:08Z",
-      "message": "docs: checklist VPS à jour — main 9b730ad, alembic head 0015, sections 23g-23k (cache, LinUCB, replay/live-attach, pinning, sidecar Go, garak VPS) (#53)",
-      "url": "https://github.com/ValMtp3/investia/commit/d25470c455ce852754b0fb537b73c50910278684"
-    },
+    "lastCommit": null,
     "week": {
       "days": 7,
-      "commits": 23,
-      "repos": 1,
-      "languages": [
-        {
-          "name": "Python",
-          "share": 68
-        },
-        {
-          "name": "Docs",
-          "share": 21
-        },
-        {
-          "name": "TypeScript",
-          "share": 4
-        },
-        {
-          "name": "Config",
-          "share": 4
-        }
-      ]
+      "commits": 0,
+      "repos": 0,
+      "languages": []
     }
   },
   "om": {
