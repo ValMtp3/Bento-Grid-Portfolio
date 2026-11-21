@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T23:28:02.693Z",
+  "generatedAt": "2026-11-21T22:32:32.625Z",
   "github": {
     "lastCommit": null,
     "week": {
@@ -58,7 +58,7 @@
       }
     },
     "standing": {
-      "position": 4,
+      "position": 5,
       "points": 18,
       "played": 10,
       "won": 6,
