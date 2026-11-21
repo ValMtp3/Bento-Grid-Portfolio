@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-21T07:38:09.245Z",
+  "generatedAt": "2026-11-21T19:45:54.788Z",
   "mix": [
     {
       "label": "Crypto",
-      "share": 60
+      "share": 65
     },
     {
       "label": "Actions",
-      "share": 30
+      "share": 25
     },
     {
       "label": "ETF",
