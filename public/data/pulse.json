@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T22:55:20.159Z",
+  "generatedAt": "2026-11-23T04:32:56.741Z",
   "github": {
     "lastCommit": null,
     "week": {
@@ -24,10 +24,10 @@
       },
       "away": {
         "name": "Le Mans",
-        "tla": "MAN",
+        "tla": "LMF",
         "colors": [
-          "#130a15",
-          "#b00a19"
+          "#020101",
+          "#e60018"
         ]
       },
       "outcome": "loss",
@@ -37,23 +37,23 @@
       }
     },
     "next": {
-      "date": "2026-11-26T17:45:00Z",
-      "competition": "UEFA Europa League - League Phase",
-      "matchday": 5,
+      "date": "2026-11-29T14:00:00Z",
+      "competition": "Ligue 1",
+      "matchday": 12,
       "home": {
+        "name": "Auxerre",
+        "tla": "AJA",
+        "colors": [
+          "#0b4ea2",
+          "#ffffff"
+        ]
+      },
+      "away": {
         "name": "Marseille",
         "tla": "OM",
         "colors": [
           "#2faee0",
           "#ffffff"
-        ]
-      },
-      "away": {
-        "name": "Levski Sofia",
-        "tla": "LEV",
-        "colors": [
-          "#2a3c6a",
-          "#016dad"
         ]
       }
     },
@@ -67,21 +67,7 @@
     },
     "cups": {
       "france": null,
-      "europe": {
-        "competition": "C3",
-        "name": "UEFA Europa League",
-        "state": "league",
-        "round": "LEAGUE_STAGE",
-        "label": "Phase de ligue",
-        "standing": {
-          "position": 31,
-          "of": 36,
-          "played": 4,
-          "points": 3,
-          "matchdays": 8
-        },
-        "text": "Phase de ligue · 31e/36 · J4/8"
-      }
+      "europe": null
     }
   },
   "favoris": {
