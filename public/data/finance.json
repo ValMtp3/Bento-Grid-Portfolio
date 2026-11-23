@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-22T07:24:39.219Z",
+  "generatedAt": "2026-11-23T08:07:16.117Z",
   "mix": [
     {
       "label": "Crypto",
-      "share": 60
+      "share": 65
     },
     {
       "label": "Actions",
-      "share": 30
+      "share": 25
     },
     {
       "label": "ETF",
@@ -47,7 +47,7 @@
     "workingShare": 5
   },
   "behaviour": {
-    "avgHoldingDays": 162,
+    "avgHoldingDays": 163,
     "oldestPositionMonths": 9,
     "ordersLast30d": 26,
     "buyRatio": 95,
