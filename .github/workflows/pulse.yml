@@ -3,9 +3,9 @@ name: Refresh pulse
 on:
   workflow_dispatch:
   schedule:
-    # Toutes les 6 h : assez pour un resultat de match le soir meme, et le
+    # Toutes les 12 h : assez pour un resultat de match le soir meme, et le
     # script n'ecrit que si les donnees ont reellement change.
-    - cron: '0 */6 * * *'
+    - cron: '0 */12 * * *'
 
 permissions:
   contents: write

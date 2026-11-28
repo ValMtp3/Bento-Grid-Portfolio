@@ -3,9 +3,9 @@ name: Refresh finance
 on:
   workflow_dispatch:
   schedule:
-    # Toutes les 6 h, comme le pulse. Les statistiques publiees sont des parts
+    # Toutes les 12 h, comme le pulse. Les statistiques publiees sont des parts
     # arrondies : elles bougent peu, et le script n'ecrit que si elles changent.
-    - cron: '30 */6 * * *'
+    - cron: '30 */12 * * *'
 
 # Workflow distinct de pulse.yml volontairement : l'API Trading 212 est en beta
 # et quatre blockchains sont interrogees. Une panne cote finance ne doit pas
